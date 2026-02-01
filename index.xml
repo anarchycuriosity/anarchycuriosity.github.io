@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Curiosity Anarchy</title>
-        <link>https://example.com/</link>
+        <link>https://anarchycuriosity.github.io/</link>
         <description>Recent content on Curiosity Anarchy</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Example Person</copyright>
-        <lastBuildDate>Sat, 31 Jan 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://example.com/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sat, 31 Jan 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>cute-girls</title>
-        <link>https://example.com/p/cute-girls/</link>
+        <link>https://anarchycuriosity.github.io/p/cute-girls/</link>
         <pubDate>Sat, 31 Jan 2026 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/p/cute-girls/</guid>
-        <description>&lt;img src="https://example.com/p/cute-girls/haruka1.jpg" alt="Featured image of post cute-girls" /&gt;&lt;h1 id=&#34;你好&#34;&gt;你好
+        <guid>https://anarchycuriosity.github.io/p/cute-girls/</guid>
+        <description>&lt;img src="https://anarchycuriosity.github.io/p/cute-girls/haruka1.jpg" alt="Featured image of post cute-girls" /&gt;&lt;h1 id=&#34;你好&#34;&gt;你好
 &lt;/h1&gt;&lt;blockquote&gt;
 &lt;p&gt;祝你生活愉快&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -25,10 +25,10 @@
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c++&#34; data-lang=&#34;c++&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cout&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;hello&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://example.com/p/cute-girls/homura.jpg&#34;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://anarchycuriosity.github.io/p/cute-girls/homura.jpg&#34;
 	width=&#34;744&#34;
 	height=&#34;1052&#34;
-	srcset=&#34;https://example.com/p/cute-girls/homura_hu_1f1088ab569d3641.jpg 480w, https://example.com/p/cute-girls/homura_hu_aceee29984fc6968.jpg 1024w&#34;
+	srcset=&#34;https://anarchycuriosity.github.io/p/cute-girls/homura_hu_1f1088ab569d3641.jpg 480w, https://anarchycuriosity.github.io/p/cute-girls/homura_hu_aceee29984fc6968.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;homura&#34;
@@ -43,11 +43,11 @@
         </item>
         <item>
         <title>旗鼓相当的对手（增强版）</title>
-        <link>https://example.com/p/%E6%97%97%E9%BC%93%E7%9B%B8%E5%BD%93%E7%9A%84%E5%AF%B9%E6%89%8B%E5%A2%9E%E5%BC%BA%E7%89%88/</link>
+        <link>https://anarchycuriosity.github.io/p/%E6%97%97%E9%BC%93%E7%9B%B8%E5%BD%93%E7%9A%84%E5%AF%B9%E6%89%8B%E5%A2%9E%E5%BC%BA%E7%89%88/</link>
         <pubDate>Wed, 01 Jan 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/p/%E6%97%97%E9%BC%93%E7%9B%B8%E5%BD%93%E7%9A%84%E5%AF%B9%E6%89%8B%E5%A2%9E%E5%BC%BA%E7%89%88/</guid>
-        <description>&lt;img src="https://example.com/img/morisa.jpg" alt="Featured image of post 旗鼓相当的对手（增强版）" /&gt;&lt;p&gt;[题目链接](&lt;a class=&#34;link&#34; href=&#34;https://www.luogu.com.cn/problem/P5741&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+        <guid>https://anarchycuriosity.github.io/p/%E6%97%97%E9%BC%93%E7%9B%B8%E5%BD%93%E7%9A%84%E5%AF%B9%E6%89%8B%E5%A2%9E%E5%BC%BA%E7%89%88/</guid>
+        <description>&lt;img src="https://anarchycuriosity.github.io/img/morisa.jpg" alt="Featured image of post 旗鼓相当的对手（增强版）" /&gt;&lt;p&gt;[题目链接](&lt;a class=&#34;link&#34; href=&#34;https://www.luogu.com.cn/problem/P5741&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;P5741 【深基7.例10】旗鼓相当的对手 - 加强版 - 洛谷&lt;/a&gt;)&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -189,18 +189,18 @@
         </item>
         <item>
         <title>归档</title>
-        <link>https://example.com/archives/</link>
+        <link>https://anarchycuriosity.github.io/archives/</link>
         <pubDate>Tue, 28 May 2019 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/archives/</guid>
+        <guid>https://anarchycuriosity.github.io/archives/</guid>
         <description></description>
         </item>
         <item>
         <title>关于</title>
-        <link>https://example.com/%E5%85%B3%E4%BA%8E/</link>
+        <link>https://anarchycuriosity.github.io/%E5%85%B3%E4%BA%8E/</link>
         <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/%E5%85%B3%E4%BA%8E/</guid>
+        <guid>https://anarchycuriosity.github.io/%E5%85%B3%E4%BA%8E/</guid>
         <description>&lt;h2 id=&#34;个人简介&#34;&gt;个人简介
 &lt;/h2&gt;&lt;pre&gt;&lt;code&gt;* HFUT软院25级学生
 * 计算机入门选手
@@ -225,18 +225,18 @@
         </item>
         <item>
         <title>链接</title>
-        <link>https://example.com/%E9%93%BE%E6%8E%A5/</link>
+        <link>https://anarchycuriosity.github.io/%E9%93%BE%E6%8E%A5/</link>
         <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/%E9%93%BE%E6%8E%A5/</guid>
+        <guid>https://anarchycuriosity.github.io/%E9%93%BE%E6%8E%A5/</guid>
         <description></description>
         </item>
         <item>
         <title>搜索</title>
-        <link>https://example.com/search/</link>
+        <link>https://anarchycuriosity.github.io/search/</link>
         <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/search/</guid>
+        <guid>https://anarchycuriosity.github.io/search/</guid>
         <description></description>
         </item>
         
