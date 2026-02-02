@@ -1,20 +1,64 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Pages on Curiosity Anarchy</title><link>https://anarchycuriosity.github.io/page/</link><description>Recent content in Pages on Curiosity Anarchy</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Example Person</copyright><lastBuildDate>Tue, 28 May 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/page/index.xml" rel="self" type="application/rss+xml"/><item><title>归档</title><link>https://anarchycuriosity.github.io/archives/</link><pubDate>Tue, 28 May 2019 00:00:00 +0000</pubDate><guid>https://anarchycuriosity.github.io/archives/</guid><description/></item><item><title>关于</title><link>https://anarchycuriosity.github.io/%E5%85%B3%E4%BA%8E/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://anarchycuriosity.github.io/%E5%85%B3%E4%BA%8E/</guid><description>&lt;h2 id="个人简介"&gt;个人简介
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Pages on Curiosity Anarchy</title>
+        <link>https://anarchycuriosity.github.io/page/</link>
+        <description>Recent content in Pages on Curiosity Anarchy</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <copyright>Example Person</copyright>
+        <lastBuildDate>Tue, 28 May 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/page/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>归档</title>
+        <link>https://anarchycuriosity.github.io/archives/</link>
+        <pubDate>Tue, 28 May 2019 00:00:00 +0000</pubDate>
+        
+        <guid>https://anarchycuriosity.github.io/archives/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>关于</title>
+        <link>https://anarchycuriosity.github.io/%E5%85%B3%E4%BA%8E/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://anarchycuriosity.github.io/%E5%85%B3%E4%BA%8E/</guid>
+        <description>&lt;h2 id=&#34;个人简介&#34;&gt;个人简介
 &lt;/h2&gt;&lt;pre&gt;&lt;code&gt;* HFUT软院25级学生
 * 计算机入门选手
 * 后端开发的探索者
 * LC做题区
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;​&lt;/p&gt;
-&lt;h2 id="个人爱好"&gt;个人爱好
+&lt;h2 id=&#34;个人爱好&#34;&gt;个人爱好
 &lt;/h2&gt;&lt;pre&gt;&lt;code&gt;* 轻百日常动画
 * 冒险类单机游戏爱好者
 * 轻度特摄迷
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;​&lt;/p&gt;
-&lt;h2 id="喜欢的台词"&gt;喜欢的台词
+&lt;h2 id=&#34;喜欢的台词&#34;&gt;喜欢的台词
 &lt;/h2&gt;&lt;blockquote&gt;
 &lt;p&gt;只有看到了人类的伟大和渺小,美丽和丑陋,才能够去爱这颗星球&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;h2 id="一些想法"&gt;一些想法
+&lt;h2 id=&#34;一些想法&#34;&gt;一些想法
 &lt;/h2&gt;&lt;p&gt;对于现状我大多时候只能做一个旁观者,但我坚定地相信只要我坚定地探索和付出,明天就会更好.&lt;/p&gt;
-&lt;p&gt;科技的进步会带来人类全体精神上的进化,新人类(new type)是我所一直深信的设想.&lt;/p&gt;</description></item><item><title>链接</title><link>https://anarchycuriosity.github.io/%E9%93%BE%E6%8E%A5/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://anarchycuriosity.github.io/%E9%93%BE%E6%8E%A5/</guid><description/></item><item><title>搜索</title><link>https://anarchycuriosity.github.io/search/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://anarchycuriosity.github.io/search/</guid><description/></item></channel></rss>
+&lt;p&gt;科技的进步会带来人类全体精神上的进化,新人类(new type)是我所一直深信的设想.&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>链接</title>
+        <link>https://anarchycuriosity.github.io/%E9%93%BE%E6%8E%A5/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://anarchycuriosity.github.io/%E9%93%BE%E6%8E%A5/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>搜索</title>
+        <link>https://anarchycuriosity.github.io/search/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://anarchycuriosity.github.io/search/</guid>
+        <description></description>
+        </item>
+        
+    </channel>
+</rss>
