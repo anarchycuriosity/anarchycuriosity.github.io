@@ -7,7 +7,17 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Example Person</copyright>
-        <lastBuildDate>Sat, 31 Jan 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 02 Feb 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>action-test</title>
+        <link>https://anarchycuriosity.github.io/p/action-test/</link>
+        <pubDate>Mon, 02 Feb 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://anarchycuriosity.github.io/p/action-test/</guid>
+        <description>&lt;h2 id=&#34;test&#34;&gt;test
+&lt;/h2&gt;&lt;p&gt;​	github-action function&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>cute-girls</title>
         <link>https://anarchycuriosity.github.io/p/cute-girls/</link>
         <pubDate>Sat, 31 Jan 2026 00:00:00 +0000</pubDate>
