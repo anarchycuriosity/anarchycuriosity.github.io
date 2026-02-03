@@ -7,7 +7,15 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Example Person</copyright>
-        <lastBuildDate>Mon, 02 Feb 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 03 Feb 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>环境问题</title>
+        <link>https://anarchycuriosity.github.io/categories/%E7%8E%AF%E5%A2%83%E9%97%AE%E9%A2%98/</link>
+        <pubDate>Tue, 03 Feb 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://anarchycuriosity.github.io/categories/%E7%8E%AF%E5%A2%83%E9%97%AE%E9%A2%98/</guid>
+        <description></description>
+        </item>
+        <item>
         <title>Test</title>
         <link>https://anarchycuriosity.github.io/categories/test/</link>
         <pubDate>Mon, 02 Feb 2026 00:00:00 +0000</pubDate>
