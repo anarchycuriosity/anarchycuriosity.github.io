@@ -1,22 +1,11 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>随笔 on Curiosity Anarchy</title><link>https://anarchycuriosity.github.io/categories/%E9%9A%8F%E7%AC%94/</link><description>Recent content in 随笔 on Curiosity Anarchy</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Example Person</copyright><lastBuildDate>Sat, 31 Jan 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/categories/%E9%9A%8F%E7%AC%94/index.xml" rel="self" type="application/rss+xml"/><item><title>cute-girls</title><link>https://anarchycuriosity.github.io/p/cute-girls/</link><pubDate>Sat, 31 Jan 2026 00:00:00 +0000</pubDate><guid>https://anarchycuriosity.github.io/p/cute-girls/</guid><description>&lt;img src="https://anarchycuriosity.github.io/p/cute-girls/haruka1.jpg" alt="Featured image of post cute-girls" /&gt;&lt;h1 id="你好"&gt;你好
-&lt;/h1&gt;&lt;blockquote&gt;
-&lt;p&gt;祝你生活愉快&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
-&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
-&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class="lntd"&gt;
-&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-c++" data-lang="c++"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="s"&gt;&amp;#34;hello&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;&lt;img src="https://anarchycuriosity.github.io/p/cute-girls/homura.jpg"
-width="744"
-height="1052"
-srcset="https://anarchycuriosity.github.io/p/cute-girls/homura_hu_1f1088ab569d3641.jpg 480w, https://anarchycuriosity.github.io/p/cute-girls/homura_hu_aceee29984fc6968.jpg 1024w"
-loading="lazy"
-alt="homura"
-class="gallery-image"
-data-flex-grow="70"
-data-flex-basis="169px"
-&gt;&lt;/p&gt;</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>随笔 on Curiosity Anarchy</title>
+        <link>http://localhost:1313/categories/%E9%9A%8F%E7%AC%94/</link>
+        <description>Recent content in 随笔 on Curiosity Anarchy</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <copyright>Example Person</copyright><atom:link href="http://localhost:1313/categories/%E9%9A%8F%E7%AC%94/index.xml" rel="self" type="application/rss+xml" />
+    </channel>
+</rss>
