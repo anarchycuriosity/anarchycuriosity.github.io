@@ -433,8 +433,22 @@
         document.head.appendChild(customFont);
     }());
 </script>
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<script src=https://anarchycuriosity.github.io/background/sakura.js></script>
+<script>
+    
+    setTimeout(function() 
+    {
+        var bsz = document.createElement('script');
+        bsz.src = "//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js";
+        document.head.appendChild(bsz);
+    }, 500);
 
+    
+    setTimeout(function() 
+    {
+        var sakura = document.createElement('script');
+        sakura.src = "https:\/\/anarchycuriosity.github.io\/background\/sakura.js";
+        document.body.appendChild(sakura);
+    }, 1000);
+</script>
     </body>
 </html>

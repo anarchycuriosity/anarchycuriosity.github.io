@@ -297,6 +297,7 @@
       <ol>
         <li><a href="#眼睛图标不显示">眼睛图标不显示</a></li>
         <li><a href="#不显示浏览数字只能看到">不显示浏览数字，只能看到”&hellip;“</a></li>
+        <li><a href="#动态背景与不蒜子冲突">动态背景与不蒜子冲突</a></li>
       </ol>
     </li>
     <li><a href="#正常显示画面">正常显示画面</a></li>
@@ -634,7 +635,51 @@
 		data-flex-basis="1991px"
 	
 ></p>
-<h2 id="正常显示画面">正常显示画面
+<h3 id="动态背景与不蒜子冲突">动态背景与不蒜子冲突
+</h3><p>虽然JavaScript是单线程执行的,但浏览器的渲染线程和js脚本解析互斥,所以需要添加延迟和创建执行队列,先处理不蒜子的请求再启动动态背景特效.</p>
+<p>以我的网页特效脚本sakura.js举例,它被放置在assets/background/下.</p>
+<p>将custom.html修改如下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 延迟 500ms 加载不蒜子
+</span></span></span><span class="line"><span class="cl">    <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> 
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">var</span> <span class="nx">bsz</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;script&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">bsz</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="s2">&#34;//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">document</span><span class="p">.</span><span class="nx">head</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">bsz</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span> <span class="mi">500</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 延迟 1000ms 加载动态背景
+</span></span></span><span class="line"><span class="cl">    <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> 
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">var</span> <span class="nx">sakura</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;script&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">sakura</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="s2">&#34;{{ (resources.Get &#34;</span><span class="nx">background</span><span class="o">/</span><span class="nx">sakura</span><span class="p">.</span><span class="nx">js</span><span class="s2">&#34;).Permalink }}&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">sakura</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span> <span class="mi">1000</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="正常显示画面">正常显示画面
 </h2><p><img src="/p/%E4%BD%BF%E7%94%A8%E4%B8%8D%E8%92%9C%E5%AD%90%E7%BB%84%E4%BB%B6%E5%AE%9E%E7%8E%B0%E6%B5%8F%E8%A7%88%E6%95%B0%E7%BB%9F%E8%AE%A1/%E6%AD%A3%E5%B8%B8.png"
 	width="689"
 	height="66"
@@ -868,8 +913,22 @@
         document.head.appendChild(customFont);
     }());
 </script>
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<script src=https://anarchycuriosity.github.io/background/sakura.js></script>
+<script>
+    
+    setTimeout(function() 
+    {
+        var bsz = document.createElement('script');
+        bsz.src = "//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js";
+        document.head.appendChild(bsz);
+    }, 500);
 
+    
+    setTimeout(function() 
+    {
+        var sakura = document.createElement('script');
+        sakura.src = "https:\/\/anarchycuriosity.github.io\/background\/sakura.js";
+        document.body.appendChild(sakura);
+    }, 1000);
+</script>
     </body>
 </html>
