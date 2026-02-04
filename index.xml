@@ -16,6 +16,21 @@
         <description>&lt;h2 id=&#34;参考网址&#34;&gt;参考网址
 &lt;/h2&gt;&lt;p&gt;[不蒜子](&lt;a class=&#34;link&#34; href=&#34;https://busuanzi.ibruce.info/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;不蒜子 - 极简网页计数器&lt;/a&gt;)&lt;/p&gt;
+&lt;h2 id=&#34;布置眼睛的svg文件&#34;&gt;布置眼睛的svg文件
+&lt;/h2&gt;&lt;p&gt;&lt;img src=&#34;https://anarchycuriosity.github.io/p/%E4%BD%BF%E7%94%A8%E4%B8%8D%E8%92%9C%E5%AD%90%E7%BB%84%E4%BB%B6%E5%AE%9E%E7%8E%B0%E6%B5%8F%E8%A7%88%E6%95%B0%E7%BB%9F%E8%AE%A1/eye.svg&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;eye.svg&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;布置路径，&lt;strong&gt;名字尽量不要变&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;assets/icons/eye.svg&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;h2 id=&#34;修改配置文件&#34;&gt;修改配置文件
 &lt;/h2&gt;&lt;h3 id=&#34;配置文件路径&#34;&gt;配置文件路径
 &lt;/h3&gt;&lt;p&gt;需要修改两个文件(如果没有就创建),路径分别如下&lt;/p&gt;
@@ -209,6 +224,51 @@
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;之后正常上传即可&lt;/p&gt;
 &lt;p&gt;over&lt;/p&gt;
+&lt;h2 id=&#34;问题及其解决&#34;&gt;问题及其解决
+&lt;/h2&gt;&lt;h3 id=&#34;眼睛图标不显示&#34;&gt;眼睛图标不显示
+&lt;/h3&gt;&lt;p&gt;确保图片名字和属性严格符合要求&lt;/p&gt;
+&lt;h3 id=&#34;不显示浏览数字只能看到&#34;&gt;不显示浏览数字，只能看到”&amp;hellip;“
+&lt;/h3&gt;&lt;p&gt;在博客网页输入f12打开网页控制台，如果出现类似这样的画面&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://anarchycuriosity.github.io/p/%E4%BD%BF%E7%94%A8%E4%B8%8D%E8%92%9C%E5%AD%90%E7%BB%84%E4%BB%B6%E5%AE%9E%E7%8E%B0%E6%B5%8F%E8%A7%88%E6%95%B0%E7%BB%9F%E8%AE%A1/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%8E%A7%E5%88%B6%E5%8F%B0.png&#34;
+	width=&#34;1139&#34;
+	height=&#34;680&#34;
+	srcset=&#34;https://anarchycuriosity.github.io/p/%E4%BD%BF%E7%94%A8%E4%B8%8D%E8%92%9C%E5%AD%90%E7%BB%84%E4%BB%B6%E5%AE%9E%E7%8E%B0%E6%B5%8F%E8%A7%88%E6%95%B0%E7%BB%9F%E8%AE%A1/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%8E%A7%E5%88%B6%E5%8F%B0_hu_14d1feaa2322e9a4.png 480w, https://anarchycuriosity.github.io/p/%E4%BD%BF%E7%94%A8%E4%B8%8D%E8%92%9C%E5%AD%90%E7%BB%84%E4%BB%B6%E5%AE%9E%E7%8E%B0%E6%B5%8F%E8%A7%88%E6%95%B0%E7%BB%9F%E8%AE%A1/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%8E%A7%E5%88%B6%E5%8F%B0_hu_6e6787fb13413abc.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;网页控制台截图&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;167&#34;
+		data-flex-basis=&#34;402px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;这也许是因为你在浏览器安装了拦截广告的插件误把不蒜子拦截了，关闭即可&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://anarchycuriosity.github.io/p/%E4%BD%BF%E7%94%A8%E4%B8%8D%E8%92%9C%E5%AD%90%E7%BB%84%E4%BB%B6%E5%AE%9E%E7%8E%B0%E6%B5%8F%E8%A7%88%E6%95%B0%E7%BB%9F%E8%AE%A1/%E6%8F%92%E4%BB%B6.png&#34;
+	width=&#34;1751&#34;
+	height=&#34;211&#34;
+	srcset=&#34;https://anarchycuriosity.github.io/p/%E4%BD%BF%E7%94%A8%E4%B8%8D%E8%92%9C%E5%AD%90%E7%BB%84%E4%BB%B6%E5%AE%9E%E7%8E%B0%E6%B5%8F%E8%A7%88%E6%95%B0%E7%BB%9F%E8%AE%A1/%E6%8F%92%E4%BB%B6_hu_6759a4ff7aacb718.png 480w, https://anarchycuriosity.github.io/p/%E4%BD%BF%E7%94%A8%E4%B8%8D%E8%92%9C%E5%AD%90%E7%BB%84%E4%BB%B6%E5%AE%9E%E7%8E%B0%E6%B5%8F%E8%A7%88%E6%95%B0%E7%BB%9F%E8%AE%A1/%E6%8F%92%E4%BB%B6_hu_3c34d2aa1155a4db.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;829&#34;
+		data-flex-basis=&#34;1991px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;正常显示画面&#34;&gt;正常显示画面
+&lt;/h2&gt;&lt;p&gt;&lt;img src=&#34;https://anarchycuriosity.github.io/p/%E4%BD%BF%E7%94%A8%E4%B8%8D%E8%92%9C%E5%AD%90%E7%BB%84%E4%BB%B6%E5%AE%9E%E7%8E%B0%E6%B5%8F%E8%A7%88%E6%95%B0%E7%BB%9F%E8%AE%A1/%E6%AD%A3%E5%B8%B8.png&#34;
+	width=&#34;689&#34;
+	height=&#34;66&#34;
+	srcset=&#34;https://anarchycuriosity.github.io/p/%E4%BD%BF%E7%94%A8%E4%B8%8D%E8%92%9C%E5%AD%90%E7%BB%84%E4%BB%B6%E5%AE%9E%E7%8E%B0%E6%B5%8F%E8%A7%88%E6%95%B0%E7%BB%9F%E8%AE%A1/%E6%AD%A3%E5%B8%B8_hu_9ab01ef99f2a0c1f.png 480w, https://anarchycuriosity.github.io/p/%E4%BD%BF%E7%94%A8%E4%B8%8D%E8%92%9C%E5%AD%90%E7%BB%84%E4%BB%B6%E5%AE%9E%E7%8E%B0%E6%B5%8F%E8%A7%88%E6%95%B0%E7%BB%9F%E8%AE%A1/%E6%AD%A3%E5%B8%B8_hu_6b98a4835bc1c823.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;1043&#34;
+		data-flex-basis=&#34;2505px&#34;
+	
+&gt;&lt;/p&gt;
 </description>
         </item>
         <item>
