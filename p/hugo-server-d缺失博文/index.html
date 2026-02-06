@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="题目链接 (组合数)[P2834 纸币问题 3 - 洛谷]\nP2834 纸币问题 3 题目背景 你是一个非常有钱的小朋友。\n注意： 本题和《进阶篇》的对应题目，输入格式略有差异。\n题目描述 你有 $n$ 种面额互不相同的纸币，第 $i$ 种纸币的面额为 $a_i$ 并且有无限张，现在你需要支付 $w$ 的金额，请问有多少种纸币组合能恰好支付金额 $w$，答案对 $10^9+7$ 取模。\n">
-<title>纸币问题求方案组合数</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="问题原因 时区差： 如果你的 Hugo 配置（hugo.toml/ hugo.yaml）里没有设置时区，它可能会默认使用 UTC 时间。而我们在东八区，比它早 8 小时，这就导致你觉得是“今天”，Hugo 觉得是“明天”。\n">
+<title>hugo server -D缺失博文</title>
 
-<link rel='canonical' href='https://anarchycuriosity.github.io/p/%E7%BA%B8%E5%B8%81%E9%97%AE%E9%A2%98%E6%B1%82%E6%96%B9%E6%A1%88%E7%BB%84%E5%90%88%E6%95%B0/'>
+<link rel='canonical' href='https://anarchycuriosity.github.io/p/hugo-server-d%E7%BC%BA%E5%A4%B1%E5%8D%9A%E6%96%87/'>
 
-<link rel="stylesheet" href="/scss/style.min.4e224c151dceae226786e700189bea41076d329d4710ba01aa6ac91c5a997d22.css"><meta property='og:title' content="纸币问题求方案组合数">
-<meta property='og:description' content="题目链接 (组合数)[P2834 纸币问题 3 - 洛谷]\nP2834 纸币问题 3 题目背景 你是一个非常有钱的小朋友。\n注意： 本题和《进阶篇》的对应题目，输入格式略有差异。\n题目描述 你有 $n$ 种面额互不相同的纸币，第 $i$ 种纸币的面额为 $a_i$ 并且有无限张，现在你需要支付 $w$ 的金额，请问有多少种纸币组合能恰好支付金额 $w$，答案对 $10^9+7$ 取模。\n">
-<meta property='og:url' content='https://anarchycuriosity.github.io/p/%E7%BA%B8%E5%B8%81%E9%97%AE%E9%A2%98%E6%B1%82%E6%96%B9%E6%A1%88%E7%BB%84%E5%90%88%E6%95%B0/'>
+<link rel="stylesheet" href="/scss/style.min.4e224c151dceae226786e700189bea41076d329d4710ba01aa6ac91c5a997d22.css"><meta property='og:title' content="hugo server -D缺失博文">
+<meta property='og:description' content="问题原因 时区差： 如果你的 Hugo 配置（hugo.toml/ hugo.yaml）里没有设置时区，它可能会默认使用 UTC 时间。而我们在东八区，比它早 8 小时，这就导致你觉得是“今天”，Hugo 觉得是“明天”。\n">
+<meta property='og:url' content='https://anarchycuriosity.github.io/p/hugo-server-d%E7%BC%BA%E5%A4%B1%E5%8D%9A%E6%96%87/'>
 <meta property='og:site_name' content='Curiosity Anarchy'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='DP' /><meta property='article:tag' content='完全背包' /><meta property='article:published_time' content='2026-02-06T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-02-06T00:00:00&#43;00:00'/>
-<meta name="twitter:title" content="纸币问题求方案组合数">
-<meta name="twitter:description" content="题目链接 (组合数)[P2834 纸币问题 3 - 洛谷]\nP2834 纸币问题 3 题目背景 你是一个非常有钱的小朋友。\n注意： 本题和《进阶篇》的对应题目，输入格式略有差异。\n题目描述 你有 $n$ 种面额互不相同的纸币，第 $i$ 种纸币的面额为 $a_i$ 并且有无限张，现在你需要支付 $w$ 的金额，请问有多少种纸币组合能恰好支付金额 $w$，答案对 $10^9+7$ 取模。\n">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2026-02-06T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-02-06T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="hugo server -D缺失博文">
+<meta name="twitter:description" content="问题原因 时区差： 如果你的 Hugo 配置（hugo.toml/ hugo.yaml）里没有设置时区，它可能会默认使用 UTC 时间。而我们在东八区，比它早 8 小时，这就导致你觉得是“今天”，Hugo 觉得是“明天”。\n">
     <link rel="shortcut icon" href="/favicon.ico" />
 
     </head>
@@ -303,25 +303,8 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#题目背景">题目背景</a></li>
-    <li><a href="#题目描述">题目描述</a></li>
-    <li><a href="#输入格式">输入格式</a></li>
-    <li><a href="#输出格式">输出格式</a></li>
-    <li><a href="#输入输出样例-1">输入输出样例 #1</a>
-      <ol>
-        <li><a href="#输入-1">输入 #1</a></li>
-        <li><a href="#输出-1">输出 #1</a></li>
-      </ol>
-    </li>
-    <li><a href="#输入输出样例-2">输入输出样例 #2</a>
-      <ol>
-        <li><a href="#输入-2">输入 #2</a></li>
-        <li><a href="#输出-2">输出 #2</a></li>
-      </ol>
-    </li>
-    <li><a href="#说明提示">说明/提示</a></li>
-    <li><a href="#思路">思路</a></li>
-    <li><a href="#源码解析">源码解析</a></li>
+    <li><a href="#时区差"><strong>时区差</strong>：</a></li>
+    <li><a href="#手动输入"><strong>手动输入</strong>：</a></li>
   </ol>
 </nav>
         </div>
@@ -344,8 +327,8 @@
             
             
             
-            <a href="/categories/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%83/" style="background-color: hsl(201, 60%, 84%); color: hsl(201, 60%, 15%);">
-                算法训练
+            <a href="/categories/%E5%8D%9A%E5%AE%A2%E9%85%8D%E7%BD%AE/" style="background-color: hsl(115, 60%, 84%); color: hsl(115, 60%, 15%);">
+                博客配置
             </a>
         
     </header>
@@ -353,7 +336,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/%E7%BA%B8%E5%B8%81%E9%97%AE%E9%A2%98%E6%B1%82%E6%96%B9%E6%A1%88%E7%BB%84%E5%90%88%E6%95%B0/">纸币问题求方案组合数</a>
+            <a href="/p/hugo-server-d%E7%BC%BA%E5%A4%B1%E5%8D%9A%E6%96%87/">hugo server -D缺失博文</a>
         </h2>
     
         
@@ -390,7 +373,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 2 分钟
+                    阅读时长: 1 分钟
                 </time>
             </div>
         
@@ -413,110 +396,28 @@
     <section class="article-content">
     
     
-    <h1 id="题目链接">题目链接
-</h1><p>(组合数)[<a class="link" href="https://www.luogu.com.cn/problem/P2834"  target="_blank" rel="noopener"
-    >P2834 纸币问题 3 - 洛谷</a>]</p>
-<h1 id="p2834-纸币问题-3">P2834 纸币问题 3
-</h1><h2 id="题目背景">题目背景
-</h2><p>你是一个非常有钱的小朋友。</p>
-<p><strong>注意：</strong> 本题和《进阶篇》的对应题目，输入格式略有差异。</p>
-<h2 id="题目描述">题目描述
-</h2><p>你有 $n$ 种面额互不相同的纸币，第 $i$ 种纸币的面额为 $a_i$ 并且有无限张，现在你需要支付 $w$ 的金额，请问有多少种纸币组合能恰好支付金额 $w$，答案对 $10^9+7$ 取模。</p>
-<h2 id="输入格式">输入格式
-</h2><p>第一行两个正整数 $n,w$，分别表示纸币的种数和要凑出的金额。<br>
-第二行一行 $n$ 个以空格隔开的正整数 $a_1, a_2, \dots a_n$ 依次表示这 $n$ 种纸币的面额。</p>
-<h2 id="输出格式">输出格式
-</h2><p>一行一个整数，表示能恰好凑齐面额 $w$ 的纸币组合数量。</p>
-<h2 id="输入输出样例-1">输入输出样例 #1
-</h2><h3 id="输入-1">输入 #1
-</h3><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">6 15
-</span></span><span class="line"><span class="cl">1 5 10 20 50 100
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="输出-1">输出 #1
-</h3><div class="highlight"><div class="chroma">
+    <h1 id="问题原因">问题原因
+</h1><h2 id="时区差"><strong>时区差</strong>：
+</h2><p>如果你的 Hugo 配置（<code>hugo.toml</code>/ <code>hugo.yaml</code>）里没有设置时区，它可能会默认使用 UTC 时间。而我们在东八区，比它早 8 小时，这就导致你觉得是“今天”，Hugo 觉得是“明天”。</p>
+<h2 id="手动输入"><strong>手动输入</strong>：
+</h2><p>你可能顺手写了个日期，结果正好比当前系统时钟快了一点点。</p>
+<h1 id="解决方法">解决方法
+</h1><p>如果输入以下命令 -F(build future)</p>
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">6
+<pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="n">hugo</span> <span class="n">server</span> <span class="n">-D</span> <span class="o">-F</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="输入输出样例-2">输入输出样例 #2
-</h2><h3 id="输入-2">输入 #2
-</h3><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">3 15
-</span></span><span class="line"><span class="cl">1 5 11
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="输出-2">输出 #2
-</h3><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">5
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="说明提示">说明/提示
-</h2><p>对于 $40%$ 的数据，满足 $n\le 10$，$w\le 100$；<br>
-对于 $100%$ 的数据，满足 $1\le n\le 10^3$，$1\le a_i , w\le 10^4$。</p>
-<p>其实小朋友并不有钱。</p>
-<h2 id="思路">思路
-</h2><p>首先需要和排序数的情况区分,1,2和2,1应该属于一种情况</p>
-<p>纸币可以无限用,属于完全背包.要求方案数,属于DP.</p>
-<p>排序数时外层遍历金额,内层遍历纸币.</p>
-<p>这题属于组合数,外层遍历纸币,内层遍历金额,这样才能保证纸币只用一次.</p>
-<p>初始化dp数组为(w + 1,0),w为想要的金额,dp数组的下标代表金额.</p>
-<p>dp[0] = 1,代表凑出0元有一种办法.</p>
-<h2 id="源码解析">源码解析
-</h2><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> 
-</span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">vals</span><span class="p">[</span><span class="n">i</span><span class="p">];</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">w</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">        <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="n">dp</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">+</span> <span class="n">dp</span><span class="p">[</span><span class="n">j</span> <span class="o">-</span> <span class="n">vals</span><span class="p">[</span><span class="n">i</span><span class="p">]])</span> <span class="o">%</span> <span class="n">mod</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">        <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>vals代表钱包,mod代表取模.</p>
-<p>如果要如果要将val[i]作为最后一张钞票塞入dp[j]盒子,它的前一个盒子需要j - vals[j - vals[i]]的金额,也就是累加上前一个盒子的方案总数,最终可以知道dp[w],也就是凑出w的方案数的组合数.</p>
+</div><p>能够看到文章重新出现，不妨把日期稍微向前挪一天。</p>
 
 </section>
 
 
     <footer class="article-footer">
     
-    <section class="article-tags">
-        
-            <a href="/tags/dp/">DP</a>
-        
-            <a href="/tags/%E5%AE%8C%E5%85%A8%E8%83%8C%E5%8C%85/">完全背包</a>
-        
-    </section>
-
 
     
     <section class="article-copyright">
@@ -579,12 +480,12 @@
             
                 
 <article class="">
-    <a href="/p/%E7%BA%B8%E5%B8%81%E9%97%AE%E9%A2%98%E6%B1%82%E7%9B%AE%E6%A0%87%E9%87%91%E9%A2%9D%E6%9C%80%E5%B0%91%E7%BA%B8%E5%B8%81%E6%95%B0%E5%92%8C%E6%96%B9%E6%A1%88%E6%8E%92%E5%BA%8F%E6%95%B0/">
+    <a href="/p/%E4%BD%BF%E7%94%A8%E4%B8%8D%E8%92%9C%E5%AD%90%E7%BB%84%E4%BB%B6%E5%AE%9E%E7%8E%B0%E6%B5%8F%E8%A7%88%E6%95%B0%E7%BB%9F%E8%AE%A1/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">纸币问题求目标金额最少纸币数和方案排序数</h2>
+            <h2 class="article-title">使用不蒜子组件实现浏览数统计</h2>
         </div>
     </a>
 </article>
@@ -592,25 +493,12 @@
             
                 
 <article class="">
-    <a href="/p/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BEbinary-search%E4%B8%A4%E7%A7%8D%E5%86%99%E6%B3%95%E7%9A%84%E5%8C%BA%E5%88%86%E4%B8%8E%E6%80%9D%E8%80%83/">
+    <a href="/p/%E8%AE%A9%E5%BD%92%E6%A1%A3%E6%8C%89%E6%9C%88%E5%88%92%E5%88%86%E5%90%8C%E6%97%B6%E6%98%BE%E7%A4%BAtag/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">二分查找(binary search)两种写法的区分与思考</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/p/%E5%88%A0%E9%99%A4%E8%A6%86%E7%9B%96%E6%95%B0%E7%BB%84%E5%85%83%E7%B4%A0%E5%8E%9F%E7%90%86%E4%B8%8E%E5%8F%8C%E6%8C%87%E9%92%88%E6%B3%95%E4%BC%98%E5%8C%96/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">删除(覆盖)数组元素原理与双指针法优化</h2>
+            <h2 class="article-title">让归档按月划分同时显示tag</h2>
         </div>
     </a>
 </article>
