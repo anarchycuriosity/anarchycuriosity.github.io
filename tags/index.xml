@@ -6,6 +6,23 @@
         <description>Recent content in Tags on Curiosity Anarchy</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <copyright>Curiosity Anarchy</copyright><atom:link href="https://anarchycuriosity.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+        <copyright>Curiosity Anarchy</copyright>
+        <lastBuildDate>Fri, 06 Feb 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>DP</title>
+        <link>https://anarchycuriosity.github.io/tags/dp/</link>
+        <pubDate>Fri, 06 Feb 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://anarchycuriosity.github.io/tags/dp/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>完全背包</title>
+        <link>https://anarchycuriosity.github.io/tags/%E5%AE%8C%E5%85%A8%E8%83%8C%E5%8C%85/</link>
+        <pubDate>Fri, 06 Feb 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://anarchycuriosity.github.io/tags/%E5%AE%8C%E5%85%A8%E8%83%8C%E5%8C%85/</guid>
+        <description></description>
+        </item>
+        
     </channel>
 </rss>

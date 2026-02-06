@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="此致我所爱的人 个人简介 HFUT软院25级学生 计算机入门选手 后端探索者 算法苦手 个人爱好 轻百电波系日常动画超级粉丝\n萝卜动画粉丝\n冒险类单机游戏爱好者\n轻度特摄迷\n\u200b\n喜欢的台词 只有看到了人类的伟大和渺小,美丽和丑陋,才能够去爱这颗星球\n">
-<title>关于</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="题目链接 (组合数)[P2834 纸币问题 3 - 洛谷]\nP2834 纸币问题 3 题目背景 你是一个非常有钱的小朋友。\n注意： 本题和《进阶篇》的对应题目，输入格式略有差异。\n题目描述 你有 $n$ 种面额互不相同的纸币，第 $i$ 种纸币的面额为 $a_i$ 并且有无限张，现在你需要支付 $w$ 的金额，请问有多少种纸币组合能恰好支付金额 $w$，答案对 $10^9+7$ 取模。\n">
+<title>纸币问题求方案组合数</title>
 
-<link rel='canonical' href='https://anarchycuriosity.github.io/%E5%85%B3%E4%BA%8E/'>
+<link rel='canonical' href='https://anarchycuriosity.github.io/p/%E7%BA%B8%E5%B8%81%E9%97%AE%E9%A2%98%E6%B1%82%E6%96%B9%E6%A1%88%E7%BB%84%E5%90%88%E6%95%B0/'>
 
-<link rel="stylesheet" href="/scss/style.min.4e224c151dceae226786e700189bea41076d329d4710ba01aa6ac91c5a997d22.css"><meta property='og:title' content="关于">
-<meta property='og:description' content="此致我所爱的人 个人简介 HFUT软院25级学生 计算机入门选手 后端探索者 算法苦手 个人爱好 轻百电波系日常动画超级粉丝\n萝卜动画粉丝\n冒险类单机游戏爱好者\n轻度特摄迷\n\u200b\n喜欢的台词 只有看到了人类的伟大和渺小,美丽和丑陋,才能够去爱这颗星球\n">
-<meta property='og:url' content='https://anarchycuriosity.github.io/%E5%85%B3%E4%BA%8E/'>
+<link rel="stylesheet" href="/scss/style.min.4e224c151dceae226786e700189bea41076d329d4710ba01aa6ac91c5a997d22.css"><meta property='og:title' content="纸币问题求方案组合数">
+<meta property='og:description' content="题目链接 (组合数)[P2834 纸币问题 3 - 洛谷]\nP2834 纸币问题 3 题目背景 你是一个非常有钱的小朋友。\n注意： 本题和《进阶篇》的对应题目，输入格式略有差异。\n题目描述 你有 $n$ 种面额互不相同的纸币，第 $i$ 种纸币的面额为 $a_i$ 并且有无限张，现在你需要支付 $w$ 的金额，请问有多少种纸币组合能恰好支付金额 $w$，答案对 $10^9+7$ 取模。\n">
+<meta property='og:url' content='https://anarchycuriosity.github.io/p/%E7%BA%B8%E5%B8%81%E9%97%AE%E9%A2%98%E6%B1%82%E6%96%B9%E6%A1%88%E7%BB%84%E5%90%88%E6%95%B0/'>
 <meta property='og:site_name' content='Curiosity Anarchy'>
-<meta property='og:type' content='article'><meta property='article:section' content='Page' />
-<meta name="twitter:title" content="关于">
-<meta name="twitter:description" content="此致我所爱的人 个人简介 HFUT软院25级学生 计算机入门选手 后端探索者 算法苦手 个人爱好 轻百电波系日常动画超级粉丝\n萝卜动画粉丝\n冒险类单机游戏爱好者\n轻度特摄迷\n\u200b\n喜欢的台词 只有看到了人类的伟大和渺小,美丽和丑陋,才能够去爱这颗星球\n">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='DP' /><meta property='article:tag' content='完全背包' /><meta property='article:published_time' content='2026-02-06T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-02-06T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="纸币问题求方案组合数">
+<meta name="twitter:description" content="题目链接 (组合数)[P2834 纸币问题 3 - 洛谷]\nP2834 纸币问题 3 题目背景 你是一个非常有钱的小朋友。\n注意： 本题和《进阶篇》的对应题目，输入格式略有差异。\n题目描述 你有 $n$ 种面额互不相同的纸币，第 $i$ 种纸币的面额为 $a_i$ 并且有无限张，现在你需要支付 $w$ 的金额，请问有多少种纸币组合能恰好支付金额 $w$，答案对 $10^9+7$ 取模。\n">
     <link rel="shortcut icon" href="/favicon.ico" />
 
     </head>
@@ -118,7 +118,7 @@
         </li>
         
         
-        <li  class='current' >
+        <li >
             <a href='/%E5%85%B3%E4%BA%8E/' >
                 
                 
@@ -303,11 +303,25 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#此致我所爱的人">此致我所爱的人</a></li>
-    <li><a href="#个人简介">个人简介</a></li>
-    <li><a href="#个人爱好">个人爱好</a></li>
-    <li><a href="#喜欢的台词">喜欢的台词</a></li>
-    <li><a href="#一些想法">一些想法</a></li>
+    <li><a href="#题目背景">题目背景</a></li>
+    <li><a href="#题目描述">题目描述</a></li>
+    <li><a href="#输入格式">输入格式</a></li>
+    <li><a href="#输出格式">输出格式</a></li>
+    <li><a href="#输入输出样例-1">输入输出样例 #1</a>
+      <ol>
+        <li><a href="#输入-1">输入 #1</a></li>
+        <li><a href="#输出-1">输出 #1</a></li>
+      </ol>
+    </li>
+    <li><a href="#输入输出样例-2">输入输出样例 #2</a>
+      <ol>
+        <li><a href="#输入-2">输入 #2</a></li>
+        <li><a href="#输出-2">输出 #2</a></li>
+      </ol>
+    </li>
+    <li><a href="#说明提示">说明/提示</a></li>
+    <li><a href="#思路">思路</a></li>
+    <li><a href="#源码解析">源码解析</a></li>
   </ol>
 </nav>
         </div>
@@ -325,10 +339,21 @@
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 <div class="article-details">
     
+    <header class="article-category">
+        
+            
+            
+            
+            <a href="/categories/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%83/" style="background-color: hsl(201, 60%, 84%); color: hsl(201, 60%, 15%);">
+                算法训练
+            </a>
+        
+    </header>
+    
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/%E5%85%B3%E4%BA%8E/">关于</a>
+            <a href="/p/%E7%BA%B8%E5%B8%81%E9%97%AE%E9%A2%98%E6%B1%82%E6%96%B9%E6%A1%88%E7%BB%84%E5%90%88%E6%95%B0/">纸币问题求方案组合数</a>
         </h2>
     
         
@@ -339,6 +364,19 @@
     
     
     <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2026-02-06</time>
+            </div>
         
 
         
@@ -352,7 +390,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 1 分钟
+                    阅读时长: 2 分钟
                 </time>
             </div>
         
@@ -375,65 +413,110 @@
     <section class="article-content">
     
     
-    <h2 id="此致我所爱的人">此致我所爱的人
-</h2><p><img src="/%E5%85%B3%E4%BA%8E/nia.jpg"
-	width="11868"
-	height="8904"
-	srcset="/%E5%85%B3%E4%BA%8E/nia_hu_df8d785f7cfac65d.jpg 480w, /%E5%85%B3%E4%BA%8E/nia_hu_d09a1fec135c354f.jpg 1024w"
-	loading="lazy"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="133"
-		data-flex-basis="319px"
-	
-></p>
-<h2 id="个人简介">个人简介
-</h2><ul>
-<li>HFUT软院25级学生</li>
-<li>计算机入门选手</li>
-<li>后端探索者</li>
-<li>算法苦手</li>
-</ul>
-<h2 id="个人爱好">个人爱好
-</h2><ul>
-<li>
-<p>轻百电波系日常动画超级粉丝</p>
-</li>
-<li>
-<p>萝卜动画粉丝</p>
-</li>
-<li>
-<p>冒险类单机游戏爱好者</p>
-</li>
-<li>
-<p>轻度特摄迷</p>
-</li>
-</ul>
-<p>​</p>
-<h2 id="喜欢的台词">喜欢的台词
-</h2><blockquote>
-<p>只有看到了人类的伟大和渺小,美丽和丑陋,才能够去爱这颗星球</p>
-</blockquote>
-<blockquote>
-<p>你看起来很冷的样子，要来我家吗</p>
-</blockquote>
-<blockquote>
-<p>就是为了帮助这样的人，我才会成为一名警察的。</p>
-</blockquote>
-<blockquote>
-<p>你的钻头，是能够突破天际的钻头！</p>
-</blockquote>
-<h2 id="一些想法">一些想法
-</h2><p>现在的人类无法解决的一些问题，相信以后的人类能够解决，我愿意这样相信着前进。</p>
-<p>科技能够变革人类的思想，它让人类的灵魂摆脱重力的束缚。</p>
-<p>我只是希望为明天做些微不足道的事。只要想到是为了自由为了未来，我就可以为此献出我的一切。</p>
+    <h1 id="题目链接">题目链接
+</h1><p>(组合数)[<a class="link" href="https://www.luogu.com.cn/problem/P2834"  target="_blank" rel="noopener"
+    >P2834 纸币问题 3 - 洛谷</a>]</p>
+<h1 id="p2834-纸币问题-3">P2834 纸币问题 3
+</h1><h2 id="题目背景">题目背景
+</h2><p>你是一个非常有钱的小朋友。</p>
+<p><strong>注意：</strong> 本题和《进阶篇》的对应题目，输入格式略有差异。</p>
+<h2 id="题目描述">题目描述
+</h2><p>你有 $n$ 种面额互不相同的纸币，第 $i$ 种纸币的面额为 $a_i$ 并且有无限张，现在你需要支付 $w$ 的金额，请问有多少种纸币组合能恰好支付金额 $w$，答案对 $10^9+7$ 取模。</p>
+<h2 id="输入格式">输入格式
+</h2><p>第一行两个正整数 $n,w$，分别表示纸币的种数和要凑出的金额。<br>
+第二行一行 $n$ 个以空格隔开的正整数 $a_1, a_2, \dots a_n$ 依次表示这 $n$ 种纸币的面额。</p>
+<h2 id="输出格式">输出格式
+</h2><p>一行一个整数，表示能恰好凑齐面额 $w$ 的纸币组合数量。</p>
+<h2 id="输入输出样例-1">输入输出样例 #1
+</h2><h3 id="输入-1">输入 #1
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">6 15
+</span></span><span class="line"><span class="cl">1 5 10 20 50 100
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="输出-1">输出 #1
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">6
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="输入输出样例-2">输入输出样例 #2
+</h2><h3 id="输入-2">输入 #2
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">3 15
+</span></span><span class="line"><span class="cl">1 5 11
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="输出-2">输出 #2
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">5
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="说明提示">说明/提示
+</h2><p>对于 $40%$ 的数据，满足 $n\le 10$，$w\le 100$；<br>
+对于 $100%$ 的数据，满足 $1\le n\le 10^3$，$1\le a_i , w\le 10^4$。</p>
+<p>其实小朋友并不有钱。</p>
+<h2 id="思路">思路
+</h2><p>首先需要和排序数的情况区分,1,2和2,1应该属于一种情况</p>
+<p>纸币可以无限用,属于完全背包.要求方案数,属于DP.</p>
+<p>排序数时外层遍历金额,内层遍历纸币.</p>
+<p>这题属于组合数,外层遍历纸币,内层遍历金额,这样才能保证纸币只用一次.</p>
+<p>初始化dp数组为(w + 1,0),w为想要的金额,dp数组的下标代表金额.</p>
+<p>dp[0] = 1,代表凑出0元有一种办法.</p>
+<h2 id="源码解析">源码解析
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> 
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">vals</span><span class="p">[</span><span class="n">i</span><span class="p">];</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">w</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">dp</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">+</span> <span class="n">dp</span><span class="p">[</span><span class="n">j</span> <span class="o">-</span> <span class="n">vals</span><span class="p">[</span><span class="n">i</span><span class="p">]])</span> <span class="o">%</span> <span class="n">mod</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>vals代表钱包,mod代表取模.</p>
+<p>如果要如果要将val[i]作为最后一张钞票塞入dp[j]盒子,它的前一个盒子需要j - vals[j - vals[i]]的金额,也就是累加上前一个盒子的方案总数,最终可以知道dp[w],也就是凑出w的方案数的组合数.</p>
 
 </section>
 
 
     <footer class="article-footer">
     
+    <section class="article-tags">
+        
+            <a href="/tags/dp/">DP</a>
+        
+            <a href="/tags/%E5%AE%8C%E5%85%A8%E8%83%8C%E5%8C%85/">完全背包</a>
+        
+    </section>
+
 
     
     <section class="article-copyright">
@@ -488,6 +571,28 @@
     
 
     
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/%E7%BA%B8%E5%B8%81%E9%97%AE%E9%A2%98%E6%B1%82%E7%9B%AE%E6%A0%87%E9%87%91%E9%A2%9D%E6%9C%80%E5%B0%91%E7%BA%B8%E5%B8%81%E6%95%B0%E5%92%8C%E6%96%B9%E6%A1%88%E6%8E%92%E5%BA%8F%E6%95%B0/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">纸币问题求目标金额最少纸币数和方案排序数</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
 
      
     

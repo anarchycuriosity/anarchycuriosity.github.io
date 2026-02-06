@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="修改配置文件 找到hugo根目录下的这个文件\nlayouts\\default\\archives.html\n修改如下,只是对demon的同一文件进行修改\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 {{ define &#34;body-class&#34; }}template-archives{{ end }} {{ define &#34;main&#34; }} &lt;header&gt; {{/* 保留 Categories 分类显示逻辑 */}} {{- $taxonomy := $.Site.GetPage &#34;taxonomyTerm&#34; &#34;categories&#34; -}} {{- $terms := $taxonomy.Pages -}} {{ if $terms }} &lt;h2 class=&#34;section-title&#34;&gt;{{ T &#34;widget.categoriesCloud.title&#34; }}&lt;/h2&gt; &lt;div class=&#34;subsection-list&#34;&gt; &lt;div class=&#34;article-list--tile&#34;&gt; {{ range $terms }} {{ partial &#34;article-list/tile&#34; (dict &#34;context&#34; . &#34;size&#34; &#34;250x150&#34; &#34;Type&#34; &#34;taxonomy&#34;) }} {{ end }} &lt;/div&gt; &lt;/div&gt; {{ end }} &lt;/header&gt; {{ $pages := where .Site.RegularPages &#34;Type&#34; &#34;in&#34; .Site.Params.mainSections }} {{ $filtered := where $pages &#34;Params.hidden&#34; &#34;!=&#34; true }} {{/* 将 &#34;2006&#34; 改为 &#34;2006-01&#34; 实现按月划分 */}} {{ range $filtered.GroupByDate &#34;2006-01&#34; }} {{ $id := lower (replace .Key &#34; &#34; &#34;-&#34;) }} &lt;div class=&#34;archives-group&#34; id=&#34;{{ $id }}&#34;&gt; &lt;h2 class=&#34;archives-date section-title&#34;&gt; &lt;a href=&#34;{{ $.RelPermalink }}#{{ $id }}&#34;&gt;{{ .Key }}&lt;/a&gt; &lt;/h2&gt; &lt;div class=&#34;article-list--compact&#34;&gt; {{ range .Pages }} {{ partial &#34;article-list/compact&#34; . }} {{ end }} &lt;/div&gt; &lt;/div&gt; {{ end }} {{ partialCached &#34;footer/footer&#34; . }} {{ end }} ">
-<title>让归档按月划分同时显示tag</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="题目链接 最少纸币\n方案排序数\nP2842 纸币问题 1&amp;2 题目描述 某国有 $n$ 种纸币，每种纸币面额为 $a_i$ 并且有无限张，现在要凑出 $w$ 的金额，试问最少用多少张纸币可以凑出来？（保证可以凑出对应金额）\n">
+<title>纸币问题求目标金额最少纸币数和方案排序数</title>
 
-<link rel='canonical' href='https://anarchycuriosity.github.io/p/%E8%AE%A9%E5%BD%92%E6%A1%A3%E6%8C%89%E6%9C%88%E5%88%92%E5%88%86%E5%90%8C%E6%97%B6%E6%98%BE%E7%A4%BAtag/'>
+<link rel='canonical' href='https://anarchycuriosity.github.io/p/%E7%BA%B8%E5%B8%81%E9%97%AE%E9%A2%98%E6%B1%82%E7%9B%AE%E6%A0%87%E9%87%91%E9%A2%9D%E6%9C%80%E5%B0%91%E7%BA%B8%E5%B8%81%E6%95%B0%E5%92%8C%E6%96%B9%E6%A1%88%E6%8E%92%E5%BA%8F%E6%95%B0/'>
 
-<link rel="stylesheet" href="/scss/style.min.4e224c151dceae226786e700189bea41076d329d4710ba01aa6ac91c5a997d22.css"><meta property='og:title' content="让归档按月划分同时显示tag">
-<meta property='og:description' content="修改配置文件 找到hugo根目录下的这个文件\nlayouts\\default\\archives.html\n修改如下,只是对demon的同一文件进行修改\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 {{ define &#34;body-class&#34; }}template-archives{{ end }} {{ define &#34;main&#34; }} &lt;header&gt; {{/* 保留 Categories 分类显示逻辑 */}} {{- $taxonomy := $.Site.GetPage &#34;taxonomyTerm&#34; &#34;categories&#34; -}} {{- $terms := $taxonomy.Pages -}} {{ if $terms }} &lt;h2 class=&#34;section-title&#34;&gt;{{ T &#34;widget.categoriesCloud.title&#34; }}&lt;/h2&gt; &lt;div class=&#34;subsection-list&#34;&gt; &lt;div class=&#34;article-list--tile&#34;&gt; {{ range $terms }} {{ partial &#34;article-list/tile&#34; (dict &#34;context&#34; . &#34;size&#34; &#34;250x150&#34; &#34;Type&#34; &#34;taxonomy&#34;) }} {{ end }} &lt;/div&gt; &lt;/div&gt; {{ end }} &lt;/header&gt; {{ $pages := where .Site.RegularPages &#34;Type&#34; &#34;in&#34; .Site.Params.mainSections }} {{ $filtered := where $pages &#34;Params.hidden&#34; &#34;!=&#34; true }} {{/* 将 &#34;2006&#34; 改为 &#34;2006-01&#34; 实现按月划分 */}} {{ range $filtered.GroupByDate &#34;2006-01&#34; }} {{ $id := lower (replace .Key &#34; &#34; &#34;-&#34;) }} &lt;div class=&#34;archives-group&#34; id=&#34;{{ $id }}&#34;&gt; &lt;h2 class=&#34;archives-date section-title&#34;&gt; &lt;a href=&#34;{{ $.RelPermalink }}#{{ $id }}&#34;&gt;{{ .Key }}&lt;/a&gt; &lt;/h2&gt; &lt;div class=&#34;article-list--compact&#34;&gt; {{ range .Pages }} {{ partial &#34;article-list/compact&#34; . }} {{ end }} &lt;/div&gt; &lt;/div&gt; {{ end }} {{ partialCached &#34;footer/footer&#34; . }} {{ end }} ">
-<meta property='og:url' content='https://anarchycuriosity.github.io/p/%E8%AE%A9%E5%BD%92%E6%A1%A3%E6%8C%89%E6%9C%88%E5%88%92%E5%88%86%E5%90%8C%E6%97%B6%E6%98%BE%E7%A4%BAtag/'>
+<link rel="stylesheet" href="/scss/style.min.4e224c151dceae226786e700189bea41076d329d4710ba01aa6ac91c5a997d22.css"><meta property='og:title' content="纸币问题求目标金额最少纸币数和方案排序数">
+<meta property='og:description' content="题目链接 最少纸币\n方案排序数\nP2842 纸币问题 1&amp;2 题目描述 某国有 $n$ 种纸币，每种纸币面额为 $a_i$ 并且有无限张，现在要凑出 $w$ 的金额，试问最少用多少张纸币可以凑出来？（保证可以凑出对应金额）\n">
+<meta property='og:url' content='https://anarchycuriosity.github.io/p/%E7%BA%B8%E5%B8%81%E9%97%AE%E9%A2%98%E6%B1%82%E7%9B%AE%E6%A0%87%E9%87%91%E9%A2%9D%E6%9C%80%E5%B0%91%E7%BA%B8%E5%B8%81%E6%95%B0%E5%92%8C%E6%96%B9%E6%A1%88%E6%8E%92%E5%BA%8F%E6%95%B0/'>
 <meta property='og:site_name' content='Curiosity Anarchy'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2026-02-03T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-02-03T00:00:00&#43;00:00'/>
-<meta name="twitter:title" content="让归档按月划分同时显示tag">
-<meta name="twitter:description" content="修改配置文件 找到hugo根目录下的这个文件\nlayouts\\default\\archives.html\n修改如下,只是对demon的同一文件进行修改\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 {{ define &#34;body-class&#34; }}template-archives{{ end }} {{ define &#34;main&#34; }} &lt;header&gt; {{/* 保留 Categories 分类显示逻辑 */}} {{- $taxonomy := $.Site.GetPage &#34;taxonomyTerm&#34; &#34;categories&#34; -}} {{- $terms := $taxonomy.Pages -}} {{ if $terms }} &lt;h2 class=&#34;section-title&#34;&gt;{{ T &#34;widget.categoriesCloud.title&#34; }}&lt;/h2&gt; &lt;div class=&#34;subsection-list&#34;&gt; &lt;div class=&#34;article-list--tile&#34;&gt; {{ range $terms }} {{ partial &#34;article-list/tile&#34; (dict &#34;context&#34; . &#34;size&#34; &#34;250x150&#34; &#34;Type&#34; &#34;taxonomy&#34;) }} {{ end }} &lt;/div&gt; &lt;/div&gt; {{ end }} &lt;/header&gt; {{ $pages := where .Site.RegularPages &#34;Type&#34; &#34;in&#34; .Site.Params.mainSections }} {{ $filtered := where $pages &#34;Params.hidden&#34; &#34;!=&#34; true }} {{/* 将 &#34;2006&#34; 改为 &#34;2006-01&#34; 实现按月划分 */}} {{ range $filtered.GroupByDate &#34;2006-01&#34; }} {{ $id := lower (replace .Key &#34; &#34; &#34;-&#34;) }} &lt;div class=&#34;archives-group&#34; id=&#34;{{ $id }}&#34;&gt; &lt;h2 class=&#34;archives-date section-title&#34;&gt; &lt;a href=&#34;{{ $.RelPermalink }}#{{ $id }}&#34;&gt;{{ .Key }}&lt;/a&gt; &lt;/h2&gt; &lt;div class=&#34;article-list--compact&#34;&gt; {{ range .Pages }} {{ partial &#34;article-list/compact&#34; . }} {{ end }} &lt;/div&gt; &lt;/div&gt; {{ end }} {{ partialCached &#34;footer/footer&#34; . }} {{ end }} ">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2026-02-05T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-02-05T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="纸币问题求目标金额最少纸币数和方案排序数">
+<meta name="twitter:description" content="题目链接 最少纸币\n方案排序数\nP2842 纸币问题 1&amp;2 题目描述 某国有 $n$ 种纸币，每种纸币面额为 $a_i$ 并且有无限张，现在要凑出 $w$ 的金额，试问最少用多少张纸币可以凑出来？（保证可以凑出对应金额）\n">
     <link rel="shortcut icon" href="/favicon.ico" />
 
     </head>
@@ -303,7 +303,54 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#修改配置文件">修改配置文件</a></li>
+    <li><a href="#题目描述">题目描述</a></li>
+    <li><a href="#输入格式">输入格式</a></li>
+    <li><a href="#输出格式">输出格式</a></li>
+    <li><a href="#输入输出样例-1">输入输出样例 #1</a>
+      <ol>
+        <li><a href="#输入-1">输入 #1</a></li>
+        <li><a href="#输出-1">输出 #1</a></li>
+      </ol>
+    </li>
+    <li><a href="#输入输出样例-2">输入输出样例 #2</a>
+      <ol>
+        <li><a href="#输入-2">输入 #2</a></li>
+        <li><a href="#输出-2">输出 #2</a></li>
+      </ol>
+    </li>
+    <li><a href="#说明提示">说明/提示</a></li>
+    <li><a href="#最少纸币数的解决">最少纸币数的解决</a>
+      <ol>
+        <li><a href="#思路">思路</a></li>
+        <li><a href="#源码展示">源码展示</a></li>
+      </ol>
+    </li>
+  </ol>
+
+  <ol>
+    <li><a href="#题目背景">题目背景</a></li>
+    <li><a href="#题目描述-1">题目描述</a></li>
+    <li><a href="#输入格式-1">输入格式</a></li>
+    <li><a href="#输出格式-1">输出格式</a></li>
+    <li><a href="#输入输出样例-1-1">输入输出样例 #1</a>
+      <ol>
+        <li><a href="#输入-1-1">输入 #1</a></li>
+        <li><a href="#输出-1-1">输出 #1</a></li>
+      </ol>
+    </li>
+    <li><a href="#输入输出样例-2-1">输入输出样例 #2</a>
+      <ol>
+        <li><a href="#输入-2-1">输入 #2</a></li>
+        <li><a href="#输出-2-1">输出 #2</a></li>
+      </ol>
+    </li>
+    <li><a href="#说明提示-1">说明/提示</a></li>
+    <li><a href="#排序数的解决">排序数的解决</a>
+      <ol>
+        <li><a href="#思路-1">思路</a></li>
+        <li><a href="#源码展示-1">源码展示</a></li>
+      </ol>
+    </li>
   </ol>
 </nav>
         </div>
@@ -326,8 +373,8 @@
             
             
             
-            <a href="/categories/%E5%8D%9A%E5%AE%A2%E9%85%8D%E7%BD%AE/" style="background-color: hsl(115, 60%, 84%); color: hsl(115, 60%, 15%);">
-                博客配置
+            <a href="/categories/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%83/" style="background-color: hsl(201, 60%, 84%); color: hsl(201, 60%, 15%);">
+                算法训练
             </a>
         
     </header>
@@ -335,7 +382,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/%E8%AE%A9%E5%BD%92%E6%A1%A3%E6%8C%89%E6%9C%88%E5%88%92%E5%88%86%E5%90%8C%E6%97%B6%E6%98%BE%E7%A4%BAtag/">让归档按月划分同时显示tag</a>
+            <a href="/p/%E7%BA%B8%E5%B8%81%E9%97%AE%E9%A2%98%E6%B1%82%E7%9B%AE%E6%A0%87%E9%87%91%E9%A2%9D%E6%9C%80%E5%B0%91%E7%BA%B8%E5%B8%81%E6%95%B0%E5%92%8C%E6%96%B9%E6%A1%88%E6%8E%92%E5%BA%8F%E6%95%B0/">纸币问题求目标金额最少纸币数和方案排序数</a>
         </h2>
     
         
@@ -357,7 +404,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">2026-02-03</time>
+                <time class="article-time--published">2026-02-05</time>
             </div>
         
 
@@ -372,7 +419,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 1 分钟
+                    阅读时长: 3 分钟
                 </time>
             </div>
         
@@ -395,13 +442,164 @@
     <section class="article-content">
     
     
-    <h2 id="修改配置文件">修改配置文件
-</h2><p><strong>找到hugo根目录下的这个文件</strong></p>
-<blockquote>
-<p>layouts\default\archives.html</p>
-</blockquote>
-<p>修改如下,只是对demon的同一文件进行修改</p>
-<div class="highlight"><div class="chroma">
+    <h1 id="题目链接">题目链接
+</h1><p><a class="link" href="https://www.luogu.com.cn/problem/P2842"  target="_blank" rel="noopener"
+    >最少纸币</a></p>
+<p><a class="link" href="https://www.luogu.com.cn/problem/P2840"  target="_blank" rel="noopener"
+    >方案排序数</a></p>
+<h1 id="p2842-纸币问题-12">P2842 纸币问题 1&amp;2
+</h1><h2 id="题目描述">题目描述
+</h2><p>某国有 $n$ 种纸币，每种纸币面额为 $a_i$ 并且有无限张，现在要凑出 $w$ 的金额，试问最少用多少张纸币可以凑出来？（保证可以凑出对应金额）</p>
+<h2 id="输入格式">输入格式
+</h2><p>第一行两个整数 $n,w$，分别表示纸币的种数和要凑出的金额。<br>
+第二行一行 $n$ 个以空格隔开的整数 $a_1, a_2, a_3, \dots a_n$ 依次表示这 $n$ 种纸币的面额。</p>
+<h2 id="输出格式">输出格式
+</h2><p>一行一个整数，表示最少使用的纸币张数。</p>
+<h2 id="输入输出样例-1">输入输出样例 #1
+</h2><h3 id="输入-1">输入 #1
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">6 15
+</span></span><span class="line"><span class="cl">1 5 10 20 50 100
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="输出-1">输出 #1
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">2
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="输入输出样例-2">输入输出样例 #2
+</h2><h3 id="输入-2">输入 #2
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">3 15
+</span></span><span class="line"><span class="cl">1 5 11
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="输出-2">输出 #2
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">3
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="说明提示">说明/提示
+</h2><p>对于 $40%$ 的数据，满足 $n\le 10$，$w\le 100$；<br>
+对于 $100%$ 的数据，满足 $1\le n\le 10^3$，$1\le a_i , w\le 10^4$。</p>
+<h2 id="最少纸币数的解决">最少纸币数的解决
+</h2><h3 id="思路">思路
+</h3><p>dp数组除了下标0统一初始化为一个很大的数，dp[0]初始化为0,因为0元需要0张纸币这样当有更小的数的可能性的时候，就可以更新纸币数。
+外层是纸币，内层是金额。
+如果把dp[j]盒子中价值vals[i]的部分替换为一张价值为vals[i]的纸币,也就是让dp[j]变成dp[j - vals[i]]+1,如果这样可以让dp[j]变得更小,也就是纸币数更少,那么就替换掉.</p>
+<h3 id="源码展示">源码展示
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">dp</span><span class="p">(</span><span class="n">w</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">1e9</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">vals</span><span class="p">[</span><span class="n">i</span><span class="p">];</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">w</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">j</span> <span class="o">-</span> <span class="n">vals</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">&lt;</span> <span class="n">dp</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">dp</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">dp</span><span class="p">[</span><span class="n">j</span> <span class="o">-</span> <span class="n">vals</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="p2840-纸币问题-2">P2840 纸币问题 2
+</h1><h2 id="题目背景">题目背景
+</h2><p>你是一个非常有钱的小朋友。</p>
+<h2 id="题目描述-1">题目描述
+</h2><p>你有 $n$ 种面额互不相同的纸币，第 $i$ 种纸币的面额为 $a_i$ 并且有无限张，现在你需要支付 $w$ 的金额，求问有多少种方式可以支付面额 $w$，答案对 $10^9+7$ 取模。<br>
+注意在这里，同样的纸币组合如果支付顺序不同，会被视作不同的方式。例如支付 $3$ 元，使用一张面值 $1$ 的纸币和一张面值 $2$ 的纸币会产生两种方式（$1+2$ 和 $2+1$）。</p>
+<h2 id="输入格式-1">输入格式
+</h2><p>第一行两个正整数 $n,w$，分别表示纸币的种数和要凑出的金额。<br>
+第二行一行 $n$ 个以空格隔开的正整数 $a_1, a_2, \dots a_n $ 依次表示这 $n$ 种纸币的面额。</p>
+<h2 id="输出格式-1">输出格式
+</h2><p>一行一个整数，表示支付方式的数量。</p>
+<h2 id="输入输出样例-1-1">输入输出样例 #1
+</h2><h3 id="输入-1-1">输入 #1
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">6 15
+</span></span><span class="line"><span class="cl">1 5 10 20 50 100
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="输出-1-1">输出 #1
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">42
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="输入输出样例-2-1">输入输出样例 #2
+</h2><h3 id="输入-2-1">输入 #2
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">3 15
+</span></span><span class="line"><span class="cl">1 5 11
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="输出-2-1">输出 #2
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">39
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="说明提示-1">说明/提示
+</h2><p>对于 $40%$ 的数据，满足 $n\le 10$，$w\le 100$；<br>
+对于 $100%$ 的数据，满足 $1\le n\le 10^3$，$1\le a_i , w\le 10^4$。</p>
+<p>其实小朋友并没有那么多钱。</p>
+<h2 id="排序数的解决">排序数的解决
+</h2><h3 id="思路-1">思路
+</h3><p>此时dp盒子中的内容不是纸币数而是方案数.个人认为dp盒子初始化为什么内容取决于要求什么,比如上文要求最小值那么就需要初始化为大数然后替换得到小数,如果是求方案数那么就需要从0开始积累.</p>
+<p>所以dp盒子除了0初始化为1,其他都初始化为0.(凑出0元有1种方案)</p>
+<p>由于是排序数,所以你可以塞入很多张一样的纸币.对于循环,外层是金额,内层是纸币.如果当前i大于vals[j]那么就可以用vals[j]来凑,让vals[j]作为最后一张纸币塞入盒子,然后和前面i减去vals[j]对应的盒子的方案累加.</p>
+<h3 id="源码展示-1">源码展示
+</h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -418,73 +616,23 @@
 </span><span class="lnt">13
 </span><span class="lnt">14
 </span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl">{{ define &#34;body-class&#34; }}template-archives{{ end }}
-</span></span><span class="line"><span class="cl">{{ define &#34;main&#34; }}
-</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">header</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">        {{/* 保留 Categories 分类显示逻辑 */}}
-</span></span><span class="line"><span class="cl">        {{- $taxonomy := $.Site.GetPage &#34;taxonomyTerm&#34; &#34;categories&#34; -}}
-</span></span><span class="line"><span class="cl">        {{- $terms := $taxonomy.Pages -}}
-</span></span><span class="line"><span class="cl">        {{ if $terms }}
-</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">h2</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;section-title&#34;</span><span class="p">&gt;</span>{{ T &#34;widget.categoriesCloud.title&#34; }}<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;subsection-list&#34;</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">            <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;article-list--tile&#34;</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">                {{ range $terms }}
-</span></span><span class="line"><span class="cl">                    {{ partial &#34;article-list/tile&#34; (dict &#34;context&#34; . &#34;size&#34; &#34;250x150&#34; &#34;Type&#34; &#34;taxonomy&#34;) }}
-</span></span><span class="line"><span class="cl">                {{ end }}
-</span></span><span class="line"><span class="cl">            <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">        {{ end }}
-</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">header</span><span class="p">&gt;</span>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">dp</span><span class="p">(</span><span class="n">w</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">const</span> <span class="kt">int</span> <span class="n">mod</span> <span class="o">=</span> <span class="mf">1e9</span> <span class="o">+</span> <span class="mi">7</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    
-</span></span><span class="line"><span class="cl">    {{ $pages := where .Site.RegularPages &#34;Type&#34; &#34;in&#34; .Site.Params.mainSections }}
-</span></span><span class="line"><span class="cl">    {{ $filtered := where $pages &#34;Params.hidden&#34; &#34;!=&#34; true }}
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    {{/* 将 &#34;2006&#34; 改为 &#34;2006-01&#34; 实现按月划分 */}}
-</span></span><span class="line"><span class="cl">    {{ range $filtered.GroupByDate &#34;2006-01&#34; }}
-</span></span><span class="line"><span class="cl">    {{ $id := lower (replace .Key &#34; &#34; &#34;-&#34;) }}
-</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;archives-group&#34;</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;{{ $id }}&#34;</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"> 
-</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">h2</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;archives-date section-title&#34;</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">            <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;{{ $.RelPermalink }}#{{ $id }}&#34;</span><span class="p">&gt;</span>{{ .Key }}<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">        <span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;article-list--compact&#34;</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">            {{ range .Pages }}
-</span></span><span class="line"><span class="cl">                {{ partial &#34;article-list/compact&#34; . }}
-</span></span><span class="line"><span class="cl">            {{ end }}
-</span></span><span class="line"><span class="cl">        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">    {{ end }}
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    {{ partialCached &#34;footer/footer&#34; . }}
-</span></span><span class="line"><span class="cl">{{ end }}
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">w</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">&gt;=</span> <span class="n">vals</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="n">vals</span><span class="p">[</span><span class="n">j</span><span class="p">]])</span> <span class="o">%</span> <span class="n">mod</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="c1">// 如果我们要放入这个val，那么就需要提前凑i - val元，所以需要累加i - val的dp
+</span></span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div>
@@ -555,12 +703,12 @@
             
                 
 <article class="">
-    <a href="/p/%E4%BD%BF%E7%94%A8%E4%B8%8D%E8%92%9C%E5%AD%90%E7%BB%84%E4%BB%B6%E5%AE%9E%E7%8E%B0%E6%B5%8F%E8%A7%88%E6%95%B0%E7%BB%9F%E8%AE%A1/">
+    <a href="/p/%E7%BA%B8%E5%B8%81%E9%97%AE%E9%A2%98%E6%B1%82%E6%96%B9%E6%A1%88%E7%BB%84%E5%90%88%E6%95%B0/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">使用不蒜子组件实现浏览数统计</h2>
+            <h2 class="article-title">纸币问题求方案组合数</h2>
         </div>
     </a>
 </article>
