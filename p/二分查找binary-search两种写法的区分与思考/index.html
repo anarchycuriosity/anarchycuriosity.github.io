@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="题目链接 (组合数)[P2834 纸币问题 3 - 洛谷]\nP2834 纸币问题 3 题目背景 你是一个非常有钱的小朋友。\n注意： 本题和《进阶篇》的对应题目，输入格式略有差异。\n题目描述 你有 $n$ 种面额互不相同的纸币，第 $i$ 种纸币的面额为 $a_i$ 并且有无限张，现在你需要支付 $w$ 的金额，请问有多少种纸币组合能恰好支付金额 $w$，答案对 $10^9+7$ 取模。\n">
-<title>纸币问题求方案组合数</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="lc题目链接\n题目 给定一个 n 个元素有序的（升序）整型数组 nums 和一个目标值 target ，写一个函数搜索 nums 中的 target，如果目标值存在返回下标，否则返回 -1。\n">
+<title>二分查找(binary search)两种写法的区分与思考</title>
 
-<link rel='canonical' href='https://anarchycuriosity.github.io/p/%E7%BA%B8%E5%B8%81%E9%97%AE%E9%A2%98%E6%B1%82%E6%96%B9%E6%A1%88%E7%BB%84%E5%90%88%E6%95%B0/'>
+<link rel='canonical' href='https://anarchycuriosity.github.io/p/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BEbinary-search%E4%B8%A4%E7%A7%8D%E5%86%99%E6%B3%95%E7%9A%84%E5%8C%BA%E5%88%86%E4%B8%8E%E6%80%9D%E8%80%83/'>
 
-<link rel="stylesheet" href="/scss/style.min.4e224c151dceae226786e700189bea41076d329d4710ba01aa6ac91c5a997d22.css"><meta property='og:title' content="纸币问题求方案组合数">
-<meta property='og:description' content="题目链接 (组合数)[P2834 纸币问题 3 - 洛谷]\nP2834 纸币问题 3 题目背景 你是一个非常有钱的小朋友。\n注意： 本题和《进阶篇》的对应题目，输入格式略有差异。\n题目描述 你有 $n$ 种面额互不相同的纸币，第 $i$ 种纸币的面额为 $a_i$ 并且有无限张，现在你需要支付 $w$ 的金额，请问有多少种纸币组合能恰好支付金额 $w$，答案对 $10^9+7$ 取模。\n">
-<meta property='og:url' content='https://anarchycuriosity.github.io/p/%E7%BA%B8%E5%B8%81%E9%97%AE%E9%A2%98%E6%B1%82%E6%96%B9%E6%A1%88%E7%BB%84%E5%90%88%E6%95%B0/'>
+<link rel="stylesheet" href="/scss/style.min.4e224c151dceae226786e700189bea41076d329d4710ba01aa6ac91c5a997d22.css"><meta property='og:title' content="二分查找(binary search)两种写法的区分与思考">
+<meta property='og:description' content="lc题目链接\n题目 给定一个 n 个元素有序的（升序）整型数组 nums 和一个目标值 target ，写一个函数搜索 nums 中的 target，如果目标值存在返回下标，否则返回 -1。\n">
+<meta property='og:url' content='https://anarchycuriosity.github.io/p/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BEbinary-search%E4%B8%A4%E7%A7%8D%E5%86%99%E6%B3%95%E7%9A%84%E5%8C%BA%E5%88%86%E4%B8%8E%E6%80%9D%E8%80%83/'>
 <meta property='og:site_name' content='Curiosity Anarchy'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='DP' /><meta property='article:tag' content='完全背包' /><meta property='article:published_time' content='2026-02-06T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-02-06T00:00:00&#43;00:00'/>
-<meta name="twitter:title" content="纸币问题求方案组合数">
-<meta name="twitter:description" content="题目链接 (组合数)[P2834 纸币问题 3 - 洛谷]\nP2834 纸币问题 3 题目背景 你是一个非常有钱的小朋友。\n注意： 本题和《进阶篇》的对应题目，输入格式略有差异。\n题目描述 你有 $n$ 种面额互不相同的纸币，第 $i$ 种纸币的面额为 $a_i$ 并且有无限张，现在你需要支付 $w$ 的金额，请问有多少种纸币组合能恰好支付金额 $w$，答案对 $10^9+7$ 取模。\n">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='二分查找' /><meta property='article:published_time' content='2026-02-06T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-02-06T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="二分查找(binary search)两种写法的区分与思考">
+<meta name="twitter:description" content="lc题目链接\n题目 给定一个 n 个元素有序的（升序）整型数组 nums 和一个目标值 target ，写一个函数搜索 nums 中的 target，如果目标值存在返回下标，否则返回 -1。\n">
     <link rel="shortcut icon" href="/favicon.ico" />
 
     </head>
@@ -281,56 +281,7 @@
     </ol>
 </aside>
 
-    <aside class="sidebar right-sidebar sticky">
-        
-            
-                
-    <section class="widget archives">
-        <div class="widget-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <line x1="5" y1="9" x2="19" y2="9" />
-  <line x1="5" y1="15" x2="19" y2="15" />
-  <line x1="11" y1="4" x2="7" y2="20" />
-  <line x1="17" y1="4" x2="13" y2="20" />
-</svg>
-
-
-
-        </div>
-        <h2 class="widget-title section-title">目录</h2>
-        
-        <div class="widget--toc">
-            <nav id="TableOfContents">
-  <ol>
-    <li><a href="#题目背景">题目背景</a></li>
-    <li><a href="#题目描述">题目描述</a></li>
-    <li><a href="#输入格式">输入格式</a></li>
-    <li><a href="#输出格式">输出格式</a></li>
-    <li><a href="#输入输出样例-1">输入输出样例 #1</a>
-      <ol>
-        <li><a href="#输入-1">输入 #1</a></li>
-        <li><a href="#输出-1">输出 #1</a></li>
-      </ol>
-    </li>
-    <li><a href="#输入输出样例-2">输入输出样例 #2</a>
-      <ol>
-        <li><a href="#输入-2">输入 #2</a></li>
-        <li><a href="#输出-2">输出 #2</a></li>
-      </ol>
-    </li>
-    <li><a href="#说明提示">说明/提示</a></li>
-    <li><a href="#思路">思路</a></li>
-    <li><a href="#源码解析">源码解析</a></li>
-  </ol>
-</nav>
-        </div>
-    </section>
-
-            
-        
-    </aside>
-
+    
 
             <main class="main full-width">
     <article class="main-article">
@@ -353,7 +304,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/%E7%BA%B8%E5%B8%81%E9%97%AE%E9%A2%98%E6%B1%82%E6%96%B9%E6%A1%88%E7%BB%84%E5%90%88%E6%95%B0/">纸币问题求方案组合数</a>
+            <a href="/p/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BEbinary-search%E4%B8%A4%E7%A7%8D%E5%86%99%E6%B3%95%E7%9A%84%E5%8C%BA%E5%88%86%E4%B8%8E%E6%80%9D%E8%80%83/">二分查找(binary search)两种写法的区分与思考</a>
         </h2>
     
         
@@ -413,97 +364,132 @@
     <section class="article-content">
     
     
-    <h1 id="题目链接">题目链接
-</h1><p>(组合数)[<a class="link" href="https://www.luogu.com.cn/problem/P2834"  target="_blank" rel="noopener"
-    >P2834 纸币问题 3 - 洛谷</a>]</p>
-<h1 id="p2834-纸币问题-3">P2834 纸币问题 3
-</h1><h2 id="题目背景">题目背景
-</h2><p>你是一个非常有钱的小朋友。</p>
-<p><strong>注意：</strong> 本题和《进阶篇》的对应题目，输入格式略有差异。</p>
-<h2 id="题目描述">题目描述
-</h2><p>你有 $n$ 种面额互不相同的纸币，第 $i$ 种纸币的面额为 $a_i$ 并且有无限张，现在你需要支付 $w$ 的金额，请问有多少种纸币组合能恰好支付金额 $w$，答案对 $10^9+7$ 取模。</p>
-<h2 id="输入格式">输入格式
-</h2><p>第一行两个正整数 $n,w$，分别表示纸币的种数和要凑出的金额。<br>
-第二行一行 $n$ 个以空格隔开的正整数 $a_1, a_2, \dots a_n$ 依次表示这 $n$ 种纸币的面额。</p>
-<h2 id="输出格式">输出格式
-</h2><p>一行一个整数，表示能恰好凑齐面额 $w$ 的纸币组合数量。</p>
-<h2 id="输入输出样例-1">输入输出样例 #1
-</h2><h3 id="输入-1">输入 #1
-</h3><div class="highlight"><div class="chroma">
+    <p><a class="link" href="https://leetcode.cn/problems/binary-search/"  target="_blank" rel="noopener"
+    >lc题目链接</a></p>
+<h1 id="题目">题目
+</h1><p>给定一个 n 个元素有序的（升序）整型数组 nums 和一个目标值 target  ，写一个函数搜索 nums 中的 target，如果目标值存在返回下标，否则返回 -1。</p>
+<h2 id="示例">示例
+</h2><p>示例1</p>
+<p>输入: nums = [-1,0,3,5,9,12], target = 9  <br>
+输出: 4    <br>
+解释: 9 出现在 nums 中并且下标为 4</p>
+<p>示例2</p>
+<p>输入: nums = [-1,0,3,5,9,12], target = 2  <br>
+输出: -1     <br>
+解释: 2 不存在 nums 中因此返回 -1</p>
+<h1 id="思考">思考
+</h1><p>// 二分查找的前提，有序数组，只有唯一元素</p>
+<p>// 二分查找有两种版本，取决于区间是tar所在的区间是双闭或者左闭右开</p>
+<p>// 也许要问为什么没有别的情况,如果有需要更复杂的讨论比如left + 1 &lt; right,但没必要</p>
+<p>// 而STL标准库中所有的迭代器范围都是左闭右开,比如vec.begin()指向第一个元素,而vec.end()指向最后一个元素之后的位置</p>
+<h1 id="源码有注释">源码(有注释)
+</h1><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">6 15
-</span></span><span class="line"><span class="cl">1 5 10 20 50 100
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="输出-1">输出 #1
-</h3><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">6
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="输入输出样例-2">输入输出样例 #2
-</h2><h3 id="输入-2">输入 #2
-</h3><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">3 15
-</span></span><span class="line"><span class="cl">1 5 11
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="输出-2">输出 #2
-</h3><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">5
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="说明提示">说明/提示
-</h2><p>对于 $40%$ 的数据，满足 $n\le 10$，$w\le 100$；<br>
-对于 $100%$ 的数据，满足 $1\le n\le 10^3$，$1\le a_i , w\le 10^4$。</p>
-<p>其实小朋友并不有钱。</p>
-<h2 id="思路">思路
-</h2><p>首先需要和排序数的情况区分,1,2和2,1应该属于一种情况</p>
-<p>纸币可以无限用,属于完全背包.要求方案数,属于DP.</p>
-<p>排序数时外层遍历金额,内层遍历纸币.</p>
-<p>这题属于组合数,外层遍历纸币,内层遍历金额,这样才能保证纸币只用一次.</p>
-<p>初始化dp数组为(w + 1,0),w为想要的金额,dp数组的下标代表金额.</p>
-<p>dp[0] = 1,代表凑出0元有一种办法.</p>
-<h2 id="源码解析">源码解析
-</h2><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> 
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Solution</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">search1</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">nums</span><span class="p">,</span> <span class="kt">int</span> <span class="n">tar</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">vals</span><span class="p">[</span><span class="n">i</span><span class="p">];</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">w</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">left</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">// 这里-1
+</span></span></span><span class="line"><span class="cl">        <span class="k">while</span> <span class="p">(</span><span class="n">left</span> <span class="o">&lt;=</span> <span class="n">right</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">        <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="n">dp</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">+</span> <span class="n">dp</span><span class="p">[</span><span class="n">j</span> <span class="o">-</span> <span class="n">vals</span><span class="p">[</span><span class="n">i</span><span class="p">]])</span> <span class="o">%</span> <span class="n">mod</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">int</span> <span class="n">mid</span> <span class="o">=</span> <span class="n">left</span> <span class="o">+</span> <span class="p">(</span><span class="n">right</span> <span class="o">-</span> <span class="n">left</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">tar</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">right</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">tar</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">left</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="k">else</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="n">mid</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="nf">search2</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">nums</span><span class="p">,</span> <span class="kt">int</span> <span class="n">tar</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">left</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="c1">// 这里没有-1
+</span></span></span><span class="line"><span class="cl">        <span class="k">while</span> <span class="p">(</span><span class="n">left</span> <span class="o">&lt;</span> <span class="n">right</span><span class="p">)</span>               <span class="c1">// 因为left == right的时候，在[left, right)是无效的空间，所以使用 &lt;
+</span></span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// 需要根据区间做边界处理,比如[5,5)的时候就应该退出,如果继续查,本来就没有
+</span></span></span><span class="line"><span class="cl">            <span class="kt">int</span> <span class="n">mid</span> <span class="o">=</span> <span class="n">left</span> <span class="o">+</span> <span class="p">(</span><span class="n">right</span> <span class="o">-</span> <span class="n">left</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">tar</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">left</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">tar</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="c1">// right = mid - 1;这里容易写错
+</span></span></span><span class="line"><span class="cl">                <span class="n">right</span> <span class="o">=</span> <span class="n">mid</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="k">else</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="n">mid</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>vals代表钱包,mod代表取模.</p>
-<p>如果要如果要将val[i]作为最后一张钞票塞入dp[j]盒子,它的前一个盒子需要j - vals[j - vals[i]]的金额,也就是累加上前一个盒子的方案总数,最终可以知道dp[w],也就是凑出w的方案数的组合数.</p>
-
+</div>
 </section>
 
 
@@ -511,9 +497,7 @@
     
     <section class="article-tags">
         
-            <a href="/tags/dp/">DP</a>
-        
-            <a href="/tags/%E5%AE%8C%E5%85%A8%E8%83%8C%E5%8C%85/">完全背包</a>
+            <a href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/">二分查找</a>
         
     </section>
 
@@ -579,12 +563,12 @@
             
                 
 <article class="">
-    <a href="/p/%E7%BA%B8%E5%B8%81%E9%97%AE%E9%A2%98%E6%B1%82%E7%9B%AE%E6%A0%87%E9%87%91%E9%A2%9D%E6%9C%80%E5%B0%91%E7%BA%B8%E5%B8%81%E6%95%B0%E5%92%8C%E6%96%B9%E6%A1%88%E6%8E%92%E5%BA%8F%E6%95%B0/">
+    <a href="/p/%E7%BA%B8%E5%B8%81%E9%97%AE%E9%A2%98%E6%B1%82%E6%96%B9%E6%A1%88%E7%BB%84%E5%90%88%E6%95%B0/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">纸币问题求目标金额最少纸币数和方案排序数</h2>
+            <h2 class="article-title">纸币问题求方案组合数</h2>
         </div>
     </a>
 </article>
@@ -592,12 +576,12 @@
             
                 
 <article class="">
-    <a href="/p/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BEbinary-search%E4%B8%A4%E7%A7%8D%E5%86%99%E6%B3%95%E7%9A%84%E5%8C%BA%E5%88%86%E4%B8%8E%E6%80%9D%E8%80%83/">
+    <a href="/p/%E7%BA%B8%E5%B8%81%E9%97%AE%E9%A2%98%E6%B1%82%E7%9B%AE%E6%A0%87%E9%87%91%E9%A2%9D%E6%9C%80%E5%B0%91%E7%BA%B8%E5%B8%81%E6%95%B0%E5%92%8C%E6%96%B9%E6%A1%88%E6%8E%92%E5%BA%8F%E6%95%B0/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">二分查找(binary search)两种写法的区分与思考</h2>
+            <h2 class="article-title">纸币问题求目标金额最少纸币数和方案排序数</h2>
         </div>
     </a>
 </article>
