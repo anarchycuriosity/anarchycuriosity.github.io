@@ -7,7 +7,130 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Curiosity Anarchy</copyright>
-        <lastBuildDate>Fri, 06 Feb 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 08 Feb 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>记录一些深刻的教训</title>
+        <link>https://anarchycuriosity.github.io/p/%E8%AE%B0%E5%BD%95%E4%B8%80%E4%BA%9B%E6%B7%B1%E5%88%BB%E7%9A%84%E6%95%99%E8%AE%AD/</link>
+        <pubDate>Sun, 08 Feb 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://anarchycuriosity.github.io/p/%E8%AE%B0%E5%BD%95%E4%B8%80%E4%BA%9B%E6%B7%B1%E5%88%BB%E7%9A%84%E6%95%99%E8%AE%AD/</guid>
+        <description>&lt;h1 id=&#34;如果觉得自己是特别的觉得自己可以轻松的解决问题达成目标那就大错特错了&#34;&gt;如果觉得自己是特别的，觉得自己可以轻松的解决问题达成目标，那就大错特错了。
+&lt;/h1&gt;&lt;h1 id=&#34;我首先需要坐在电脑前面坐在桌子前面不论再怎么焦虑不安先行动起来推自己一把让自己开始而不是一味地烦恼只有这样才能变得更好也可以让自己镇静下来&#34;&gt;我首先需要坐在电脑前面，坐在桌子前面，不论再怎么焦虑不安，先行动起来。推自己一把让自己开始，而不是一味地烦恼，只有这样才能变得更好，也可以让自己镇静下来。
+&lt;/h1&gt;&lt;h1 id=&#34;去行动起来去脚踏实地去表达而不是吹嘘去行动而不是表演去思考而不是忧郁&#34;&gt;去行动起来，去脚踏实地。去表达而不是吹嘘，去行动而不是表演，去思考而不是忧郁。
+&lt;/h1&gt;</description>
+        </item>
+        <item>
+        <title>编程能力提升与程序员核心发展</title>
+        <link>https://anarchycuriosity.github.io/p/%E7%BC%96%E7%A8%8B%E8%83%BD%E5%8A%9B%E6%8F%90%E5%8D%87%E4%B8%8E%E7%A8%8B%E5%BA%8F%E5%91%98%E6%A0%B8%E5%BF%83%E5%8F%91%E5%B1%95/</link>
+        <pubDate>Sat, 07 Feb 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://anarchycuriosity.github.io/p/%E7%BC%96%E7%A8%8B%E8%83%BD%E5%8A%9B%E6%8F%90%E5%8D%87%E4%B8%8E%E7%A8%8B%E5%BA%8F%E5%91%98%E6%A0%B8%E5%BF%83%E5%8F%91%E5%B1%95/</guid>
+        <description>&lt;h2 id=&#34;编程学习的变化&#34;&gt;编程学习的变化
+&lt;/h2&gt;&lt;h3 id=&#34;差异&#34;&gt;差异
+&lt;/h3&gt;&lt;p&gt;传统学习：解题，背书，解释&lt;/p&gt;
+&lt;p&gt;编程学习：创造&lt;/p&gt;
+&lt;h3 id=&#34;问题&#34;&gt;问题
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;人人卷算法&lt;/li&gt;
+&lt;li&gt;写不出代码&lt;/li&gt;
+&lt;li&gt;与大厂有距离&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;入门阶段&#34;&gt;入门阶段
+&lt;/h2&gt;&lt;p&gt;pass&lt;/p&gt;
+&lt;h2 id=&#34;熟悉阶段&#34;&gt;熟悉阶段
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;问题：学的越多忘得越多&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Q：我们该记住的是什么：不是语法、公式、设计模式（这只有在面试前需要背）。忘了，稍微复习一下学习就好了。“我忘掉的至少招式而已”&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;学习目标：&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;ul&gt;
+&lt;li&gt;用于解决问题和更好地解决问题&lt;/li&gt;
+&lt;li&gt;编程不是靠背能学会的学科，要靠理解要靠用&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;重点&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;ul&gt;
+&lt;li&gt;1我在学什么，存在的意义是什么，不是别人要学所以我要学，比如MySQL是未来我要做网络产品数据持久化的时候需要用到的，而不是随波逐流。&lt;/li&gt;
+&lt;li&gt;2有什么用，怎么用。这需要大量的实践和额外的训练去遇到问题解决问题并不停重复。&lt;/li&gt;
+&lt;li&gt;3为什么是这样，还能怎么样。只有把一个东西学透，有了自己的心得，才会有自己的选择，有了技术对比，知道特定方法的优势，才能应对不同场景的问题。熟练掌握才不怕忘记。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;最好的笔记形式就是博客的形式&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;编写建议：编程的本质是现实模拟过程，用技术工具去创造世界。设计重于一切。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;比如，我要写一个游戏。它的本质就是我们要实现一个什么样的世界。&lt;/p&gt;
+&lt;p&gt;树，山，河 &amp;mdash;-抽象&lt;/p&gt;
+&lt;p&gt;雪人法&lt;/p&gt;
+&lt;p&gt;头部：网页游戏：HTML，CSS（暴论：本质就是移动像素，全靠背）&lt;/p&gt;
+&lt;h2 id=&#34;技术价值分层&#34;&gt;技术价值分层
+&lt;/h2&gt;&lt;p&gt;不是一直堆积东西，重要的是理解&lt;/p&gt;
+&lt;h3 id=&#34;第一层&#34;&gt;第一层
+&lt;/h3&gt;&lt;p&gt;奠定学科基础的体系结构，计算机是什么，怎么构成？核心是追求更快的速度。&lt;/p&gt;
+&lt;h3 id=&#34;第二层&#34;&gt;第二层：
+&lt;/h3&gt;&lt;p&gt;给技术从业者使用的技术工具（这是统称），比如开发cpp这类编程语言本身，开发数据库这类储存工具。-》研发工程师&lt;/p&gt;
+&lt;h3 id=&#34;第三层&#34;&gt;第三层
+&lt;/h3&gt;&lt;p&gt;解决现实需求的产品应用，比如写个网页。-》开发工程师：70%。起薪在5k/month 到60w/year&lt;/p&gt;
+&lt;h3 id=&#34;第四层&#34;&gt;第四层
+&lt;/h3&gt;&lt;p&gt;计算机结合某个领域的特定解决方案，比如CAD这类工业软件，医学人工智能、计算化学等交叉学科。-》不太适合就业。&lt;/p&gt;
+&lt;h3 id=&#34;第五层&#34;&gt;第五层
+&lt;/h3&gt;&lt;p&gt;科技是第一生产力，站在政策的角度来看行业。&lt;/p&gt;
+&lt;h1 id=&#34;未来发展&#34;&gt;未来发展
+&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;入职只是新一轮的征程，未来发展变换莫测，看看2000年的计算机。我们要做的就是干一年学一年。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;多想为什么，多反思意义。为什么要逼着写流程图和需求文档，写代码并没有这么重要。如果不思考为什么，就只能成为码农（笑）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;成长方向：&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;业务方向如围绕海量的数据的处理和解决方法（Java，Go）：技术壁垒不高：&lt;strong&gt;同一体量下&lt;/strong&gt;，工作半年和工作3年的Java程序员，技术差距不大。比如，3天学完easyX。一定要往数据量大的公司去跳，获得的经验完全不一样。更多的是围绕技术和业务的结合，而不是如何改进技术。终极成长：着重业务&amp;ndash;工程能力&amp;ndash;统筹团队解决问题完成需求&lt;/p&gt;
+&lt;p&gt;1分析业务2设计架构3统筹团队4开发5上线-》1钱2时间3人&lt;/p&gt;
+&lt;p&gt;这就是解决方案和工程能力，架构能力。这不是一个岗位，而是一个综合能力，需要有项目经历，广度和团队统筹。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;底层的计算机基础知识深入（cpp，c）&lt;/p&gt;
+&lt;p&gt;着重计算机学科学习&amp;ndash;优化能力&amp;ndash;技术本身的开发和设计&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;广度统筹，深度技术。而以上两个成长方向其实在工作前没有一毛钱的关系。统筹方向，薪资会更高。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;不要迷信屠龙技能&lt;/p&gt;
+&lt;p&gt;ai，xx技术，xx学习。计算机没有屠龙技，就算有也是工具，重要的是基础。以前这些程序员速成培训二次培训，在现在完全无法入行。&lt;/p&gt;
+&lt;p&gt;Q：如果把当前这个业务，然后把这个项目完整地交给自己来重构，能不能做到。如果只是完成任务，那么就只能作为螺丝钉。类似redis这样的中间件，如果交给我，能不能手搓？否则是底层能力的缺失。&lt;/p&gt;
+&lt;p&gt;重要的不是我学了什么，而是我做了什么，否则是学生思维（大嘘）。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;在工作中找到自己擅长的工作&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;学习不是沉重的负担，是伴随一生的重要习惯。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;聊聊中国大学教育&#34;&gt;聊聊中国大学教育
+&lt;/h1&gt;&lt;p&gt;一直以来都是筛选式的教育，好的去好的，不然就被筛选掉。我们所学的内容都是为了考试。但大学的下一个出口，不一定是升学。重点不应该是课程而是解决问题的能力。大学的教授，上课不过是他的&lt;strong&gt;兼职&lt;/strong&gt;，没有人关心自己的学生去哪。&lt;/p&gt;
+&lt;p&gt;老生常谈，计算机专业有着&lt;strong&gt;两极分化&lt;/strong&gt;这一特征。无论学校怎样，哪怕是普通的院校，依然会有人能进大厂。从信息收集的过程，到努力的过程，都是靠&lt;strong&gt;自己&lt;/strong&gt;。随大流不会有好下场，孤独是常态。别的专业或许玩四年毕业依然有工作但计算机不提升自己就是完蛋。&lt;/p&gt;
+&lt;h1 id=&#34;永远不要怀疑你自己&#34;&gt;永远，不要怀疑你自己
+&lt;/h1&gt;</description>
+        </item>
+        <item>
         <title>hugo server -D缺失博文</title>
         <link>https://anarchycuriosity.github.io/p/hugo-server-d%E7%BC%BA%E5%A4%B1%E5%8D%9A%E6%96%87/</link>
         <pubDate>Fri, 06 Feb 2026 00:00:00 +0000</pubDate>
@@ -29,6 +152,23 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;能够看到文章重新出现，不妨把日期稍微向前挪一天。&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>大一上的一些思考</title>
+        <link>https://anarchycuriosity.github.io/p/%E5%A4%A7%E4%B8%80%E4%B8%8A%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/</link>
+        <pubDate>Fri, 06 Feb 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://anarchycuriosity.github.io/p/%E5%A4%A7%E4%B8%80%E4%B8%8A%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/</guid>
+        <description>&lt;h2 id=&#34;前言&#34;&gt;前言
+&lt;/h2&gt;&lt;p&gt;“人教人教不会，事教人一次教懂”，其实我不是很喜欢这个说法，也许是我的主观感受，或者说是我的傲慢吧。但其实我更倾向于描述它为经验传递的偏差。语言和人的经历/感受之间本身就有着难以跨越的鸿沟，更何况人和人的经历、性格、价值观之间也有着很大的不同。经历事件/挫折然后成长，这是必然的事情。如果有人能够很轻松地处理某件事情，这往往不是他人传授的经验引领他，而是他本身的性格和过往经历引领着他跨越过去的。&lt;/p&gt;
+&lt;p&gt;所以我并不后悔因为我的过失而遭遇的那些挫折，好吧老实说还是挺后悔的，但是这是必须经历的事情，我会对此觉得失落是因为我有着一些完美主义情结，我希望把所有事情都做好，但这是不太可能的事情。很多时候我的失落其实不过是太在意世俗的价值观了，也就是所谓的随波逐流，被困在了名为“大学体制”的监狱了。我没能做到大家都觉得应该做好的事情，比如需要拿个好分数，但其实我在自己需要学习和了解的领域还做的挺好的。总体来说，这个学期我过的挺满意的，有一些遗憾，我可以总结然后下次做的更好，所以我会把我的经历记录下来，同时也为了抒发一下我现在的不良情绪。&lt;/p&gt;
+&lt;h2 id=&#34;第一不要让义务拨款给拓展&#34;&gt;第一：不要让义务拨款给拓展
+&lt;/h2&gt;&lt;p&gt;虽然我拿高数课的时间去做了一些有意义的事情，但其实我本应该拿这个时间去巩固这门学科的知识的，这导致我很多知识点拖到后面才复习，练习量严重不足，很狼狈。但其实这是我每天在每节课上花一点点时间去做就能做好的事情，并不需要花很多额外的时间。拿高数课学别的知识确实可以额外进步，但这会让我难以在类似高数这样的课程中做到及格的程度。期末考试虽然很简单，但也不是随便就能通过这么夸张（所谓经验的偏差）。在课程难度提高，想要额外学习的内容很多的情况下，不要随便拿正课的时间去给拓展学习拨款是需要被牢记的。&lt;/p&gt;
+&lt;h2 id=&#34;第二lets-get-it-beginning&#34;&gt;第二：let‘s get it beginning
+&lt;/h2&gt;&lt;p&gt;虽然我大概不会去参加rm了，而且rm算法组考核受挫和大纲背刺我有很大关系。但是我确实没有踏踏实实地完成rm预备役的学习任务，包括后面的英语四级考试和高数学习也是。其实在我开始学习算法开始，我就学到了其实只要我坐在桌子前面然后推自己一把来开始，一切都会水到渠成的。如果难以开始，其实很有可能是难度不太合适。算法题一开始的时候看题解和高数跟着kira老师写习题我觉得难度都很合适，找到好的难度来着手可以让一切都很顺利。&lt;/p&gt;
+&lt;h2 id=&#34;第三不要让知识溜走了&#34;&gt;第三：不要让知识溜走了
+&lt;/h2&gt;&lt;p&gt;一定一定要让自己的知识输出，无论是写博客或者随便写点什么容易的东西，当你上手了之后，你才能熟练才能幸福。“只看不练假把式”就是这样。当时看了好久git教程观望了好久，觉得是很难的东西，但其实自己随便建一个repo然后做点实验，仅仅是建了一个叫1.txt然后往里面写个1然后回退，一切都会变得很熟悉很简单。&lt;/p&gt;
 </description>
         </item>
         <item>
