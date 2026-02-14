@@ -3,18 +3,33 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://anarchycuriosity.github.io/</loc>
-    <lastmod>2026-02-11T00:00:00+00:00</lastmod>
+    <lastmod>2026-02-12T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://anarchycuriosity.github.io/categories/</loc>
-    <lastmod>2026-02-11T00:00:00+00:00</lastmod>
+    <lastmod>2026-02-12T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/categories/cpp/</loc>
+    <lastmod>2026-02-12T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://anarchycuriosity.github.io/post/</loc>
-    <lastmod>2026-02-11T00:00:00+00:00</lastmod>
+    <lastmod>2026-02-12T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://anarchycuriosity.github.io/p/%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F%E4%B8%8E%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F/</loc>
-    <lastmod>2026-02-11T00:00:00+00:00</lastmod>
+    <loc>https://anarchycuriosity.github.io/tags/</loc>
+    <lastmod>2026-02-12T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/p/%E9%80%92%E5%BD%92%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E8%8A%82%E7%82%B9/</loc>
+    <lastmod>2026-02-12T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/p/%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F/%E6%BA%A2%E5%87%BA%E4%B8%8E%E6%8C%87%E9%92%88%E7%BD%AE%E7%A9%BA/</loc>
+    <lastmod>2026-02-12T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://anarchycuriosity.github.io/categories/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%83/</loc>
+    <lastmod>2026-02-12T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/tags/%E6%8C%87%E9%92%88/</loc>
+    <lastmod>2026-02-12T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/p/%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F%E4%B8%8E%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F/</loc>
     <lastmod>2026-02-11T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://anarchycuriosity.github.io/p/%E8%AE%B0%E5%BD%95%E4%B8%80%E4%BA%9B%E6%B7%B1%E5%88%BB%E7%9A%84%E6%95%99%E8%AE%AD/</loc>
@@ -30,9 +45,6 @@
     <lastmod>2026-02-06T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://anarchycuriosity.github.io/p/hugo-server-d%E7%BC%BA%E5%A4%B1%E5%8D%9A%E6%96%87/</loc>
-    <lastmod>2026-02-06T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://anarchycuriosity.github.io/tags/</loc>
     <lastmod>2026-02-06T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://anarchycuriosity.github.io/categories/%E5%8D%9A%E5%AE%A2%E9%85%8D%E7%BD%AE/</loc>
