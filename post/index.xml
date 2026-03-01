@@ -7,19 +7,32 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Curiosity Anarchy</copyright>
-        <lastBuildDate>Mon, 16 Feb 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/post/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>除夕一些很丧的流水账和思考</title>
-        <link>https://anarchycuriosity.github.io/p/%E9%99%A4%E5%A4%95%E4%B8%80%E4%BA%9B%E5%BE%88%E4%B8%A7%E7%9A%84%E6%B5%81%E6%B0%B4%E8%B4%A6%E5%92%8C%E6%80%9D%E8%80%83/</link>
-        <pubDate>Mon, 16 Feb 2026 00:00:00 +0000</pubDate>
+        <lastBuildDate>Sat, 28 Feb 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>mingw无法调试和编译cpp，无法运行二进制文件</title>
+        <link>https://anarchycuriosity.github.io/p/mingw%E6%97%A0%E6%B3%95%E8%B0%83%E8%AF%95%E5%92%8C%E7%BC%96%E8%AF%91cpp%E6%97%A0%E6%B3%95%E8%BF%90%E8%A1%8C%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%96%87%E4%BB%B6/</link>
+        <pubDate>Sat, 28 Feb 2026 00:00:00 +0000</pubDate>
         
-        <guid>https://anarchycuriosity.github.io/p/%E9%99%A4%E5%A4%95%E4%B8%80%E4%BA%9B%E5%BE%88%E4%B8%A7%E7%9A%84%E6%B5%81%E6%B0%B4%E8%B4%A6%E5%92%8C%E6%80%9D%E8%80%83/</guid>
-        <description>&lt;p&gt;昨晚又通宵了，但是还算有点精神。凌晨精神很倦，什么都不想干但是又睡不着，其实只是当时我在找理由不干活，所以我又荒度了一个无所事事的夜晚。到了上午我总算有点动力去写写算法题了，但总结起来，其实这段时间都是三天打鱼两天晒网，有一搭没一搭地写着，效率很低。“我应该把每一天当作最后一天去度过”，我如此反省。&lt;/p&gt;
-&lt;p&gt;我需要去买菜，但是跑了好几趟因为老妈的遗漏，发了条无所谓的说说。路上我和同学聊到新出的动画，想听听感想，得知他最近很忙其实并没有看。“又在忙着开发什么东西（笑）”，“没有，需要照顾家人，我爸偏瘫了”。我寒假偶尔给我的外公担任护理，但因为专注屏幕常常忘记提醒护士拔针。当时我觉得一切都很寻常，直到我看到他那瘦削的苍老的脸，直到我得知真实的病情。客观上来说，我和外公的交情并不深，所以我大概并不会很在乎吧。但我忧郁的心情开始滋生。&lt;/p&gt;
-&lt;p&gt;晚上我在厨房打杂了一下。我的奶奶是一个很慈祥的老人，她从小养育了我，我很敬爱她。但如果要我撇去这一因素去评价她个人的话，她可能是思想比较守旧的有些卑微的人。晚餐之后，奶奶小声的嘟囔“升学宴之后不回家过年实在是不符合规矩”，也去和我的母亲说了。但是在此之前，我妈已经问过她要不要回老家，要就开车送她和姐姐回去，得到的回复是否定的，也许她明白我妈只是送她过去罢了。她知道我们不想回老家过年。我看不明白事情的全貌，但我能感知到这个事件中的很多痛苦和不安。“你的儿子明天就回岑溪了，你打电话让他送你回去”。电话那头，当听到要回老家的时候，男人的声音很不安和烦躁，转移话题，不耐烦，草草切断了电话。“你的儿子自己都不想回去过年！自从他和我结婚那年开始，毕业工作开始，2001年”。我的父亲是痛苦的不幸的，但这是他咎由自取，因为他是个混蛋。尽管这样说，依然不能停止让我感到忧郁。奶奶中途改主意想回老家，和日程冲突了，她也许会感到不开心吧。我开始很奇怪的思考，这一切有意义吗。我的家庭有意义吗？我很感激他们的付出，哪怕相处期间有无数的情感冲突，所以我觉得这种问法很奇怪。我的无理取闹的反锁房门的妹妹有意义吗？我母亲哀求亲人平安养儿防老有意义吗？我父亲的哭泣有意义吗？我周遭的一切有意义吗？这一切的想法都没有来由，很奇怪。在事发的当时，我并不会有这样具体的想法，有的只是混沌的情绪。&lt;/p&gt;
-&lt;p&gt;吃完晚餐，我洗了碗，我妹在玩手机，我妈在孤单地看着春晚。她会觉得很有意思吗？也许我小的时候我喜欢看，所以她跟着看，会觉得很有意思吧，那时候应该大家都是很幸福的。幸福去哪里了呢？明明一切都一样，甚至还更好了。午餐做的很好吃，年夜饭做的很好吃，但是她们都吃的很少。也许我应该陪我妈去看春晚，但我觉得演的真的很没意思。她也许也不知道开心在哪里，幸福在哪里，她只是在完成社会赋予她的责任。我不可能知道她喜欢做什么，我不能去干涉别人。我于是开始玩re1，看到我的三位同学在玩城堡破坏者，这是我小学时和同学通关过一次的，我很激动地购买了，然后尝试加入，但折腾了一个多小时也没能顺利游玩，我们玩联机游戏的前戏总是很无语地漫长。后面只能去玩胡闹厨房，我一直在笑，玩的很开心。但这有意义吗？fn说要去放烟花，他说那个烟花比他还要大。他打开了视频通话，信号差画质差天色还很黑，什么的都看不到。通话里面加入了很多同学，但我好像完全融入不进去，明明我是可以打趣几句的，但是此时我心里已经被忧郁占领了。跨年的那一刻，我妈没有很激动的大喊新年啦！但是我记得去年的时候我爸这么大声地喊了，当时他应该已经疯了。&lt;/p&gt;
-&lt;p&gt;我只能看着，看着那些所有的不幸和悲哀。我看着烟花炸开然后落幕，我看着一年又过去了。这一切真的有意义吗？&lt;/p&gt;
-&lt;p&gt;为什么好像很多人都不开心？我希望大家都开心。虽然我自己也没有什么开心的刺激点。我会感到由衷的开心的时候大概是，我由好奇心驱动去学习我喜欢的知识的时候，玩生化危机的时候，看动画的时候。&lt;/p&gt;
-&lt;p&gt;我好像什么都做不好，我总是被莫名其妙的想法所困。我不想这样，18岁之后，我希望我是一个新的自己。以前的我已经死了。就算我不这么做，他也会自己死掉的，时间会杀死他。没有什么能困住我了，我是自由的。&lt;/p&gt;
+        <guid>https://anarchycuriosity.github.io/p/mingw%E6%97%A0%E6%B3%95%E8%B0%83%E8%AF%95%E5%92%8C%E7%BC%96%E8%AF%91cpp%E6%97%A0%E6%B3%95%E8%BF%90%E8%A1%8C%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%96%87%E4%BB%B6/</guid>
+        <description>&lt;p&gt;起因是本人在二号机部署环境的时候发现明明配置好了环境变量但依然无法编译，二号机以前从来没有做过开发，只是玩游戏用。于是开始排查，发现既不是cpp的插件问题，也不是Windows自身安全中心的问题，报错也没有，使用run插件也无法编译。&lt;/p&gt;
+&lt;p&gt;试过离开集成终端使用g++命令去编译，也不成功。gcc &amp;ndash;version命令也正常显示。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://anarchycuriosity.github.io/p/mingw%E6%97%A0%E6%B3%95%E8%B0%83%E8%AF%95%E5%92%8C%E7%BC%96%E8%AF%91cpp%E6%97%A0%E6%B3%95%E8%BF%90%E8%A1%8C%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%96%87%E4%BB%B6/wrong.png&#34;
+	width=&#34;1819&#34;
+	height=&#34;1145&#34;
+	srcset=&#34;https://anarchycuriosity.github.io/p/mingw%E6%97%A0%E6%B3%95%E8%B0%83%E8%AF%95%E5%92%8C%E7%BC%96%E8%AF%91cpp%E6%97%A0%E6%B3%95%E8%BF%90%E8%A1%8C%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%96%87%E4%BB%B6/wrong_hu_e05b6a0acabec880.png 480w, https://anarchycuriosity.github.io/p/mingw%E6%97%A0%E6%B3%95%E8%B0%83%E8%AF%95%E5%92%8C%E7%BC%96%E8%AF%91cpp%E6%97%A0%E6%B3%95%E8%BF%90%E8%A1%8C%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%96%87%E4%BB%B6/wrong_hu_e60d3f34cfad4c84.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;报错如下&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;158&#34;
+		data-flex-basis=&#34;381px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;生成已完成但出现错误&lt;/p&gt;
+&lt;p&gt;最终排查出是因为账户是中文名的原因，软件可能因此闹脾气。&lt;/p&gt;
+&lt;p&gt;按照教程修改用户名即可&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;[%e4%bf%ae%e6%94%b9Windows%e7%94%a8%e6%88%b7%e9%87%8c%e7%9a%84%e4%b8%ad%e6%96%87%e6%96%87%e4%bb%b6%e5%a4%b9_%e5%93%94%e5%93%a9%e5%93%94%e5%93%a9_bilibili]%28https://www.bilibili.com/video/BV17L411j7qq/?p=1%29&#34; &gt;&lt;/a&gt;&lt;/p&gt;
 </description>
         </item>
         <item>
@@ -978,207 +991,6 @@
 &lt;/div&gt;&lt;p&gt;vals代表钱包,mod代表取模.&lt;/p&gt;
 &lt;p&gt;如果要如果要将val[i]作为最后一张钞票塞入dp[j]盒子,它的前一个盒子需要j - vals[j - vals[i]]的金额,也就是累加上前一个盒子的方案总数,最终可以知道dp[w],也就是凑出w的方案数的组合数.&lt;/p&gt;
 </description>
-        </item>
-        <item>
-        <title>纸币问题求目标金额最少纸币数和方案排序数</title>
-        <link>https://anarchycuriosity.github.io/p/%E7%BA%B8%E5%B8%81%E9%97%AE%E9%A2%98%E6%B1%82%E7%9B%AE%E6%A0%87%E9%87%91%E9%A2%9D%E6%9C%80%E5%B0%91%E7%BA%B8%E5%B8%81%E6%95%B0%E5%92%8C%E6%96%B9%E6%A1%88%E6%8E%92%E5%BA%8F%E6%95%B0/</link>
-        <pubDate>Thu, 05 Feb 2026 00:00:00 +0000</pubDate>
-        
-        <guid>https://anarchycuriosity.github.io/p/%E7%BA%B8%E5%B8%81%E9%97%AE%E9%A2%98%E6%B1%82%E7%9B%AE%E6%A0%87%E9%87%91%E9%A2%9D%E6%9C%80%E5%B0%91%E7%BA%B8%E5%B8%81%E6%95%B0%E5%92%8C%E6%96%B9%E6%A1%88%E6%8E%92%E5%BA%8F%E6%95%B0/</guid>
-        <description>&lt;h1 id=&#34;题目链接&#34;&gt;题目链接
-&lt;/h1&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.luogu.com.cn/problem/P2842&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;最少纸币&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.luogu.com.cn/problem/P2840&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;方案排序数&lt;/a&gt;&lt;/p&gt;
-&lt;h1 id=&#34;p2842-纸币问题-12&#34;&gt;P2842 纸币问题 1&amp;amp;2
-&lt;/h1&gt;&lt;h2 id=&#34;题目描述&#34;&gt;题目描述
-&lt;/h2&gt;&lt;p&gt;某国有 $n$ 种纸币，每种纸币面额为 $a_i$ 并且有无限张，现在要凑出 $w$ 的金额，试问最少用多少张纸币可以凑出来？（保证可以凑出对应金额）&lt;/p&gt;
-&lt;h2 id=&#34;输入格式&#34;&gt;输入格式
-&lt;/h2&gt;&lt;p&gt;第一行两个整数 $n,w$，分别表示纸币的种数和要凑出的金额。&lt;br&gt;
-第二行一行 $n$ 个以空格隔开的整数 $a_1, a_2, a_3, \dots a_n$ 依次表示这 $n$ 种纸币的面额。&lt;/p&gt;
-&lt;h2 id=&#34;输出格式&#34;&gt;输出格式
-&lt;/h2&gt;&lt;p&gt;一行一个整数，表示最少使用的纸币张数。&lt;/p&gt;
-&lt;h2 id=&#34;输入输出样例-1&#34;&gt;输入输出样例 #1
-&lt;/h2&gt;&lt;h3 id=&#34;输入-1&#34;&gt;输入 #1
-&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;6 15
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;1 5 10 20 50 100
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;h3 id=&#34;输出-1&#34;&gt;输出 #1
-&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;2
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;h2 id=&#34;输入输出样例-2&#34;&gt;输入输出样例 #2
-&lt;/h2&gt;&lt;h3 id=&#34;输入-2&#34;&gt;输入 #2
-&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;3 15
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;1 5 11
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;h3 id=&#34;输出-2&#34;&gt;输出 #2
-&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;3
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;h2 id=&#34;说明提示&#34;&gt;说明/提示
-&lt;/h2&gt;&lt;p&gt;对于 $40%$ 的数据，满足 $n\le 10$，$w\le 100$；&lt;br&gt;
-对于 $100%$ 的数据，满足 $1\le n\le 10^3$，$1\le a_i , w\le 10^4$。&lt;/p&gt;
-&lt;h2 id=&#34;最少纸币数的解决&#34;&gt;最少纸币数的解决
-&lt;/h2&gt;&lt;h3 id=&#34;思路&#34;&gt;思路
-&lt;/h3&gt;&lt;p&gt;dp数组除了下标0统一初始化为一个很大的数，dp[0]初始化为0,因为0元需要0张纸币这样当有更小的数的可能性的时候，就可以更新纸币数。
-外层是纸币，内层是金额。
-如果把dp[j]盒子中价值vals[i]的部分替换为一张价值为vals[i]的纸币,也就是让dp[j]变成dp[j - vals[i]]+1,如果这样可以让dp[j]变得更小,也就是纸币数更少,那么就替换掉.&lt;/p&gt;
-&lt;h3 id=&#34;源码展示&#34;&gt;源码展示
-&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c++&#34; data-lang=&#34;c++&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;vector&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dp&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;w&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mf&#34;&gt;1e9&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;dp&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;++&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;vals&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;];&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;w&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;dp&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;j&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;vals&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dp&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;])&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                &lt;span class=&#34;n&#34;&gt;dp&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dp&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;j&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;vals&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;h1 id=&#34;p2840-纸币问题-2&#34;&gt;P2840 纸币问题 2
-&lt;/h1&gt;&lt;h2 id=&#34;题目背景&#34;&gt;题目背景
-&lt;/h2&gt;&lt;p&gt;你是一个非常有钱的小朋友。&lt;/p&gt;
-&lt;h2 id=&#34;题目描述-1&#34;&gt;题目描述
-&lt;/h2&gt;&lt;p&gt;你有 $n$ 种面额互不相同的纸币，第 $i$ 种纸币的面额为 $a_i$ 并且有无限张，现在你需要支付 $w$ 的金额，求问有多少种方式可以支付面额 $w$，答案对 $10^9+7$ 取模。&lt;br&gt;
-注意在这里，同样的纸币组合如果支付顺序不同，会被视作不同的方式。例如支付 $3$ 元，使用一张面值 $1$ 的纸币和一张面值 $2$ 的纸币会产生两种方式（$1+2$ 和 $2+1$）。&lt;/p&gt;
-&lt;h2 id=&#34;输入格式-1&#34;&gt;输入格式
-&lt;/h2&gt;&lt;p&gt;第一行两个正整数 $n,w$，分别表示纸币的种数和要凑出的金额。&lt;br&gt;
-第二行一行 $n$ 个以空格隔开的正整数 $a_1, a_2, \dots a_n $ 依次表示这 $n$ 种纸币的面额。&lt;/p&gt;
-&lt;h2 id=&#34;输出格式-1&#34;&gt;输出格式
-&lt;/h2&gt;&lt;p&gt;一行一个整数，表示支付方式的数量。&lt;/p&gt;
-&lt;h2 id=&#34;输入输出样例-1-1&#34;&gt;输入输出样例 #1
-&lt;/h2&gt;&lt;h3 id=&#34;输入-1-1&#34;&gt;输入 #1
-&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;6 15
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;1 5 10 20 50 100
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;h3 id=&#34;输出-1-1&#34;&gt;输出 #1
-&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;42
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;h2 id=&#34;输入输出样例-2-1&#34;&gt;输入输出样例 #2
-&lt;/h2&gt;&lt;h3 id=&#34;输入-2-1&#34;&gt;输入 #2
-&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;3 15
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;1 5 11
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;h3 id=&#34;输出-2-1&#34;&gt;输出 #2
-&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;39
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;h2 id=&#34;说明提示-1&#34;&gt;说明/提示
-&lt;/h2&gt;&lt;p&gt;对于 $40%$ 的数据，满足 $n\le 10$，$w\le 100$；&lt;br&gt;
-对于 $100%$ 的数据，满足 $1\le n\le 10^3$，$1\le a_i , w\le 10^4$。&lt;/p&gt;
-&lt;p&gt;其实小朋友并没有那么多钱。&lt;/p&gt;
-&lt;h2 id=&#34;排序数的解决&#34;&gt;排序数的解决
-&lt;/h2&gt;&lt;h3 id=&#34;思路-1&#34;&gt;思路
-&lt;/h3&gt;&lt;p&gt;此时dp盒子中的内容不是纸币数而是方案数.个人认为dp盒子初始化为什么内容取决于要求什么,比如上文要求最小值那么就需要初始化为大数然后替换得到小数,如果是求方案数那么就需要从0开始积累.&lt;/p&gt;
-&lt;p&gt;所以dp盒子除了0初始化为1,其他都初始化为0.(凑出0元有1种方案)&lt;/p&gt;
-&lt;p&gt;由于是排序数,所以你可以塞入很多张一样的纸币.对于循环,外层是金额,内层是纸币.如果当前i大于vals[j]那么就可以用vals[j]来凑,让vals[j]作为最后一张纸币塞入盒子,然后和前面i减去vals[j]对应的盒子的方案累加.&lt;/p&gt;
-&lt;h3 id=&#34;源码展示-1&#34;&gt;源码展示
-&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c++&#34; data-lang=&#34;c++&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;vector&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dp&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;w&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;mod&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mf&#34;&gt;1e9&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;7&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;dp&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;w&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;vals&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;])&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                &lt;span class=&#34;n&#34;&gt;dp&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;dp&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dp&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;vals&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]])&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;%&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;mod&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                &lt;span class=&#34;c1&#34;&gt;// 如果我们要放入这个val，那么就需要提前凑i - val元，所以需要累加i - val的dp
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;</description>
         </item>
         <item>
         <title>使用不蒜子组件实现浏览数统计</title>
