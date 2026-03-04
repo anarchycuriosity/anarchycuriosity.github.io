@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="核心思想与区别 冒泡和选择两种排序的本质就是使用两轮for循环，利用第二层for循环更新第一层的值。与其说是更新，不如说是交换，最重要的是知道交换的两个元素的下标，不需要知道具体值。\n">
-<title>冒泡排序与选择排序</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="题目 给你两个字符串 haystack 和 needle ，请你在 haystack 字符串中找出 needle 字符串的第一个匹配项的下标（下标从 0 开始）。如果 needle 不是 haystack 的一部分，则返回 -1 。\nhaystack: aaabaaabaaaf\nneedle: aaabaaaf\n返回4\n思考 // KMP的经典思想就是:当出现字符串不匹配时，可以记录一部分之前已经匹配的文本内容，利用这些信息避免从头再去做匹配。\n">
+<title>KMP 最大公共前后缀</title>
 
-<link rel='canonical' href='https://anarchycuriosity.github.io/p/%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F%E4%B8%8E%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F/'>
+<link rel='canonical' href='https://anarchycuriosity.github.io/p/kmp-%E6%9C%80%E5%A4%A7%E5%85%AC%E5%85%B1%E5%89%8D%E5%90%8E%E7%BC%80/'>
 
-<link rel="stylesheet" href="/scss/style.min.4e224c151dceae226786e700189bea41076d329d4710ba01aa6ac91c5a997d22.css"><meta property='og:title' content="冒泡排序与选择排序">
-<meta property='og:description' content="核心思想与区别 冒泡和选择两种排序的本质就是使用两轮for循环，利用第二层for循环更新第一层的值。与其说是更新，不如说是交换，最重要的是知道交换的两个元素的下标，不需要知道具体值。\n">
-<meta property='og:url' content='https://anarchycuriosity.github.io/p/%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F%E4%B8%8E%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F/'>
+<link rel="stylesheet" href="/scss/style.min.4e224c151dceae226786e700189bea41076d329d4710ba01aa6ac91c5a997d22.css"><meta property='og:title' content="KMP 最大公共前后缀">
+<meta property='og:description' content="题目 给你两个字符串 haystack 和 needle ，请你在 haystack 字符串中找出 needle 字符串的第一个匹配项的下标（下标从 0 开始）。如果 needle 不是 haystack 的一部分，则返回 -1 。\nhaystack: aaabaaabaaaf\nneedle: aaabaaaf\n返回4\n思考 // KMP的经典思想就是:当出现字符串不匹配时，可以记录一部分之前已经匹配的文本内容，利用这些信息避免从头再去做匹配。\n">
+<meta property='og:url' content='https://anarchycuriosity.github.io/p/kmp-%E6%9C%80%E5%A4%A7%E5%85%AC%E5%85%B1%E5%89%8D%E5%90%8E%E7%BC%80/'>
 <meta property='og:site_name' content='Curiosity Anarchy'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2026-02-11T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-02-11T00:00:00&#43;00:00'/>
-<meta name="twitter:title" content="冒泡排序与选择排序">
-<meta name="twitter:description" content="核心思想与区别 冒泡和选择两种排序的本质就是使用两轮for循环，利用第二层for循环更新第一层的值。与其说是更新，不如说是交换，最重要的是知道交换的两个元素的下标，不需要知道具体值。\n">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='KMP' /><meta property='article:published_time' content='2026-03-04T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-03-04T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="KMP 最大公共前后缀">
+<meta name="twitter:description" content="题目 给你两个字符串 haystack 和 needle ，请你在 haystack 字符串中找出 needle 字符串的第一个匹配项的下标（下标从 0 开始）。如果 needle 不是 haystack 的一部分，则返回 -1 。\nhaystack: aaabaaabaaaf\nneedle: aaabaaaf\n返回4\n思考 // KMP的经典思想就是:当出现字符串不匹配时，可以记录一部分之前已经匹配的文本内容，利用这些信息避免从头再去做匹配。\n">
     <link rel="shortcut icon" href="/favicon.ico" />
 
     </head>
@@ -245,8 +245,9 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#核心思想与区别">核心思想与区别</a></li>
-    <li><a href="#冒泡排序源码与注意事项">冒泡排序源码与注意事项</a></li>
+    <li><a href="#题目">题目</a></li>
+    <li><a href="#思考">思考</a></li>
+    <li><a href="#源码">源码</a></li>
   </ol>
 </nav>
         </div>
@@ -278,7 +279,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F%E4%B8%8E%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F/">冒泡排序与选择排序</a>
+            <a href="/p/kmp-%E6%9C%80%E5%A4%A7%E5%85%AC%E5%85%B1%E5%89%8D%E5%90%8E%E7%BC%80/">KMP 最大公共前后缀</a>
         </h2>
     
         
@@ -300,7 +301,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">2026-02-11</time>
+                <time class="article-time--published">2026-03-04</time>
             </div>
         
 
@@ -315,7 +316,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 2 分钟
+                    阅读时长: 3 分钟
                 </time>
             </div>
         
@@ -338,15 +339,55 @@
     <section class="article-content">
     
     
-    <h2 id="核心思想与区别">核心思想与区别
-</h2><p>冒泡和选择两种排序的本质就是使用两轮for循环，利用第二层for循环更新第一层的值。与其说是更新，不如说是<strong>交换</strong>，最重要的是知道交换的两个元素的下标，不需要知道具体值。</p>
-<p>区别是，冒泡排序需要在第二层for循环比较相邻的元素，swap这一动作会发生很多次。但是它不需要知道swap的具体索引（反正就是相邻满足条件就交换）</p>
-<p>而选择排序只会在第一层for循环进行swap。但是它需要在第二层实时更新交换的索引。</p>
-<h2 id="冒泡排序源码与注意事项">冒泡排序源码与注意事项
-</h2><ul>
-<li>注意内层循环可能会越界</li>
-<li>注意交换后的顺序是顺序还是倒叙</li>
-</ul>
+    <h2 id="题目">题目
+</h2><p>给你两个字符串 <code>haystack</code> 和 <code>needle</code> ，请你在 <code>haystack</code> 字符串中找出 <code>needle</code> 字符串的第一个匹配项的下标（下标从 0 开始）。如果 <code>needle</code> 不是 <code>haystack</code> 的一部分，则返回 <code>-1</code> 。</p>
+<p>haystack: <code>aaabaaabaaaf</code></p>
+<p>needle: <code>aaabaaaf</code></p>
+<p>返回4</p>
+<h2 id="思考">思考
+</h2><p>// KMP的经典思想就是:当出现字符串不匹配时，可以记录一部分之前已经匹配的文本内容，利用这些信息避免从头再去做匹配。</p>
+<p>// 利用已知信息规避重复劳动，失败并不是没用了，而是一种信息采集</p>
+<p>// 前缀是指不包含最后一个字符的所有以第一个字符开头的连续子串；后缀是指不包含第一个字符的所有以最后一个字符结尾的连续子串。</p>
+<p>特别易错的是，拿aaabaaaf下标为6的这个模式串来解释</p>
+<p>比如aaabaaa，最后一个的next数组元素并不是6而是3，取完来看，前缀是aaabaa，后缀是aabaaa，比较需要从左向右看</p>
+<p>而不是前缀从左向右，后缀从右向左</p>
+<p>若字符串是aaabaaab，当到第二个b的时候，回过头看看next数组的屁股，发现公共前后缀是3，也就是说我没必要回到头</p>
+<p>而是可以直接去比较索引为3的模式串。</p>
+<p><strong>只要和回文区分即可，只要和回文区分即可，只要和回文区分即可</strong></p>
+<p>仔细观察会发现,答案的两个函数,虽然getNext是被使用的而嵌套在里面,但二者非常相似.这是因为他们是底层原理很相似,都是遇到问题然后返回去查攻略.getNext是如果遇到不同的,就进入循环让j退化到上一个.j在这里不但充当了索引,也和元素相关</p>
+<p>模板串与next</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">abcabca</span>   	<span class="n">abcabcc</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="mo">0001230</span>  	<span class="mo">0001232</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>我们来看上面的两个例子,在i不断往下走的时候,并不是什么都没有留下,next数组屁股那里的元素其实就是一面镜子映射着前缀,它继承了下来.ij是快慢指针,如果出现了像e这样的异类,while循环会让j直接坠入谷底变成0,但如果是a-c,就可以不同程度可以接住继承向下走.</p>
+<p>getNext和strStr的区别在于,前者用一个模板串自己比较自己,是一个数组的快慢指针,而后者用两个数组的快慢指针.</p>
+<p>模板串		字符串</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">abcabcc</span>   	   <span class="n">abcabcabcabcc</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="mo">0001232</span>		         <span class="n">I</span><span class="p">(</span><span class="err">在这里</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>next数组的元素主要是起到当出现意外(字母不相同)的时候去<strong>补救</strong>,<strong>并不会一直有用</strong></p>
+<p>在字符串遇到第3个a,对应next的第三个c的时候,出现意外,它回头望一眼next数组的上一个也就是j-1位置,元素是3,再去查模板串,发现是a,一样了顺利救回来,j还不至于坠落太深只到了3.字符串再走到下一个a也即是第4个a的时候,再次发生事故,也是同样的方式救回来并在i再遍历3个元素之后结束.</p>
+<p>因为字符串不断遍历的过程,他的后缀和模板串的前缀是一直有联系和比对的,这就是KMP.</p>
+<h2 id="源码">源码
+</h2><p>本来想写一下思路的,但我想看了源码大概就明白了.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -371,82 +412,100 @@
 </span><span class="lnt">20
 </span><span class="lnt">21
 </span><span class="lnt">22
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">bub</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">nums</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="c1">// 这里应该是-1
-</span></span></span><span class="line"><span class="cl">        <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">nums</span><span class="p">[</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span><span class="c1">//这里决定顺序
-</span></span></span><span class="line"><span class="cl">            <span class="p">{</span>
-</span></span><span class="line"><span class="cl">                <span class="c1">// 这里有越界的风险
-</span></span></span><span class="line"><span class="cl">                <span class="c1">// std::swap(nums[j], nums[j + 1]);
-</span></span></span><span class="line"><span class="cl">                <span class="n">std</span><span class="o">::</span><span class="n">swap</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">nums</span><span class="p">[</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]);</span>
-</span></span><span class="line"><span class="cl">            <span class="p">}</span>
-</span></span><span class="line"><span class="cl">        <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="c1">//如果需要改变顺序就多用一个tmp
-</span></span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">tmp</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">--</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="n">tmp</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">tmp</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
 </span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">sel</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">nums</span><span class="p">)</span>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Solution</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="n">getNext</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">next</span><span class="p">,</span> <span class="k">const</span> <span class="n">string</span> <span class="o">&amp;</span><span class="n">s</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="c1">// int min = 1e9;
-</span></span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">min_ind</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 主要包含两个操作，回退和判断是否相等，如果相等就赋值
+</span></span></span><span class="line"><span class="cl">        <span class="c1">// 回退操作和判断可以调换顺序，回退操作其实也包含了相等的判断，只是需要while语句所以分离。二者是互斥的
+</span></span></span><span class="line"><span class="cl">        <span class="c1">// 但是我们需要养成一个先排除干扰再确定成果的习惯
+</span></span></span><span class="line"><span class="cl">        <span class="c1">// string不包含休止符sizeof(char [])常量会包含结束符
+</span></span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">next</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">        <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="c1">// 需要交换而不是覆盖
-</span></span></span><span class="line"><span class="cl">            <span class="c1">// 值并不重要重要的是记录下标
-</span></span></span><span class="line"><span class="cl">            <span class="c1">// min = (nums[j] &lt; min) ? nums[j] : min;
-</span></span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">nums</span><span class="p">[</span><span class="n">min_ind</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// 回退操作
+</span></span></span><span class="line"><span class="cl">            <span class="k">while</span> <span class="p">(</span><span class="n">j</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="n">s</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
 </span></span><span class="line"><span class="cl">            <span class="p">{</span>
-</span></span><span class="line"><span class="cl">                <span class="n">min_ind</span> <span class="o">=</span> <span class="n">j</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="n">j</span> <span class="o">=</span> <span class="n">next</span><span class="p">[</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">s</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">j</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="n">next</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">j</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="nf">strStr</span><span class="p">(</span><span class="n">string</span> <span class="n">haystack</span><span class="p">,</span> <span class="n">string</span> <span class="n">needle</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// if (needle == &#34; &#34;)
+</span></span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">needle</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="o">*</span><span class="n">next</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">[</span><span class="n">needle</span><span class="p">.</span><span class="n">size</span><span class="p">()];</span>
+</span></span><span class="line"><span class="cl">        <span class="n">getNext</span><span class="p">(</span><span class="n">next</span><span class="p">,</span> <span class="n">needle</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">haystack</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="k">while</span> <span class="p">(</span><span class="n">j</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">haystack</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="n">needle</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">j</span> <span class="o">=</span> <span class="n">next</span><span class="p">[</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="n">haystack</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">needle</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">j</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="n">j</span> <span class="o">==</span> <span class="n">needle</span><span class="p">.</span><span class="n">size</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="n">needle</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">            <span class="p">}</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
-</span></span><span class="line"><span class="cl">        <span class="c1">// nums[i] = min;
-</span></span></span><span class="line"><span class="cl">        <span class="c1">// 每一轮结尾就进行交换
-</span></span></span><span class="line"><span class="cl">        <span class="n">std</span><span class="o">::</span><span class="n">swap</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">min_ind</span><span class="p">],</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="c1">// 曾经忘记写返回值
-</span></span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">nums</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div>
@@ -455,6 +514,12 @@
 
     <footer class="article-footer">
     
+    <section class="article-tags">
+        
+            <a href="/tags/kmp/">KMP</a>
+        
+    </section>
+
 
     
     <section class="article-copyright">
@@ -485,19 +550,6 @@
             
                 
 <article class="">
-    <a href="/p/kmp-%E6%9C%80%E5%A4%A7%E5%85%AC%E5%85%B1%E5%89%8D%E5%90%8E%E7%BC%80/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">KMP 最大公共前后缀</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
     <a href="/p/%E8%BE%97%E8%BD%AC%E6%B1%82%E5%85%AC%E5%9B%A0%E6%95%B0--%E7%A5%9E%E5%A5%87%E7%9A%84%E4%BD%99%E6%95%B0/">
         
         
@@ -517,6 +569,19 @@
 
         <div class="article-details">
             <h2 class="article-title">递归删除链表节点</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F%E4%B8%8E%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">冒泡排序与选择排序</h2>
         </div>
     </a>
 </article>
