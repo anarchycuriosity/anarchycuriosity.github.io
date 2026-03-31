@@ -7,7 +7,19 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Curiosity Anarchy</copyright>
-        <lastBuildDate>Thu, 19 Mar 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/categories/%E7%8E%AF%E5%A2%83%E9%97%AE%E9%A2%98/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 31 Mar 2026 14:32:24 +0800</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/categories/%E7%8E%AF%E5%A2%83%E9%97%AE%E9%A2%98/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>设置vsc内嵌提示和解决工作区多仓库git可视化界面追踪失效问题</title>
+        <link>https://anarchycuriosity.github.io/p/%E8%AE%BE%E7%BD%AEvsc%E5%86%85%E5%B5%8C%E6%8F%90%E7%A4%BA%E5%92%8C%E8%A7%A3%E5%86%B3%E5%B7%A5%E4%BD%9C%E5%8C%BA%E5%A4%9A%E4%BB%93%E5%BA%93git%E5%8F%AF%E8%A7%86%E5%8C%96%E7%95%8C%E9%9D%A2%E8%BF%BD%E8%B8%AA%E5%A4%B1%E6%95%88%E9%97%AE%E9%A2%98/</link>
+        <pubDate>Tue, 31 Mar 2026 14:32:24 +0800</pubDate>
+        
+        <guid>https://anarchycuriosity.github.io/p/%E8%AE%BE%E7%BD%AEvsc%E5%86%85%E5%B5%8C%E6%8F%90%E7%A4%BA%E5%92%8C%E8%A7%A3%E5%86%B3%E5%B7%A5%E4%BD%9C%E5%8C%BA%E5%A4%9A%E4%BB%93%E5%BA%93git%E5%8F%AF%E8%A7%86%E5%8C%96%E7%95%8C%E9%9D%A2%E8%BF%BD%E8%B8%AA%E5%A4%B1%E6%95%88%E9%97%AE%E9%A2%98/</guid>
+        <description>&lt;h2 id=&#34;1-内嵌提示设置&#34;&gt;1 内嵌提示设置
+&lt;/h2&gt;&lt;p&gt;ctrl + shift + p,搜索 open user settings ,再搜内嵌,把相关选项设置为enable即可&lt;/p&gt;
+&lt;h2 id=&#34;2-git插件显示失效&#34;&gt;2 git插件显示失效
+&lt;/h2&gt;&lt;p&gt;依然ctrl + shift + p,reload window,这可以解决大部分编辑器的界面问题&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>WSL无法使用tldr</title>
         <link>https://anarchycuriosity.github.io/p/wsl%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8tldr/</link>
         <pubDate>Thu, 19 Mar 2026 00:00:00 +0000</pubDate>
