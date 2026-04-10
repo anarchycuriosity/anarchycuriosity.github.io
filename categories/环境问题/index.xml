@@ -28,7 +28,8 @@
         <description>&lt;h2 id=&#34;问题描述&#34;&gt;问题描述
 &lt;/h2&gt;&lt;p&gt;尝试使用了npm和pip和apt安装tldr，都有各自的问题，要么无法建立索引找不到页面，要么丢包&lt;/p&gt;
 &lt;h3 id=&#34;解决&#34;&gt;解决
-&lt;/h3&gt;&lt;p&gt;你都用WSL了开个powershell终端在那边查不就好了&lt;/p&gt;
+&lt;/h3&gt;&lt;p&gt;其实正确配置好源就可以正常下载tldr了，界面也是中文&lt;/p&gt;
+&lt;p&gt;你都用WSL了开个powershell终端在那边查不就好了(bushi)&lt;/p&gt;
 &lt;p&gt;设置环境变量，确保tldr查到的是中文&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
