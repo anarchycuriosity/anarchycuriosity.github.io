@@ -435,20 +435,27 @@
 </script>
 <script>
     
-    setTimeout(function() 
+    setTimeout(function()
     {
+        if (document.querySelector('script[data-busuanzi-script]')) {
+            return;
+        }
+
         var bsz = document.createElement('script');
-        bsz.src = "//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js";
+        bsz.src = "https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js";
+        bsz.async = true;
+        bsz.dataset.busuanziScript = "true";
         document.head.appendChild(bsz);
     }, 500);
 
     
-    setTimeout(function() 
+    setTimeout(function()
     {
         var sakura = document.createElement('script');
         sakura.src = "https:\/\/anarchycuriosity.github.io\/background\/sakura.js";
         document.body.appendChild(sakura);
     }, 1000);
 </script>
+
     </body>
 </html>

@@ -229,8 +229,7 @@
             <main class="main full-width">
     <article class="has-image main-article">
     <header class="article-header">
-    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<div class="article-details">
+    <div class="article-details">
     
     <header class="article-category">
         
@@ -288,6 +287,7 @@
             </div>
         
 
+        
         <div>
             <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-eye"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" /></svg>
             <span class="article-time--reading">
@@ -296,11 +296,13 @@
                 </span>
             </span>
         </div>
+        
     </footer>
     
 
     
 </div>
+
         <a class="article-image" href="/p/mingw%E6%97%A0%E6%B3%95%E8%B0%83%E8%AF%95%E5%92%8C%E7%BC%96%E8%AF%91cpp%E6%97%A0%E6%B3%95%E8%BF%90%E8%A1%8C%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%96%87%E4%BB%B6/" aria-label="mingw无法调试和编译cpp，无法运行二进制文件">
             
                 <img src="/moe/1773112680518.png" loading="lazy" alt="Featured image of post mingw无法调试和编译cpp，无法运行二进制文件" />
@@ -594,20 +596,27 @@
 </script>
 <script>
     
-    setTimeout(function() 
+    setTimeout(function()
     {
+        if (document.querySelector('script[data-busuanzi-script]')) {
+            return;
+        }
+
         var bsz = document.createElement('script');
-        bsz.src = "//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js";
+        bsz.src = "https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js";
+        bsz.async = true;
+        bsz.dataset.busuanziScript = "true";
         document.head.appendChild(bsz);
     }, 500);
 
     
-    setTimeout(function() 
+    setTimeout(function()
     {
         var sakura = document.createElement('script');
         sakura.src = "https:\/\/anarchycuriosity.github.io\/background\/sakura.js";
         document.body.appendChild(sakura);
     }, 1000);
 </script>
+
     </body>
 </html>
