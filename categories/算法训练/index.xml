@@ -13,7 +13,7 @@
         <pubDate>Wed, 04 Mar 2026 00:00:00 +0000</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/kmp-%E6%9C%80%E5%A4%A7%E5%85%AC%E5%85%B1%E5%89%8D%E5%90%8E%E7%BC%80/</guid>
-        <description>&lt;h2 id=&#34;题目&#34;&gt;题目
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/1773112677850.png" alt="Featured image of post KMP 最大公共前后缀" /&gt;&lt;h2 id=&#34;题目&#34;&gt;题目
 &lt;/h2&gt;&lt;p&gt;给你两个字符串 &lt;code&gt;haystack&lt;/code&gt; 和 &lt;code&gt;needle&lt;/code&gt; ，请你在 &lt;code&gt;haystack&lt;/code&gt; 字符串中找出 &lt;code&gt;needle&lt;/code&gt; 字符串的第一个匹配项的下标（下标从 0 开始）。如果 &lt;code&gt;needle&lt;/code&gt; 不是 &lt;code&gt;haystack&lt;/code&gt; 的一部分，则返回 &lt;code&gt;-1&lt;/code&gt; 。&lt;/p&gt;
 &lt;p&gt;haystack: &lt;code&gt;aaabaaabaaaf&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;needle: &lt;code&gt;aaabaaaf&lt;/code&gt;&lt;/p&gt;
@@ -190,7 +190,7 @@
         <pubDate>Sun, 01 Mar 2026 00:00:00 +0000</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/%E8%BE%97%E8%BD%AC%E6%B1%82%E5%85%AC%E5%9B%A0%E6%95%B0--%E7%A5%9E%E5%A5%87%E7%9A%84%E4%BD%99%E6%95%B0/</guid>
-        <description>&lt;h3 id=&#34;思考&#34;&gt;思考
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/IMG_20260509_100325.jpeg" alt="Featured image of post 辗转求公因数--神奇的余数" /&gt;&lt;h3 id=&#34;思考&#34;&gt;思考
 &lt;/h3&gt;&lt;p&gt;当我们要求两个数a和b的最大公因数的时候,我们往往会使用辗转相除法,其中涉及到一个神奇的取模操作,令r = a % b,a是大数,然后更新数据a = b,b = r,不断循环.这题除了使用while循环来写也可以使用递归的方式来写,递归思想是理解本题很重要的东西.&lt;/p&gt;
 &lt;p&gt;理解递归的关键在于一句话:相信下一次会更好.每次用余数更新数据,其实就是在缩小搜索的范围,不断向取模结果==0来靠近,因为公因数一定比b小,也会比a和b之间的余数小.&lt;/p&gt;
 &lt;p&gt;如果 a / b = q &amp;hellip; r，那么我们可以写成 a = q x b + r。核心逻辑是：如果有一个数 d，它既能整除 a，又能整除 b，那么它一定也能整除r（因为 r = a - qb）。所以继承下去的余数和小数，两个都继承了上一层的特性同时缩小了范围。&lt;/p&gt;
@@ -235,7 +235,7 @@
         <pubDate>Thu, 12 Feb 2026 00:00:00 +0000</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/%E9%80%92%E5%BD%92%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E8%8A%82%E7%82%B9/</guid>
-        <description>&lt;h2 id=&#34;核心思路&#34;&gt;核心思路
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/1781318316146.png" alt="Featured image of post 递归删除链表节点" /&gt;&lt;h2 id=&#34;核心思路&#34;&gt;核心思路
 &lt;/h2&gt;&lt;p&gt;我们使用1-2-3-2来删除2来进行模拟&lt;/p&gt;
 &lt;h3 id=&#34;思路&#34;&gt;思路
 &lt;/h3&gt;&lt;p&gt;递归删除的思路有两个核心因素&lt;/p&gt;
@@ -343,7 +343,7 @@
         <pubDate>Wed, 11 Feb 2026 00:00:00 +0000</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F%E4%B8%8E%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F/</guid>
-        <description>&lt;h2 id=&#34;核心思想与区别&#34;&gt;核心思想与区别
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/1780598768620.jpg" alt="Featured image of post 冒泡排序与选择排序" /&gt;&lt;h2 id=&#34;核心思想与区别&#34;&gt;核心思想与区别
 &lt;/h2&gt;&lt;p&gt;冒泡和选择两种排序的本质就是使用两轮for循环，利用第二层for循环更新第一层的值。与其说是更新，不如说是&lt;strong&gt;交换&lt;/strong&gt;，最重要的是知道交换的两个元素的下标，不需要知道具体值。&lt;/p&gt;
 &lt;p&gt;区别是，冒泡排序需要在第二层for循环比较相邻的元素，swap这一动作会发生很多次。但是它不需要知道swap的具体索引（反正就是相邻满足条件就交换）&lt;/p&gt;
 &lt;p&gt;而选择排序只会在第一层for循环进行swap。但是它需要在第二层实时更新交换的索引。&lt;/p&gt;
@@ -462,7 +462,7 @@
         <pubDate>Fri, 06 Feb 2026 00:00:00 +0000</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BEbinary-search%E4%B8%A4%E7%A7%8D%E5%86%99%E6%B3%95%E7%9A%84%E5%8C%BA%E5%88%86%E4%B8%8E%E6%80%9D%E8%80%83/</guid>
-        <description>&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/binary-search/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/1780455256542.png" alt="Featured image of post 二分查找(binary search)两种写法的区分与思考" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/binary-search/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;lc题目链接&lt;/a&gt;&lt;/p&gt;
 &lt;h1 id=&#34;题目&#34;&gt;题目
 &lt;/h1&gt;&lt;p&gt;给定一个 n 个元素有序的（升序）整型数组 nums 和一个目标值 target  ，写一个函数搜索 nums 中的 target，如果目标值存在返回下标，否则返回 -1。&lt;/p&gt;
@@ -595,7 +595,7 @@
         <pubDate>Fri, 06 Feb 2026 00:00:00 +0000</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/%E5%88%A0%E9%99%A4%E8%A6%86%E7%9B%96%E6%95%B0%E7%BB%84%E5%85%83%E7%B4%A0%E5%8E%9F%E7%90%86%E4%B8%8E%E5%8F%8C%E6%8C%87%E9%92%88%E6%B3%95%E4%BC%98%E5%8C%96/</guid>
-        <description>&lt;h1 id=&#34;题目链接&#34;&gt;题目链接
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/1781234239392.jpg" alt="Featured image of post 删除(覆盖)数组元素原理与双指针法优化" /&gt;&lt;h1 id=&#34;题目链接&#34;&gt;题目链接
 &lt;/h1&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/remove-element/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;lc删除数组元素&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;给你一个数组 nums 和一个值 val，你需要 原地 移除所有数值等于 val 的元素，并返回移除后数组的新长度。&lt;/p&gt;
@@ -705,7 +705,7 @@
         <pubDate>Fri, 06 Feb 2026 00:00:00 +0000</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/%E7%BA%B8%E5%B8%81%E9%97%AE%E9%A2%98%E6%B1%82%E6%96%B9%E6%A1%88%E7%BB%84%E5%90%88%E6%95%B0/</guid>
-        <description>&lt;h1 id=&#34;题目链接&#34;&gt;题目链接
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/1765783571137.jpg" alt="Featured image of post 纸币问题求方案组合数" /&gt;&lt;h1 id=&#34;题目链接&#34;&gt;题目链接
 &lt;/h1&gt;&lt;p&gt;(组合数)[&lt;a class=&#34;link&#34; href=&#34;https://www.luogu.com.cn/problem/P2834&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;P2834 纸币问题 3 - 洛谷&lt;/a&gt;]&lt;/p&gt;
 &lt;h1 id=&#34;p2834-纸币问题-3&#34;&gt;P2834 纸币问题 3

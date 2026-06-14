@@ -13,7 +13,7 @@
         <pubDate>Wed, 04 Mar 2026 00:00:00 +0000</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/kmp-%E6%9C%80%E5%A4%A7%E5%85%AC%E5%85%B1%E5%89%8D%E5%90%8E%E7%BC%80/</guid>
-        <description>&lt;h2 id=&#34;题目&#34;&gt;题目
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/1773112677850.png" alt="Featured image of post KMP 最大公共前后缀" /&gt;&lt;h2 id=&#34;题目&#34;&gt;题目
 &lt;/h2&gt;&lt;p&gt;给你两个字符串 &lt;code&gt;haystack&lt;/code&gt; 和 &lt;code&gt;needle&lt;/code&gt; ，请你在 &lt;code&gt;haystack&lt;/code&gt; 字符串中找出 &lt;code&gt;needle&lt;/code&gt; 字符串的第一个匹配项的下标（下标从 0 开始）。如果 &lt;code&gt;needle&lt;/code&gt; 不是 &lt;code&gt;haystack&lt;/code&gt; 的一部分，则返回 &lt;code&gt;-1&lt;/code&gt; 。&lt;/p&gt;
 &lt;p&gt;haystack: &lt;code&gt;aaabaaabaaaf&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;needle: &lt;code&gt;aaabaaaf&lt;/code&gt;&lt;/p&gt;

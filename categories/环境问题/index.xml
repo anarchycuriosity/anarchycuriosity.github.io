@@ -13,7 +13,7 @@
         <pubDate>Tue, 31 Mar 2026 14:32:24 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/%E8%AE%BE%E7%BD%AEvsc%E5%86%85%E5%B5%8C%E6%8F%90%E7%A4%BA%E5%92%8C%E8%A7%A3%E5%86%B3%E5%B7%A5%E4%BD%9C%E5%8C%BA%E5%A4%9A%E4%BB%93%E5%BA%93git%E5%8F%AF%E8%A7%86%E5%8C%96%E7%95%8C%E9%9D%A2%E8%BF%BD%E8%B8%AA%E5%A4%B1%E6%95%88%E9%97%AE%E9%A2%98/</guid>
-        <description>&lt;h2 id=&#34;1-内嵌提示设置&#34;&gt;1 内嵌提示设置
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/1781318194198.jpg" alt="Featured image of post 设置vsc内嵌提示和解决工作区多仓库git可视化界面追踪失效问题" /&gt;&lt;h2 id=&#34;1-内嵌提示设置&#34;&gt;1 内嵌提示设置
 &lt;/h2&gt;&lt;p&gt;ctrl + shift + p,搜索 open user settings ,再搜内嵌,把相关选项设置为enable即可&lt;/p&gt;
 &lt;h2 id=&#34;2-git插件显示失效&#34;&gt;2 git插件显示失效
 &lt;/h2&gt;&lt;p&gt;依然ctrl + shift + p,reload window,这可以解决大部分编辑器的界面问题&lt;/p&gt;
@@ -25,7 +25,7 @@
         <pubDate>Thu, 19 Mar 2026 00:00:00 +0000</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/wsl%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8tldr/</guid>
-        <description>&lt;h2 id=&#34;问题描述&#34;&gt;问题描述
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/1773293901327.jpg" alt="Featured image of post WSL无法使用tldr" /&gt;&lt;h2 id=&#34;问题描述&#34;&gt;问题描述
 &lt;/h2&gt;&lt;p&gt;尝试使用了npm和pip和apt安装tldr，都有各自的问题，要么无法建立索引找不到页面，要么丢包&lt;/p&gt;
 &lt;h3 id=&#34;解决&#34;&gt;解决
 &lt;/h3&gt;&lt;p&gt;其实正确配置好源就可以正常下载tldr了，界面也是中文&lt;/p&gt;
@@ -56,7 +56,7 @@
         <pubDate>Sat, 28 Feb 2026 00:00:00 +0000</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/mingw%E6%97%A0%E6%B3%95%E8%B0%83%E8%AF%95%E5%92%8C%E7%BC%96%E8%AF%91cpp%E6%97%A0%E6%B3%95%E8%BF%90%E8%A1%8C%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%96%87%E4%BB%B6/</guid>
-        <description>&lt;p&gt;起因是本人在二号机部署环境的时候发现明明配置好了环境变量但依然无法编译，二号机以前从来没有做过开发，只是玩游戏用。于是开始排查，发现既不是cpp的插件问题，也不是Windows自身安全中心的问题，报错也没有，使用run插件也无法编译。&lt;/p&gt;
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/1773112680518.png" alt="Featured image of post mingw无法调试和编译cpp，无法运行二进制文件" /&gt;&lt;p&gt;起因是本人在二号机部署环境的时候发现明明配置好了环境变量但依然无法编译，二号机以前从来没有做过开发，只是玩游戏用。于是开始排查，发现既不是cpp的插件问题，也不是Windows自身安全中心的问题，报错也没有，使用run插件也无法编译。&lt;/p&gt;
 &lt;p&gt;试过离开集成终端使用g++命令去编译，也不成功。gcc &amp;ndash;version命令也正常显示。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://anarchycuriosity.github.io/p/mingw%E6%97%A0%E6%B3%95%E8%B0%83%E8%AF%95%E5%92%8C%E7%BC%96%E8%AF%91cpp%E6%97%A0%E6%B3%95%E8%BF%90%E8%A1%8C%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%96%87%E4%BB%B6/wrong.png&#34;
 	width=&#34;1819&#34;
@@ -84,7 +84,7 @@
         <pubDate>Tue, 03 Feb 2026 00:00:00 +0000</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/vscode%E8%B0%83%E8%AF%95%E7%98%AB%E7%97%AA%E7%9A%84%E4%B8%80%E7%A7%8D%E5%8F%AF%E8%83%BD%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</guid>
-        <description>&lt;h2 id=&#34;问题描述&#34;&gt;问题描述
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/1773112687758.jpg" alt="Featured image of post vscode调试瘫痪的一种可能解决方法" /&gt;&lt;h2 id=&#34;问题描述&#34;&gt;问题描述
 &lt;/h2&gt;&lt;h3 id=&#34;终端报错信息如下&#34;&gt;终端报错信息如下
 &lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
