@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>技术分享 on Curiosity Anarchy</title>
+        <link>https://anarchycuriosity.github.io/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/</link>
+        <description>Recent content in 技术分享 on Curiosity Anarchy</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <copyright>Curiosity Anarchy</copyright>
+        <lastBuildDate>Sat, 20 Jun 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>闲置笔记本充当副屏的方案</title>
+        <link>https://anarchycuriosity.github.io/p/%E9%97%B2%E7%BD%AE%E7%AC%94%E8%AE%B0%E6%9C%AC%E5%85%85%E5%BD%93%E5%89%AF%E5%B1%8F%E7%9A%84%E6%96%B9%E6%A1%88/</link>
+        <pubDate>Sat, 20 Jun 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://anarchycuriosity.github.io/p/%E9%97%B2%E7%BD%AE%E7%AC%94%E8%AE%B0%E6%9C%AC%E5%85%85%E5%BD%93%E5%89%AF%E5%B1%8F%E7%9A%84%E6%96%B9%E6%A1%88/</guid>
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%283039%29.png" alt="Featured image of post 闲置笔记本充当副屏的方案" /&gt;&lt;h2 id=&#34;方案&#34;&gt;方案
+&lt;/h2&gt;&lt;p&gt;主机推荐直接使用sunshine基地版，因为它直接提供了一个虚拟显示器驱动和一套GUI，不需要额外折腾比如parsec-vdd之类的新的虚拟显示器驱动，不用查sunshine的报错日志和查设备号之类的，非常方便。而且不需要看任何额外的教程，跟着GUI的教程即可完成配置。&lt;/p&gt;
+&lt;p&gt;[sunshine基地版](&lt;a class=&#34;link&#34; href=&#34;https://github.com/AlkaidLab/foundation-sunshine&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;AlkaidLab/foundation-sunshine: Sunshine, a self-hosted game-stream host for Moonlight, now features an HDR-friendly fork that integrates virtual displays and control panels.&lt;/a&gt;)&lt;/p&gt;
+&lt;p&gt;闲置笔记本就使用基地版下面推荐的moonlight即可。&lt;/p&gt;
+&lt;h2 id=&#34;特殊需求和问题解决最简&#34;&gt;特殊需求和问题解决(最简)
+&lt;/h2&gt;&lt;h3 id=&#34;我想使用vpn并且同时使用串流如何解决&#34;&gt;我想使用VPN并且同时使用串流如何解决？
+&lt;/h3&gt;&lt;p&gt;用网线连接笔记本和主机即可，笔记本不要连接无线网，这样就不会让VPN接管局域网流量导致串流中断&lt;/p&gt;
+&lt;h3 id=&#34;我想让主机保持有线的网速不能舍弃网口但是我又有副屏需求&#34;&gt;我想让主机保持有线的网速不能舍弃网口，但是我又有副屏需求
+&lt;/h3&gt;&lt;p&gt;用闲置无卡手机开热点。。&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

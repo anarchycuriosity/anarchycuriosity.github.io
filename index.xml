@@ -7,7 +7,43 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Curiosity Anarchy</copyright>
-        <lastBuildDate>Sun, 14 Jun 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sat, 20 Jun 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>26年6月总结02</title>
+        <link>https://anarchycuriosity.github.io/p/26%E5%B9%B46%E6%9C%88%E6%80%BB%E7%BB%9302/</link>
+        <pubDate>Sat, 20 Jun 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://anarchycuriosity.github.io/p/26%E5%B9%B46%E6%9C%88%E6%80%BB%E7%BB%9302/</guid>
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/20260419_103407.jpg" alt="Featured image of post 26年6月总结02" /&gt;&lt;h2 id=&#34;做了什么其实没做什么都是些杂事&#34;&gt;做了什么（其实没做什么，都是些杂事）
+&lt;/h2&gt;&lt;p&gt;周一没休息好，晕晕沉沉，根本学不进去&lt;/p&gt;
+&lt;p&gt;周二周三折腾了两天的显示器，而且最近下午总是有事情，不是物理实验和赶作业就是实验课或者筹划买车和支架，而且因为这些时间没有写进日记里面所以丢失追踪了，而且好几天都不是很舒服，不舒服的时候还采取了错误的休息方式，爆睡的后果就是不但浪费了时间而且没有休息好，状态也很差。建议头痛的时候就来点999，在合适的时间午觉。周四提前进入休假状态，周五周六依旧玩只狼，周日搬家到实验室。&lt;/p&gt;
+&lt;p&gt;在宿舍确实呆不下去，一个人的时候很容易偷懒而且没有什么目的和动力，跟一群并不志同道合的人呆在一起只会徒增痛苦。他们每天的话题无非是些无聊的琐事，或刷到什么无聊的视频，或者因为一点微不足道的小成就小发现而鬼畜地大叫，说着没有任何交流意义的话题，总之让人恶心。&lt;/p&gt;
+&lt;p&gt;在图书馆也呆不下去过于死气沉沉了，而且没有大尺寸显示器我会死的。&lt;/p&gt;
+&lt;img src=&#34;my_workstation.jpg&#34; height= 50%&gt;
+&lt;h2 id=&#34;想说的话&#34;&gt;想说的话：
+&lt;/h2&gt;&lt;p&gt;搬到实验室真是太好了。&lt;/p&gt;
+&lt;p&gt;要正确休息，尽量全勤。正好后面基本都没有课程了，这周确实杂项有点多，勉为其难原谅一下自己是为了后面做准备。&lt;/p&gt;
+&lt;h2 id=&#34;&#34;&gt;
+&lt;/h2&gt;</description>
+        </item>
+        <item>
+        <title>闲置笔记本充当副屏的方案</title>
+        <link>https://anarchycuriosity.github.io/p/%E9%97%B2%E7%BD%AE%E7%AC%94%E8%AE%B0%E6%9C%AC%E5%85%85%E5%BD%93%E5%89%AF%E5%B1%8F%E7%9A%84%E6%96%B9%E6%A1%88/</link>
+        <pubDate>Sat, 20 Jun 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://anarchycuriosity.github.io/p/%E9%97%B2%E7%BD%AE%E7%AC%94%E8%AE%B0%E6%9C%AC%E5%85%85%E5%BD%93%E5%89%AF%E5%B1%8F%E7%9A%84%E6%96%B9%E6%A1%88/</guid>
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%283039%29.png" alt="Featured image of post 闲置笔记本充当副屏的方案" /&gt;&lt;h2 id=&#34;方案&#34;&gt;方案
+&lt;/h2&gt;&lt;p&gt;主机推荐直接使用sunshine基地版，因为它直接提供了一个虚拟显示器驱动和一套GUI，不需要额外折腾比如parsec-vdd之类的新的虚拟显示器驱动，不用查sunshine的报错日志和查设备号之类的，非常方便。而且不需要看任何额外的教程，跟着GUI的教程即可完成配置。&lt;/p&gt;
+&lt;p&gt;[sunshine基地版](&lt;a class=&#34;link&#34; href=&#34;https://github.com/AlkaidLab/foundation-sunshine&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;AlkaidLab/foundation-sunshine: Sunshine, a self-hosted game-stream host for Moonlight, now features an HDR-friendly fork that integrates virtual displays and control panels.&lt;/a&gt;)&lt;/p&gt;
+&lt;p&gt;闲置笔记本就使用基地版下面推荐的moonlight即可。&lt;/p&gt;
+&lt;h2 id=&#34;特殊需求和问题解决最简&#34;&gt;特殊需求和问题解决(最简)
+&lt;/h2&gt;&lt;h3 id=&#34;我想使用vpn并且同时使用串流如何解决&#34;&gt;我想使用VPN并且同时使用串流如何解决？
+&lt;/h3&gt;&lt;p&gt;用网线连接笔记本和主机即可，笔记本不要连接无线网，这样就不会让VPN接管局域网流量导致串流中断&lt;/p&gt;
+&lt;h3 id=&#34;我想让主机保持有线的网速不能舍弃网口但是我又有副屏需求&#34;&gt;我想让主机保持有线的网速不能舍弃网口，但是我又有副屏需求
+&lt;/h3&gt;&lt;p&gt;用闲置无卡手机开热点。。&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>26年6月总结01</title>
         <link>https://anarchycuriosity.github.io/p/26%E5%B9%B46%E6%9C%88%E6%80%BB%E7%BB%9301/</link>
         <pubDate>Sun, 14 Jun 2026 00:00:00 +0000</pubDate>
