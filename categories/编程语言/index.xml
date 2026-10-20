@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>编程语言 on Curiosity Anarchy</title>
+        <link>https://anarchycuriosity.github.io/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/</link>
+        <description>Recent content in 编程语言 on Curiosity Anarchy</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <copyright>Curiosity Anarchy</copyright>
+        <lastBuildDate>Tue, 20 Oct 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Go的学习体验与语言选择</title>
+        <link>https://anarchycuriosity.github.io/p/2026-10-20-go%E7%9A%84%E5%AD%A6%E4%B9%A0%E4%BD%93%E9%AA%8C%E4%B8%8E%E8%AF%AD%E8%A8%80%E9%80%89%E6%8B%A9/</link>
+        <pubDate>Tue, 20 Oct 2026 00:00:00 +0800</pubDate>
+        
+        <guid>https://anarchycuriosity.github.io/p/2026-10-20-go%E7%9A%84%E5%AD%A6%E4%B9%A0%E4%BD%93%E9%AA%8C%E4%B8%8E%E8%AF%AD%E8%A8%80%E9%80%89%E6%8B%A9/</guid>
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/20260419_104543.jpg" alt="Featured image of post Go的学习体验与语言选择" /&gt;&lt;p&gt;品鉴了各种语言，都写过问题集和很小很小的玩具，感觉只有各种都做一下才能切实知道各个语言的优劣并做出选择，而不是看那个很虚的榜单还有语言优劣势介绍，要自己去做点实验。个人觉得Go是个人觉得最美味本人最有学习激情的，开发体验会非常地丝滑，cpp的编译时长实在是很额啊，实际做过大一点点的玩具都会觉得，这很毁灭体验。而且语法非常地美丽和简洁，一些很务实的要求强制对齐了码风。而它的简洁我觉得和py是不一样的，
+不开玩笑地说，我开始学习Go的时候，我觉得我恋爱了，那种如浴春风的感觉。&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>
