@@ -544,7 +544,8 @@ main_path&lt;/p&gt;
 		data-flex-grow=&#34;158&#34;
 		data-flex-basis=&#34;381px&#34;
 	
-&gt;&lt;/p&gt;
+&gt;
+&lt;/p&gt;
 &lt;p&gt;生成已完成但出现错误&lt;/p&gt;
 &lt;p&gt;最终排查出是因为账户是中文名的原因，软件可能因此闹脾气。&lt;/p&gt;
 &lt;p&gt;按照教程修改用户名即可&lt;/p&gt;
@@ -734,7 +735,8 @@ main_path&lt;/p&gt;
 		alt=&#34;eye.svg&#34;
 	
 	
-&gt;&lt;/p&gt;
+&gt;
+&lt;/p&gt;
 &lt;p&gt;布置路径，&lt;strong&gt;名字尽量不要变&lt;/strong&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;assets/icons/eye.svg&lt;/p&gt;
@@ -950,7 +952,8 @@ main_path&lt;/p&gt;
 		data-flex-grow=&#34;167&#34;
 		data-flex-basis=&#34;402px&#34;
 	
-&gt;&lt;/p&gt;
+&gt;
+&lt;/p&gt;
 &lt;p&gt;这也许是因为你在浏览器安装了拦截广告的插件误把不蒜子拦截了，关闭即可&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://anarchycuriosity.github.io/p/%E4%BD%BF%E7%94%A8%E4%B8%8D%E8%92%9C%E5%AD%90%E7%BB%84%E4%BB%B6%E5%AE%9E%E7%8E%B0%E6%B5%8F%E8%A7%88%E6%95%B0%E7%BB%9F%E8%AE%A1/%E6%8F%92%E4%BB%B6.png&#34;
 	width=&#34;1751&#34;
@@ -963,7 +966,8 @@ main_path&lt;/p&gt;
 		data-flex-grow=&#34;829&#34;
 		data-flex-basis=&#34;1991px&#34;
 	
-&gt;&lt;/p&gt;
+&gt;
+&lt;/p&gt;
 &lt;h3 id=&#34;动态背景与不蒜子冲突&#34;&gt;动态背景与不蒜子冲突
 &lt;/h3&gt;&lt;p&gt;虽然JavaScript是单线程执行的,但浏览器的渲染线程和js脚本解析互斥,所以需要添加延迟和创建执行队列,先处理不蒜子的请求再启动动态背景特效.&lt;/p&gt;
 &lt;p&gt;以我的网页特效脚本sakura.js举例,它被放置在assets/background/下.&lt;/p&gt;
@@ -1020,7 +1024,8 @@ main_path&lt;/p&gt;
 		data-flex-grow=&#34;1043&#34;
 		data-flex-basis=&#34;2505px&#34;
 	
-&gt;&lt;/p&gt;
+&gt;
+&lt;/p&gt;
 </description>
         </item>
         <item>
@@ -1057,7 +1062,8 @@ main_path&lt;/p&gt;
 		data-flex-grow=&#34;385&#34;
 		data-flex-basis=&#34;924px&#34;
 	
-&gt;&lt;/p&gt;
+&gt;
+&lt;/p&gt;
 &lt;h2 id=&#34;解决思路&#34;&gt;解决思路
 &lt;/h2&gt;&lt;p&gt;​	由于我在问题出现之前的6h还在使用vscode,所以我想应该不是我的工作区.vs配置文档写错了.&lt;/p&gt;
 &lt;p&gt;​	根据终端的错误信息我搜索来到了这里&lt;/p&gt;
@@ -1079,7 +1085,8 @@ main_path&lt;/p&gt;
 		data-flex-grow=&#34;347&#34;
 		data-flex-basis=&#34;835px&#34;
 	
-&gt;&lt;/p&gt;
+&gt;
+&lt;/p&gt;
 &lt;p&gt;​	终端显示的WindowsDebugLauncher.exe是cpp扩展自带的一个程序(我真是瞎子,在终端报错就应该看出来的).&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;c:\Users\curiosity.vscode\extensions\ms-vscode.cpptools-1.30.3-win32-x64\debugAdapters\bin\WindowsDebugLauncher.exe&lt;/p&gt;

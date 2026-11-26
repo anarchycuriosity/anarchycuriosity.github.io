@@ -14,7 +14,18 @@
         
         <guid>https://anarchycuriosity.github.io/p/go-etcd-service-discovery/</guid>
         <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_8ee144b205ce645a.jpg" alt="Featured image of post Go 微服务｜etcd 注册与服务发现" /&gt;&lt;h2 id=&#34;etcd-与-mysql-的职责&#34;&gt;etcd 与 MySQL 的职责
-&lt;/h2&gt;&lt;blockquote&gt;
+&lt;/h2&gt;&lt;p&gt;&lt;img src=&#34;https://anarchycuriosity.github.io/post/%e9%a1%b9%e7%9b%ae%e5%a4%8d%e5%88%bb/TikTok/%e7%94%a8%e6%88%b7%e6%9c%8d%e5%8a%a1/_attachments/etcd-service-discovery.svg&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;etcd 服务注册与发现流程&#34;
+	
+	
+&gt;
+&lt;/p&gt;
+&lt;blockquote&gt;
 &lt;p&gt;他们解决不同的问题&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;ul&gt;

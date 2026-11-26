@@ -470,7 +470,18 @@ context本身并不具备取消的功能,要看函数或者它调用的库是否
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="取消与错误返回的顺序">取消与错误返回的顺序
-</h2><p><strong>取消信号并不是沿着</strong> <code>API → Service → DB</code> <strong>一层层发送过去的。</strong></p>
+</h2><p><img src="/post/Go%e5%ad%a6%e4%b9%a0/%e5%b9%b6%e5%8f%91/_attachments/context-cancellation.svg"
+	
+	
+	
+	loading="lazy"
+	
+		alt="Context 通过 Done 通道通知取消"
+	
+	
+>
+</p>
+<p><strong>取消信号并不是沿着</strong> <code>API → Service → DB</code> <strong>一层层发送过去的。</strong></p>
 <p>真正发生的是：</p>
 <ol>
 <li>
