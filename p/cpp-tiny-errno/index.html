@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="errno 是不是程序运行中不断产生的状态？ 原注释：\n我不是很懂这里的 errno 是什么？程序运行中会时时伴随产生的吗？\n可以将 errno 近似理解为：\n当前线程中保存错误编号的位置，供某些系统调用和库函数报告失败原因。\n">
+<title>TinyWebServer 诊断｜errno 与解析失败原因</title>
+
+<link rel='canonical' href='https://anarchycuriosity.github.io/p/cpp-tiny-errno/'>
+
+<link rel="stylesheet" href="/scss/style.min.c1b51a30df8ac209786d0bad641e606a0ad3c83218d05b1a01460049b2c0e683.css"><meta property='og:title' content="TinyWebServer 诊断｜errno 与解析失败原因">
+<meta property='og:description' content="errno 是不是程序运行中不断产生的状态？ 原注释：\n我不是很懂这里的 errno 是什么？程序运行中会时时伴随产生的吗？\n可以将 errno 近似理解为：\n当前线程中保存错误编号的位置，供某些系统调用和库函数报告失败原因。\n">
+<meta property='og:url' content='https://anarchycuriosity.github.io/p/cpp-tiny-errno/'>
+<meta property='og:site_name' content='Curiosity Anarchy'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='cpp' /><meta property='article:tag' content='TinyWebServer' /><meta property='article:tag' content='errno' /><meta property='article:tag' content='错误处理' /><meta property='article:published_time' content='2026-06-23T00:00:00&#43;08:00'/><meta property='article:modified_time' content='2026-06-23T00:00:00&#43;08:00'/><meta property='og:image' content='https://anarchycuriosity.github.io/moe/animation_789df0f4ef2ca147.png' />
+<meta name="twitter:title" content="TinyWebServer 诊断｜errno 与解析失败原因">
+<meta name="twitter:description" content="errno 是不是程序运行中不断产生的状态？ 原注释：\n我不是很懂这里的 errno 是什么？程序运行中会时时伴随产生的吗？\n可以将 errno 近似理解为：\n当前线程中保存错误编号的位置，供某些系统调用和库函数报告失败原因。\n"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://anarchycuriosity.github.io/moe/animation_789df0f4ef2ca147.png' />
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "light");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu_d1ed36d2754b4216.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Curiosity Anarchy</a></h1>
+            <h2 class="site-description">此博客主要分享本人的学习记录</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/anarchycuriosity'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E9%93%BE%E6%8E%A5/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>链接</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#errno-是不是程序运行中不断产生的状态">errno 是不是程序运行中不断产生的状态？</a></li>
+    <li><a href="#为什么要立刻保存-received_error">为什么要立刻保存 received_error？</a></li>
+    <li><a href="#为什么-debug_trace-要保存并恢复-errno">为什么 debug_trace 要保存并恢复 errno？</a></li>
+    <li><a href="#为什么恢复以后perror-仍能显示本次-recv-的错误">为什么恢复以后，perror 仍能显示本次 recv 的错误？</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            
+            
+            
+            <a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" style="background-color: hsl(291, 60%, 84%); color: hsl(291, 60%, 15%);">
+                后端开发
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/cpp-tiny-errno/">TinyWebServer 诊断｜errno 与解析失败原因</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2026-06-23</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 3 分钟
+                </time>
+            </div>
+        
+
+        
+        <div>
+            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-eye"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" /></svg>
+            <span class="article-time--reading">
+                <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv">...</span> 次阅读
+                </span>
+            </span>
+        </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+        <a class="article-image" href="/p/cpp-tiny-errno/" aria-label="TinyWebServer 诊断｜errno 与解析失败原因">
+            
+                <img src="/moe/animation_789df0f4ef2ca147.png" loading="lazy" alt="Featured image of post TinyWebServer 诊断｜errno 与解析失败原因" />
+            
+        </a>
+    
+</header>
+
+
+    <section class="article-content">
+    
+    
+    <h2 id="errno-是不是程序运行中不断产生的状态">errno 是不是程序运行中不断产生的状态？
+</h2><p>原注释：</p>
+<blockquote>
+<p>我不是很懂这里的 errno 是什么？程序运行中会时时伴随产生的吗？</p>
+</blockquote>
+<p>可以将 <code>errno</code> 近似理解为：</p>
+<p><strong>当前线程中保存错误编号的位置，供某些系统调用和库函数报告失败原因。</strong></p>
+<p>但它不是每执行一条语句就自动更新的运行状态。</p>
+<p>尤其需要注意：</p>
+<blockquote>
+<p>某个调用成功，不意味着 errno 一定被清零。</p>
+</blockquote>
+<p>因此不能仅凭 <code>errno</code> 的值判断 <code>recv</code> 是否失败。</p>
+<p>应该先观察返回值。</p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>recv 返回值</th>
+          <th>意义</th>
+          <th>后续操作</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>大于 0</td>
+          <td>本次读取了相应数量的字节</td>
+          <td>交给解析器</td>
+      </tr>
+      <tr>
+          <td>等于 0</td>
+          <td>对端已进行有序关闭发送方向，且本次没有读到数据</td>
+          <td>按 EOF 处理</td>
+      </tr>
+      <tr>
+          <td>-1</td>
+          <td>本次读取失败</td>
+          <td>检查 errno</td>
+      </tr>
+  </tbody>
+</table></div>
+<p>当前 socket 是阻塞式的。</p>
+<p>如果暂时没有数据，通常会阻塞在 <code>recv</code>，而不是不断返回零。</p>
+<h2 id="为什么要立刻保存-received_error">为什么要立刻保存 received_error？
+</h2><p>当前代码的思路是：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">recv 返回
+</span></span><span class="line"><span class="cl">    ↓
+</span></span><span class="line"><span class="cl">检查返回值
+</span></span><span class="line"><span class="cl">    ↓
+</span></span><span class="line"><span class="cl">若返回 -1，立即复制 errno
+</span></span><span class="line"><span class="cl">    ↓
+</span></span><span class="line"><span class="cl">received_error 保存本次 recv 的错误
+</span></span><span class="line"><span class="cl">    ↓
+</span></span><span class="line"><span class="cl">执行日志输出或后续判断
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>原注释中提到：</p>
+<blockquote>
+<p>如果是 recv 这种会产生 errno 的，那么信息就使用 errno；如果是自己设置的 parse_result，就使用自己的诊断函数来获得信息，类似 errno。</p>
+</blockquote>
+<p>这个分类基本正确。</p>
+<p>不过它们属于不同层次：</p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>信息</th>
+          <th>所属层次</th>
+          <th>回答的问题</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>errno</code></td>
+          <td>系统调用／库函数</td>
+          <td>为什么这次底层操作失败？</td>
+      </tr>
+      <tr>
+          <td><code>parse_result</code></td>
+          <td>HTTP 解析器</td>
+          <td>目前解析得到什么结果？</td>
+      </tr>
+      <tr>
+          <td><code>diagnostic_reason()</code></td>
+          <td>HTTP 解析器</td>
+          <td>如果发生解析拒绝，具体原因是什么？</td>
+      </tr>
+  </tbody>
+</table></div>
+<p>例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">recv 成功读取 15 字节
+</span></span><span class="line"><span class="cl">    ↓
+</span></span><span class="line"><span class="cl">没有 recv 错误
+</span></span><span class="line"><span class="cl">    ↓
+</span></span><span class="line"><span class="cl">parser.append
+</span></span><span class="line"><span class="cl">    ↓
+</span></span><span class="line"><span class="cl">HTTP 请求尚未完整
+</span></span><span class="line"><span class="cl">    ↓
+</span></span><span class="line"><span class="cl">parse_result = need_data
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这里 <code>recv</code> 完全成功，解析器却仍然需要更多数据。</p>
+<p>这不是矛盾，因为两层判断的对象不同。</p>
+<h2 id="为什么-debug_trace-要保存并恢复-errno">为什么 debug_trace 要保存并恢复 errno？
+</h2><p>日志输出本身也会调用库函数，这些函数可能改变 <code>errno</code>。</p>
+<p>如果日志函数破坏了调用者原本要检查的错误编号，就会造成非常难理解的调试结果。</p>
+<p>因此 <code>debug_trace</code> 在入口保存 <code>errno</code>，在退出前恢复它。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">调用者当前 errno
+</span></span><span class="line"><span class="cl">    ↓
+</span></span><span class="line"><span class="cl">debug_trace 保存
+</span></span><span class="line"><span class="cl">    ↓
+</span></span><span class="line"><span class="cl">fprintf / vfprintf / fputc
+</span></span><span class="line"><span class="cl">    ↓
+</span></span><span class="line"><span class="cl">恢复原 errno
+</span></span><span class="line"><span class="cl">    ↓
+</span></span><span class="line"><span class="cl">返回调用者
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这个设计让日志函数尽量不干扰调用者的错误处理。</p>
+<p>它并不保证诊断输出一定成功，只是维护调用前后的错误编号。</p>
+<h2 id="为什么恢复以后perror-仍能显示本次-recv-的错误">为什么恢复以后，perror 仍能显示本次 recv 的错误？
+</h2><p>原疑问：</p>
+<blockquote>
+<p>这个改变具体是什么？</p>
+</blockquote>
+<p>以及：</p>
+<blockquote>
+<p>errno 恢复后 perror 为何能输出本次 recv 的错误？</p>
+</blockquote>
+<p>因为当前代码不仅依赖 <code>debug_trace</code> 恢复 <code>errno</code>，还在输出错误之前明确重新赋值。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">recv 返回 -1
+</span></span><span class="line"><span class="cl">    ↓
+</span></span><span class="line"><span class="cl">errno = EBADF
+</span></span><span class="line"><span class="cl">    ↓
+</span></span><span class="line"><span class="cl">received_error = EBADF
+</span></span><span class="line"><span class="cl">    ↓
+</span></span><span class="line"><span class="cl">debug_trace
+</span></span><span class="line"><span class="cl">    ↓
+</span></span><span class="line"><span class="cl">errno = received_error
+</span></span><span class="line"><span class="cl">    ↓
+</span></span><span class="line"><span class="cl">perror(&#34;recv&#34;)
+</span></span><span class="line"><span class="cl">    ↓
+</span></span><span class="line"><span class="cl">recv: Bad file descriptor
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>perror</code> 不知道之前执行了哪个系统调用。</p>
+<p>它只读取<strong>调用时的 errno</strong>，再配合传入的 <code>&quot;recv&quot;</code> 前缀打印错误说明。</p>
+<p>所以：</p>
+<ul>
+<li><code>received_error</code> 保存本次操作失败的事实。</li>
+<li><code>errno = received_error</code> 恢复待解释的错误编号。</li>
+<li><code>perror</code> 根据当前 <code>errno</code> 输出说明。</li>
+</ul>
+<p>即使日志函数没有恢复 <code>errno</code>，只要保存的 <code>received_error</code> 正确，显式赋值之后的 <code>perror</code> 仍能解释本次错误。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/cpp/">Cpp</a>
+        
+            <a href="/tags/tinywebserver/">TinyWebServer</a>
+        
+            <a href="/tags/errno/">Errno</a>
+        
+            <a href="/tags/%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/">错误处理</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/tiny-web-server-writev-partial-writes/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/moe/animation_89ade664ebe797e4.png" loading="lazy" data-key="tiny-web-server-writev-partial-writes" data-hash="/moe/animation_89ade664ebe797e4.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">TinyWebServer 响应发送｜writev 聚集写入与部分写入游标</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/cpp-tiny-response-raii/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/moe/animation_8598950d2e37c534.jpg" loading="lazy" data-key="cpp-tiny-response-raii" data-hash="/moe/animation_8598950d2e37c534.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">TinyWebServer RAII｜映射资源、复制限制与析构清理</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/cpp-tiny-mapping-lifetime/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/moe/animation_81e4ff5c88067d92.jpg" loading="lazy" data-key="cpp-tiny-mapping-lifetime" data-hash="/moe/animation_81e4ff5c88067d92.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">TinyWebServer mmap｜文件描述符、映射区域和连接的生命周期</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/tiny-web-server-response-preparation/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/moe/animation_6ed0660db26cb453.png" loading="lazy" data-key="tiny-web-server-response-preparation" data-hash="/moe/animation_6ed0660db26cb453.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">TinyWebServer 响应构造｜200 文件响应与 404 错误响应</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/tiny-web-server-static-file-routing/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/moe/animation_2de188f19d1e4457.png" loading="lazy" data-key="tiny-web-server-static-file-routing" data-hash="/moe/animation_2de188f19d1e4457.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">TinyWebServer 静态资源｜URL 路径解码与 openat 文件定位</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script src="https://utteranc.es/client.js"
+        repo="anarchycuriosity/anarchycuriosity.github.io"
+        issue-term="pathname"
+        theme="github-light"
+        
+        crossorigin="anonymous"
+        async>
+</script>
+
+<style>
+    .utterances {
+        max-width: unset;
+    }
+</style>
+
+<script>
+    let utterancesLoaded = false;
+
+    function setUtterancesTheme(theme) {
+        let utterances = document.querySelector('.utterances iframe');
+        if (utterances) {
+            utterances.contentWindow.postMessage(
+                {
+                    type: 'set-theme',
+                    theme: `github-${theme}`
+                },
+                'https://utteranc.es'
+            );
+        }
+    }
+
+    addEventListener('message', event => {
+        if (event.origin !== 'https://utteranc.es') return;
+
+        
+        utterancesLoaded = true;
+        setUtterancesTheme(document.documentElement.dataset.scheme)
+    });
+
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (!utterancesLoaded) return;
+        setUtterancesTheme(e.detail)
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2026 Curiosity Anarchy
+    </section>
+    
+    <section class="powerby">
+        
+            by Curiosity Anarchy <br/>
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.34.1">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+    
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.c922af694cc257bf1ecc41c0dd7b0430f9114ec280ccf67cd2c6ad55f5316c4e.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<script>
+    
+    setTimeout(function()
+    {
+        if (document.querySelector('script[data-busuanzi-script]')) {
+            return;
+        }
+
+        var bsz = document.createElement('script');
+        bsz.src = "https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js";
+        bsz.async = true;
+        bsz.dataset.busuanziScript = "true";
+        document.head.appendChild(bsz);
+    }, 500);
+
+    
+    setTimeout(function()
+    {
+        var sakura = document.createElement('script');
+        sakura.src = "https:\/\/anarchycuriosity.github.io\/background\/sakura.js";
+        document.body.appendChild(sakura);
+    }, 1000);
+</script>
+
+    </body>
+</html>

@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="排序放在 HTTP 层还是存储层？ 产品负责人要求：\nGET /league\n返回按胜场从高到低排列的玩家。\n可以选择：\n1 2 3 4 5 方案 A： PlayerStore → PlayerServer 排序 → HTTP 方案 B： PlayerStore 排序 → PlayerServer → HTTP 原书选择方案 B。\n">
+<title>Go 文件存储｜排序职责、切片副本与端到端测试</title>
+
+<link rel='canonical' href='https://anarchycuriosity.github.io/p/go-file-store-sorting/'>
+
+<link rel="stylesheet" href="/scss/style.min.c1b51a30df8ac209786d0bad641e606a0ad3c83218d05b1a01460049b2c0e683.css"><meta property='og:title' content="Go 文件存储｜排序职责、切片副本与端到端测试">
+<meta property='og:description' content="排序放在 HTTP 层还是存储层？ 产品负责人要求：\nGET /league\n返回按胜场从高到低排列的玩家。\n可以选择：\n1 2 3 4 5 方案 A： PlayerStore → PlayerServer 排序 → HTTP 方案 B： PlayerStore 排序 → PlayerServer → HTTP 原书选择方案 B。\n">
+<meta property='og:url' content='https://anarchycuriosity.github.io/p/go-file-store-sorting/'>
+<meta property='og:site_name' content='Curiosity Anarchy'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Go' /><meta property='article:tag' content='文件存储' /><meta property='article:tag' content='排序' /><meta property='article:published_time' content='2026-04-14T00:00:00&#43;08:00'/><meta property='article:modified_time' content='2026-04-14T00:00:00&#43;08:00'/><meta property='og:image' content='https://anarchycuriosity.github.io/moe/animation_57c7f1a9ded2f373.jpg' />
+<meta name="twitter:title" content="Go 文件存储｜排序职责、切片副本与端到端测试">
+<meta name="twitter:description" content="排序放在 HTTP 层还是存储层？ 产品负责人要求：\nGET /league\n返回按胜场从高到低排列的玩家。\n可以选择：\n1 2 3 4 5 方案 A： PlayerStore → PlayerServer 排序 → HTTP 方案 B： PlayerStore 排序 → PlayerServer → HTTP 原书选择方案 B。\n"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://anarchycuriosity.github.io/moe/animation_57c7f1a9ded2f373.jpg' />
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "light");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu_d1ed36d2754b4216.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Curiosity Anarchy</a></h1>
+            <h2 class="site-description">此博客主要分享本人的学习记录</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/anarchycuriosity'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E9%93%BE%E6%8E%A5/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>链接</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#排序放在-http-层还是存储层">排序放在 HTTP 层还是存储层？</a></li>
+    <li><a href="#sortslice-如何工作">sort.Slice 如何工作？</a></li>
+    <li><a href="#为什么不能直接排序缓存">为什么不能直接排序缓存？</a></li>
+    <li><a href="#最后的端到端验证">最后的端到端验证</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            
+            
+            
+            <a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" style="background-color: hsl(291, 60%, 84%); color: hsl(291, 60%, 15%);">
+                后端开发
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/go-file-store-sorting/">Go 文件存储｜排序职责、切片副本与端到端测试</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2026-04-14</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 2 分钟
+                </time>
+            </div>
+        
+
+        
+        <div>
+            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-eye"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" /></svg>
+            <span class="article-time--reading">
+                <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv">...</span> 次阅读
+                </span>
+            </span>
+        </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+        <a class="article-image" href="/p/go-file-store-sorting/" aria-label="Go 文件存储｜排序职责、切片副本与端到端测试">
+            
+                <img src="/moe/animation_57c7f1a9ded2f373.jpg" loading="lazy" alt="Featured image of post Go 文件存储｜排序职责、切片副本与端到端测试" />
+            
+        </a>
+    
+</header>
+
+
+    <section class="article-content">
+    
+    
+    <h2 id="排序放在-http-层还是存储层">排序放在 HTTP 层还是存储层？
+</h2><p>产品负责人要求：</p>
+<p><code>GET /league</code></p>
+<p>返回按胜场从高到低排列的玩家。</p>
+<p>可以选择：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">方案 A：
+</span></span><span class="line"><span class="cl">PlayerStore → PlayerServer 排序 → HTTP
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">方案 B：
+</span></span><span class="line"><span class="cl">PlayerStore 排序 → PlayerServer → HTTP
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>原书选择方案 B。</p>
+<p>原因是排序本质上属于数据查询结果的组织方式。</p>
+<p>假设以后换成 SQL 数据库，可以在存储层使用 <code>ORDER BY</code>，而 HTTP 层无需改变。</p>
+<p>我们也保持这一设计。</p>
+<h2 id="sortslice-如何工作">sort.Slice 如何工作？
+</h2><p><code>sort.Slice</code> 接收切片，以及一个比较函数。</p>
+<p>比较函数回答：</p>
+<p>“下标 i 的元素是否应该排在下标 j 的元素之前？”</p>
+<p>按 Wins 降序：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">Chris: 33
+</span></span><span class="line"><span class="cl">Cleo:  10
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">33 &gt; 10 → Chris 在前
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>但还有一个细节。</p>
+<p>如果 Ada 和 Chris 都是 2 胜，原书没有规定谁在前面。</p>
+<p>为了测试稳定且结果可预测，我们增加一个规则：</p>
+<ul>
+<li>首先按 Wins 降序。</li>
+<li>Wins 相同，按 Name 字典序升序。</li>
+</ul>
+<p>这不是 <code>sort.Slice</code> 自动保证的，而是我们明确写出的业务规则。</p>
+<h2 id="为什么不能直接排序缓存">为什么不能直接排序缓存？
+</h2><p><code>sort.Slice</code> 会原地修改传入切片的元素顺序。</p>
+<p>如果直接排序 <code>f.league</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">共享底层数组
+</span></span><span class="line"><span class="cl">     ↓
+</span></span><span class="line"><span class="cl">GetLeague 排序
+</span></span><span class="line"><span class="cl">     ↓
+</span></span><span class="line"><span class="cl">内部缓存的顺序也改变
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这里选择：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">f.league
+</span></span><span class="line"><span class="cl">   ↓
+</span></span><span class="line"><span class="cl">复制 snapshot
+</span></span><span class="line"><span class="cl">   ↓
+</span></span><span class="line"><span class="cl">sort.Slice(snapshot)
+</span></span><span class="line"><span class="cl">   ↓
+</span></span><span class="line"><span class="cl">返回 snapshot
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这样 HTTP 获得排序结果，但不改变持久化存储的内部列表顺序。</p>
+<h2 id="最后的端到端验证">最后的端到端验证
+</h2><p>通过 HTTP 记录：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">Cleo  → POST 一次
+</span></span><span class="line"><span class="cl">Chris → POST 两次
+</span></span><span class="line"><span class="cl">Ada   → POST 两次
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>重启服务后访问 <code>/league</code>。</p>
+<p>预期：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">[</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span><span class="nt">&#34;Name&#34;</span><span class="p">:</span><span class="s2">&#34;Ada&#34;</span><span class="p">,</span><span class="nt">&#34;Wins&#34;</span><span class="p">:</span><span class="mi">2</span><span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span><span class="nt">&#34;Name&#34;</span><span class="p">:</span><span class="s2">&#34;Chris&#34;</span><span class="p">,</span><span class="nt">&#34;Wins&#34;</span><span class="p">:</span><span class="mi">2</span><span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span><span class="nt">&#34;Name&#34;</span><span class="p">:</span><span class="s2">&#34;Cleo&#34;</span><span class="p">,</span><span class="nt">&#34;Wins&#34;</span><span class="p">:</span><span class="mi">1</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这同时验证：</p>
+<ol>
+<li>POST 写入数据。</li>
+<li>数据跨重启仍然存在。</li>
+<li>GET 返回正确 JSON。</li>
+<li>玩家按胜场排序。</li>
+<li>相同胜场有确定顺序。</li>
+</ol>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/go/">Go</a>
+        
+            <a href="/tags/%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8/">文件存储</a>
+        
+            <a href="/tags/%E6%8E%92%E5%BA%8F/">排序</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/go-cli-http-shared-storage/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/moe/animation_368f31f803cb0396.jpg" loading="lazy" data-key="go-cli-http-shared-storage" data-hash="/moe/animation_368f31f803cb0396.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Go JSON 文件存储｜进程内缓存与跨进程更新丢失</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/go-file-store-initialization/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/moe/animation_5a6f5495ee8a4bd6.png" loading="lazy" data-key="go-file-store-initialization" data-hash="/moe/animation_5a6f5495ee8a4bd6.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Go 文件存储｜空文件、损坏数据与失败后的缓存一致性</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/go-cli-http-persistence-test/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/moe/animation_baf0d256570f1143.jpg" loading="lazy" data-key="go-cli-http-persistence-test" data-hash="/moe/animation_baf0d256570f1143.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Go httptest｜CLI 与 HTTP 的 JSON 持久化集成测试</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/go-file-overwrite-truncate/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/moe/animation_56bc59673976b9cb.png" loading="lazy" data-key="go-file-overwrite-truncate" data-hash="/moe/animation_56bc59673976b9cb.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Go 文件写入｜Seek、Truncate 与短写</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/go-file-store-ownership/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/moe/animation_52b51775438bc4fa.jpg" loading="lazy" data-key="go-file-store-ownership" data-hash="/moe/animation_52b51775438bc4fa.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Go 文件存储｜Close、defer 与资源所有权转移</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script src="https://utteranc.es/client.js"
+        repo="anarchycuriosity/anarchycuriosity.github.io"
+        issue-term="pathname"
+        theme="github-light"
+        
+        crossorigin="anonymous"
+        async>
+</script>
+
+<style>
+    .utterances {
+        max-width: unset;
+    }
+</style>
+
+<script>
+    let utterancesLoaded = false;
+
+    function setUtterancesTheme(theme) {
+        let utterances = document.querySelector('.utterances iframe');
+        if (utterances) {
+            utterances.contentWindow.postMessage(
+                {
+                    type: 'set-theme',
+                    theme: `github-${theme}`
+                },
+                'https://utteranc.es'
+            );
+        }
+    }
+
+    addEventListener('message', event => {
+        if (event.origin !== 'https://utteranc.es') return;
+
+        
+        utterancesLoaded = true;
+        setUtterancesTheme(document.documentElement.dataset.scheme)
+    });
+
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (!utterancesLoaded) return;
+        setUtterancesTheme(e.detail)
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2026 Curiosity Anarchy
+    </section>
+    
+    <section class="powerby">
+        
+            by Curiosity Anarchy <br/>
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.34.1">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+    
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.c922af694cc257bf1ecc41c0dd7b0430f9114ec280ccf67cd2c6ad55f5316c4e.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<script>
+    
+    setTimeout(function()
+    {
+        if (document.querySelector('script[data-busuanzi-script]')) {
+            return;
+        }
+
+        var bsz = document.createElement('script');
+        bsz.src = "https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js";
+        bsz.async = true;
+        bsz.dataset.busuanziScript = "true";
+        document.head.appendChild(bsz);
+    }, 500);
+
+    
+    setTimeout(function()
+    {
+        var sakura = document.createElement('script');
+        sakura.src = "https:\/\/anarchycuriosity.github.io\/background\/sakura.js";
+        document.body.appendChild(sakura);
+    }, 1000);
+</script>
+
+    </body>
+</html>

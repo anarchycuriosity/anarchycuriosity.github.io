@@ -7,10 +7,10 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Curiosity Anarchy</copyright>
-        <lastBuildDate>Wed, 18 Nov 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/tags/http/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 27 Oct 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/tags/http/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Feed 01 · Hertz HTTP｜路由分发、RequestContext 与 JSON 响应</title>
         <link>https://anarchycuriosity.github.io/p/go-feed-http-entry/</link>
-        <pubDate>Wed, 18 Nov 2026 00:00:00 +0800</pubDate>
+        <pubDate>Tue, 27 Oct 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/go-feed-http-entry/</guid>
         <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_08def339607ce81a.jpg" alt="Featured image of post Feed 01 · Hertz HTTP｜路由分发、RequestContext 与 JSON 响应" /&gt;&lt;h2 id=&#34;路由注册和实际调用&#34;&gt;路由注册和实际调用
@@ -124,422 +124,72 @@
 </description>
         </item>
         <item>
-        <title>Go JSON 文件存储｜进程内缓存与跨进程更新丢失</title>
-        <link>https://anarchycuriosity.github.io/p/go-cli-http-shared-storage/</link>
-        <pubDate>Fri, 13 Nov 2026 00:00:00 +0800</pubDate>
+        <title>Go Hertz 注册接口｜POST 路由、参数校验与 HTTP 状态</title>
+        <link>https://anarchycuriosity.github.io/p/go-registration-http/</link>
+        <pubDate>Tue, 15 Sep 2026 00:00:00 +0800</pubDate>
         
-        <guid>https://anarchycuriosity.github.io/p/go-cli-http-shared-storage/</guid>
-        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_368f31f803cb0396.jpg" alt="Featured image of post Go JSON 文件存储｜进程内缓存与跨进程更新丢失" /&gt;&lt;h2 id=&#34;共享文件与进程内缓存&#34;&gt;共享文件与进程内缓存
-&lt;/h2&gt;&lt;p&gt;假设两个进程同时运行。&lt;/p&gt;
-&lt;p&gt;时间线：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;T0：game.db.json = []
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;T1：HTTP 启动
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    → 读取文件
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    → HTTP Store 缓存 []
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;T2：CLI 启动
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    → 读取文件
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    → 记录 Ruth
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    → 文件变成 [{&amp;#34;name&amp;#34;:&amp;#34;Ruth&amp;#34;,&amp;#34;wins&amp;#34;:1}]
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;T3：HTTP 收到 GET /league
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    → 查询自己的内存缓存
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    → 仍然返回 []
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;为什么？&lt;/p&gt;
-&lt;p&gt;因为 HTTP 进程没有重新加载文件。&lt;/p&gt;
-&lt;p&gt;当前实现中的 &lt;code&gt;FileSystemPlayerStore&lt;/code&gt; 把 &lt;code&gt;League&lt;/code&gt; 缓存在结构体里。另一个进程修改磁盘，不会自动修改这个结构体。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;HTTP 进程内存：[旧 League]
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;CLI 进程内存：[新 League]
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       │
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       ▼
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;磁盘文件：[新 League]
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;重新启动 HTTP 服务会重新读取文件，因此能够看到最新记录。&lt;/p&gt;
-&lt;p&gt;但仅仅增加“每次 GET 都重新读文件”也不足以获得安全的跨进程存储。&lt;/p&gt;
-&lt;p&gt;如果两个进程同时写入，各自按照旧快照重写整个 JSON 文件，就可能发生更新丢失。&lt;/p&gt;
-&lt;p&gt;例如：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;9
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;初始：Ruth = 0
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;进程 A 读取 0
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;进程 B 读取 0
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;A 写入 1
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;B 也写入 1
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;最终：1，而不是 2
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;我们之前添加的 &lt;code&gt;sync.Mutex&lt;/code&gt; 只保护同一个 Store 对象内部的并发访问，不能跨进程加锁。&lt;/p&gt;
-&lt;p&gt;真正需要多进程读写时，应考虑文件锁、事务、数据库或者单一写入服务。&lt;/p&gt;
-</description>
-        </item>
-        <item>
-        <title>Go httptest｜CLI 与 HTTP 的 JSON 持久化集成测试</title>
-        <link>https://anarchycuriosity.github.io/p/go-cli-http-persistence-test/</link>
-        <pubDate>Thu, 12 Nov 2026 00:00:00 +0800</pubDate>
-        
-        <guid>https://anarchycuriosity.github.io/p/go-cli-http-persistence-test/</guid>
-        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_baf0d256570f1143.jpg" alt="Featured image of post Go httptest｜CLI 与 HTTP 的 JSON 持久化集成测试" /&gt;&lt;h2 id=&#34;两个入口如何连到同一份数据&#34;&gt;两个入口如何连到同一份数据
-&lt;/h2&gt;&lt;p&gt;两个可执行程序共同使用 &lt;code&gt;poker&lt;/code&gt; 包。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;9
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                   poker 包
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                  /        \
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;             PlayerServer   CLI
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                  \        /
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                   PlayerStore
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                        |
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;               FileSystemPlayerStore
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                        |
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                  game.db.json
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;现在需要验证的已经不是单个函数，而是一整条跨组件的数据路径。&lt;/p&gt;
-&lt;h2 id=&#34;用集成测试验证数据落盘&#34;&gt;用集成测试验证数据落盘
-&lt;/h2&gt;&lt;p&gt;我们希望：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;CLI 输入 &amp;#34;Ruth wins&amp;#34;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       │
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       ▼
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;FileSystemPlayerStore
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       │
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       ▼
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;写入 game.json
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       │
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       ▼
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;关闭 CLI Store
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       │
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       ▼
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;重新打开文件
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       │
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       ▼
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;构造 HTTP PlayerServer
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       │
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       ▼
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;GET /league
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       │
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       ▼
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Ruth.Wins == 1
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;注意两个关键细节：&lt;/p&gt;
-&lt;p&gt;第一，测试要真实使用文件，而不是只用 Stub。&lt;/p&gt;
-&lt;p&gt;第二，HTTP 侧应该重新打开文件，才能验证持久化结果真的被保存，并非只存在于 CLI 对象的内存中。&lt;/p&gt;
-&lt;p&gt;我们可以使用：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;t.TempDir()&lt;/code&gt; 创建隔离测试目录。&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;strings.NewReader()&lt;/code&gt; 模拟 CLI 输入。&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;httptest.NewRecorder()&lt;/code&gt; 捕获 HTTP 响应。&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;json.Unmarshal()&lt;/code&gt; 检查响应中的结构化数据。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;不需要真的监听 TCP 端口，就能验证两个入口对同一存储格式的集成行为。&lt;/p&gt;
-</description>
-        </item>
-        <item>
-        <title>TinyWebServer 调试｜控制流打点、解析状态与 errno 保留</title>
-        <link>https://anarchycuriosity.github.io/p/tiny-web-server-debug-trace/</link>
-        <pubDate>Thu, 29 Oct 2026 00:00:00 +0800</pubDate>
-        
-        <guid>https://anarchycuriosity.github.io/p/tiny-web-server-debug-trace/</guid>
-        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_155a548b61aa41e7.jpg" alt="Featured image of post TinyWebServer 调试｜控制流打点、解析状态与 errno 保留" /&gt;&lt;h2 id=&#34;从函数出口反推决策点&#34;&gt;从函数出口反推决策点
-&lt;/h2&gt;&lt;blockquote&gt;
-&lt;p&gt;我感觉我一般都是对着 return 附近的位置，视线拉远一些，看看是不是在某个逻辑模块内，打 debug_trace。&lt;/p&gt;
-&lt;p&gt;你觉得这个思路对吗？因为 return 往往对应某种状态的改变？&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;这个直觉是有道理的，但需要区分两个概念：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;return&lt;/code&gt;：&lt;strong&gt;控制流的出口&lt;/strong&gt;，代表当前函数的一条执行路径结束。&lt;/li&gt;
-&lt;li&gt;状态变化：&lt;strong&gt;对象内部数据发生改变&lt;/strong&gt;，例如 &lt;code&gt;state&lt;/code&gt;、&lt;code&gt;scan_offset&lt;/code&gt;、&lt;code&gt;content_length&lt;/code&gt; 被更新。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;二者可能同时发生，但并不等价。&lt;/p&gt;
-&lt;p&gt;例如：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;parse_result&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;parse&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;数据不完整&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;parse_result&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;need_data&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;数据不合法&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;parse_result&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;bad_request&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;parse_result&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;complete&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;从 &lt;code&gt;return&lt;/code&gt; 向上观察，实际上是在寻找：&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;函数经过了哪些判断，为什么最终决定沿这条路径退出？&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;因此，我原本的阅读过程可以描述为：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;找到 return
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    ↓
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;拉远视野，观察所属的 if / switch / 循环
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    ↓
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;理解这个逻辑模块负责什么
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    ↓
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;判断是否需要 debug_trace
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;这是一种&lt;strong&gt;从控制流出口逆向寻找决策点&lt;/strong&gt;的方法。&lt;/p&gt;
-&lt;p&gt;它的价值在于：不需要从函数第一行开始盲目寻找打点位置，而是先找到可能具有诊断意义的执行路径。&lt;/p&gt;
-&lt;h2 id=&#34;区分解析结果和对象状态&#34;&gt;区分解析结果和对象状态
-&lt;/h2&gt;&lt;p&gt;这里需要修正：&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;return 只能证明本次函数调用结束，不能证明对象的内部状态发生改变。&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;以 HTTP Parser 为例。&lt;/p&gt;
-&lt;p&gt;假设收到：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-http&#34; data-lang=&#34;http&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;GET / HTTP/1.1\r
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;由于尚未收到 &lt;code&gt;\n&lt;/code&gt;，解析器无法确认请求行结束。&lt;/p&gt;
-&lt;p&gt;可能发生：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;9
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;当前缓冲区扫描完毕
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       ↓
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;还没有找到 LF
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       ↓
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;保存已有解析进度
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       ↓
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;返回 need_data
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       ↓
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;等待下一批数据
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;此时：&lt;/p&gt;
+        <guid>https://anarchycuriosity.github.io/p/go-registration-http/</guid>
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_9495f9458174f956.jpg" alt="Featured image of post Go Hertz 注册接口｜POST 路由、参数校验与 HTTP 状态" /&gt;&lt;h2 id=&#34;注册路由与请求校验&#34;&gt;注册路由与请求校验
+&lt;/h2&gt;&lt;p&gt;拿 &lt;code&gt;alice&lt;/code&gt; 注册这一次请求当主线。请求方法是 &lt;code&gt;POST&lt;/code&gt;，地址是 &lt;code&gt;/douyin/user/register/?username=alice&amp;amp;password=p&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;S01 的 Hertz 收得到请求，但路由里没有对应的处理函数，所以返回 &lt;code&gt;404&lt;/code&gt;。S02 登记 &lt;code&gt;POST /douyin/user/register/&lt;/code&gt; 后，同一条请求终于进了注册 handler。&lt;strong&gt;进了 handler 以后，第一件事是弄清客户端把两个值放在哪儿。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;原版通过 &lt;code&gt;c.Query(&amp;quot;username&amp;quot;)&lt;/code&gt; 和 &lt;code&gt;c.Query(&amp;quot;password&amp;quot;)&lt;/code&gt; 从 URL 的 &lt;code&gt;?&lt;/code&gt; 后面取参数。&lt;code&gt;POST&lt;/code&gt; 决定这条请求匹配哪个 handler，&lt;code&gt;c.Query&lt;/code&gt; 决定 handler 到哪儿取值。把 &lt;code&gt;username&lt;/code&gt; 和 &lt;code&gt;password&lt;/code&gt; 只放进 JSON 正文，这条请求仍能匹配路由，但 &lt;code&gt;c.Query&lt;/code&gt; 会读到空字符串，handler 返回 &lt;code&gt;400&lt;/code&gt;。 原版路由 · 原版 Register&lt;/p&gt;
+&lt;p&gt;接下来只改一个值试着推演。&lt;code&gt;alice&lt;/code&gt; 和 &lt;code&gt;p&lt;/code&gt; 都通过校验。删掉 &lt;code&gt;password&lt;/code&gt;，handler 会写 &lt;code&gt;400&lt;/code&gt;。把用户名换成 11 个 &lt;code&gt;中&lt;/code&gt;，每个 &lt;code&gt;中&lt;/code&gt; 在 UTF-8 中占 3 字节，&lt;code&gt;len(username)&lt;/code&gt; 就是 33。原版与 show 都会走长度超限分支，HTTP 返回 &lt;code&gt;200&lt;/code&gt;，JSON 里的 &lt;code&gt;status_code&lt;/code&gt; 是 &lt;code&gt;-1&lt;/code&gt;。show 把提示改成了「32 字节」，与实际检查一致。 show 参数校验&lt;/p&gt;
+&lt;p&gt;回到源码看每个校验分支末尾的 &lt;code&gt;return&lt;/code&gt;。&lt;code&gt;c.JSON(...)&lt;/code&gt; 把状态码和 JSON 写进&lt;strong&gt;当前请求的响应对象&lt;/strong&gt;，所以 handler 的签名里可以没有返回值。下一行 &lt;code&gt;return&lt;/code&gt; 结束这个函数。少了它，校验失败的请求还会继续往下走，后续分支就可能再写一次响应，或者把无效输入交给后端。&lt;/p&gt;
+&lt;h3 id=&#34;动手--先写出请求到校验这一段&#34;&gt;动手 · 先写出请求到校验这一段
+&lt;/h3&gt;&lt;p&gt;在现有 &lt;code&gt;internal/api&lt;/code&gt; 里新增 &lt;code&gt;register.go&lt;/code&gt;。先读附录中 &lt;code&gt;RegisterUserRoute&lt;/code&gt; 的前半段，然后写出下面这条顺序：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;登记 POST → 用 c.Query 取两个字符串 → 空值写 400 并结束 → 超过 32 字节写 200 / -1 并结束&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;RegisterResult&lt;/code&gt; 是交给 &lt;code&gt;c.JSON&lt;/code&gt; 的响应数据。先写好 &lt;code&gt;StatusCode&lt;/code&gt; 和 &lt;code&gt;StatusMsg&lt;/code&gt;，看它们怎样用 JSON tag 变成 &lt;code&gt;status_code&lt;/code&gt; 与 &lt;code&gt;status_msg&lt;/code&gt;。合法请求接下来要调用谁，下一节再接上。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;查阅指引。&lt;/strong&gt; 在 Hertz v0.5.2 源码里看 &lt;code&gt;POST&lt;/code&gt; 的签名，确认第二个参数为何能传一个函数。再在 &lt;code&gt;RequestContext&lt;/code&gt; 里找 &lt;code&gt;Query&lt;/code&gt; 和 &lt;code&gt;JSON&lt;/code&gt;，分别确认前者返回字符串，后者写入响应。 &lt;a class=&#34;link&#34; href=&#34;https://github.com/cloudwego/hertz/blob/v0.5.2/pkg/route/routergroup.go#L142&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Hertz v0.5.2 &lt;code&gt;RouterGroup.POST&lt;/code&gt; 所在文件&lt;/a&gt; · &lt;a class=&#34;link&#34; href=&#34;https://github.com/cloudwego/hertz/blob/v0.5.2/pkg/app/context.go&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;&lt;code&gt;RequestContext&lt;/code&gt; 源码&lt;/a&gt; · &lt;a class=&#34;link&#34; href=&#34;https://github.com/cloudwego/hertz/blob/v0.5.2/pkg/app/context.go#L962&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;&lt;code&gt;JSON&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;handler-与注册函数的接缝&#34;&gt;Handler 与注册函数的接缝
+&lt;/h2&gt;&lt;p&gt;HTTP handler 此时拿到了 &lt;code&gt;alice&lt;/code&gt; 和 &lt;code&gt;p&lt;/code&gt;。它能判断这两个字符串是否符合接口要求。至于 &lt;code&gt;alice&lt;/code&gt; 是否已被注册、该写入哪张表、成功后返回哪个用户 ID，这些要由用户服务处理。&lt;/p&gt;
+&lt;p&gt;原版在这个交接点把用户名和密码装进 &lt;code&gt;UserRegisterRequest&lt;/code&gt;，交给 &lt;code&gt;rpc.Register&lt;/code&gt;。后者调用 Kitex 的 &lt;code&gt;userClient.Register&lt;/code&gt;，用户服务才去查库、写库并签发 token。S02 正在复刻的是箭头左边的 HTTP 处理和中间的交接位置。 原版 HTTP handler · 原版 RPC 调用 · 原版用户服务&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Hertz 注册 handler → RegisterFunc 接入点 → Kitex 用户服务 → MySQL&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;show 用 &lt;code&gt;type RegisterFunc func(context.Context, string, string) (RegisterResult, error)&lt;/code&gt; 给一种&lt;strong&gt;函数签名&lt;/strong&gt;起了名字。读到这里，先把它看成一份约定：调用方给出执行用的 &lt;code&gt;ctx&lt;/code&gt;、用户名和密码，被调用的函数交回注册结果或调用错误。&lt;/p&gt;
+&lt;p&gt;再看 &lt;code&gt;RegisterUserRoute(hz, register)&lt;/code&gt;。登记路由时，&lt;code&gt;register&lt;/code&gt; 作为一个函数值传进来。传给 &lt;code&gt;hz.POST&lt;/code&gt; 的匿名 handler 会记住它，等 &lt;code&gt;alice&lt;/code&gt; 发来请求并通过检查时，才执行 &lt;code&gt;register(ctx, username, password)&lt;/code&gt;。这里发生了两次交接：&lt;strong&gt;启动时交给 handler 一个可调用的函数，请求到达后再把参数交给那个函数。&lt;/strong&gt; show &lt;code&gt;RegisterFunc&lt;/code&gt; 与调用处&lt;/p&gt;
+&lt;p&gt;真实进程在 &lt;code&gt;RegisterRoutes&lt;/code&gt; 中传的是 &lt;code&gt;nil&lt;/code&gt;。这表示路由已装好，但后端函数还没有接上。所以 &lt;code&gt;alice&lt;/code&gt; 通过校验之后得到 &lt;code&gt;503&lt;/code&gt; 和 &lt;code&gt;status_code: -1&lt;/code&gt;。去掉 &lt;code&gt;register == nil&lt;/code&gt; 的检查，合法请求就会尝试调用一个空函数值，触发 panic。这个检查让「本步停在哪里」变成客户端看得见的响应。 实际装配入口&lt;/p&gt;
+&lt;h3 id=&#34;动手--接上函数参数让真实路由走到-503&#34;&gt;动手 · 接上函数参数，让真实路由走到 503
+&lt;/h3&gt;&lt;p&gt;在 &lt;code&gt;register.go&lt;/code&gt; 把 &lt;code&gt;RegisterFunc&lt;/code&gt;、空函数检查和调用路径接到上一节的校验后面。在 &lt;strong&gt;learner 已有的&lt;/strong&gt; &lt;code&gt;RegisterRoutes&lt;/code&gt; 里只加 &lt;code&gt;RegisterUserRoute(hz, nil)&lt;/code&gt;。保留原有 &lt;code&gt;/healthz&lt;/code&gt;、服务构造和测试。两个 &lt;code&gt;.go&lt;/code&gt; 文件同属 &lt;code&gt;package api&lt;/code&gt;，可以直接调用同包函数，无须把 &lt;code&gt;register.go&lt;/code&gt; 写进 &lt;code&gt;import&lt;/code&gt;。每个文件仍各自导入它用到的包。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;查阅指引。&lt;/strong&gt; 想确认这次改动接到了真正的服务器上，就顺着 show 的 &lt;code&gt;NewServer → RegisterRoutes → RegisterUserRoute&lt;/code&gt; 走一遍。看到最后一跳的 &lt;code&gt;nil&lt;/code&gt;，就能解释为什么真实请求停在 &lt;code&gt;503&lt;/code&gt;。 show 服务器装配&lt;/p&gt;
+&lt;h2 id=&#34;错误与结果的双重检查&#34;&gt;错误与结果的双重检查
+&lt;/h2&gt;&lt;p&gt;现在保持 &lt;code&gt;alice&lt;/code&gt; / &lt;code&gt;p&lt;/code&gt; 不变，只在测试里给 &lt;code&gt;RegisterUserRoute&lt;/code&gt; 传一个普通 Go 函数。这样可以观察同一个 HTTP handler 如何处理不同的后端结果：&lt;/p&gt;
 &lt;table&gt;
   &lt;thead&gt;
       &lt;tr&gt;
-          &lt;th&gt;观察对象&lt;/th&gt;
-          &lt;th&gt;实际含义&lt;/th&gt;
+          &lt;th&gt;函数交回什么&lt;/th&gt;
+          &lt;th&gt;handler 写回什么&lt;/th&gt;
       &lt;/tr&gt;
   &lt;/thead&gt;
   &lt;tbody&gt;
       &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;parse_result&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;&lt;code&gt;need_data&lt;/code&gt;，本次解析暂时无法继续&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;err != nil&lt;/code&gt;，例如调用失败&lt;/td&gt;
+          &lt;td&gt;HTTP &lt;code&gt;502&lt;/code&gt;、&lt;code&gt;status_code: -1&lt;/code&gt;，响应使用固定消息&lt;/td&gt;
       &lt;/tr&gt;
       &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;state&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;可能仍保持原来的解析阶段&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;err == nil&lt;/code&gt;，业务结果说「用户名已存在」&lt;/td&gt;
+          &lt;td&gt;HTTP &lt;code&gt;200&lt;/code&gt;、非零 &lt;code&gt;status_code&lt;/code&gt;，失败响应省略用户 ID 和 token&lt;/td&gt;
       &lt;/tr&gt;
       &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;scan_offset&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;记录已经扫描的位置&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;reason&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;&lt;code&gt;none&lt;/code&gt;，因为等待数据不是解析失败&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;Parser 对象&lt;/td&gt;
-          &lt;td&gt;仍然存在，保留进度供下次调用使用&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;err == nil&lt;/code&gt;，业务结果返回用户 ID &lt;code&gt;42&lt;/code&gt; 和测试 token&lt;/td&gt;
+          &lt;td&gt;HTTP &lt;code&gt;200&lt;/code&gt;、&lt;code&gt;status_code: 0&lt;/code&gt;，把测试结果写进 JSON&lt;/td&gt;
       &lt;/tr&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;p&gt;这里涉及三个不同层面的事情：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;函数调用结束了。&lt;/li&gt;
-&lt;li&gt;某些进度字段可能更新了。&lt;/li&gt;
-&lt;li&gt;解析器的逻辑状态未必改变。&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;特别需要注意：&lt;strong&gt;返回值不等于对象状态。&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;例如 &lt;code&gt;need_data&lt;/code&gt; 是本次 &lt;code&gt;parse()&lt;/code&gt; 的执行结果，不一定是持久保存在 Parser 内部的一个状态。&lt;/p&gt;
-&lt;h2 id=&#34;打日志时保留-errno&#34;&gt;打日志时保留 errno
-&lt;/h2&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;recv() 失败
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;errno = ECONNRESET
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    ↓
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;debug_trace()
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    ├── 保存 ECONNRESET
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    ├── 打印调试信息
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    └── 恢复 ECONNRESET
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    ↓
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;调用者继续检查 errno
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;仍然得到 ECONNRESET
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;h2 id=&#34;用日志还原控制流与状态变化&#34;&gt;用日志还原控制流与状态变化
-&lt;/h2&gt;&lt;blockquote&gt;
-&lt;p&gt;我最初是从 return 附近拉远视野，判断这个位置是否处于某个有意义的逻辑模块。&lt;/p&gt;
-&lt;p&gt;现在看来，这实际上是一种从函数出口逆向寻找决策原因的方法。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;需要保留这个直觉，但不能把 &lt;code&gt;return&lt;/code&gt; 直接理解成状态变化。&lt;/p&gt;
-&lt;p&gt;更加准确的模型是：&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;return 帮助我定位执行结果，分支判断帮助我解释结果原因，成员变量变化帮助我重建状态演化。&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;对于 TinyWebServer 的 HTTP Parser：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;观察 &lt;code&gt;return&lt;/code&gt;，理解本次调用如何结束。&lt;/li&gt;
-&lt;li&gt;观察 &lt;code&gt;break&lt;/code&gt; / &lt;code&gt;continue&lt;/code&gt;，理解控制流如何推进或暂停。&lt;/li&gt;
-&lt;li&gt;观察 &lt;code&gt;state&lt;/code&gt; 和 &lt;code&gt;scan_offset&lt;/code&gt; 等字段，理解解析器如何保存进度。&lt;/li&gt;
-&lt;li&gt;观察 &lt;code&gt;debug_trace&lt;/code&gt;，验证自己推测的因果链。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;最终衡量打点质量的标准不是：&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;我是不是在每个重要 return 前都打了日志？&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;而是：&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;当解析器得到一个异常或不符合预期的结果时，我能否仅凭日志还原它为什么走到这里，以及下一次调用会从哪里继续？&lt;/strong&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;这也对应着源码阅读中的三个层次：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;控制流：程序走了哪条路径？
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    ↓
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;数据流：哪些成员变量发生了变化？
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    ↓
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;因果链：什么输入和判断导致了这些变化？
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;&lt;strong&gt;最终结论：打点位置应当围绕有诊断价值的决策和状态变化来选择，而 &lt;code&gt;return&lt;/code&gt; 是寻找这些位置的一个很好的起点，不是唯一的判断依据。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;试着把前两种放回同一个请求里想。用户服务如果明确说「用户名已存在」，handler 已经拿到一个业务答案。调用过程中如果出了错，handler 没有拿到可用的业务答案。原版用 &lt;code&gt;res, _ := rpc.Register(...)&lt;/code&gt; 丢掉了调用错误，紧接着读取 &lt;code&gt;res.StatusCode&lt;/code&gt;。如果这次调用失败并返回 &lt;code&gt;nil&lt;/code&gt; 响应，继续访问字段就会 panic。show 按顺序先检查 &lt;code&gt;err&lt;/code&gt;，再读 &lt;code&gt;result.StatusCode&lt;/code&gt;。 原版 RPC 结果读取 · show 响应分支&lt;/p&gt;
+&lt;p&gt;读 &lt;code&gt;c.JSON(http.StatusOK, result)&lt;/code&gt; 时，第一项是 HTTP 状态，第二项才会被编码成 JSON。客户端看到 &lt;code&gt;200&lt;/code&gt; 后还要读 &lt;code&gt;status_code&lt;/code&gt;，因为长度超限、业务拒绝和业务成功都可能用 HTTP &lt;code&gt;200&lt;/code&gt;。业务失败时，show 先把 &lt;code&gt;UserID&lt;/code&gt; 和 &lt;code&gt;Token&lt;/code&gt; 清零，再由 JSON tag 里的 &lt;code&gt;omitempty&lt;/code&gt; 省略这两个字段。原版响应类型没有这两个 &lt;code&gt;omitempty&lt;/code&gt;，所以这一步保留了原版查询参数和校验规则，调整了失败响应的字段形状。 show 响应类型 · 原版响应类型&lt;/p&gt;
+&lt;h3 id=&#34;动手--用替身把每个出口跑出来&#34;&gt;动手 · 用替身把每个出口跑出来
+&lt;/h3&gt;&lt;p&gt;在 &lt;code&gt;internal/api&lt;/code&gt; 新增 &lt;code&gt;register_test.go&lt;/code&gt;。每个测试创建一个 Hertz 实例，用 &lt;code&gt;RegisterUserRoute(hz, backend)&lt;/code&gt; 装配该场景的函数，再用 &lt;code&gt;ut.PerformRequest&lt;/code&gt; 发 POST。先试合法输入加 &lt;code&gt;nil&lt;/code&gt;，确认得到 &lt;code&gt;503&lt;/code&gt;。再给同一输入换两个替身，分别返回一个 &lt;code&gt;error&lt;/code&gt; 和一个业务拒绝，观察 &lt;code&gt;502&lt;/code&gt; 与 &lt;code&gt;200 / -1&lt;/code&gt;。最后补上缺参、长度超限和成功映射。&lt;/p&gt;
+&lt;p&gt;把「缺参」再单独跑一遍，传入一个&lt;strong&gt;只要被调用就让测试失败&lt;/strong&gt;的替身。这样能验证请求在校验处结束，后端函数没有收到无效参数。附录中的 &lt;code&gt;42&lt;/code&gt; 和 &lt;code&gt;test-token&lt;/code&gt; 只来自测试函数，用来验证 HTTP 映射。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;查阅指引。&lt;/strong&gt; 查 Hertz v0.5.2 的 &lt;code&gt;ut.PerformRequest&lt;/code&gt; 时，顺到 &lt;code&gt;engine.ServeHTTP(...)&lt;/code&gt; 就够了。它把构造好的请求交给 &lt;code&gt;hz.Engine&lt;/code&gt;，所以即使没有 &lt;code&gt;cmd/api/main.go&lt;/code&gt;，也能观察响应。测试用 &lt;code&gt;url.Values.Encode()&lt;/code&gt; 生成查询串，中文用户名也走正常 URL 编码和解析。 &lt;a class=&#34;link&#34; href=&#34;https://github.com/cloudwego/hertz/blob/v0.5.2/pkg/common/ut/request.go#L50&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Hertz v0.5.2 &lt;code&gt;PerformRequest&lt;/code&gt;&lt;/a&gt; · show 替身测试&lt;/p&gt;
 </description>
         </item>
         <item>
         <title>TinyWebServer 响应发送｜writev 聚集写入与部分写入游标</title>
         <link>https://anarchycuriosity.github.io/p/tiny-web-server-writev-partial-writes/</link>
-        <pubDate>Fri, 23 Oct 2026 00:00:00 +0800</pubDate>
+        <pubDate>Tue, 18 Aug 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/tiny-web-server-writev-partial-writes/</guid>
         <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_89ade664ebe797e4.png" alt="Featured image of post TinyWebServer 响应发送｜writev 聚集写入与部分写入游标" /&gt;&lt;h2 id=&#34;响应头和正文怎样交给同一次-writev&#34;&gt;响应头和正文怎样交给同一次 writev
@@ -852,7 +502,7 @@
         <item>
         <title>TinyWebServer 响应构造｜200 文件响应与 404 错误响应</title>
         <link>https://anarchycuriosity.github.io/p/tiny-web-server-response-preparation/</link>
-        <pubDate>Sun, 18 Oct 2026 00:00:00 +0800</pubDate>
+        <pubDate>Tue, 28 Jul 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/tiny-web-server-response-preparation/</guid>
         <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_6ed0660db26cb453.png" alt="Featured image of post TinyWebServer 响应构造｜200 文件响应与 404 错误响应" /&gt;&lt;h2 id=&#34;prepare_header-写的是响应头&#34;&gt;prepare_header 写的是响应头
@@ -1199,140 +849,9 @@
 </description>
         </item>
         <item>
-        <title>TinyWebServer HTTP Parser｜从请求行到请求体的状态机设计</title>
-        <link>https://anarchycuriosity.github.io/p/http-parser-rebuild-notes/</link>
-        <pubDate>Wed, 14 Oct 2026 00:00:00 +0800</pubDate>
-        
-        <guid>https://anarchycuriosity.github.io/p/http-parser-rebuild-notes/</guid>
-        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_798f0e2012a2f534.jpg" alt="Featured image of post TinyWebServer HTTP Parser｜从请求行到请求体的状态机设计" /&gt;&lt;h2 id=&#34;为什么照着头文件抄容易卡住&#34;&gt;为什么照着头文件抄容易卡住
-&lt;/h2&gt;&lt;p&gt;我在rebuild我的tiny_web_server到http解析器的部分,我已经比较理解了设计意图,但是我不明白应该怎么样正确地抄这个部分,如果抄完头文件然后抄实现感觉跟抄字典没什么区别,头文件本身就没什么逻辑可言,而对于一些小的部分,我可以做到看一次实现然后想到思路然后默写下来,就像写算法题填空一样.我应该怎么做&lt;/p&gt;
-&lt;h2 id=&#34;从请求行一路推到请求体&#34;&gt;从请求行一路推到请求体
-&lt;/h2&gt;&lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;按“一个输入把程序逼出一个新能力”的顺序 rebuild，而不是按文件顺序 rebuild。&lt;/strong&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;也就是说，把 HTTP parser 当成一道越来越难的题,拿http parser来说,先问chatgpt然后让他帮你拆.这才是正解.&lt;/p&gt;
-&lt;p&gt;假设第一版parser什么都没有,先给最简单的输入&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;GET /hello HTTP/1.1\r\n
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;\r\n
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;我想要得到什么信息?method,target,version,好了这下我们需要一个http_request类(我在想这个是不是其实应该叫http_request_line_type).&lt;/p&gt;
-&lt;p&gt;第一行解析完了,接下来这一行我们要按照什么规则解释?于是有了request_state.&lt;/p&gt;
-&lt;p&gt;到了body部分,你发现body不会一次发完过来,所以需要进度指针,需要seen.&lt;/p&gt;
-&lt;h2 id=&#34;把设计意图对应到实现&#34;&gt;把设计意图对应到实现
-&lt;/h2&gt;&lt;p&gt;关于怎么抄http_parser那个部分,我感觉好像还是得像抄字典一样抄一次吧,因为我感觉我的问题不是不理解设计意图,而是我不熟悉接口和怎么系统地思考.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;第一层：为什么这样设计
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        ↓
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;你基本已经过了
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;第二层：这种设计怎么翻译成 C++
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        ↓
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;你现在主要卡这里
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;第三层：不给源码，自己重新组织实现
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        ↓
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;现在还不用强求
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;“parser记住当前阶段”
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;request_state state;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;“记住扫描位置”
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;size_t scan_offset;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;“头部大小写不敏感”
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;lower_ascii(...);
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;“不复制字符串，只看一个范围”
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;string_view;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;“严格把十进制字符串变成整数”
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;from_chars;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;“解析失败立刻进入终态”
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;result = parse_result::bad_request;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;return result;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;“request line结束，接下来按header规则解释”
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;state = request_state::headers;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;blockquote&gt;
-&lt;p&gt;你不是“不知道怎么系统思考”，而是&lt;strong&gt;还没有足够多的实现样本，让你的系统模型自动展开成代码步骤。&lt;/strong&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2 id=&#34;怎样安排第一次复刻&#34;&gt;怎样安排第一次复刻
-&lt;/h2&gt;&lt;p&gt;我在想抄的rebuild和只看解构而rebuild,它们之间的时间间隔也许应该大一些?毕竟抄一次其实也是在潜移默化地成长了?毕竟我抄一次之后我还要默写一次,我感觉我的兴趣和动力会减少.&lt;/p&gt;
-&lt;p&gt;我赞成，而且我觉得你这里抓到了一个很重要的点：&lt;strong&gt;“抄一次”和“只看解构重新 build 一次”不应该紧挨着做。&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;因为如果你今天刚完整抄完，明天就关掉源码重写，你测到的东西很大一部分其实是：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;昨天源码长什么样
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        ↓
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;视觉/顺序记忆
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        ↓
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;把原来的代码复现出来
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;&lt;strong&gt;连续把同一个 parser 写三遍，非常容易把 rebuild 变成枯燥的誊写训练。&lt;/strong&gt; 对你现在这个阶段，兴趣损耗可能比多写那一遍带来的收益还大。&lt;/p&gt;
-</description>
-        </item>
-        <item>
         <title>TinyWebServer 静态资源｜URL 路径解码与 openat 文件定位</title>
         <link>https://anarchycuriosity.github.io/p/tiny-web-server-static-file-routing/</link>
-        <pubDate>Thu, 08 Oct 2026 00:00:00 +0800</pubDate>
+        <pubDate>Tue, 21 Jul 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/tiny-web-server-static-file-routing/</guid>
         <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_2de188f19d1e4457.png" alt="Featured image of post TinyWebServer 静态资源｜URL 路径解码与 openat 文件定位" /&gt;&lt;h2 id=&#34;从请求目标取出资源路径&#34;&gt;从请求目标取出资源路径
@@ -1613,7 +1132,7 @@
         <item>
         <title>TinyWebServer 请求解析｜TCP 字节流与增量解析游标</title>
         <link>https://anarchycuriosity.github.io/p/tiny-web-server-http-request-parsing/</link>
-        <pubDate>Sun, 04 Oct 2026 00:00:00 +0800</pubDate>
+        <pubDate>Tue, 14 Jul 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/tiny-web-server-http-request-parsing/</guid>
         <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_2376b17b99aeaf7d.jpg" alt="Featured image of post TinyWebServer 请求解析｜TCP 字节流与增量解析游标" /&gt;&lt;h2 id=&#34;接收网络字节与解析-http&#34;&gt;接收网络字节与解析 HTTP
@@ -1986,9 +1505,851 @@
 </description>
         </item>
         <item>
+        <title>TinyWebServer HTTP Parser｜从请求行到请求体的状态机设计</title>
+        <link>https://anarchycuriosity.github.io/p/http-parser-rebuild-notes/</link>
+        <pubDate>Tue, 07 Jul 2026 00:00:00 +0800</pubDate>
+        
+        <guid>https://anarchycuriosity.github.io/p/http-parser-rebuild-notes/</guid>
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_798f0e2012a2f534.jpg" alt="Featured image of post TinyWebServer HTTP Parser｜从请求行到请求体的状态机设计" /&gt;&lt;h2 id=&#34;为什么照着头文件抄容易卡住&#34;&gt;为什么照着头文件抄容易卡住
+&lt;/h2&gt;&lt;p&gt;我在rebuild我的tiny_web_server到http解析器的部分,我已经比较理解了设计意图,但是我不明白应该怎么样正确地抄这个部分,如果抄完头文件然后抄实现感觉跟抄字典没什么区别,头文件本身就没什么逻辑可言,而对于一些小的部分,我可以做到看一次实现然后想到思路然后默写下来,就像写算法题填空一样.我应该怎么做&lt;/p&gt;
+&lt;h2 id=&#34;从请求行一路推到请求体&#34;&gt;从请求行一路推到请求体
+&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;按“一个输入把程序逼出一个新能力”的顺序 rebuild，而不是按文件顺序 rebuild。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;也就是说，把 HTTP parser 当成一道越来越难的题,拿http parser来说,先问chatgpt然后让他帮你拆.这才是正解.&lt;/p&gt;
+&lt;p&gt;假设第一版parser什么都没有,先给最简单的输入&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;GET /hello HTTP/1.1\r\n
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;\r\n
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;我想要得到什么信息?method,target,version,好了这下我们需要一个http_request类(我在想这个是不是其实应该叫http_request_line_type).&lt;/p&gt;
+&lt;p&gt;第一行解析完了,接下来这一行我们要按照什么规则解释?于是有了request_state.&lt;/p&gt;
+&lt;p&gt;到了body部分,你发现body不会一次发完过来,所以需要进度指针,需要seen.&lt;/p&gt;
+&lt;h2 id=&#34;把设计意图对应到实现&#34;&gt;把设计意图对应到实现
+&lt;/h2&gt;&lt;p&gt;关于怎么抄http_parser那个部分,我感觉好像还是得像抄字典一样抄一次吧,因为我感觉我的问题不是不理解设计意图,而是我不熟悉接口和怎么系统地思考.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;第一层：为什么这样设计
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        ↓
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;你基本已经过了
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;第二层：这种设计怎么翻译成 C++
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        ↓
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;你现在主要卡这里
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;第三层：不给源码，自己重新组织实现
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        ↓
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;现在还不用强求
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;“parser记住当前阶段”
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;request_state state;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;“记住扫描位置”
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;size_t scan_offset;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;“头部大小写不敏感”
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;lower_ascii(...);
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;“不复制字符串，只看一个范围”
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;string_view;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;“严格把十进制字符串变成整数”
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;from_chars;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;“解析失败立刻进入终态”
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;result = parse_result::bad_request;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;return result;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;“request line结束，接下来按header规则解释”
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;state = request_state::headers;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;你不是“不知道怎么系统思考”，而是&lt;strong&gt;还没有足够多的实现样本，让你的系统模型自动展开成代码步骤。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;怎样安排第一次复刻&#34;&gt;怎样安排第一次复刻
+&lt;/h2&gt;&lt;p&gt;我在想抄的rebuild和只看解构而rebuild,它们之间的时间间隔也许应该大一些?毕竟抄一次其实也是在潜移默化地成长了?毕竟我抄一次之后我还要默写一次,我感觉我的兴趣和动力会减少.&lt;/p&gt;
+&lt;p&gt;我赞成，而且我觉得你这里抓到了一个很重要的点：&lt;strong&gt;“抄一次”和“只看解构重新 build 一次”不应该紧挨着做。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;因为如果你今天刚完整抄完，明天就关掉源码重写，你测到的东西很大一部分其实是：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;昨天源码长什么样
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        ↓
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;视觉/顺序记忆
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        ↓
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;把原来的代码复现出来
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;strong&gt;连续把同一个 parser 写三遍，非常容易把 rebuild 变成枯燥的誊写训练。&lt;/strong&gt; 对你现在这个阶段，兴趣损耗可能比多写那一遍带来的收益还大。&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>TinyWebServer 调试｜控制流打点、解析状态与 errno 保留</title>
+        <link>https://anarchycuriosity.github.io/p/tiny-web-server-debug-trace/</link>
+        <pubDate>Tue, 30 Jun 2026 00:00:00 +0800</pubDate>
+        
+        <guid>https://anarchycuriosity.github.io/p/tiny-web-server-debug-trace/</guid>
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_155a548b61aa41e7.jpg" alt="Featured image of post TinyWebServer 调试｜控制流打点、解析状态与 errno 保留" /&gt;&lt;h2 id=&#34;从函数出口反推决策点&#34;&gt;从函数出口反推决策点
+&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;我感觉我一般都是对着 return 附近的位置，视线拉远一些，看看是不是在某个逻辑模块内，打 debug_trace。&lt;/p&gt;
+&lt;p&gt;你觉得这个思路对吗？因为 return 往往对应某种状态的改变？&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;这个直觉是有道理的，但需要区分两个概念：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;return&lt;/code&gt;：&lt;strong&gt;控制流的出口&lt;/strong&gt;，代表当前函数的一条执行路径结束。&lt;/li&gt;
+&lt;li&gt;状态变化：&lt;strong&gt;对象内部数据发生改变&lt;/strong&gt;，例如 &lt;code&gt;state&lt;/code&gt;、&lt;code&gt;scan_offset&lt;/code&gt;、&lt;code&gt;content_length&lt;/code&gt; 被更新。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;二者可能同时发生，但并不等价。&lt;/p&gt;
+&lt;p&gt;例如：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;parse_result&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;parse&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;数据不完整&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;parse_result&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;need_data&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;数据不合法&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;parse_result&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;bad_request&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;parse_result&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;complete&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;从 &lt;code&gt;return&lt;/code&gt; 向上观察，实际上是在寻找：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;函数经过了哪些判断，为什么最终决定沿这条路径退出？&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;因此，我原本的阅读过程可以描述为：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;找到 return
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    ↓
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;拉远视野，观察所属的 if / switch / 循环
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    ↓
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;理解这个逻辑模块负责什么
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    ↓
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;判断是否需要 debug_trace
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;这是一种&lt;strong&gt;从控制流出口逆向寻找决策点&lt;/strong&gt;的方法。&lt;/p&gt;
+&lt;p&gt;它的价值在于：不需要从函数第一行开始盲目寻找打点位置，而是先找到可能具有诊断意义的执行路径。&lt;/p&gt;
+&lt;h2 id=&#34;区分解析结果和对象状态&#34;&gt;区分解析结果和对象状态
+&lt;/h2&gt;&lt;p&gt;这里需要修正：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;return 只能证明本次函数调用结束，不能证明对象的内部状态发生改变。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;以 HTTP Parser 为例。&lt;/p&gt;
+&lt;p&gt;假设收到：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-http&#34; data-lang=&#34;http&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;GET / HTTP/1.1\r
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;由于尚未收到 &lt;code&gt;\n&lt;/code&gt;，解析器无法确认请求行结束。&lt;/p&gt;
+&lt;p&gt;可能发生：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;9
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;当前缓冲区扫描完毕
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       ↓
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;还没有找到 LF
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       ↓
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;保存已有解析进度
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       ↓
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;返回 need_data
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       ↓
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;等待下一批数据
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;此时：&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;观察对象&lt;/th&gt;
+          &lt;th&gt;实际含义&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;parse_result&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;need_data&lt;/code&gt;，本次解析暂时无法继续&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;state&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;可能仍保持原来的解析阶段&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;scan_offset&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;记录已经扫描的位置&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;reason&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;none&lt;/code&gt;，因为等待数据不是解析失败&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Parser 对象&lt;/td&gt;
+          &lt;td&gt;仍然存在，保留进度供下次调用使用&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;这里涉及三个不同层面的事情：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;函数调用结束了。&lt;/li&gt;
+&lt;li&gt;某些进度字段可能更新了。&lt;/li&gt;
+&lt;li&gt;解析器的逻辑状态未必改变。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;特别需要注意：&lt;strong&gt;返回值不等于对象状态。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;例如 &lt;code&gt;need_data&lt;/code&gt; 是本次 &lt;code&gt;parse()&lt;/code&gt; 的执行结果，不一定是持久保存在 Parser 内部的一个状态。&lt;/p&gt;
+&lt;h2 id=&#34;打日志时保留-errno&#34;&gt;打日志时保留 errno
+&lt;/h2&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;recv() 失败
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;errno = ECONNRESET
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    ↓
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;debug_trace()
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    ├── 保存 ECONNRESET
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    ├── 打印调试信息
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    └── 恢复 ECONNRESET
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    ↓
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;调用者继续检查 errno
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;仍然得到 ECONNRESET
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;用日志还原控制流与状态变化&#34;&gt;用日志还原控制流与状态变化
+&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;我最初是从 return 附近拉远视野，判断这个位置是否处于某个有意义的逻辑模块。&lt;/p&gt;
+&lt;p&gt;现在看来，这实际上是一种从函数出口逆向寻找决策原因的方法。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;需要保留这个直觉，但不能把 &lt;code&gt;return&lt;/code&gt; 直接理解成状态变化。&lt;/p&gt;
+&lt;p&gt;更加准确的模型是：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;return 帮助我定位执行结果，分支判断帮助我解释结果原因，成员变量变化帮助我重建状态演化。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;对于 TinyWebServer 的 HTTP Parser：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;观察 &lt;code&gt;return&lt;/code&gt;，理解本次调用如何结束。&lt;/li&gt;
+&lt;li&gt;观察 &lt;code&gt;break&lt;/code&gt; / &lt;code&gt;continue&lt;/code&gt;，理解控制流如何推进或暂停。&lt;/li&gt;
+&lt;li&gt;观察 &lt;code&gt;state&lt;/code&gt; 和 &lt;code&gt;scan_offset&lt;/code&gt; 等字段，理解解析器如何保存进度。&lt;/li&gt;
+&lt;li&gt;观察 &lt;code&gt;debug_trace&lt;/code&gt;，验证自己推测的因果链。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;最终衡量打点质量的标准不是：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;我是不是在每个重要 return 前都打了日志？&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;而是：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;当解析器得到一个异常或不符合预期的结果时，我能否仅凭日志还原它为什么走到这里，以及下一次调用会从哪里继续？&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;这也对应着源码阅读中的三个层次：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;控制流：程序走了哪条路径？
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    ↓
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;数据流：哪些成员变量发生了变化？
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    ↓
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;因果链：什么输入和判断导致了这些变化？
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;strong&gt;最终结论：打点位置应当围绕有诊断价值的决策和状态变化来选择，而 &lt;code&gt;return&lt;/code&gt; 是寻找这些位置的一个很好的起点，不是唯一的判断依据。&lt;/strong&gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Go JSON 文件存储｜进程内缓存与跨进程更新丢失</title>
+        <link>https://anarchycuriosity.github.io/p/go-cli-http-shared-storage/</link>
+        <pubDate>Tue, 05 May 2026 00:00:00 +0800</pubDate>
+        
+        <guid>https://anarchycuriosity.github.io/p/go-cli-http-shared-storage/</guid>
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_368f31f803cb0396.jpg" alt="Featured image of post Go JSON 文件存储｜进程内缓存与跨进程更新丢失" /&gt;&lt;h2 id=&#34;共享文件与进程内缓存&#34;&gt;共享文件与进程内缓存
+&lt;/h2&gt;&lt;p&gt;假设两个进程同时运行。&lt;/p&gt;
+&lt;p&gt;时间线：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;T0：game.db.json = []
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;T1：HTTP 启动
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    → 读取文件
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    → HTTP Store 缓存 []
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;T2：CLI 启动
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    → 读取文件
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    → 记录 Ruth
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    → 文件变成 [{&amp;#34;name&amp;#34;:&amp;#34;Ruth&amp;#34;,&amp;#34;wins&amp;#34;:1}]
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;T3：HTTP 收到 GET /league
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    → 查询自己的内存缓存
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    → 仍然返回 []
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;为什么？&lt;/p&gt;
+&lt;p&gt;因为 HTTP 进程没有重新加载文件。&lt;/p&gt;
+&lt;p&gt;当前实现中的 &lt;code&gt;FileSystemPlayerStore&lt;/code&gt; 把 &lt;code&gt;League&lt;/code&gt; 缓存在结构体里。另一个进程修改磁盘，不会自动修改这个结构体。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;HTTP 进程内存：[旧 League]
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;CLI 进程内存：[新 League]
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       │
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       ▼
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;磁盘文件：[新 League]
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;重新启动 HTTP 服务会重新读取文件，因此能够看到最新记录。&lt;/p&gt;
+&lt;p&gt;但仅仅增加“每次 GET 都重新读文件”也不足以获得安全的跨进程存储。&lt;/p&gt;
+&lt;p&gt;如果两个进程同时写入，各自按照旧快照重写整个 JSON 文件，就可能发生更新丢失。&lt;/p&gt;
+&lt;p&gt;例如：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;9
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;初始：Ruth = 0
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;进程 A 读取 0
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;进程 B 读取 0
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;A 写入 1
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;B 也写入 1
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;最终：1，而不是 2
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;我们之前添加的 &lt;code&gt;sync.Mutex&lt;/code&gt; 只保护同一个 Store 对象内部的并发访问，不能跨进程加锁。&lt;/p&gt;
+&lt;p&gt;真正需要多进程读写时，应考虑文件锁、事务、数据库或者单一写入服务。&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Go httptest｜CLI 与 HTTP 的 JSON 持久化集成测试</title>
+        <link>https://anarchycuriosity.github.io/p/go-cli-http-persistence-test/</link>
+        <pubDate>Tue, 21 Apr 2026 00:00:00 +0800</pubDate>
+        
+        <guid>https://anarchycuriosity.github.io/p/go-cli-http-persistence-test/</guid>
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_baf0d256570f1143.jpg" alt="Featured image of post Go httptest｜CLI 与 HTTP 的 JSON 持久化集成测试" /&gt;&lt;h2 id=&#34;两个入口如何连到同一份数据&#34;&gt;两个入口如何连到同一份数据
+&lt;/h2&gt;&lt;p&gt;两个可执行程序共同使用 &lt;code&gt;poker&lt;/code&gt; 包。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;9
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                   poker 包
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                  /        \
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;             PlayerServer   CLI
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                  \        /
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                   PlayerStore
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                        |
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;               FileSystemPlayerStore
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                        |
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                  game.db.json
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;现在需要验证的已经不是单个函数，而是一整条跨组件的数据路径。&lt;/p&gt;
+&lt;h2 id=&#34;用集成测试验证数据落盘&#34;&gt;用集成测试验证数据落盘
+&lt;/h2&gt;&lt;p&gt;我们希望：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;CLI 输入 &amp;#34;Ruth wins&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       │
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       ▼
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;FileSystemPlayerStore
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       │
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       ▼
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;写入 game.json
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       │
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       ▼
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;关闭 CLI Store
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       │
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       ▼
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;重新打开文件
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       │
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       ▼
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;构造 HTTP PlayerServer
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       │
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       ▼
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;GET /league
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       │
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       ▼
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Ruth.Wins == 1
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;注意两个关键细节：&lt;/p&gt;
+&lt;p&gt;第一，测试要真实使用文件，而不是只用 Stub。&lt;/p&gt;
+&lt;p&gt;第二，HTTP 侧应该重新打开文件，才能验证持久化结果真的被保存，并非只存在于 CLI 对象的内存中。&lt;/p&gt;
+&lt;p&gt;我们可以使用：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;t.TempDir()&lt;/code&gt; 创建隔离测试目录。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;strings.NewReader()&lt;/code&gt; 模拟 CLI 输入。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;httptest.NewRecorder()&lt;/code&gt; 捕获 HTTP 响应。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;json.Unmarshal()&lt;/code&gt; 检查响应中的结构化数据。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;不需要真的监听 TCP 端口，就能验证两个入口对同一存储格式的集成行为。&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Go net/http｜Handler、ResponseWriter 与进程内测试</title>
+        <link>https://anarchycuriosity.github.io/p/go-http-handler-contract/</link>
+        <pubDate>Tue, 24 Feb 2026 00:00:00 +0800</pubDate>
+        
+        <guid>https://anarchycuriosity.github.io/p/go-http-handler-contract/</guid>
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_44776825acbda88d.png" alt="Featured image of post Go net/http｜Handler、ResponseWriter 与进程内测试" /&gt;&lt;h2 id=&#34;为什么先从硬编码开始&#34;&gt;为什么先从硬编码开始？
+&lt;/h2&gt;&lt;p&gt;需求：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;GET /players/Pepper&lt;/code&gt; → &lt;code&gt;20&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;以后还要支持其他玩家和记录胜场。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;先不考虑存储。我们只验证一条链路：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;9
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;客户端发出 GET 请求
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        ↓
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;net/http 接收请求
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        ↓
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;调用 PlayerServer
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        ↓
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;PlayerServer 写入 &amp;#34;20&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        ↓
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;客户端收到 HTTP 响应
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;code&gt;PlayerServer&lt;/code&gt; 暂时不知道 Pepper 是谁，也不知道分数来自哪里。&lt;/p&gt;
+&lt;p&gt;这不是完整实现，而是 TDD 的第一步：&lt;strong&gt;先证明一条最小路径能工作。&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;handler-到底是什么&#34;&gt;Handler 到底是什么？
+&lt;/h2&gt;&lt;p&gt;Go 标准库要求 HTTP 请求处理器实现：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kd&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Handler&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;interface&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;ServeHTTP&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;ResponseWriter&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Request&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;理解三个参与者：&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;对象&lt;/th&gt;
+          &lt;th&gt;职责&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;http.Request&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;保存收到的请求，包括方法、URL、请求体&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;http.ResponseWriter&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;让 Handler 写入响应状态、响应头和正文&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;http.Handler&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;定义处理请求必须具有的行为&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;最初我们不需要创建结构体，可以直接写普通函数：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;PlayerServer&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;w&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;http&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;ResponseWriter&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;r&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;http&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Request&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;fmt&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Fprint&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;w&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;20&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;问题：普通函数没有 &lt;code&gt;ServeHTTP&lt;/code&gt; 方法，为什么仍能交给服务器？&lt;/p&gt;
+&lt;p&gt;因为有一个适配器：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;http&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;HandlerFunc&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;PlayerServer&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;它把符合指定签名的函数转换成实现 &lt;code&gt;http.Handler&lt;/code&gt; 的值。&lt;/p&gt;
+&lt;p&gt;注意：&lt;code&gt;HandlerFunc&lt;/code&gt; 是一个函数类型，其 &lt;code&gt;ServeHTTP&lt;/code&gt; 方法在内部调用被包装的函数，并不是凭空给原函数添加方法。&lt;/p&gt;
+&lt;h2 id=&#34;为什么测试不需要启动服务器&#34;&gt;为什么测试不需要启动服务器？
+&lt;/h2&gt;&lt;p&gt;使用：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;request&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;err&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;http&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;NewRequest&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;http&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;MethodGet&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;/players/Pepper&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;nil&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;response&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;httptest&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;NewRecorder&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;code&gt;NewRequest&lt;/code&gt; 构造请求对象，&lt;code&gt;NewRecorder&lt;/code&gt; 创建一个记录响应的对象。&lt;/p&gt;
+&lt;p&gt;我们直接调用：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;PlayerServer&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;response&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;request&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;执行路径变成：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;9
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;测试代码
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   ↓
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;构造 *http.Request
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   ↓
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;调用 PlayerServer
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   ↓
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;写入 ResponseRecorder
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   ↓
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;检查 response.Body.String()
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;没有监听端口，没有真实 TCP 连接。&lt;/p&gt;
+&lt;p&gt;这能让测试快速检查 Handler 自身的行为，而不是网络环境。&lt;/p&gt;
+&lt;h2 id=&#34;一个容易忽略的错误&#34;&gt;一个容易忽略的错误
+&lt;/h2&gt;&lt;p&gt;当前 &lt;code&gt;GetPlayerScore&lt;/code&gt; 返回整数。&lt;/p&gt;
+&lt;p&gt;但 Go 的 map 有一个特点：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;scores&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;map&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;	&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;Pepper&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;20&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;fmt&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Println&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;scores&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;Apollo&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;])&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;输出：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;0
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;键不存在时，直接读取 map 会返回值类型的零值。&lt;/p&gt;
+&lt;p&gt;所以当前服务对不存在的 Apollo 返回：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-http&#34; data-lang=&#34;http&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kr&#34;&gt;HTTP&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1.1&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;200&lt;/span&gt; &lt;span class=&#34;ne&#34;&gt;OK&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;g&#34;&gt;0
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;问题并不只是正文不对。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;200 OK&lt;/code&gt; 告诉客户端：请求成功。&lt;/p&gt;
+&lt;p&gt;但现在的业务要求是：玩家不存在，应返回 &lt;code&gt;404 Not Found&lt;/code&gt;。&lt;/p&gt;
+&lt;h2 id=&#34;为什么只检查响应正文不够&#34;&gt;为什么只检查响应正文不够？
+&lt;/h2&gt;&lt;p&gt;先加入一个新测试：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;GET /players/Apollo → 404
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;预期旧实现失败：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;got status 200, want 404
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;现在尝试一个明显错误的修复：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;w&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;WriteHeader&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;http&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;StatusNotFound&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;fmt&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Fprint&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;w&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;score&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;它让所有玩家都返回 404。&lt;/p&gt;
+&lt;p&gt;可是如果已有测试只检查正文：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Pepper → &amp;#34;20&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Floyd  → &amp;#34;10&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;那么测试居然仍然可能全部通过！&lt;/p&gt;
+&lt;p&gt;这是原章最值得观察的一次反例。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;测试通过只说明当前断言被满足，不代表整个响应正确。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;因此已有玩家必须同时断言：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Pepper → 200，正文 &amp;#34;20&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Floyd  → 200，正文 &amp;#34;10&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Apollo → 404
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;writeheader-什么时候生效&#34;&gt;WriteHeader 什么时候生效？
+&lt;/h2&gt;&lt;p&gt;对 &lt;code&gt;ResponseWriter&lt;/code&gt;：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;w&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;WriteHeader&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;http&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;StatusNotFound&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;会指定响应状态码。&lt;/p&gt;
+&lt;p&gt;如果没有显式调用 &lt;code&gt;WriteHeader&lt;/code&gt;，第一次写入正文时默认发送 200。&lt;/p&gt;
+&lt;p&gt;例如：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;fmt&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Fprint&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;w&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;20&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;w&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;WriteHeader&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;http&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;StatusNotFound&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;这样写太晚了。&lt;/p&gt;
+&lt;p&gt;因为第一次写正文时，200 已经被提交。&lt;/p&gt;
+&lt;p&gt;正确顺序是：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;判断响应状态
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       ↓
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;必要时调用 WriteHeader
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       ↓
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;写响应正文
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;对于错误场景，本篇直接返回，不再继续写分数。&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>C&#43;&#43; std::string_view｜HTTP 字段的无拷贝空白裁剪</title>
         <link>https://anarchycuriosity.github.io/p/cpp-string-view-trim/</link>
-        <pubDate>Tue, 15 Sep 2026 00:00:00 +0800</pubDate>
+        <pubDate>Tue, 30 Dec 2025 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/cpp-string-view-trim/</guid>
         <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_5f1935c88a23193c.jpg" alt="Featured image of post C&#43;&#43; std::string_view｜HTTP 字段的无拷贝空白裁剪" /&gt;&lt;h2 id=&#34;移动视图的起点与终点&#34;&gt;移动视图的起点与终点

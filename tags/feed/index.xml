@@ -7,10 +7,10 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Curiosity Anarchy</copyright>
-        <lastBuildDate>Mon, 23 Nov 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/tags/feed/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 24 Nov 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/tags/feed/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Feed 04 · MinIO｜对象存储与预签名播放 URL</title>
         <link>https://anarchycuriosity.github.io/p/go-video-feed-minio-presigned-url/</link>
-        <pubDate>Mon, 23 Nov 2026 00:00:00 +0800</pubDate>
+        <pubDate>Tue, 24 Nov 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/go-video-feed-minio-presigned-url/</guid>
         <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_da491b413f2fee6a.jpg" alt="Featured image of post Feed 04 · MinIO｜对象存储与预签名播放 URL" /&gt;&lt;h2 id=&#34;数据库与对象存储各自负责什么&#34;&gt;数据库与对象存储各自负责什么
@@ -129,7 +129,7 @@
         <item>
         <title>Feed 03 · MySQL｜时间窗口查询与视频卡片组装</title>
         <link>https://anarchycuriosity.github.io/p/go-feed-query-card-assembly/</link>
-        <pubDate>Sat, 21 Nov 2026 00:00:00 +0800</pubDate>
+        <pubDate>Tue, 17 Nov 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/go-feed-query-card-assembly/</guid>
         <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_a2336e6bf7ac2475.jpg" alt="Featured image of post Feed 03 · MySQL｜时间窗口查询与视频卡片组装" /&gt;&lt;h2 id=&#34;时间边界与查询数量&#34;&gt;时间边界与查询数量
@@ -327,7 +327,7 @@ r.AuthorID = 7
         <item>
         <title>Feed 02 · Kitex RPC｜API 与 Video 服务的跨进程调用</title>
         <link>https://anarchycuriosity.github.io/p/go-feed-kitex-rpc/</link>
-        <pubDate>Thu, 19 Nov 2026 00:00:00 +0800</pubDate>
+        <pubDate>Tue, 03 Nov 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/go-feed-kitex-rpc/</guid>
         <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_9397ba4450852fc9.png" alt="Featured image of post Feed 02 · Kitex RPC｜API 与 Video 服务的跨进程调用" /&gt;&lt;h2 id=&#34;一次-rpc-的运行路径&#34;&gt;一次 RPC 的运行路径
@@ -455,7 +455,7 @@ r.AuthorID = 7
         <item>
         <title>Feed 01 · Hertz HTTP｜路由分发、RequestContext 与 JSON 响应</title>
         <link>https://anarchycuriosity.github.io/p/go-feed-http-entry/</link>
-        <pubDate>Wed, 18 Nov 2026 00:00:00 +0800</pubDate>
+        <pubDate>Tue, 27 Oct 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/go-feed-http-entry/</guid>
         <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_08def339607ce81a.jpg" alt="Featured image of post Feed 01 · Hertz HTTP｜路由分发、RequestContext 与 JSON 响应" /&gt;&lt;h2 id=&#34;路由注册和实际调用&#34;&gt;路由注册和实际调用

@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="疑问 阅读main的video链路的包,包包装了往下的客户端方法,然后往下应该去看具体的客户端的源码.其他链路也是这样类推是我注意到从NewClient那里f12之后就到达了kitex自动生成的代码了,也就是项目的kitex目录下的,然后我不是很理解kitex自动生成代码指的是什么,为什么它似乎能针对我的videoservice生成对应业务的代码? 其实我觉得从NewClient读下去是不是不太对? 我的理解是,api下面有两个文件夹,一个是handler,一个是rpc,其中rpc是交给kitex生成的服务,而handler是我对于某个业务链路的处理,然后rpc文件夹里面的只负责创建kitex用户端然后和那边对接,逻辑跟handler是一致的但是由kitex根据对面是情况来生成.因为我注意到handler里面有PublishAction和PublishList,然后我觉得一些Request和Response是跟kitex有关吧,因为kitex和http有关系,但是和业务逻辑关系不是很大\n">
+<title>Go Kitex｜生成的接口、客户端与服务端实现</title>
+
+<link rel='canonical' href='https://anarchycuriosity.github.io/p/go-kitex-generated-boundary/'>
+
+<link rel="stylesheet" href="/scss/style.min.c1b51a30df8ac209786d0bad641e606a0ad3c83218d05b1a01460049b2c0e683.css"><meta property='og:title' content="Go Kitex｜生成的接口、客户端与服务端实现">
+<meta property='og:description' content="疑问 阅读main的video链路的包,包包装了往下的客户端方法,然后往下应该去看具体的客户端的源码.其他链路也是这样类推是我注意到从NewClient那里f12之后就到达了kitex自动生成的代码了,也就是项目的kitex目录下的,然后我不是很理解kitex自动生成代码指的是什么,为什么它似乎能针对我的videoservice生成对应业务的代码? 其实我觉得从NewClient读下去是不是不太对? 我的理解是,api下面有两个文件夹,一个是handler,一个是rpc,其中rpc是交给kitex生成的服务,而handler是我对于某个业务链路的处理,然后rpc文件夹里面的只负责创建kitex用户端然后和那边对接,逻辑跟handler是一致的但是由kitex根据对面是情况来生成.因为我注意到handler里面有PublishAction和PublishList,然后我觉得一些Request和Response是跟kitex有关吧,因为kitex和http有关系,但是和业务逻辑关系不是很大\n">
+<meta property='og:url' content='https://anarchycuriosity.github.io/p/go-kitex-generated-boundary/'>
+<meta property='og:site_name' content='Curiosity Anarchy'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Go' /><meta property='article:tag' content='Kitex' /><meta property='article:tag' content='RPC' /><meta property='article:tag' content='接口' /><meta property='article:published_time' content='2026-09-08T00:00:00&#43;08:00'/><meta property='article:modified_time' content='2026-09-08T00:00:00&#43;08:00'/><meta property='og:image' content='https://anarchycuriosity.github.io/moe/animation_90b82d8470367131.jpg' />
+<meta name="twitter:title" content="Go Kitex｜生成的接口、客户端与服务端实现">
+<meta name="twitter:description" content="疑问 阅读main的video链路的包,包包装了往下的客户端方法,然后往下应该去看具体的客户端的源码.其他链路也是这样类推是我注意到从NewClient那里f12之后就到达了kitex自动生成的代码了,也就是项目的kitex目录下的,然后我不是很理解kitex自动生成代码指的是什么,为什么它似乎能针对我的videoservice生成对应业务的代码? 其实我觉得从NewClient读下去是不是不太对? 我的理解是,api下面有两个文件夹,一个是handler,一个是rpc,其中rpc是交给kitex生成的服务,而handler是我对于某个业务链路的处理,然后rpc文件夹里面的只负责创建kitex用户端然后和那边对接,逻辑跟handler是一致的但是由kitex根据对面是情况来生成.因为我注意到handler里面有PublishAction和PublishList,然后我觉得一些Request和Response是跟kitex有关吧,因为kitex和http有关系,但是和业务逻辑关系不是很大\n"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://anarchycuriosity.github.io/moe/animation_90b82d8470367131.jpg' />
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "light");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu_d1ed36d2754b4216.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Curiosity Anarchy</a></h1>
+            <h2 class="site-description">此博客主要分享本人的学习记录</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/anarchycuriosity'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E9%93%BE%E6%8E%A5/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>链接</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#疑问">疑问</a></li>
+    <li><a href="#go微服务的重要概念-代码生成">Go微服务的重要概念-&gt;代码生成</a></li>
+    <li><a href="#我现在对于handlerrpc还有kitex生成源码他们背后的业务和关系还是很模糊">我现在对于handler,rpc,还有kitex生成源码,他们背后的业务和关系还是很模糊</a></li>
+    <li><a href="#阅读rpc下的video包的initvideo的时候">阅读rpc下的video包的InitVideo的时候</a></li>
+    <li><a href="#调用代码包不会跨越进程而是在后续发起rpc请求的时候">调用代码包不会跨越进程,而是在后续发起RPC请求的时候</a></li>
+    <li><a href="#videoservice包其实是kitex为双端提供的契约和动作">videoservice包其实是kitex为双端提供的契约和动作</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            
+            
+            
+            <a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" style="background-color: hsl(291, 60%, 84%); color: hsl(291, 60%, 15%);">
+                后端开发
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/go-kitex-generated-boundary/">Go Kitex｜生成的接口、客户端与服务端实现</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2026-09-08</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 5 分钟
+                </time>
+            </div>
+        
+
+        
+        <div>
+            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-eye"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" /></svg>
+            <span class="article-time--reading">
+                <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv">...</span> 次阅读
+                </span>
+            </span>
+        </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+        <a class="article-image" href="/p/go-kitex-generated-boundary/" aria-label="Go Kitex｜生成的接口、客户端与服务端实现">
+            
+                <img src="/moe/animation_90b82d8470367131.jpg" loading="lazy" alt="Featured image of post Go Kitex｜生成的接口、客户端与服务端实现" />
+            
+        </a>
+    
+</header>
+
+
+    <section class="article-content">
+    
+    
+    <h2 id="疑问">疑问
+</h2><p>阅读main的video链路的包,包包装了往下的客户端方法,然后往下应该去看具体的客户端的源码.其他链路也是这样类推是我注意到从NewClient那里f12之后就到达了kitex自动生成的代码了,也就是项目的kitex目录下的,然后我不是很理解kitex自动生成代码指的是什么,为什么它似乎能针对我的videoservice生成对应业务的代码?
+其实我觉得从NewClient读下去是不是不太对?
+我的理解是,api下面有两个文件夹,一个是handler,一个是rpc,其中rpc是交给kitex生成的服务,而handler是我对于某个业务链路的处理,然后rpc文件夹里面的只负责创建kitex用户端然后和那边对接,逻辑跟handler是一致的但是由kitex根据对面是情况来生成.因为我注意到handler里面有PublishAction和PublishList,然后我觉得一些Request和Response是跟kitex有关吧,因为kitex和http有关系,但是和业务逻辑关系不是很大</p>
+<h2 id="go微服务的重要概念-代码生成">Go微服务的重要概念-&gt;代码生成
+</h2><blockquote>
+<p>Kitex 明明是一个通用框架，为什么它竟然知道我的业务叫 <code>VideoService</code>，甚至知道里面有 <code>Feed</code> 方法？</p>
+</blockquote>
+<p>Kitex 不是专门处理 HTTP 的框架。 这个项目使用 Hertz 处理 HTTP，Kitex 处理服务之间的 RPC 通信。<code>Request</code> 和 <code>Response</code> 则是两种通信都可能使用的概念。</p>
+<p>注意一个细节,有些地方的kitex不是指通用的kitex框架包而是文件中给自己项目生成的代码包取的命名.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">kitex</span><span class="w"> </span><span class="s">&#34;github.com/bytedance-youthcamp-jbzx/tiktok/kitex/kitex_gen/video&#34;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="我现在对于handlerrpc还有kitex生成源码他们背后的业务和关系还是很模糊">我现在对于handler,rpc,还有kitex生成源码,他们背后的业务和关系还是很模糊
+</h2><p>我们先从用户的角度来看,这个项目不是一个程序包办所有服务的
+API进程专门用来接待app发来的http请求,video进程负责执行视频的相关业务,比如查数据库.
+当用户发送请求的时候,请求首先抵达API进程,但是真正查询视频列表的代码在video进程里面.问题来了,api进程怎样让另一个独立进程进行查询?它不能像调用自己进程的一个普通函数那样直接跳到另一个进程的函数内部执行</p>
+<h2 id="阅读rpc下的video包的initvideo的时候">阅读rpc下的video包的InitVideo的时候
+</h2><p>我们首先看注册这个</p>
+<p>为什么明明是videoservice调用了NewClient但是video进程不是客户端?虽然我看过项目架构我知道它不是客户端而是服务端,但是为什么函数是这样的?
+关键偏差是,videoservice是go的包名,而不代表正在执行代码的video进程.实际上你看它的文件所在位置就可以知道,它其实是由api进程执行的.
+同一个videoservice包,同时提供了NewClient和NewServer,因为这是kitex根据.proto生成的代码包,要同时提供客户端和服务端所需的代码</p>
+<h2 id="调用代码包不会跨越进程而是在后续发起rpc请求的时候">调用代码包不会跨越进程,而是在后续发起RPC请求的时候
+</h2><p>比如</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// cmd/api/rpc/video.go</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">Feed</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">ctx</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">req</span><span class="w"> </span><span class="o">*</span><span class="nx">video</span><span class="p">.</span><span class="nx">FeedRequest</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="nx">video</span><span class="p">.</span><span class="nx">FeedResponse</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">videoClient</span><span class="p">.</span><span class="nf">Feed</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="nx">req</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>进一步进入生成代码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">p</span><span class="p">.</span><span class="nx">c</span><span class="p">.</span><span class="nf">Call</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;Feed&#34;</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">_args</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">_result</span><span class="p">)</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>kitex会通过RPC通信机制将请求发给远程的video服务</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">API 进程内存
+</span></span><span class="line"><span class="cl">┌─────────────────────────────────┐
+</span></span><span class="line"><span class="cl">│ InitVideo()                     │
+</span></span><span class="line"><span class="cl">│    ↓                            │
+</span></span><span class="line"><span class="cl">│ videoservice.NewClient()        │
+</span></span><span class="line"><span class="cl">│    ↓                            │
+</span></span><span class="line"><span class="cl">│ videoClient 对象                │
+</span></span><span class="line"><span class="cl">│    ↓                            │
+</span></span><span class="line"><span class="cl">│ videoClient.Feed()              │
+</span></span><span class="line"><span class="cl">└──────────────┬──────────────────┘
+</span></span><span class="line"><span class="cl">               │
+</span></span><span class="line"><span class="cl">               │ 网络 RPC
+</span></span><span class="line"><span class="cl">               ▼
+</span></span><span class="line"><span class="cl">Video 进程内存
+</span></span><span class="line"><span class="cl">┌─────────────────────────────────┐
+</span></span><span class="line"><span class="cl">│ Kitex Server                    │
+</span></span><span class="line"><span class="cl">│    ↓                            │
+</span></span><span class="line"><span class="cl">│ VideoServiceImpl.Feed()         │
+</span></span><span class="line"><span class="cl">│    ↓                            │
+</span></span><span class="line"><span class="cl">│ 执行真正的业务逻辑              │
+</span></span><span class="line"><span class="cl">└─────────────────────────────────┘
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="videoservice包其实是kitex为双端提供的契约和动作">videoservice包其实是kitex为双端提供的契约和动作
+</h2><p>好吧那么kitex提供了一个代码包来为两端服务,可是这个代码包是怎么来的?也就是说只要我通过proto提供接口和协议,这样我就只用写一端的逻辑,另一端的逻辑由kitex负责?可是为什么我在video里面看到的videoservice全都是kitex产生的代码包,这感觉像是凭空产生,可是这要如何跟我们的业务对接?
+kitex生成了什么?我们需要写什么?Kitex 自动生成的是两端的通信代码，而不是自动实现一端的业务逻辑。</p>
+<p>第 1 步：开发者编写 <code>video.proto</code></p>
+<p>定义 <code>FeedRequest</code>、<code>FeedResponse</code> 和 <code>VideoService</code> 的 RPC 接口。</p>
+<p>运行 kitex 代码生成命令</p>
+<p>第 2 步：Kitex 生成 Go 源码</p>
+<p>生成消息类型、RPC 接口、客户端代理、服务端分发代码等。</p>
+<p>开发者编写业务实现</p>
+<p>第 3 步：实现 <code>VideoServiceImpl</code></p>
+<p>自己编写数据库查询、视频发布、MinIO 访问等业务。</p>
+<p>第 4 步：编译并运行 API 和 Video 进程</p>
+<p>两端使用生成的 Go 代码完成 RPC 通信。</p>
+<blockquote>
+<p>具体的实现就是到了video微服务的文件夹了</p>
+</blockquote>
+<p>kitex生成的代码并不是替代我们写的业务的关系,而是在需要rpc通信的时候执行那个部分的源码.也就说实际的数据流差不多是,api进程在handler解析http参数,然后rpc的feed函数调用了videoservice,那么api进程就会通过kitex生成的代码来向video进程通信,跨进程.</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/go/">Go</a>
+        
+            <a href="/tags/kitex/">Kitex</a>
+        
+            <a href="/tags/rpc/">RPC</a>
+        
+            <a href="/tags/%E6%8E%A5%E5%8F%A3/">接口</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/go-rpc-call-options/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/moe/animation_a26355f67b5abf59.jpg" loading="lazy" data-key="go-rpc-call-options" data-hash="/moe/animation_a26355f67b5abf59.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Go Kitex｜客户端默认选项与单次调用覆盖</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/go-feed-kitex-rpc/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/moe/animation_9397ba4450852fc9.png" loading="lazy" data-key="go-feed-kitex-rpc" data-hash="/moe/animation_9397ba4450852fc9.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Feed 02 · Kitex RPC｜API 与 Video 服务的跨进程调用</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/go-registration-rpc-debug/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/moe/animation_9b073a060f72d35d.png" loading="lazy" data-key="go-registration-rpc-debug" data-hash="/moe/animation_9b073a060f72d35d.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Go Kitex 联调｜生成类型、err 与 nil 响应保护</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/go-registration-rpc/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/moe/animation_9a7b825502bc8466.png" loading="lazy" data-key="go-registration-rpc" data-hash="/moe/animation_9a7b825502bc8466.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Go Kitex 注册服务｜跨进程调用与 RPC 错误映射</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/go-context-cancellation/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/moe/animation_a6c393737b5185c5.jpg" loading="lazy" data-key="go-context-cancellation" data-hash="/moe/animation_a6c393737b5185c5.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Go context.Context｜请求取消、Done 通道与协作退出</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script src="https://utteranc.es/client.js"
+        repo="anarchycuriosity/anarchycuriosity.github.io"
+        issue-term="pathname"
+        theme="github-light"
+        
+        crossorigin="anonymous"
+        async>
+</script>
+
+<style>
+    .utterances {
+        max-width: unset;
+    }
+</style>
+
+<script>
+    let utterancesLoaded = false;
+
+    function setUtterancesTheme(theme) {
+        let utterances = document.querySelector('.utterances iframe');
+        if (utterances) {
+            utterances.contentWindow.postMessage(
+                {
+                    type: 'set-theme',
+                    theme: `github-${theme}`
+                },
+                'https://utteranc.es'
+            );
+        }
+    }
+
+    addEventListener('message', event => {
+        if (event.origin !== 'https://utteranc.es') return;
+
+        
+        utterancesLoaded = true;
+        setUtterancesTheme(document.documentElement.dataset.scheme)
+    });
+
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (!utterancesLoaded) return;
+        setUtterancesTheme(e.detail)
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2026 Curiosity Anarchy
+    </section>
+    
+    <section class="powerby">
+        
+            by Curiosity Anarchy <br/>
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.34.1">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+    
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.c922af694cc257bf1ecc41c0dd7b0430f9114ec280ccf67cd2c6ad55f5316c4e.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<script>
+    
+    setTimeout(function()
+    {
+        if (document.querySelector('script[data-busuanzi-script]')) {
+            return;
+        }
+
+        var bsz = document.createElement('script');
+        bsz.src = "https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js";
+        bsz.async = true;
+        bsz.dataset.busuanziScript = "true";
+        document.head.appendChild(bsz);
+    }, 500);
+
+    
+    setTimeout(function()
+    {
+        var sakura = document.createElement('script');
+        sakura.src = "https:\/\/anarchycuriosity.github.io\/background\/sakura.js";
+        document.body.appendChild(sakura);
+    }, 1000);
+</script>
+
+    </body>
+</html>

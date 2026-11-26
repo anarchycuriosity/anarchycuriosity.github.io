@@ -7,10 +7,10 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Curiosity Anarchy</copyright>
-        <lastBuildDate>Mon, 07 Sep 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/tags/%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 11 Nov 2025 00:00:00 +0800</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/tags/%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>C&#43;&#43; 智能指针｜unique_ptr 所有权转移与 shared_ptr 引用计数</title>
         <link>https://anarchycuriosity.github.io/p/cpp-smart-pointer-ownership/</link>
-        <pubDate>Mon, 07 Sep 2026 00:00:00 +0800</pubDate>
+        <pubDate>Tue, 11 Nov 2025 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/cpp-smart-pointer-ownership/</guid>
         <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_55ce8588580226d6.jpg" alt="Featured image of post C&#43;&#43; 智能指针｜unique_ptr 所有权转移与 shared_ptr 引用计数" /&gt;&lt;h2 id=&#34;unique_ptr-如何转移所有权&#34;&gt;unique_ptr 如何转移所有权

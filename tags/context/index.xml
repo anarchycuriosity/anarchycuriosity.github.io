@@ -7,10 +7,10 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Curiosity Anarchy</copyright>
-        <lastBuildDate>Tue, 10 Nov 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/tags/context/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 02 Jun 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/tags/context/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Go context.Context｜请求取消、Done 通道与协作退出</title>
         <link>https://anarchycuriosity.github.io/p/go-context-cancellation/</link>
-        <pubDate>Tue, 10 Nov 2026 00:00:00 +0800</pubDate>
+        <pubDate>Tue, 02 Jun 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/go-context-cancellation/</guid>
         <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_a6c393737b5185c5.jpg" alt="Featured image of post Go context.Context｜请求取消、Done 通道与协作退出" /&gt;&lt;h2 id=&#34;一个已经不需要结果的请求&#34;&gt;一个已经不需要结果的请求

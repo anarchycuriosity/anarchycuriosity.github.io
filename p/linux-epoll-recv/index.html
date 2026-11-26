@@ -10,7 +10,7 @@
 <meta property='og:description' content="字节从网卡走到哪里 不要漏掉发送和接受函数中间的那些层级,字节不是直接飞进char buff[1024]\n1 2 3 4 5 6 7 8 9 10 11 客户端 ↓ 网络 你的网卡 ↓ Linux 内核 TCP/IP 协议栈 ↓ 这个 socket 对应的【内核接收缓冲区】 ↓ recv(fd, user_buf, ...) ↓ 你的 C++ 用户态数组 user_buf 拿到了数据并不代表这个数据被接受了,也就是没有被recv(),没有被程序处理,我们暂存\n">
 <meta property='og:url' content='https://anarchycuriosity.github.io/p/linux-epoll-recv/'>
 <meta property='og:site_name' content='Curiosity Anarchy'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Linux' /><meta property='article:tag' content='epoll' /><meta property='article:tag' content='TCP' /><meta property='article:tag' content='网络编程' /><meta property='article:published_time' content='2026-08-07T00:00:00&#43;08:00'/><meta property='article:modified_time' content='2026-08-07T00:00:00&#43;08:00'/><meta property='og:image' content='https://anarchycuriosity.github.io/moe/animation_2062f66eaa0df18b.jpg' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Linux' /><meta property='article:tag' content='epoll' /><meta property='article:tag' content='TCP' /><meta property='article:tag' content='网络编程' /><meta property='article:published_time' content='2026-02-03T00:00:00&#43;08:00'/><meta property='article:modified_time' content='2026-02-03T00:00:00&#43;08:00'/><meta property='og:image' content='https://anarchycuriosity.github.io/moe/animation_2062f66eaa0df18b.jpg' />
 <meta name="twitter:title" content="Linux 网络 I/O｜epoll 就绪通知与 recv 数据读取">
 <meta name="twitter:description" content="字节从网卡走到哪里 不要漏掉发送和接受函数中间的那些层级,字节不是直接飞进char buff[1024]\n1 2 3 4 5 6 7 8 9 10 11 客户端 ↓ 网络 你的网卡 ↓ Linux 内核 TCP/IP 协议栈 ↓ 这个 socket 对应的【内核接收缓冲区】 ↓ recv(fd, user_buf, ...) ↓ 你的 C++ 用户态数组 user_buf 拿到了数据并不代表这个数据被接受了,也就是没有被recv(),没有被程序处理,我们暂存\n"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://anarchycuriosity.github.io/moe/animation_2062f66eaa0df18b.jpg' />
@@ -308,7 +308,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">2026-08-07</time>
+                <time class="article-time--published">2026-02-03</time>
             </div>
         
 
@@ -549,6 +549,44 @@
             
                 
 <article class="has-image">
+    <a href="/p/linux-socket-linger/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/moe/animation_413a9f13b2ba6c64.jpg" loading="lazy" data-key="linux-socket-linger" data-hash="/moe/animation_413a9f13b2ba6c64.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Linux TCP｜SO_LINGER 与 close 的连接关闭语义</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/linux-socket-lifecycle/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/moe/animation_3add06671b616974.jpg" loading="lazy" data-key="linux-socket-lifecycle" data-hash="/moe/animation_3add06671b616974.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Linux TCP Socket｜监听与已连接文件描述符的生命周期</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
     <a href="/p/tiny-web-server-static-file-routing/">
         
         
@@ -587,56 +625,18 @@
             
                 
 <article class="has-image">
-    <a href="/p/go-video-feed-minio-presigned-url/">
+    <a href="/p/linux-thread-primitives/">
         
         
             <div class="article-image">
                 
-                    <img src="/moe/animation_da491b413f2fee6a.jpg" loading="lazy" data-key="go-video-feed-minio-presigned-url" data-hash="/moe/animation_da491b413f2fee6a.jpg"/>
+                    <img src="/moe/animation_3fd9758279b03a79.jpg" loading="lazy" data-key="linux-thread-primitives" data-hash="/moe/animation_3fd9758279b03a79.jpg"/>
                 
             </div>
         
 
         <div class="article-details">
-            <h2 class="article-title">Feed 04 · MinIO｜对象存储与预签名播放 URL</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="has-image">
-    <a href="/p/go-feed-query-card-assembly/">
-        
-        
-            <div class="article-image">
-                
-                    <img src="/moe/animation_a2336e6bf7ac2475.jpg" loading="lazy" data-key="go-feed-query-card-assembly" data-hash="/moe/animation_a2336e6bf7ac2475.jpg"/>
-                
-            </div>
-        
-
-        <div class="article-details">
-            <h2 class="article-title">Feed 03 · MySQL｜时间窗口查询与视频卡片组装</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="has-image">
-    <a href="/p/go-feed-kitex-rpc/">
-        
-        
-            <div class="article-image">
-                
-                    <img src="/moe/animation_9397ba4450852fc9.png" loading="lazy" data-key="go-feed-kitex-rpc" data-hash="/moe/animation_9397ba4450852fc9.png"/>
-                
-            </div>
-        
-
-        <div class="article-details">
-            <h2 class="article-title">Feed 02 · Kitex RPC｜API 与 Video 服务的跨进程调用</h2>
+            <h2 class="article-title">Linux 阻塞原语｜epoll_wait、sem_wait 与 pthread_cond_wait</h2>
         </div>
     </a>
 </article>

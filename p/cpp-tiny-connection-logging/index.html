@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="已经有 fd，为什么还需要 connection_id？ 原注释：\n我不是很理解这个 id 是干什么的。\n它们承担不同职责。\nfd 是内核分配给进程的文件描述符，用来操作已接受的 socket。\n">
+<title>TinyWebServer 日志｜连接编号与格式化输出</title>
+
+<link rel='canonical' href='https://anarchycuriosity.github.io/p/cpp-tiny-connection-logging/'>
+
+<link rel="stylesheet" href="/scss/style.min.c1b51a30df8ac209786d0bad641e606a0ad3c83218d05b1a01460049b2c0e683.css"><meta property='og:title' content="TinyWebServer 日志｜连接编号与格式化输出">
+<meta property='og:description' content="已经有 fd，为什么还需要 connection_id？ 原注释：\n我不是很理解这个 id 是干什么的。\n它们承担不同职责。\nfd 是内核分配给进程的文件描述符，用来操作已接受的 socket。\n">
+<meta property='og:url' content='https://anarchycuriosity.github.io/p/cpp-tiny-connection-logging/'>
+<meta property='og:site_name' content='Curiosity Anarchy'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='cpp' /><meta property='article:tag' content='TinyWebServer' /><meta property='article:tag' content='连接追踪' /><meta property='article:tag' content='日志' /><meta property='article:published_time' content='2026-06-16T00:00:00&#43;08:00'/><meta property='article:modified_time' content='2026-06-16T00:00:00&#43;08:00'/><meta property='og:image' content='https://anarchycuriosity.github.io/moe/animation_7551dccf55d5aa69.jpg' />
+<meta name="twitter:title" content="TinyWebServer 日志｜连接编号与格式化输出">
+<meta name="twitter:description" content="已经有 fd，为什么还需要 connection_id？ 原注释：\n我不是很理解这个 id 是干什么的。\n它们承担不同职责。\nfd 是内核分配给进程的文件描述符，用来操作已接受的 socket。\n"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://anarchycuriosity.github.io/moe/animation_7551dccf55d5aa69.jpg' />
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "light");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu_d1ed36d2754b4216.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Curiosity Anarchy</a></h1>
+            <h2 class="site-description">此博客主要分享本人的学习记录</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/anarchycuriosity'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E9%93%BE%E6%8E%A5/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>链接</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#已经有-fd为什么还需要-connection_id">已经有 fd，为什么还需要 connection_id？</a></li>
+    <li><a href="#为什么-connection_id-用-zufd-用-d">为什么 connection_id 用 %zu，fd 用 %d？</a></li>
+    <li><a href="#为什么-debug_trace-使用-va_list">为什么 debug_trace 使用 va_list？</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            
+            
+            
+            <a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" style="background-color: hsl(291, 60%, 84%); color: hsl(291, 60%, 15%);">
+                后端开发
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/cpp-tiny-connection-logging/">TinyWebServer 日志｜连接编号与格式化输出</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2026-06-16</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 2 分钟
+                </time>
+            </div>
+        
+
+        
+        <div>
+            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-eye"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" /></svg>
+            <span class="article-time--reading">
+                <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv">...</span> 次阅读
+                </span>
+            </span>
+        </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+        <a class="article-image" href="/p/cpp-tiny-connection-logging/" aria-label="TinyWebServer 日志｜连接编号与格式化输出">
+            
+                <img src="/moe/animation_7551dccf55d5aa69.jpg" loading="lazy" alt="Featured image of post TinyWebServer 日志｜连接编号与格式化输出" />
+            
+        </a>
+    
+</header>
+
+
+    <section class="article-content">
+    
+    
+    <h2 id="已经有-fd为什么还需要-connection_id">已经有 fd，为什么还需要 connection_id？
+</h2><p>原注释：</p>
+<blockquote>
+<p>我不是很理解这个 id 是干什么的。</p>
+</blockquote>
+<p>它们承担不同职责。</p>
+<p><code>fd</code> 是内核分配给进程的文件描述符，用来操作已接受的 socket。</p>
+<p><code>connection_id</code> 是当前程序自己递增的连接编号，用于区分连接历史。</p>
+<p>例如：</p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>连接</th>
+          <th style="text-align: right">connection_id</th>
+          <th style="text-align: right">fd</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>A 建立</td>
+          <td style="text-align: right">1</td>
+          <td style="text-align: right">4</td>
+      </tr>
+      <tr>
+          <td>A 关闭</td>
+          <td style="text-align: right">1</td>
+          <td style="text-align: right">4</td>
+      </tr>
+      <tr>
+          <td>B 建立</td>
+          <td style="text-align: right">2</td>
+          <td style="text-align: right">4</td>
+      </tr>
+      <tr>
+          <td>B 关闭</td>
+          <td style="text-align: right">2</td>
+          <td style="text-align: right">4</td>
+      </tr>
+  </tbody>
+</table></div>
+<p>数字只是示例。</p>
+<p>重点是：<strong>关闭后的 fd 数值可能被复用。</strong></p>
+<p>如果日志只记录 <code>fd=4</code>，历史上的两个连接可能看起来像同一个连接。</p>
+<p>增加 <code>connection_id</code> 后：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">connection_id=1 fd=4
+</span></span><span class="line"><span class="cl">connection_id=2 fd=4
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>就能区分它们。</p>
+<p>在当前程序中，<code>connection_id</code> 只是诊断标识，不是新的 socket，也不是 HTTP 请求编号。</p>
+<h2 id="为什么-connection_id-用-zufd-用-d">为什么 connection_id 用 %zu，fd 用 %d？
+</h2><p>原注释：</p>
+<blockquote>
+<p>因为 fd 如果是 -1 就代表连接失败吗？它承接了一部分信息。</p>
+</blockquote>
+<p>fd 使用 <code>%d</code> 的直接原因是它的类型为 <code>int</code>。</p>
+<p>返回 <code>-1</code> 表示失败是相关背景，但不是选择占位符的唯一依据。</p>
+<p>格式化输出要求占位符与实际传入的参数类型匹配。</p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>数据</th>
+          <th>类型</th>
+          <th>格式</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>connection_id</code></td>
+          <td><code>std::size_t</code></td>
+          <td><code>%zu</code></td>
+      </tr>
+      <tr>
+          <td><code>connection_fd</code></td>
+          <td><code>int</code></td>
+          <td><code>%d</code></td>
+      </tr>
+      <tr>
+          <td><code>received_bytes</code></td>
+          <td><code>ssize_t</code></td>
+          <td><code>%zd</code></td>
+      </tr>
+      <tr>
+          <td><code>diagnostic_reason()</code></td>
+          <td><code>const char*</code></td>
+          <td><code>%s</code></td>
+      </tr>
+  </tbody>
+</table></div>
+<p><code>%zu</code> 用于 <code>size_t</code>，<code>%zd</code> 对应其有符号形式。</p>
+<p><code>parse_result</code> 是枚举类型。当前代码先使用 <code>static_cast&lt;int&gt;</code> 转成整数，再通过 <code>%d</code> 输出。</p>
+<p>这种做法可以打印枚举编号，但不能自动显示有意义的枚举名称。</p>
+<h2 id="为什么-debug_trace-使用-va_list">为什么 debug_trace 使用 va_list？
+</h2><p>普通 <code>fprintf</code> 可以直接接收格式字符串和后续参数。</p>
+<p>但 <code>debug_trace</code> 自己也是一个接收可变参数的函数，需要把这些参数转交给 <code>vfprintf</code>。</p>
+<p>处理过程：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">调用 debug_trace
+</span></span><span class="line"><span class="cl">    │
+</span></span><span class="line"><span class="cl">    ├── component
+</span></span><span class="line"><span class="cl">    ├── event
+</span></span><span class="line"><span class="cl">    ├── format
+</span></span><span class="line"><span class="cl">    └── ...
+</span></span><span class="line"><span class="cl">          ↓
+</span></span><span class="line"><span class="cl">       va_start
+</span></span><span class="line"><span class="cl">          ↓
+</span></span><span class="line"><span class="cl">       va_list
+</span></span><span class="line"><span class="cl">          ↓
+</span></span><span class="line"><span class="cl">       vfprintf
+</span></span><span class="line"><span class="cl">          ↓
+</span></span><span class="line"><span class="cl">        va_end
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>va_start(arguments, format)</code> 使用最后一个固定形参 <code>format</code> 来初始化可变参数访问状态。</p>
+<p><code>format</code> 本身不是保存所有参数的数组。</p>
+<p><code>vfprintf</code> 根据格式字符串中的占位符读取 <code>va_list</code> 中的参数。</p>
+<p>这类格式化接口对类型匹配和指针有效性都有要求。</p>
+<p>例如，<code>%s</code> 需要有效的 C 字符串指针，这正是未初始化 <code>last_failure_reason</code> 特别危险的原因。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/cpp/">Cpp</a>
+        
+            <a href="/tags/tinywebserver/">TinyWebServer</a>
+        
+            <a href="/tags/%E8%BF%9E%E6%8E%A5%E8%BF%BD%E8%B8%AA/">连接追踪</a>
+        
+            <a href="/tags/%E6%97%A5%E5%BF%97/">日志</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/tiny-web-server-writev-partial-writes/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/moe/animation_89ade664ebe797e4.png" loading="lazy" data-key="tiny-web-server-writev-partial-writes" data-hash="/moe/animation_89ade664ebe797e4.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">TinyWebServer 响应发送｜writev 聚集写入与部分写入游标</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/cpp-tiny-response-raii/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/moe/animation_8598950d2e37c534.jpg" loading="lazy" data-key="cpp-tiny-response-raii" data-hash="/moe/animation_8598950d2e37c534.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">TinyWebServer RAII｜映射资源、复制限制与析构清理</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/cpp-tiny-mapping-lifetime/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/moe/animation_81e4ff5c88067d92.jpg" loading="lazy" data-key="cpp-tiny-mapping-lifetime" data-hash="/moe/animation_81e4ff5c88067d92.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">TinyWebServer mmap｜文件描述符、映射区域和连接的生命周期</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/tiny-web-server-response-preparation/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/moe/animation_6ed0660db26cb453.png" loading="lazy" data-key="tiny-web-server-response-preparation" data-hash="/moe/animation_6ed0660db26cb453.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">TinyWebServer 响应构造｜200 文件响应与 404 错误响应</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/tiny-web-server-static-file-routing/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/moe/animation_2de188f19d1e4457.png" loading="lazy" data-key="tiny-web-server-static-file-routing" data-hash="/moe/animation_2de188f19d1e4457.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">TinyWebServer 静态资源｜URL 路径解码与 openat 文件定位</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script src="https://utteranc.es/client.js"
+        repo="anarchycuriosity/anarchycuriosity.github.io"
+        issue-term="pathname"
+        theme="github-light"
+        
+        crossorigin="anonymous"
+        async>
+</script>
+
+<style>
+    .utterances {
+        max-width: unset;
+    }
+</style>
+
+<script>
+    let utterancesLoaded = false;
+
+    function setUtterancesTheme(theme) {
+        let utterances = document.querySelector('.utterances iframe');
+        if (utterances) {
+            utterances.contentWindow.postMessage(
+                {
+                    type: 'set-theme',
+                    theme: `github-${theme}`
+                },
+                'https://utteranc.es'
+            );
+        }
+    }
+
+    addEventListener('message', event => {
+        if (event.origin !== 'https://utteranc.es') return;
+
+        
+        utterancesLoaded = true;
+        setUtterancesTheme(document.documentElement.dataset.scheme)
+    });
+
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (!utterancesLoaded) return;
+        setUtterancesTheme(e.detail)
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2026 Curiosity Anarchy
+    </section>
+    
+    <section class="powerby">
+        
+            by Curiosity Anarchy <br/>
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.34.1">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+    
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.c922af694cc257bf1ecc41c0dd7b0430f9114ec280ccf67cd2c6ad55f5316c4e.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<script>
+    
+    setTimeout(function()
+    {
+        if (document.querySelector('script[data-busuanzi-script]')) {
+            return;
+        }
+
+        var bsz = document.createElement('script');
+        bsz.src = "https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js";
+        bsz.async = true;
+        bsz.dataset.busuanziScript = "true";
+        document.head.appendChild(bsz);
+    }, 500);
+
+    
+    setTimeout(function()
+    {
+        var sakura = document.createElement('script');
+        sakura.src = "https:\/\/anarchycuriosity.github.io\/background\/sakura.js";
+        document.body.appendChild(sakura);
+    }, 1000);
+</script>
+
+    </body>
+</html>

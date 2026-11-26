@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="我们遗漏了一种输入 目前：\nHello(&quot;Chris&quot;) 返回 &quot;Hello, Chris&quot;。 Hello(&quot;&quot;) 返回什么？ 根据当前实现，答案是：\n&quot;Hello, &quot;\n因为 Go 的字符串连接不会自动为我们补充默认值。\n但新需求规定：\n当名字为空字符串时，应该返回 &quot;Hello, World&quot;。\n">
+<title>Go testing｜子测试、测试辅助函数与表驱动用例</title>
+
+<link rel='canonical' href='https://anarchycuriosity.github.io/p/go-subtests-table/'>
+
+<link rel="stylesheet" href="/scss/style.min.c1b51a30df8ac209786d0bad641e606a0ad3c83218d05b1a01460049b2c0e683.css"><meta property='og:title' content="Go testing｜子测试、测试辅助函数与表驱动用例">
+<meta property='og:description' content="我们遗漏了一种输入 目前：\nHello(&quot;Chris&quot;) 返回 &quot;Hello, Chris&quot;。 Hello(&quot;&quot;) 返回什么？ 根据当前实现，答案是：\n&quot;Hello, &quot;\n因为 Go 的字符串连接不会自动为我们补充默认值。\n但新需求规定：\n当名字为空字符串时，应该返回 &quot;Hello, World&quot;。\n">
+<meta property='og:url' content='https://anarchycuriosity.github.io/p/go-subtests-table/'>
+<meta property='og:site_name' content='Curiosity Anarchy'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Go' /><meta property='article:tag' content='单元测试' /><meta property='article:tag' content='表驱动测试' /><meta property='article:published_time' content='2025-09-16T00:00:00&#43;08:00'/><meta property='article:modified_time' content='2025-09-16T00:00:00&#43;08:00'/><meta property='og:image' content='https://anarchycuriosity.github.io/moe/animation_0768ad242dff3ad9.jpg' />
+<meta name="twitter:title" content="Go testing｜子测试、测试辅助函数与表驱动用例">
+<meta name="twitter:description" content="我们遗漏了一种输入 目前：\nHello(&quot;Chris&quot;) 返回 &quot;Hello, Chris&quot;。 Hello(&quot;&quot;) 返回什么？ 根据当前实现，答案是：\n&quot;Hello, &quot;\n因为 Go 的字符串连接不会自动为我们补充默认值。\n但新需求规定：\n当名字为空字符串时，应该返回 &quot;Hello, World&quot;。\n"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://anarchycuriosity.github.io/moe/animation_0768ad242dff3ad9.jpg' />
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "light");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu_d1ed36d2754b4216.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Curiosity Anarchy</a></h1>
+            <h2 class="site-description">此博客主要分享本人的学习记录</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/anarchycuriosity'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E9%93%BE%E6%8E%A5/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>链接</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#我们遗漏了一种输入">我们遗漏了一种输入</a></li>
+    <li><a href="#用-trun-表达不同场景">用 t.Run 表达不同场景</a></li>
+    <li><a href="#最小修改使用-if-设置默认值">最小修改：使用 if 设置默认值</a></li>
+    <li><a href="#为什么测试也值得重构">为什么测试也值得重构？</a>
+      <ol>
+        <li><a href="#thelper-在解决什么问题">t.Helper() 在解决什么问题？</a></li>
+      </ol>
+    </li>
+    <li><a href="#如果要测试十种形状呢">如果要测试十种形状呢？</a></li>
+    <li><a href="#匿名结构体切片">匿名结构体切片</a></li>
+    <li><a href="#怎样运行每条测试">怎样运行每条测试？</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            
+            
+            
+            <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" style="background-color: hsl(148, 60%, 84%); color: hsl(148, 60%, 15%);">
+                编程语言
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/go-subtests-table/">Go testing｜子测试、测试辅助函数与表驱动用例</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2025-09-16</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 3 分钟
+                </time>
+            </div>
+        
+
+        
+        <div>
+            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-eye"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" /></svg>
+            <span class="article-time--reading">
+                <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv">...</span> 次阅读
+                </span>
+            </span>
+        </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+        <a class="article-image" href="/p/go-subtests-table/" aria-label="Go testing｜子测试、测试辅助函数与表驱动用例">
+            
+                <img src="/moe/animation_0768ad242dff3ad9.jpg" loading="lazy" alt="Featured image of post Go testing｜子测试、测试辅助函数与表驱动用例" />
+            
+        </a>
+    
+</header>
+
+
+    <section class="article-content">
+    
+    
+    <h2 id="我们遗漏了一种输入">我们遗漏了一种输入
+</h2><p>目前：</p>
+<ul>
+<li><code>Hello(&quot;Chris&quot;)</code> 返回 <code>&quot;Hello, Chris&quot;</code>。</li>
+<li><code>Hello(&quot;&quot;)</code> 返回什么？</li>
+</ul>
+<p>根据当前实现，答案是：</p>
+<p><code>&quot;Hello, &quot;</code></p>
+<p>因为 Go 的字符串连接不会自动为我们补充默认值。</p>
+<p>但新需求规定：</p>
+<p><strong>当名字为空字符串时，应该返回 <code>&quot;Hello, World&quot;</code>。</strong></p>
+<p>注意这里的 <code>&quot;World&quot;</code> 首字母大写。</p>
+<p>我们现在有两个独立的行为需要保护：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">Hello(name)
+</span></span><span class="line"><span class="cl">    │
+</span></span><span class="line"><span class="cl">    ├── name != &#34;&#34;
+</span></span><span class="line"><span class="cl">    │       └── 使用传入的名字
+</span></span><span class="line"><span class="cl">    │
+</span></span><span class="line"><span class="cl">    └── name == &#34;&#34;
+</span></span><span class="line"><span class="cl">            └── 使用默认名字 World
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="用-trun-表达不同场景">用 t.Run 表达不同场景
+</h2><p>可以把 <code>TestHello</code> 看作一个测试组，再用 <code>t.Run</code> 创建子测试。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">TestHello
+</span></span><span class="line"><span class="cl">   │
+</span></span><span class="line"><span class="cl">   ├── named recipient
+</span></span><span class="line"><span class="cl">   │      Hello(&#34;Chris&#34;)
+</span></span><span class="line"><span class="cl">   │
+</span></span><span class="line"><span class="cl">   └── empty name defaults to World
+</span></span><span class="line"><span class="cl">          Hello(&#34;&#34;)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这样，失败报告能够告诉我们到底是哪一种场景出了问题。</p>
+<p>从上一节代码出发，先在 <code>TestHello</code> 中加入空名字子测试，但暂时不修改 <code>Hello()</code>。</p>
+<p>运行：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> ~/go-practice/hello
+</span></span><span class="line"><span class="cl">go <span class="nb">test</span> -v
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>预期：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">--- PASS: TestHello/named_recipient
+</span></span><span class="line"><span class="cl">--- FAIL: TestHello/empty_name_defaults_to_World
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Go 在显示子测试名称时，会把空格转换成下划线。</p>
+<p>现在可以确定：新增测试确实发现了缺失的功能。</p>
+<h2 id="最小修改使用-if-设置默认值">最小修改：使用 if 设置默认值
+</h2><p>解决问题不需要创建另一套问候逻辑。</p>
+<p>只需要在字符串连接前检查：</p>
+<p>如果 <code>name == &quot;&quot;</code>，就把 <code>name</code> 改成 <code>&quot;World&quot;</code>。</p>
+<p>再运行：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">go <span class="nb">test</span> -v
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>预期两个子测试全部通过。</p>
+<p>这意味着我们新增了功能，同时没有破坏原先的行为。</p>
+<h2 id="为什么测试也值得重构">为什么测试也值得重构？
+</h2><p>观察两个子测试：</p>
+<p>它们都要：</p>
+<ol>
+<li>调用 <code>Hello</code>。</li>
+<li>准备预期结果。</li>
+<li>比较 <code>got</code> 和 <code>want</code>。</li>
+<li>不一致时调用 <code>t.Errorf</code>。</li>
+</ol>
+<p>真正不同的只是输入和预期。</p>
+<p>我们可以把重复的比较逻辑提取成局部辅助函数：</p>
+<p><code>assertCorrectMessage</code></p>
+<p>Go 允许把匿名函数赋值给局部变量，再像普通函数一样调用。</p>
+<p>这个辅助函数需要接收 <code>t *testing.T</code>，因为它必须知道应该报告哪个测试失败。</p>
+<h3 id="thelper-在解决什么问题">t.Helper() 在解决什么问题？
+</h3><p>假设没有 <code>t.Helper()</code>。</p>
+<p>测试失败时，错误报告可能指向辅助函数内部的 <code>t.Errorf</code> 那一行。</p>
+<p>但真正有用的位置是：</p>
+<p><strong>哪个子测试调用了这个辅助函数？</strong></p>
+<p><code>t.Helper()</code> 告诉测试框架：当前函数只是测试辅助代码，定位失败时应跳过它，尽量指向实际调用位置。</p>
+<p>它不会改变 <code>got</code> 与 <code>want</code> 的比较结果，只改善诊断信息。</p>
+<h2 id="如果要测试十种形状呢">如果要测试十种形状呢？
+</h2><p>上一节的测试结构是：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">t.Run(&#34;Rectangle&#34;, ...)
+</span></span><span class="line"><span class="cl">t.Run(&#34;Circle&#34;, ...)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>每增加一种形状，都要继续写相似的测试函数。</p>
+<p>但实际变化的只有：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">输入形状 → 预期面积
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>例如：</p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>形状</th>
+          <th style="text-align: right">预期面积</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Rectangle(12, 6)</td>
+          <td style="text-align: right">72</td>
+      </tr>
+      <tr>
+          <td>Circle(10)</td>
+          <td style="text-align: right">314.159&hellip;</td>
+      </tr>
+      <tr>
+          <td>Triangle(12, 6)</td>
+          <td style="text-align: right">36</td>
+      </tr>
+  </tbody>
+</table></div>
+<p>既然测试行为不变，为什么不把变化的数据集中存储？</p>
+<p>这就是表格驱动测试的思路。</p>
+<h2 id="匿名结构体切片">匿名结构体切片
+</h2><p>Go 可以直接声明一个没有名字的结构体类型：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nx">shape</span><span class="w"> </span><span class="nx">Shape</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nx">want</span><span class="w">  </span><span class="kt">float64</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>它表示一条测试用例，需要两个字段：</p>
+<ul>
+<li><code>shape</code>：输入形状</li>
+<li><code>want</code>：预期面积</li>
+</ul>
+<p>如果要保存很多测试用例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="p">[]</span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nx">shape</span><span class="w"> </span><span class="nx">Shape</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nx">want</span><span class="w">  </span><span class="kt">float64</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>前面的 <code>[]</code> 表示切片。</p>
+<p>整个类型的意思是：</p>
+<p><strong>一个切片，其中每个元素都是包含 shape 和 want 的结构体。</strong></p>
+<p>接着使用复合字面量填充数据：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">areaTests</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">[]</span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nx">shape</span><span class="w"> </span><span class="nx">Shape</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nx">want</span><span class="w">  </span><span class="kt">float64</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="nx">shape</span><span class="p">:</span><span class="w"> </span><span class="nx">Rectangle</span><span class="p">{</span><span class="nx">Width</span><span class="p">:</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span><span class="w"> </span><span class="nx">Height</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">},</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="nx">want</span><span class="p">:</span><span class="w">  </span><span class="mi">72</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="p">},</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="nx">shape</span><span class="p">:</span><span class="w"> </span><span class="nx">Circle</span><span class="p">{</span><span class="nx">Radius</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">},</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="nx">want</span><span class="p">:</span><span class="w">  </span><span class="mf">314.1592653589793</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="p">},</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>这里有两层结构体字面量：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">一条测试用例
+</span></span><span class="line"><span class="cl">├── shape
+</span></span><span class="line"><span class="cl">│   └── Rectangle{Width: 12, Height: 6}
+</span></span><span class="line"><span class="cl">└── want
+</span></span><span class="line"><span class="cl">    └── 72
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>为什么不用 <code>[]Shape</code>？</p>
+<p>因为每条测试除了输入形状，还必须有对应的预期结果。<code>[]Shape</code> 只存形状，不能直接保存这组配对数据。</p>
+<h2 id="怎样运行每条测试">怎样运行每条测试？
+</h2><p>使用 <code>range</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="k">for</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">tt</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">areaTests</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nx">got</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">tt</span><span class="p">.</span><span class="nx">shape</span><span class="p">.</span><span class="nf">Area</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">got</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="nx">tt</span><span class="p">.</span><span class="nx">want</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="c1">// 报告错误</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>这里：</p>
+<ul>
+<li><code>_</code> 忽略当前元素的索引。</li>
+<li><code>tt</code> 保存当前测试用例。</li>
+<li><code>tt.shape</code> 是输入。</li>
+<li><code>tt.want</code> 是预期值。</li>
+</ul>
+<p>每轮循环都运行同一套检查逻辑。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/go/">Go</a>
+        
+            <a href="/tags/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/">单元测试</a>
+        
+            <a href="/tags/%E8%A1%A8%E9%A9%B1%E5%8A%A8%E6%B5%8B%E8%AF%95/">表驱动测试</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/go-mock-call-order/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/moe/animation_2b372a022841729d.jpg" loading="lazy" data-key="go-mock-call-order" data-hash="/moe/animation_2b372a022841729d.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Go Mock｜时间依赖与调用顺序验证</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/go-package-visibility/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/moe/animation_2865e0743dc2fc45.jpg" loading="lazy" data-key="go-package-visibility" data-hash="/moe/animation_2865e0743dc2fc45.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Go 包边界｜导出 API、外部包测试与可见性</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/go-errors-as-values/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/moe/animation_2132a460f4487e8d.png" loading="lazy" data-key="go-errors-as-values" data-hash="/moe/animation_2132a460f4487e8d.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Go error｜错误值、语义判断与测试断言</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/go-test-red-green/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/moe/animation_06e5439302d00b93.jpg" loading="lazy" data-key="go-test-red-green" data-hash="/moe/animation_06e5439302d00b93.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Go testing｜失败测试与最小实现</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/go-reflection-walk/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/moe/animation_389dc825f5cdd6f2.jpg" loading="lazy" data-key="go-reflection-walk" data-hash="/moe/animation_389dc825f5cdd6f2.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Go reflect｜嵌套结构、指针与容器遍历</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script src="https://utteranc.es/client.js"
+        repo="anarchycuriosity/anarchycuriosity.github.io"
+        issue-term="pathname"
+        theme="github-light"
+        
+        crossorigin="anonymous"
+        async>
+</script>
+
+<style>
+    .utterances {
+        max-width: unset;
+    }
+</style>
+
+<script>
+    let utterancesLoaded = false;
+
+    function setUtterancesTheme(theme) {
+        let utterances = document.querySelector('.utterances iframe');
+        if (utterances) {
+            utterances.contentWindow.postMessage(
+                {
+                    type: 'set-theme',
+                    theme: `github-${theme}`
+                },
+                'https://utteranc.es'
+            );
+        }
+    }
+
+    addEventListener('message', event => {
+        if (event.origin !== 'https://utteranc.es') return;
+
+        
+        utterancesLoaded = true;
+        setUtterancesTheme(document.documentElement.dataset.scheme)
+    });
+
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (!utterancesLoaded) return;
+        setUtterancesTheme(e.detail)
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2026 Curiosity Anarchy
+    </section>
+    
+    <section class="powerby">
+        
+            by Curiosity Anarchy <br/>
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.34.1">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+    
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.c922af694cc257bf1ecc41c0dd7b0430f9114ec280ccf67cd2c6ad55f5316c4e.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<script>
+    
+    setTimeout(function()
+    {
+        if (document.querySelector('script[data-busuanzi-script]')) {
+            return;
+        }
+
+        var bsz = document.createElement('script');
+        bsz.src = "https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js";
+        bsz.async = true;
+        bsz.dataset.busuanziScript = "true";
+        document.head.appendChild(bsz);
+    }, 500);
+
+    
+    setTimeout(function()
+    {
+        var sakura = document.createElement('script');
+        sakura.src = "https:\/\/anarchycuriosity.github.io\/background\/sakura.js";
+        document.body.appendChild(sakura);
+    }, 1000);
+</script>
+
+    </body>
+</html>

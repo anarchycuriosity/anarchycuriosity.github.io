@@ -7,10 +7,10 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Curiosity Anarchy</copyright>
-        <lastBuildDate>Tue, 22 Sep 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/tags/%E5%BC%82%E6%AD%A5-i/o/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 17 Feb 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/tags/%E5%BC%82%E6%AD%A5-i/o/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Boost.Asio 异步 I/O｜完成回调的生命周期</title>
         <link>https://anarchycuriosity.github.io/p/cpp-asio-callback-lifetime/</link>
-        <pubDate>Tue, 22 Sep 2026 00:00:00 +0800</pubDate>
+        <pubDate>Tue, 17 Feb 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/cpp-asio-callback-lifetime/</guid>
         <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_c820c2ff55f8a585.png" alt="Featured image of post Boost.Asio 异步 I/O｜完成回调的生命周期" /&gt;&lt;h2 id=&#34;sort-与异步读取&#34;&gt;sort 与异步读取

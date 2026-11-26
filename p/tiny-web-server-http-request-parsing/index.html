@@ -10,7 +10,7 @@
 <meta property='og:description' content="接收网络字节与解析 HTTP M02/S01 引入 http_parser 后，一个非常重要的边界出现了：\n1 2 3 4 5 6 7 8 9 主线程 / read_request │ │ recv ▼ 一批 bytes │ │ parser.append(bytes) ▼ http_parser 这里有两个不同职责。\n网络层 负责：\n1 2 3 什么时候 recv recv 返回多少 连接是否 EOF / 出错 parser 负责：\n">
 <meta property='og:url' content='https://anarchycuriosity.github.io/p/tiny-web-server-http-request-parsing/'>
 <meta property='og:site_name' content='Curiosity Anarchy'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='TinyWebServer' /><meta property='article:tag' content='C&#43;&#43;' /><meta property='article:tag' content='TCP' /><meta property='article:tag' content='HTTP' /><meta property='article:tag' content='增量解析' /><meta property='article:published_time' content='2026-10-04T00:00:00&#43;08:00'/><meta property='article:modified_time' content='2026-10-04T00:00:00&#43;08:00'/><meta property='og:image' content='https://anarchycuriosity.github.io/moe/animation_2376b17b99aeaf7d.jpg' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='TinyWebServer' /><meta property='article:tag' content='cpp' /><meta property='article:tag' content='TCP' /><meta property='article:tag' content='HTTP' /><meta property='article:tag' content='增量解析' /><meta property='article:published_time' content='2026-07-14T00:00:00&#43;08:00'/><meta property='article:modified_time' content='2026-07-14T00:00:00&#43;08:00'/><meta property='og:image' content='https://anarchycuriosity.github.io/moe/animation_2376b17b99aeaf7d.jpg' />
 <meta name="twitter:title" content="TinyWebServer 请求解析｜TCP 字节流与增量解析游标">
 <meta name="twitter:description" content="接收网络字节与解析 HTTP M02/S01 引入 http_parser 后，一个非常重要的边界出现了：\n1 2 3 4 5 6 7 8 9 主线程 / read_request │ │ recv ▼ 一批 bytes │ │ parser.append(bytes) ▼ http_parser 这里有两个不同职责。\n网络层 负责：\n1 2 3 什么时候 recv recv 返回多少 连接是否 EOF / 出错 parser 负责：\n"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://anarchycuriosity.github.io/moe/animation_2376b17b99aeaf7d.jpg' />
@@ -306,7 +306,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">2026-10-04</time>
+                <time class="article-time--published">2026-07-14</time>
             </div>
         
 
@@ -731,7 +731,7 @@
         
             <a href="/tags/tinywebserver/">TinyWebServer</a>
         
-            <a href="/tags/c&#43;&#43;/">C&#43;&#43;</a>
+            <a href="/tags/cpp/">Cpp</a>
         
             <a href="/tags/tcp/">TCP</a>
         
@@ -769,25 +769,6 @@
     <h2 class="section-title">相关文章</h2>
     <div class="related-content">
         <div class="flex article-list--tile">
-            
-                
-<article class="has-image">
-    <a href="/p/tiny-web-server-debug-trace/">
-        
-        
-            <div class="article-image">
-                
-                    <img src="/moe/animation_155a548b61aa41e7.jpg" loading="lazy" data-key="tiny-web-server-debug-trace" data-hash="/moe/animation_155a548b61aa41e7.jpg"/>
-                
-            </div>
-        
-
-        <div class="article-details">
-            <h2 class="article-title">TinyWebServer 调试｜控制流打点、解析状态与 errno 保留</h2>
-        </div>
-    </a>
-</article>
-
             
                 
 <article class="has-image">
@@ -829,6 +810,25 @@
             
                 
 <article class="has-image">
+    <a href="/p/tiny-web-server-static-file-routing/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/moe/animation_2de188f19d1e4457.png" loading="lazy" data-key="tiny-web-server-static-file-routing" data-hash="/moe/animation_2de188f19d1e4457.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">TinyWebServer 静态资源｜URL 路径解码与 openat 文件定位</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
     <a href="/p/http-parser-rebuild-notes/">
         
         
@@ -848,18 +848,18 @@
             
                 
 <article class="has-image">
-    <a href="/p/tiny-web-server-static-file-routing/">
+    <a href="/p/tiny-web-server-debug-trace/">
         
         
             <div class="article-image">
                 
-                    <img src="/moe/animation_2de188f19d1e4457.png" loading="lazy" data-key="tiny-web-server-static-file-routing" data-hash="/moe/animation_2de188f19d1e4457.png"/>
+                    <img src="/moe/animation_155a548b61aa41e7.jpg" loading="lazy" data-key="tiny-web-server-debug-trace" data-hash="/moe/animation_155a548b61aa41e7.jpg"/>
                 
             </div>
         
 
         <div class="article-details">
-            <h2 class="article-title">TinyWebServer 静态资源｜URL 路径解码与 openat 文件定位</h2>
+            <h2 class="article-title">TinyWebServer 调试｜控制流打点、解析状态与 errno 保留</h2>
         </div>
     </a>
 </article>

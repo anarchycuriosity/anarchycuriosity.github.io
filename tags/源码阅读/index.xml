@@ -7,10 +7,10 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Curiosity Anarchy</copyright>
-        <lastBuildDate>Wed, 14 Oct 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/tags/%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 07 Jul 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/tags/%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>TinyWebServer HTTP Parser｜从请求行到请求体的状态机设计</title>
         <link>https://anarchycuriosity.github.io/p/http-parser-rebuild-notes/</link>
-        <pubDate>Wed, 14 Oct 2026 00:00:00 +0800</pubDate>
+        <pubDate>Tue, 07 Jul 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/http-parser-rebuild-notes/</guid>
         <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_798f0e2012a2f534.jpg" alt="Featured image of post TinyWebServer HTTP Parser｜从请求行到请求体的状态机设计" /&gt;&lt;h2 id=&#34;为什么照着头文件抄容易卡住&#34;&gt;为什么照着头文件抄容易卡住

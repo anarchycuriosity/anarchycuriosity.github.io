@@ -7,10 +7,10 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Curiosity Anarchy</copyright>
-        <lastBuildDate>Sat, 21 Nov 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%84%E8%A3%85/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 17 Nov 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%84%E8%A3%85/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Feed 03 · MySQL｜时间窗口查询与视频卡片组装</title>
         <link>https://anarchycuriosity.github.io/p/go-feed-query-card-assembly/</link>
-        <pubDate>Sat, 21 Nov 2026 00:00:00 +0800</pubDate>
+        <pubDate>Tue, 17 Nov 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/go-feed-query-card-assembly/</guid>
         <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_a2336e6bf7ac2475.jpg" alt="Featured image of post Feed 03 · MySQL｜时间窗口查询与视频卡片组装" /&gt;&lt;h2 id=&#34;时间边界与查询数量&#34;&gt;时间边界与查询数量

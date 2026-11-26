@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>用户注册 on Curiosity Anarchy</title>
+        <link>https://anarchycuriosity.github.io/tags/%E7%94%A8%E6%88%B7%E6%B3%A8%E5%86%8C/</link>
+        <description>Recent content in 用户注册 on Curiosity Anarchy</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <copyright>Curiosity Anarchy</copyright>
+        <lastBuildDate>Tue, 06 Oct 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/tags/%E7%94%A8%E6%88%B7%E6%B3%A8%E5%86%8C/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Go MySQL 用户服务｜建表与监听端口的启动顺序</title>
+        <link>https://anarchycuriosity.github.io/p/go-registration-mysql-startup/</link>
+        <pubDate>Tue, 06 Oct 2026 00:00:00 +0800</pubDate>
+        
+        <guid>https://anarchycuriosity.github.io/p/go-registration-mysql-startup/</guid>
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_9d8b341e45d3e617.jpg" alt="Featured image of post Go MySQL 用户服务｜建表与监听端口的启动顺序" /&gt;&lt;h2 id=&#34;用户服务启动时准备数据表&#34;&gt;用户服务启动时准备数据表
+&lt;/h2&gt;&lt;p&gt;想象 user 进程已经开始接 RPC，随后才发现库名写错。对 API 来说，user 的端口看起来开着，但数据库准备失败只能等进程内部再处理。S05 把检查移到监听之前，失败时进程直接退出，原因留在 user 的启动日志里。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;user 进程启动
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    读取 DSN → PingContext 检查连接 → AutoMigrate 准备表和索引
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                                            ↓ 成功
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                                     Kitex Run 开始监听
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description>
+        </item>
+        <item>
+        <title>Go Kitex 联调｜生成类型、err 与 nil 响应保护</title>
+        <link>https://anarchycuriosity.github.io/p/go-registration-rpc-debug/</link>
+        <pubDate>Tue, 29 Sep 2026 00:00:00 +0800</pubDate>
+        
+        <guid>https://anarchycuriosity.github.io/p/go-registration-rpc-debug/</guid>
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_9b073a060f72d35d.png" alt="Featured image of post Go Kitex 联调｜生成类型、err 与 nil 响应保护" /&gt;&lt;h2 id=&#34;生成代码的字段契约&#34;&gt;生成代码的字段契约
+&lt;/h2&gt;&lt;p&gt;在 &lt;code&gt;internal/user_rpc/register.go&lt;/code&gt; 的返回结构体里，把 &lt;code&gt;UserID: response.UserID&lt;/code&gt; 改成 &lt;code&gt;UserID: response.UserId&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;response&lt;/code&gt; 指向生成的 &lt;code&gt;user.UserRegisterResponse&lt;/code&gt;，它声明的是 &lt;code&gt;UserId&lt;/code&gt;。冒号左边在给手写的 &lt;code&gt;api.RegisterResult&lt;/code&gt; 填字段，那里声明的是 &lt;code&gt;UserID&lt;/code&gt;。例如 RPC 给了 &lt;code&gt;UserId = 42&lt;/code&gt;，适配器就把 &lt;code&gt;42&lt;/code&gt; 放进 API 结果的 &lt;code&gt;UserID&lt;/code&gt;，之后 HTTP 层通过 JSON tag 把它写成 &lt;code&gt;user_id&lt;/code&gt;。从生成文件里查字段名即可，修改落在手写适配器。 生成的响应类型&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$s04_go&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;test&lt;/span&gt; -tags stdjson -count&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; -v ./internal/user_rpc -run &lt;span class=&#34;s1&#34;&gt;&amp;#39;^TestRegisterMapsResponse$&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;strong&gt;检查点&lt;/strong&gt; 测试通过，&lt;code&gt;42&lt;/code&gt; 正确搬到了 API 结果。但日志还会冒出 &lt;code&gt;register response missing&lt;/code&gt;。明明有响应却打印「缺失」，先记下这个现象，下一轮先处理会崩溃的路径。&lt;/p&gt;
+&lt;h2 id=&#34;错误返回后的控制流&#34;&gt;错误返回后的控制流
+&lt;/h2&gt;&lt;p&gt;先单独跑调用失败测试。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$s04_go&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;test&lt;/span&gt; -tags stdjson -count&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; ./internal/user_rpc -run &lt;span class=&#34;s1&#34;&gt;&amp;#39;^TestRegisterReportsCallFailure$&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;这个测试让替身返回 &lt;code&gt;(nil, err)&lt;/code&gt;。旧代码进了 &lt;code&gt;if err != nil&lt;/code&gt;，打完日志就继续往下走。等它执行到 &lt;code&gt;response.StatusCode&lt;/code&gt; 时，&lt;code&gt;response&lt;/code&gt; 还是 &lt;code&gt;nil&lt;/code&gt;，没有结构体可读，于是 panic。&lt;/p&gt;
+&lt;p&gt;在 &lt;code&gt;err != nil&lt;/code&gt; 分支的日志后面加上 &lt;code&gt;return api.RegisterResult{}, err&lt;/code&gt;。重新跑同一条命令。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;检查点&lt;/strong&gt; 测试通过。适配器把原错误交还给调用它的 HTTP handler。真实请求中，handler 可以由此走到现有的 502 分支。&lt;/p&gt;
+&lt;h2 id=&#34;nil-响应保护&#34;&gt;nil 响应保护
+&lt;/h2&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$s04_go&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;test&lt;/span&gt; -tags stdjson -count&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; ./internal/user_rpc -run &lt;span class=&#34;s1&#34;&gt;&amp;#39;^TestRegisterReportsMissingResponse$&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;这次替身返回 &lt;code&gt;(nil, nil)&lt;/code&gt;，所以刚修好的 &lt;code&gt;err&lt;/code&gt; 分支不会执行。旧条件 &lt;code&gt;response != nil&lt;/code&gt; 又会跳过「响应缺失」分支，最后照样在 &lt;code&gt;response.StatusCode&lt;/code&gt; 处 panic。&lt;/p&gt;
+&lt;p&gt;把条件改为 &lt;code&gt;response == nil&lt;/code&gt;。在该分支的日志后返回 &lt;code&gt;api.RegisterResult{}, errors.New(&amp;quot;user rpc: missing register response&amp;quot;)&lt;/code&gt;，并在 import 中加入标准库 &lt;code&gt;&amp;quot;errors&amp;quot;&lt;/code&gt;。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;gofmt -w internal/user_rpc/register.go
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$s04_go&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;test&lt;/span&gt; -tags stdjson -count&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; -v ./internal/user_rpc -run &lt;span class=&#34;s1&#34;&gt;&amp;#39;^TestRegister(MapsResponse|ReportsCallFailure|ReportsMissingResponse)$&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;make &lt;span class=&#34;nv&#34;&gt;GO&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$s04_go&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;test&lt;/span&gt; build
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;strong&gt;检查点&lt;/strong&gt; 三条适配器测试都通过，有响应时也不再打印「响应缺失」。全量测试和两个进程的构建都通过。 适配器测试&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Go Kitex 注册服务｜跨进程调用与 RPC 错误映射</title>
+        <link>https://anarchycuriosity.github.io/p/go-registration-rpc/</link>
+        <pubDate>Tue, 22 Sep 2026 00:00:00 +0800</pubDate>
+        
+        <guid>https://anarchycuriosity.github.io/p/go-registration-rpc/</guid>
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_9a7b825502bc8466.png" alt="Featured image of post Go Kitex 注册服务｜跨进程调用与 RPC 错误映射" /&gt;&lt;h2 id=&#34;同一个注册请求为什么停掉-user-就变了&#34;&gt;同一个注册请求，为什么停掉 &lt;code&gt;user&lt;/code&gt; 就变了？
+&lt;/h2&gt;&lt;p&gt;整篇只追这一条请求：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-http&#34; data-lang=&#34;http&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;POST /douyin/user/register/?username=alice&amp;amp;password=p
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;在 S03 的 show 里，&lt;code&gt;user&lt;/code&gt; 在线时，这条请求得到 HTTP &lt;code&gt;200&lt;/code&gt;，响应中有 &lt;code&gt;status_code: -1&lt;/code&gt; 和「账号持久化尚未接入」。只停 &lt;code&gt;user&lt;/code&gt;，保留 API，再发同一条请求，HTTP 变成 &lt;code&gt;502&lt;/code&gt;。与此同时，API 自己的 &lt;code&gt;/healthz&lt;/code&gt; 仍可返回 &lt;code&gt;200&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;这个现象把问题缩到一处。&lt;strong&gt;API 进程明明还活着，注册 handler 又要去哪里找答案？&lt;/strong&gt; S02 已经把 &lt;code&gt;alice&lt;/code&gt; 和 &lt;code&gt;p&lt;/code&gt; 读出来并做了校验，接下来会调用 &lt;code&gt;register(ctx, username, password)&lt;/code&gt;。S03 就是在启动 API 时给这个 &lt;code&gt;register&lt;/code&gt; 接上真实的 RPC 调用。你自己的 learner 即使注册替身测试已经通过，总路由和真实进程入口仍要接好才能观察到这个现象。 S02 保留的 handler · API 自己的健康路由&lt;/p&gt;
+&lt;h2 id=&#34;启动时main-给-handler-的是什么&#34;&gt;启动时，&lt;code&gt;main&lt;/code&gt; 给 handler 的是什么？
+&lt;/h2&gt;&lt;p&gt;先看 &lt;code&gt;cmd/api/main.go&lt;/code&gt;。它读用户服务地址，默认是 &lt;code&gt;127.0.0.1:8881&lt;/code&gt;，然后调用 &lt;code&gt;user_rpc.NewClient&lt;/code&gt;。返回的 &lt;code&gt;*user_rpc.Client&lt;/code&gt; 持有一个由 &lt;code&gt;userservice.NewClient&lt;/code&gt; 创建的 Kitex 客户端。前者是我们写的适配对象，后者负责发起 RPC。&lt;/p&gt;
+&lt;p&gt;下一行关键代码是 &lt;code&gt;api.NewServer(address, user_client.Register)&lt;/code&gt;。读这里时留意 &lt;strong&gt;&lt;code&gt;Register&lt;/code&gt; 后面没有括号&lt;/strong&gt;。Go 会取出绑定在这一个 &lt;code&gt;user_client&lt;/code&gt; 上的方法值，把它当函数传下去。你可以把它读成「收到合法注册请求时，就用这个客户端对象执行 &lt;code&gt;Register&lt;/code&gt;」。真正调用的括号在 S02 handler 的 &lt;code&gt;register(ctx, username, password)&lt;/code&gt; 上。&lt;/p&gt;
+&lt;p&gt;所以 API 启动时已经知道&lt;strong&gt;将来用谁调用&lt;/strong&gt;，只有请求来了才知道&lt;strong&gt;这次要传什么&lt;/strong&gt;。创建客户端成功也只说明对象准备好了。能否连到 &lt;code&gt;8881&lt;/code&gt;，要等实际调用才知道。 API 启动与方法值 · 适配对象和 &lt;code&gt;NewClient&lt;/code&gt;&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;要找的角色&lt;/th&gt;
+          &lt;th&gt;代码里看哪里&lt;/th&gt;
+          &lt;th&gt;什么时候出现&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;API 的注册适配对象&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;cmd/api/main.go&lt;/code&gt; 的 &lt;code&gt;user_client&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;启动时创建，后续多次请求共用&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;适配对象里的 Kitex 客户端&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;internal/user_rpc/register.go&lt;/code&gt; 的 &lt;code&gt;c.user_client&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;创建适配对象时存进去，发 RPC 时使用&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;这一次注册请求&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;(*Client).Register&lt;/code&gt; 里的 &lt;code&gt;request&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;alice&lt;/code&gt; 通过 HTTP 校验后才创建&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;远端业务实现&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;cmd/user/main.go&lt;/code&gt; 的 &lt;code&gt;handler&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;user&lt;/code&gt; 启动时登记，收到 RPC 时才执行它的方法&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;strong&gt;停靠点。&lt;/strong&gt; 在 &lt;code&gt;main&lt;/code&gt; 里找到传方法值的位置，再到 handler 里找到有括号的那一次调用。假如 &lt;code&gt;user&lt;/code&gt; 此刻没启动，API 仍可以先建立自己的监听。等第一个合法 POST 进来，连接问题才会出现在调用结果里。&lt;/p&gt;
+&lt;h2 id=&#34;user-收到请求以后怎样找到我们的业务方法&#34;&gt;&lt;code&gt;user&lt;/code&gt; 收到请求以后，怎样找到我们的业务方法？
+&lt;/h2&gt;&lt;p&gt;换到 &lt;code&gt;user&lt;/code&gt; 进程。它的 &lt;code&gt;main&lt;/code&gt; 创建 &lt;code&gt;&amp;amp;user_service.UserServiceImpl{}&lt;/code&gt;，把这个实例登记给生成的 &lt;code&gt;userservice.NewServer&lt;/code&gt;，随后才开始监听。收到 &lt;code&gt;Register&lt;/code&gt; 调用时，生成代码里的 &lt;code&gt;registerHandler&lt;/code&gt; 取出解码好的请求，调用登记对象的 &lt;code&gt;Register&lt;/code&gt; 方法。&lt;/p&gt;
+&lt;p&gt;这就是为什么 &lt;code&gt;UserServiceImpl&lt;/code&gt; 可以是空结构体。&lt;strong&gt;这一步框架需要的是它提供的 &lt;code&gt;Register&lt;/code&gt; 方法。&lt;/strong&gt; 当前没有数据库连接等状态要保存在实现对象里。&lt;code&gt;&amp;amp;&lt;/code&gt; 取出实例的指针，传给框架的是这个指针。&lt;/p&gt;
+&lt;p&gt;看 &lt;code&gt;internal/user_service/register.go&lt;/code&gt; 里的两次取值。&lt;code&gt;request.GetUsername()&lt;/code&gt; 和 &lt;code&gt;request.GetPassword()&lt;/code&gt; 来自 protobuf 生成代码，接收者为空时也会返回空字符串。业务方法再判断是否缺参或超过 32 字节。这次校验保护的是 RPC 入口，直接调 &lt;code&gt;user&lt;/code&gt; 的其他调用方也会经过。&lt;code&gt;alice&lt;/code&gt; 和 &lt;code&gt;p&lt;/code&gt; 通过后，方法返回一份业务答复「账号持久化尚未接入」，第二个返回值为 &lt;code&gt;nil&lt;/code&gt;。 user 进程启动 · 生成的服务端分发 · 生成的 getter · 业务方法&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;动手。&lt;/strong&gt; 先按固定源码写 &lt;code&gt;internal/user_service/register.go&lt;/code&gt;，把该文件的项目内 import 改成 learner 的 module 前缀。再写 &lt;code&gt;cmd/user/main.go&lt;/code&gt;，参考附录。先用两个输入预测这个方法的行为。只有 &lt;code&gt;alice&lt;/code&gt; 时会在 RPC 校验处得到「用户名或密码不符合要求」。给齐 &lt;code&gt;alice&lt;/code&gt; 和 &lt;code&gt;p&lt;/code&gt; 时，会继续到「账号持久化尚未接入」。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;ctx&lt;/code&gt; 在哪里交接？&lt;/strong&gt; API 进程内，handler 把自己的 &lt;code&gt;ctx&lt;/code&gt; 传给适配方法，适配方法再交给 Kitex 客户端。远端 handler 收到的是服务端框架提供的 context，两端各有自己的对象。本步把连接超时设为 &lt;code&gt;500ms&lt;/code&gt;，RPC 超时设为 &lt;code&gt;2s&lt;/code&gt;。客户端超时只说明它结束了这次等待，远端可能已经处理过请求，所以注册暂不自动重试。show 的超时测试里，客户端返回后，服务端仍要等测试主动释放。至于浏览器关闭时远端是否停工，从这条链推不出来。 show 的超时测试&lt;/p&gt;
+&lt;h2 id=&#34;结果回来以后谁选-200谁选-502&#34;&gt;结果回来以后，谁选 &lt;code&gt;200&lt;/code&gt;，谁选 &lt;code&gt;502&lt;/code&gt;？
+&lt;/h2&gt;&lt;p&gt;用同一个 &lt;code&gt;alice&lt;/code&gt; 和 &lt;code&gt;p&lt;/code&gt; 对照每一次交接：&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;调用的一方 → 接手的一方&lt;/th&gt;
+          &lt;th&gt;这次交过去什么&lt;/th&gt;
+          &lt;th&gt;返回后谁解释&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;HTTP handler → &lt;code&gt;(*Client).Register&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;ctx&lt;/code&gt;、&lt;code&gt;alice&lt;/code&gt;、&lt;code&gt;p&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;handler 检查 &lt;code&gt;error&lt;/code&gt;，然后决定 HTTP 状态和 JSON&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;手写适配方法 → Kitex 客户端&lt;/td&gt;
+          &lt;td&gt;本次 &lt;code&gt;UserRegisterRequest&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;适配方法检查调用错误和空响应，有响应时转成 &lt;code&gt;api.RegisterResult&lt;/code&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;registerHandler&lt;/code&gt; → &lt;code&gt;UserServiceImpl.Register&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;服务端 context 与解码后的请求&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;user&lt;/code&gt; 决定业务答复，框架把它带回 API&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;code&gt;user&lt;/code&gt; 在线时，RPC 返回「账号持久化尚未接入」和 &lt;code&gt;nil&lt;/code&gt; 错误。适配器把业务码 &lt;code&gt;-1&lt;/code&gt; 原样交还，Hertz 写 HTTP &lt;code&gt;200&lt;/code&gt;。停掉 &lt;code&gt;user&lt;/code&gt; 时，适配器拿到调用错误，Hertz 走 S02 已有的 &lt;code&gt;502&lt;/code&gt; 分支。&lt;strong&gt;用户服务解释业务，HTTP handler 解释怎样回 HTTP。&lt;/strong&gt; 适配方法的返回分支 · HTTP 状态选择&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;动手。&lt;/strong&gt; 保留 learner 的 S02 &lt;code&gt;internal/api/register.go&lt;/code&gt;。在已有的 &lt;code&gt;server.go&lt;/code&gt; 里沿 &lt;code&gt;NewServer → RegisterRoutes → RegisterUserRoute&lt;/code&gt; 传下 &lt;code&gt;register&lt;/code&gt;，然后补 &lt;code&gt;cmd/api/main.go&lt;/code&gt;。现有测试里调用 &lt;code&gt;RegisterRoutes(hz)&lt;/code&gt; 的位置要跟着新签名调整。健康路由测试可以传 &lt;code&gt;RegisterRoutes(hz, nil)&lt;/code&gt;，直接登记注册路由的替身测试可以保留现有调用方式。 show 的总路由接线 · show 的测试调用点&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;预测一下。&lt;/strong&gt; 如果总路由少了 &lt;code&gt;RegisterUserRoute(hz, register)&lt;/code&gt;，同一个 POST 会在 Hertz 得到 &lt;code&gt;404&lt;/code&gt;，独立登记路由的替身测试仍可能通过。如果路由接好了，但参数仍是 &lt;code&gt;nil&lt;/code&gt;，合法请求会走 &lt;code&gt;503&lt;/code&gt;。只有函数接好、实际调用失败时，才会看到这里要验证的 &lt;code&gt;502&lt;/code&gt;。&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Go Hertz 注册接口｜POST 路由、参数校验与 HTTP 状态</title>
+        <link>https://anarchycuriosity.github.io/p/go-registration-http/</link>
+        <pubDate>Tue, 15 Sep 2026 00:00:00 +0800</pubDate>
+        
+        <guid>https://anarchycuriosity.github.io/p/go-registration-http/</guid>
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_9495f9458174f956.jpg" alt="Featured image of post Go Hertz 注册接口｜POST 路由、参数校验与 HTTP 状态" /&gt;&lt;h2 id=&#34;注册路由与请求校验&#34;&gt;注册路由与请求校验
+&lt;/h2&gt;&lt;p&gt;拿 &lt;code&gt;alice&lt;/code&gt; 注册这一次请求当主线。请求方法是 &lt;code&gt;POST&lt;/code&gt;，地址是 &lt;code&gt;/douyin/user/register/?username=alice&amp;amp;password=p&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;S01 的 Hertz 收得到请求，但路由里没有对应的处理函数，所以返回 &lt;code&gt;404&lt;/code&gt;。S02 登记 &lt;code&gt;POST /douyin/user/register/&lt;/code&gt; 后，同一条请求终于进了注册 handler。&lt;strong&gt;进了 handler 以后，第一件事是弄清客户端把两个值放在哪儿。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;原版通过 &lt;code&gt;c.Query(&amp;quot;username&amp;quot;)&lt;/code&gt; 和 &lt;code&gt;c.Query(&amp;quot;password&amp;quot;)&lt;/code&gt; 从 URL 的 &lt;code&gt;?&lt;/code&gt; 后面取参数。&lt;code&gt;POST&lt;/code&gt; 决定这条请求匹配哪个 handler，&lt;code&gt;c.Query&lt;/code&gt; 决定 handler 到哪儿取值。把 &lt;code&gt;username&lt;/code&gt; 和 &lt;code&gt;password&lt;/code&gt; 只放进 JSON 正文，这条请求仍能匹配路由，但 &lt;code&gt;c.Query&lt;/code&gt; 会读到空字符串，handler 返回 &lt;code&gt;400&lt;/code&gt;。 原版路由 · 原版 Register&lt;/p&gt;
+&lt;p&gt;接下来只改一个值试着推演。&lt;code&gt;alice&lt;/code&gt; 和 &lt;code&gt;p&lt;/code&gt; 都通过校验。删掉 &lt;code&gt;password&lt;/code&gt;，handler 会写 &lt;code&gt;400&lt;/code&gt;。把用户名换成 11 个 &lt;code&gt;中&lt;/code&gt;，每个 &lt;code&gt;中&lt;/code&gt; 在 UTF-8 中占 3 字节，&lt;code&gt;len(username)&lt;/code&gt; 就是 33。原版与 show 都会走长度超限分支，HTTP 返回 &lt;code&gt;200&lt;/code&gt;，JSON 里的 &lt;code&gt;status_code&lt;/code&gt; 是 &lt;code&gt;-1&lt;/code&gt;。show 把提示改成了「32 字节」，与实际检查一致。 show 参数校验&lt;/p&gt;
+&lt;p&gt;回到源码看每个校验分支末尾的 &lt;code&gt;return&lt;/code&gt;。&lt;code&gt;c.JSON(...)&lt;/code&gt; 把状态码和 JSON 写进&lt;strong&gt;当前请求的响应对象&lt;/strong&gt;，所以 handler 的签名里可以没有返回值。下一行 &lt;code&gt;return&lt;/code&gt; 结束这个函数。少了它，校验失败的请求还会继续往下走，后续分支就可能再写一次响应，或者把无效输入交给后端。&lt;/p&gt;
+&lt;h3 id=&#34;动手--先写出请求到校验这一段&#34;&gt;动手 · 先写出请求到校验这一段
+&lt;/h3&gt;&lt;p&gt;在现有 &lt;code&gt;internal/api&lt;/code&gt; 里新增 &lt;code&gt;register.go&lt;/code&gt;。先读附录中 &lt;code&gt;RegisterUserRoute&lt;/code&gt; 的前半段，然后写出下面这条顺序：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;登记 POST → 用 c.Query 取两个字符串 → 空值写 400 并结束 → 超过 32 字节写 200 / -1 并结束&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;RegisterResult&lt;/code&gt; 是交给 &lt;code&gt;c.JSON&lt;/code&gt; 的响应数据。先写好 &lt;code&gt;StatusCode&lt;/code&gt; 和 &lt;code&gt;StatusMsg&lt;/code&gt;，看它们怎样用 JSON tag 变成 &lt;code&gt;status_code&lt;/code&gt; 与 &lt;code&gt;status_msg&lt;/code&gt;。合法请求接下来要调用谁，下一节再接上。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;查阅指引。&lt;/strong&gt; 在 Hertz v0.5.2 源码里看 &lt;code&gt;POST&lt;/code&gt; 的签名，确认第二个参数为何能传一个函数。再在 &lt;code&gt;RequestContext&lt;/code&gt; 里找 &lt;code&gt;Query&lt;/code&gt; 和 &lt;code&gt;JSON&lt;/code&gt;，分别确认前者返回字符串，后者写入响应。 &lt;a class=&#34;link&#34; href=&#34;https://github.com/cloudwego/hertz/blob/v0.5.2/pkg/route/routergroup.go#L142&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Hertz v0.5.2 &lt;code&gt;RouterGroup.POST&lt;/code&gt; 所在文件&lt;/a&gt; · &lt;a class=&#34;link&#34; href=&#34;https://github.com/cloudwego/hertz/blob/v0.5.2/pkg/app/context.go&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;&lt;code&gt;RequestContext&lt;/code&gt; 源码&lt;/a&gt; · &lt;a class=&#34;link&#34; href=&#34;https://github.com/cloudwego/hertz/blob/v0.5.2/pkg/app/context.go#L962&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;&lt;code&gt;JSON&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;handler-与注册函数的接缝&#34;&gt;Handler 与注册函数的接缝
+&lt;/h2&gt;&lt;p&gt;HTTP handler 此时拿到了 &lt;code&gt;alice&lt;/code&gt; 和 &lt;code&gt;p&lt;/code&gt;。它能判断这两个字符串是否符合接口要求。至于 &lt;code&gt;alice&lt;/code&gt; 是否已被注册、该写入哪张表、成功后返回哪个用户 ID，这些要由用户服务处理。&lt;/p&gt;
+&lt;p&gt;原版在这个交接点把用户名和密码装进 &lt;code&gt;UserRegisterRequest&lt;/code&gt;，交给 &lt;code&gt;rpc.Register&lt;/code&gt;。后者调用 Kitex 的 &lt;code&gt;userClient.Register&lt;/code&gt;，用户服务才去查库、写库并签发 token。S02 正在复刻的是箭头左边的 HTTP 处理和中间的交接位置。 原版 HTTP handler · 原版 RPC 调用 · 原版用户服务&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Hertz 注册 handler → RegisterFunc 接入点 → Kitex 用户服务 → MySQL&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;show 用 &lt;code&gt;type RegisterFunc func(context.Context, string, string) (RegisterResult, error)&lt;/code&gt; 给一种&lt;strong&gt;函数签名&lt;/strong&gt;起了名字。读到这里，先把它看成一份约定：调用方给出执行用的 &lt;code&gt;ctx&lt;/code&gt;、用户名和密码，被调用的函数交回注册结果或调用错误。&lt;/p&gt;
+&lt;p&gt;再看 &lt;code&gt;RegisterUserRoute(hz, register)&lt;/code&gt;。登记路由时，&lt;code&gt;register&lt;/code&gt; 作为一个函数值传进来。传给 &lt;code&gt;hz.POST&lt;/code&gt; 的匿名 handler 会记住它，等 &lt;code&gt;alice&lt;/code&gt; 发来请求并通过检查时，才执行 &lt;code&gt;register(ctx, username, password)&lt;/code&gt;。这里发生了两次交接：&lt;strong&gt;启动时交给 handler 一个可调用的函数，请求到达后再把参数交给那个函数。&lt;/strong&gt; show &lt;code&gt;RegisterFunc&lt;/code&gt; 与调用处&lt;/p&gt;
+&lt;p&gt;真实进程在 &lt;code&gt;RegisterRoutes&lt;/code&gt; 中传的是 &lt;code&gt;nil&lt;/code&gt;。这表示路由已装好，但后端函数还没有接上。所以 &lt;code&gt;alice&lt;/code&gt; 通过校验之后得到 &lt;code&gt;503&lt;/code&gt; 和 &lt;code&gt;status_code: -1&lt;/code&gt;。去掉 &lt;code&gt;register == nil&lt;/code&gt; 的检查，合法请求就会尝试调用一个空函数值，触发 panic。这个检查让「本步停在哪里」变成客户端看得见的响应。 实际装配入口&lt;/p&gt;
+&lt;h3 id=&#34;动手--接上函数参数让真实路由走到-503&#34;&gt;动手 · 接上函数参数，让真实路由走到 503
+&lt;/h3&gt;&lt;p&gt;在 &lt;code&gt;register.go&lt;/code&gt; 把 &lt;code&gt;RegisterFunc&lt;/code&gt;、空函数检查和调用路径接到上一节的校验后面。在 &lt;strong&gt;learner 已有的&lt;/strong&gt; &lt;code&gt;RegisterRoutes&lt;/code&gt; 里只加 &lt;code&gt;RegisterUserRoute(hz, nil)&lt;/code&gt;。保留原有 &lt;code&gt;/healthz&lt;/code&gt;、服务构造和测试。两个 &lt;code&gt;.go&lt;/code&gt; 文件同属 &lt;code&gt;package api&lt;/code&gt;，可以直接调用同包函数，无须把 &lt;code&gt;register.go&lt;/code&gt; 写进 &lt;code&gt;import&lt;/code&gt;。每个文件仍各自导入它用到的包。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;查阅指引。&lt;/strong&gt; 想确认这次改动接到了真正的服务器上，就顺着 show 的 &lt;code&gt;NewServer → RegisterRoutes → RegisterUserRoute&lt;/code&gt; 走一遍。看到最后一跳的 &lt;code&gt;nil&lt;/code&gt;，就能解释为什么真实请求停在 &lt;code&gt;503&lt;/code&gt;。 show 服务器装配&lt;/p&gt;
+&lt;h2 id=&#34;错误与结果的双重检查&#34;&gt;错误与结果的双重检查
+&lt;/h2&gt;&lt;p&gt;现在保持 &lt;code&gt;alice&lt;/code&gt; / &lt;code&gt;p&lt;/code&gt; 不变，只在测试里给 &lt;code&gt;RegisterUserRoute&lt;/code&gt; 传一个普通 Go 函数。这样可以观察同一个 HTTP handler 如何处理不同的后端结果：&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;函数交回什么&lt;/th&gt;
+          &lt;th&gt;handler 写回什么&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;err != nil&lt;/code&gt;，例如调用失败&lt;/td&gt;
+          &lt;td&gt;HTTP &lt;code&gt;502&lt;/code&gt;、&lt;code&gt;status_code: -1&lt;/code&gt;，响应使用固定消息&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;err == nil&lt;/code&gt;，业务结果说「用户名已存在」&lt;/td&gt;
+          &lt;td&gt;HTTP &lt;code&gt;200&lt;/code&gt;、非零 &lt;code&gt;status_code&lt;/code&gt;，失败响应省略用户 ID 和 token&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;err == nil&lt;/code&gt;，业务结果返回用户 ID &lt;code&gt;42&lt;/code&gt; 和测试 token&lt;/td&gt;
+          &lt;td&gt;HTTP &lt;code&gt;200&lt;/code&gt;、&lt;code&gt;status_code: 0&lt;/code&gt;，把测试结果写进 JSON&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;试着把前两种放回同一个请求里想。用户服务如果明确说「用户名已存在」，handler 已经拿到一个业务答案。调用过程中如果出了错，handler 没有拿到可用的业务答案。原版用 &lt;code&gt;res, _ := rpc.Register(...)&lt;/code&gt; 丢掉了调用错误，紧接着读取 &lt;code&gt;res.StatusCode&lt;/code&gt;。如果这次调用失败并返回 &lt;code&gt;nil&lt;/code&gt; 响应，继续访问字段就会 panic。show 按顺序先检查 &lt;code&gt;err&lt;/code&gt;，再读 &lt;code&gt;result.StatusCode&lt;/code&gt;。 原版 RPC 结果读取 · show 响应分支&lt;/p&gt;
+&lt;p&gt;读 &lt;code&gt;c.JSON(http.StatusOK, result)&lt;/code&gt; 时，第一项是 HTTP 状态，第二项才会被编码成 JSON。客户端看到 &lt;code&gt;200&lt;/code&gt; 后还要读 &lt;code&gt;status_code&lt;/code&gt;，因为长度超限、业务拒绝和业务成功都可能用 HTTP &lt;code&gt;200&lt;/code&gt;。业务失败时，show 先把 &lt;code&gt;UserID&lt;/code&gt; 和 &lt;code&gt;Token&lt;/code&gt; 清零，再由 JSON tag 里的 &lt;code&gt;omitempty&lt;/code&gt; 省略这两个字段。原版响应类型没有这两个 &lt;code&gt;omitempty&lt;/code&gt;，所以这一步保留了原版查询参数和校验规则，调整了失败响应的字段形状。 show 响应类型 · 原版响应类型&lt;/p&gt;
+&lt;h3 id=&#34;动手--用替身把每个出口跑出来&#34;&gt;动手 · 用替身把每个出口跑出来
+&lt;/h3&gt;&lt;p&gt;在 &lt;code&gt;internal/api&lt;/code&gt; 新增 &lt;code&gt;register_test.go&lt;/code&gt;。每个测试创建一个 Hertz 实例，用 &lt;code&gt;RegisterUserRoute(hz, backend)&lt;/code&gt; 装配该场景的函数，再用 &lt;code&gt;ut.PerformRequest&lt;/code&gt; 发 POST。先试合法输入加 &lt;code&gt;nil&lt;/code&gt;，确认得到 &lt;code&gt;503&lt;/code&gt;。再给同一输入换两个替身，分别返回一个 &lt;code&gt;error&lt;/code&gt; 和一个业务拒绝，观察 &lt;code&gt;502&lt;/code&gt; 与 &lt;code&gt;200 / -1&lt;/code&gt;。最后补上缺参、长度超限和成功映射。&lt;/p&gt;
+&lt;p&gt;把「缺参」再单独跑一遍，传入一个&lt;strong&gt;只要被调用就让测试失败&lt;/strong&gt;的替身。这样能验证请求在校验处结束，后端函数没有收到无效参数。附录中的 &lt;code&gt;42&lt;/code&gt; 和 &lt;code&gt;test-token&lt;/code&gt; 只来自测试函数，用来验证 HTTP 映射。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;查阅指引。&lt;/strong&gt; 查 Hertz v0.5.2 的 &lt;code&gt;ut.PerformRequest&lt;/code&gt; 时，顺到 &lt;code&gt;engine.ServeHTTP(...)&lt;/code&gt; 就够了。它把构造好的请求交给 &lt;code&gt;hz.Engine&lt;/code&gt;，所以即使没有 &lt;code&gt;cmd/api/main.go&lt;/code&gt;，也能观察响应。测试用 &lt;code&gt;url.Values.Encode()&lt;/code&gt; 生成查询串，中文用户名也走正常 URL 编码和解析。 &lt;a class=&#34;link&#34; href=&#34;https://github.com/cloudwego/hertz/blob/v0.5.2/pkg/common/ut/request.go#L50&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Hertz v0.5.2 &lt;code&gt;PerformRequest&lt;/code&gt;&lt;/a&gt; · show 替身测试&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

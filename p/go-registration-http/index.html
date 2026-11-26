@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="注册路由与请求校验 拿 alice 注册这一次请求当主线。请求方法是 POST，地址是 /douyin/user/register/?username=alice&amp;password=p。\nS01 的 Hertz 收得到请求，但路由里没有对应的处理函数，所以返回 404。S02 登记 POST /douyin/user/register/ 后，同一条请求终于进了注册 handler。进了 handler 以后，第一件事是弄清客户端把两个值放在哪儿。\n">
+<title>Go Hertz 注册接口｜POST 路由、参数校验与 HTTP 状态</title>
+
+<link rel='canonical' href='https://anarchycuriosity.github.io/p/go-registration-http/'>
+
+<link rel="stylesheet" href="/scss/style.min.c1b51a30df8ac209786d0bad641e606a0ad3c83218d05b1a01460049b2c0e683.css"><meta property='og:title' content="Go Hertz 注册接口｜POST 路由、参数校验与 HTTP 状态">
+<meta property='og:description' content="注册路由与请求校验 拿 alice 注册这一次请求当主线。请求方法是 POST，地址是 /douyin/user/register/?username=alice&amp;password=p。\nS01 的 Hertz 收得到请求，但路由里没有对应的处理函数，所以返回 404。S02 登记 POST /douyin/user/register/ 后，同一条请求终于进了注册 handler。进了 handler 以后，第一件事是弄清客户端把两个值放在哪儿。\n">
+<meta property='og:url' content='https://anarchycuriosity.github.io/p/go-registration-http/'>
+<meta property='og:site_name' content='Curiosity Anarchy'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Go' /><meta property='article:tag' content='Hertz' /><meta property='article:tag' content='HTTP' /><meta property='article:tag' content='用户注册' /><meta property='article:published_time' content='2026-09-15T00:00:00&#43;08:00'/><meta property='article:modified_time' content='2026-09-15T00:00:00&#43;08:00'/><meta property='og:image' content='https://anarchycuriosity.github.io/moe/animation_9495f9458174f956.jpg' />
+<meta name="twitter:title" content="Go Hertz 注册接口｜POST 路由、参数校验与 HTTP 状态">
+<meta name="twitter:description" content="注册路由与请求校验 拿 alice 注册这一次请求当主线。请求方法是 POST，地址是 /douyin/user/register/?username=alice&amp;password=p。\nS01 的 Hertz 收得到请求，但路由里没有对应的处理函数，所以返回 404。S02 登记 POST /douyin/user/register/ 后，同一条请求终于进了注册 handler。进了 handler 以后，第一件事是弄清客户端把两个值放在哪儿。\n"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://anarchycuriosity.github.io/moe/animation_9495f9458174f956.jpg' />
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "light");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu_d1ed36d2754b4216.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Curiosity Anarchy</a></h1>
+            <h2 class="site-description">此博客主要分享本人的学习记录</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/anarchycuriosity'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E9%93%BE%E6%8E%A5/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>链接</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#注册路由与请求校验">注册路由与请求校验</a>
+      <ol>
+        <li><a href="#动手--先写出请求到校验这一段">动手 · 先写出请求到校验这一段</a></li>
+      </ol>
+    </li>
+    <li><a href="#handler-与注册函数的接缝">Handler 与注册函数的接缝</a>
+      <ol>
+        <li><a href="#动手--接上函数参数让真实路由走到-503">动手 · 接上函数参数，让真实路由走到 503</a></li>
+      </ol>
+    </li>
+    <li><a href="#错误与结果的双重检查">错误与结果的双重检查</a>
+      <ol>
+        <li><a href="#动手--用替身把每个出口跑出来">动手 · 用替身把每个出口跑出来</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            
+            
+            
+            <a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" style="background-color: hsl(291, 60%, 84%); color: hsl(291, 60%, 15%);">
+                后端开发
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/go-registration-http/">Go Hertz 注册接口｜POST 路由、参数校验与 HTTP 状态</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2026-09-15</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 5 分钟
+                </time>
+            </div>
+        
+
+        
+        <div>
+            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-eye"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" /></svg>
+            <span class="article-time--reading">
+                <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv">...</span> 次阅读
+                </span>
+            </span>
+        </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+        <a class="article-image" href="/p/go-registration-http/" aria-label="Go Hertz 注册接口｜POST 路由、参数校验与 HTTP 状态">
+            
+                <img src="/moe/animation_9495f9458174f956.jpg" loading="lazy" alt="Featured image of post Go Hertz 注册接口｜POST 路由、参数校验与 HTTP 状态" />
+            
+        </a>
+    
+</header>
+
+
+    <section class="article-content">
+    
+    
+    <h2 id="注册路由与请求校验">注册路由与请求校验
+</h2><p>拿 <code>alice</code> 注册这一次请求当主线。请求方法是 <code>POST</code>，地址是 <code>/douyin/user/register/?username=alice&amp;password=p</code>。</p>
+<p>S01 的 Hertz 收得到请求，但路由里没有对应的处理函数，所以返回 <code>404</code>。S02 登记 <code>POST /douyin/user/register/</code> 后，同一条请求终于进了注册 handler。<strong>进了 handler 以后，第一件事是弄清客户端把两个值放在哪儿。</strong></p>
+<p>原版通过 <code>c.Query(&quot;username&quot;)</code> 和 <code>c.Query(&quot;password&quot;)</code> 从 URL 的 <code>?</code> 后面取参数。<code>POST</code> 决定这条请求匹配哪个 handler，<code>c.Query</code> 决定 handler 到哪儿取值。把 <code>username</code> 和 <code>password</code> 只放进 JSON 正文，这条请求仍能匹配路由，但 <code>c.Query</code> 会读到空字符串，handler 返回 <code>400</code>。 原版路由 · 原版 Register</p>
+<p>接下来只改一个值试着推演。<code>alice</code> 和 <code>p</code> 都通过校验。删掉 <code>password</code>，handler 会写 <code>400</code>。把用户名换成 11 个 <code>中</code>，每个 <code>中</code> 在 UTF-8 中占 3 字节，<code>len(username)</code> 就是 33。原版与 show 都会走长度超限分支，HTTP 返回 <code>200</code>，JSON 里的 <code>status_code</code> 是 <code>-1</code>。show 把提示改成了「32 字节」，与实际检查一致。 show 参数校验</p>
+<p>回到源码看每个校验分支末尾的 <code>return</code>。<code>c.JSON(...)</code> 把状态码和 JSON 写进<strong>当前请求的响应对象</strong>，所以 handler 的签名里可以没有返回值。下一行 <code>return</code> 结束这个函数。少了它，校验失败的请求还会继续往下走，后续分支就可能再写一次响应，或者把无效输入交给后端。</p>
+<h3 id="动手--先写出请求到校验这一段">动手 · 先写出请求到校验这一段
+</h3><p>在现有 <code>internal/api</code> 里新增 <code>register.go</code>。先读附录中 <code>RegisterUserRoute</code> 的前半段，然后写出下面这条顺序：</p>
+<p><code>登记 POST → 用 c.Query 取两个字符串 → 空值写 400 并结束 → 超过 32 字节写 200 / -1 并结束</code></p>
+<p><code>RegisterResult</code> 是交给 <code>c.JSON</code> 的响应数据。先写好 <code>StatusCode</code> 和 <code>StatusMsg</code>，看它们怎样用 JSON tag 变成 <code>status_code</code> 与 <code>status_msg</code>。合法请求接下来要调用谁，下一节再接上。</p>
+<p><strong>查阅指引。</strong> 在 Hertz v0.5.2 源码里看 <code>POST</code> 的签名，确认第二个参数为何能传一个函数。再在 <code>RequestContext</code> 里找 <code>Query</code> 和 <code>JSON</code>，分别确认前者返回字符串，后者写入响应。 <a class="link" href="https://github.com/cloudwego/hertz/blob/v0.5.2/pkg/route/routergroup.go#L142"  target="_blank" rel="noopener"
+    >Hertz v0.5.2 <code>RouterGroup.POST</code> 所在文件</a> · <a class="link" href="https://github.com/cloudwego/hertz/blob/v0.5.2/pkg/app/context.go"  target="_blank" rel="noopener"
+    ><code>RequestContext</code> 源码</a> · <a class="link" href="https://github.com/cloudwego/hertz/blob/v0.5.2/pkg/app/context.go#L962"  target="_blank" rel="noopener"
+    ><code>JSON</code></a></p>
+<h2 id="handler-与注册函数的接缝">Handler 与注册函数的接缝
+</h2><p>HTTP handler 此时拿到了 <code>alice</code> 和 <code>p</code>。它能判断这两个字符串是否符合接口要求。至于 <code>alice</code> 是否已被注册、该写入哪张表、成功后返回哪个用户 ID，这些要由用户服务处理。</p>
+<p>原版在这个交接点把用户名和密码装进 <code>UserRegisterRequest</code>，交给 <code>rpc.Register</code>。后者调用 Kitex 的 <code>userClient.Register</code>，用户服务才去查库、写库并签发 token。S02 正在复刻的是箭头左边的 HTTP 处理和中间的交接位置。 原版 HTTP handler · 原版 RPC 调用 · 原版用户服务</p>
+<p><code>Hertz 注册 handler → RegisterFunc 接入点 → Kitex 用户服务 → MySQL</code></p>
+<p>show 用 <code>type RegisterFunc func(context.Context, string, string) (RegisterResult, error)</code> 给一种<strong>函数签名</strong>起了名字。读到这里，先把它看成一份约定：调用方给出执行用的 <code>ctx</code>、用户名和密码，被调用的函数交回注册结果或调用错误。</p>
+<p>再看 <code>RegisterUserRoute(hz, register)</code>。登记路由时，<code>register</code> 作为一个函数值传进来。传给 <code>hz.POST</code> 的匿名 handler 会记住它，等 <code>alice</code> 发来请求并通过检查时，才执行 <code>register(ctx, username, password)</code>。这里发生了两次交接：<strong>启动时交给 handler 一个可调用的函数，请求到达后再把参数交给那个函数。</strong> show <code>RegisterFunc</code> 与调用处</p>
+<p>真实进程在 <code>RegisterRoutes</code> 中传的是 <code>nil</code>。这表示路由已装好，但后端函数还没有接上。所以 <code>alice</code> 通过校验之后得到 <code>503</code> 和 <code>status_code: -1</code>。去掉 <code>register == nil</code> 的检查，合法请求就会尝试调用一个空函数值，触发 panic。这个检查让「本步停在哪里」变成客户端看得见的响应。 实际装配入口</p>
+<h3 id="动手--接上函数参数让真实路由走到-503">动手 · 接上函数参数，让真实路由走到 503
+</h3><p>在 <code>register.go</code> 把 <code>RegisterFunc</code>、空函数检查和调用路径接到上一节的校验后面。在 <strong>learner 已有的</strong> <code>RegisterRoutes</code> 里只加 <code>RegisterUserRoute(hz, nil)</code>。保留原有 <code>/healthz</code>、服务构造和测试。两个 <code>.go</code> 文件同属 <code>package api</code>，可以直接调用同包函数，无须把 <code>register.go</code> 写进 <code>import</code>。每个文件仍各自导入它用到的包。</p>
+<p><strong>查阅指引。</strong> 想确认这次改动接到了真正的服务器上，就顺着 show 的 <code>NewServer → RegisterRoutes → RegisterUserRoute</code> 走一遍。看到最后一跳的 <code>nil</code>，就能解释为什么真实请求停在 <code>503</code>。 show 服务器装配</p>
+<h2 id="错误与结果的双重检查">错误与结果的双重检查
+</h2><p>现在保持 <code>alice</code> / <code>p</code> 不变，只在测试里给 <code>RegisterUserRoute</code> 传一个普通 Go 函数。这样可以观察同一个 HTTP handler 如何处理不同的后端结果：</p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>函数交回什么</th>
+          <th>handler 写回什么</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>err != nil</code>，例如调用失败</td>
+          <td>HTTP <code>502</code>、<code>status_code: -1</code>，响应使用固定消息</td>
+      </tr>
+      <tr>
+          <td><code>err == nil</code>，业务结果说「用户名已存在」</td>
+          <td>HTTP <code>200</code>、非零 <code>status_code</code>，失败响应省略用户 ID 和 token</td>
+      </tr>
+      <tr>
+          <td><code>err == nil</code>，业务结果返回用户 ID <code>42</code> 和测试 token</td>
+          <td>HTTP <code>200</code>、<code>status_code: 0</code>，把测试结果写进 JSON</td>
+      </tr>
+  </tbody>
+</table></div>
+<p>试着把前两种放回同一个请求里想。用户服务如果明确说「用户名已存在」，handler 已经拿到一个业务答案。调用过程中如果出了错，handler 没有拿到可用的业务答案。原版用 <code>res, _ := rpc.Register(...)</code> 丢掉了调用错误，紧接着读取 <code>res.StatusCode</code>。如果这次调用失败并返回 <code>nil</code> 响应，继续访问字段就会 panic。show 按顺序先检查 <code>err</code>，再读 <code>result.StatusCode</code>。 原版 RPC 结果读取 · show 响应分支</p>
+<p>读 <code>c.JSON(http.StatusOK, result)</code> 时，第一项是 HTTP 状态，第二项才会被编码成 JSON。客户端看到 <code>200</code> 后还要读 <code>status_code</code>，因为长度超限、业务拒绝和业务成功都可能用 HTTP <code>200</code>。业务失败时，show 先把 <code>UserID</code> 和 <code>Token</code> 清零，再由 JSON tag 里的 <code>omitempty</code> 省略这两个字段。原版响应类型没有这两个 <code>omitempty</code>，所以这一步保留了原版查询参数和校验规则，调整了失败响应的字段形状。 show 响应类型 · 原版响应类型</p>
+<h3 id="动手--用替身把每个出口跑出来">动手 · 用替身把每个出口跑出来
+</h3><p>在 <code>internal/api</code> 新增 <code>register_test.go</code>。每个测试创建一个 Hertz 实例，用 <code>RegisterUserRoute(hz, backend)</code> 装配该场景的函数，再用 <code>ut.PerformRequest</code> 发 POST。先试合法输入加 <code>nil</code>，确认得到 <code>503</code>。再给同一输入换两个替身，分别返回一个 <code>error</code> 和一个业务拒绝，观察 <code>502</code> 与 <code>200 / -1</code>。最后补上缺参、长度超限和成功映射。</p>
+<p>把「缺参」再单独跑一遍，传入一个<strong>只要被调用就让测试失败</strong>的替身。这样能验证请求在校验处结束，后端函数没有收到无效参数。附录中的 <code>42</code> 和 <code>test-token</code> 只来自测试函数，用来验证 HTTP 映射。</p>
+<p><strong>查阅指引。</strong> 查 Hertz v0.5.2 的 <code>ut.PerformRequest</code> 时，顺到 <code>engine.ServeHTTP(...)</code> 就够了。它把构造好的请求交给 <code>hz.Engine</code>，所以即使没有 <code>cmd/api/main.go</code>，也能观察响应。测试用 <code>url.Values.Encode()</code> 生成查询串，中文用户名也走正常 URL 编码和解析。 <a class="link" href="https://github.com/cloudwego/hertz/blob/v0.5.2/pkg/common/ut/request.go#L50"  target="_blank" rel="noopener"
+    >Hertz v0.5.2 <code>PerformRequest</code></a> · show 替身测试</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/go/">Go</a>
+        
+            <a href="/tags/hertz/">Hertz</a>
+        
+            <a href="/tags/http/">HTTP</a>
+        
+            <a href="/tags/%E7%94%A8%E6%88%B7%E6%B3%A8%E5%86%8C/">用户注册</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/go-feed-http-entry/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/moe/animation_08def339607ce81a.jpg" loading="lazy" data-key="go-feed-http-entry" data-hash="/moe/animation_08def339607ce81a.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Feed 01 · Hertz HTTP｜路由分发、RequestContext 与 JSON 响应</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/go-registration-mysql-startup/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/moe/animation_9d8b341e45d3e617.jpg" loading="lazy" data-key="go-registration-mysql-startup" data-hash="/moe/animation_9d8b341e45d3e617.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Go MySQL 用户服务｜建表与监听端口的启动顺序</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/go-registration-rpc-debug/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/moe/animation_9b073a060f72d35d.png" loading="lazy" data-key="go-registration-rpc-debug" data-hash="/moe/animation_9b073a060f72d35d.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Go Kitex 联调｜生成类型、err 与 nil 响应保护</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/go-registration-rpc/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/moe/animation_9a7b825502bc8466.png" loading="lazy" data-key="go-registration-rpc" data-hash="/moe/animation_9a7b825502bc8466.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Go Kitex 注册服务｜跨进程调用与 RPC 错误映射</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/go-cli-http-shared-storage/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/moe/animation_368f31f803cb0396.jpg" loading="lazy" data-key="go-cli-http-shared-storage" data-hash="/moe/animation_368f31f803cb0396.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Go JSON 文件存储｜进程内缓存与跨进程更新丢失</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script src="https://utteranc.es/client.js"
+        repo="anarchycuriosity/anarchycuriosity.github.io"
+        issue-term="pathname"
+        theme="github-light"
+        
+        crossorigin="anonymous"
+        async>
+</script>
+
+<style>
+    .utterances {
+        max-width: unset;
+    }
+</style>
+
+<script>
+    let utterancesLoaded = false;
+
+    function setUtterancesTheme(theme) {
+        let utterances = document.querySelector('.utterances iframe');
+        if (utterances) {
+            utterances.contentWindow.postMessage(
+                {
+                    type: 'set-theme',
+                    theme: `github-${theme}`
+                },
+                'https://utteranc.es'
+            );
+        }
+    }
+
+    addEventListener('message', event => {
+        if (event.origin !== 'https://utteranc.es') return;
+
+        
+        utterancesLoaded = true;
+        setUtterancesTheme(document.documentElement.dataset.scheme)
+    });
+
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (!utterancesLoaded) return;
+        setUtterancesTheme(e.detail)
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2026 Curiosity Anarchy
+    </section>
+    
+    <section class="powerby">
+        
+            by Curiosity Anarchy <br/>
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.34.1">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+    
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.c922af694cc257bf1ecc41c0dd7b0430f9114ec280ccf67cd2c6ad55f5316c4e.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<script>
+    
+    setTimeout(function()
+    {
+        if (document.querySelector('script[data-busuanzi-script]')) {
+            return;
+        }
+
+        var bsz = document.createElement('script');
+        bsz.src = "https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js";
+        bsz.async = true;
+        bsz.dataset.busuanziScript = "true";
+        document.head.appendChild(bsz);
+    }, 500);
+
+    
+    setTimeout(function()
+    {
+        var sakura = document.createElement('script');
+        sakura.src = "https:\/\/anarchycuriosity.github.io\/background\/sakura.js";
+        document.body.appendChild(sakura);
+    }, 1000);
+</script>
+
+    </body>
+</html>

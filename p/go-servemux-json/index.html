@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="为什么不继续写一堆 if？ 上一篇已经暴露了问题：\nPlayerServer 不应该在确认请求路径之前，就直接切割字符串。\n最直接的修复是：\n1 2 if path == &#34;/league&#34; ... else if strings.HasPrefix(path, &#34;/players/&#34;) ... 但随着端点数量增加，每次请求都需要自己判断路径、HTTP 方法、路径参数，以及没有匹配时如何回应。\n">
+<title>Go ServeMux｜路由复用与 JSON 响应断言</title>
+
+<link rel='canonical' href='https://anarchycuriosity.github.io/p/go-servemux-json/'>
+
+<link rel="stylesheet" href="/scss/style.min.c1b51a30df8ac209786d0bad641e606a0ad3c83218d05b1a01460049b2c0e683.css"><meta property='og:title' content="Go ServeMux｜路由复用与 JSON 响应断言">
+<meta property='og:description' content="为什么不继续写一堆 if？ 上一篇已经暴露了问题：\nPlayerServer 不应该在确认请求路径之前，就直接切割字符串。\n最直接的修复是：\n1 2 if path == &#34;/league&#34; ... else if strings.HasPrefix(path, &#34;/players/&#34;) ... 但随着端点数量增加，每次请求都需要自己判断路径、HTTP 方法、路径参数，以及没有匹配时如何回应。\n">
+<meta property='og:url' content='https://anarchycuriosity.github.io/p/go-servemux-json/'>
+<meta property='og:site_name' content='Curiosity Anarchy'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Go' /><meta property='article:tag' content='net/http' /><meta property='article:tag' content='JSON' /><meta property='article:published_time' content='2026-03-10T00:00:00&#43;08:00'/><meta property='article:modified_time' content='2026-03-10T00:00:00&#43;08:00'/><meta property='og:image' content='https://anarchycuriosity.github.io/moe/animation_4b77f25ab3e0235b.jpg' />
+<meta name="twitter:title" content="Go ServeMux｜路由复用与 JSON 响应断言">
+<meta name="twitter:description" content="为什么不继续写一堆 if？ 上一篇已经暴露了问题：\nPlayerServer 不应该在确认请求路径之前，就直接切割字符串。\n最直接的修复是：\n1 2 if path == &#34;/league&#34; ... else if strings.HasPrefix(path, &#34;/players/&#34;) ... 但随着端点数量增加，每次请求都需要自己判断路径、HTTP 方法、路径参数，以及没有匹配时如何回应。\n"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://anarchycuriosity.github.io/moe/animation_4b77f25ab3e0235b.jpg' />
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "light");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu_d1ed36d2754b4216.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Curiosity Anarchy</a></h1>
+            <h2 class="site-description">此博客主要分享本人的学习记录</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/anarchycuriosity'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E9%93%BE%E6%8E%A5/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>链接</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#为什么不继续写一堆-if">为什么不继续写一堆 if？</a></li>
+    <li><a href="#handler-和-handlerfunc-到底是什么关系">Handler 和 HandlerFunc 到底是什么关系？</a></li>
+    <li><a href="#go-122不要再手动截取路径参数">Go 1.22：不要再手动截取路径参数</a></li>
+    <li><a href="#路由规则会在请求之间改变吗">路由规则会在请求之间改变吗？</a></li>
+    <li><a href="#为什么使用嵌入而不是手写-servehttp">为什么使用嵌入，而不是手写 ServeHTTP？</a></li>
+    <li><a href="#为什么不直接嵌入-servemux">为什么不直接嵌入 ServeMux？</a></li>
+    <li><a href="#league-应该返回什么"><code>/league</code> 应该返回什么？</a></li>
+    <li><a href="#为什么不直接比较-json-字符串">为什么不直接比较 JSON 字符串？</a></li>
+    <li><a href="#encoder-和-decoder-为什么接收-readerwriter">Encoder 和 Decoder 为什么接收 Reader/Writer？</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            
+            
+            
+            <a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" style="background-color: hsl(291, 60%, 84%); color: hsl(291, 60%, 15%);">
+                后端开发
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/go-servemux-json/">Go ServeMux｜路由复用与 JSON 响应断言</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2026-03-10</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 5 分钟
+                </time>
+            </div>
+        
+
+        
+        <div>
+            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-eye"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" /></svg>
+            <span class="article-time--reading">
+                <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv">...</span> 次阅读
+                </span>
+            </span>
+        </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+        <a class="article-image" href="/p/go-servemux-json/" aria-label="Go ServeMux｜路由复用与 JSON 响应断言">
+            
+                <img src="/moe/animation_4b77f25ab3e0235b.jpg" loading="lazy" alt="Featured image of post Go ServeMux｜路由复用与 JSON 响应断言" />
+            
+        </a>
+    
+</header>
+
+
+    <section class="article-content">
+    
+    
+    <h2 id="为什么不继续写一堆-if">为什么不继续写一堆 if？
+</h2><p>上一篇已经暴露了问题：</p>
+<p><code>PlayerServer</code> 不应该在确认请求路径之前，就直接切割字符串。</p>
+<p>最直接的修复是：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">if path == &#34;/league&#34; ...
+</span></span><span class="line"><span class="cl">else if strings.HasPrefix(path, &#34;/players/&#34;) ...
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>但随着端点数量增加，每次请求都需要自己判断路径、HTTP 方法、路径参数，以及没有匹配时如何回应。</p>
+<p>Go 标准库已经提供了 <code>http.ServeMux</code> 来完成这件事。</p>
+<p>新的请求路径：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">GET /players/Alice
+</span></span><span class="line"><span class="cl">        │
+</span></span><span class="line"><span class="cl">        ▼
+</span></span><span class="line"><span class="cl">     ServeMux
+</span></span><span class="line"><span class="cl">        │
+</span></span><span class="line"><span class="cl">        ├── GET /league          → leagueHandler
+</span></span><span class="line"><span class="cl">        │
+</span></span><span class="line"><span class="cl">        ├── GET /players/{name}  → scoreHandler
+</span></span><span class="line"><span class="cl">        │                            name = &#34;Alice&#34;
+</span></span><span class="line"><span class="cl">        │
+</span></span><span class="line"><span class="cl">        └── POST /players/{name} → winHandler
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>ServeMux</code> 的职责是选择处理者；业务 Handler 的职责是执行操作。</p>
+<h2 id="handler-和-handlerfunc-到底是什么关系">Handler 和 HandlerFunc 到底是什么关系？
+</h2><p>先看接口：</p>
+<p><code>http.Handler</code> 要求实现 <code>ServeHTTP(w, r)</code>。</p>
+<p><code>http.HandlerFunc</code> 则是一个函数类型，它自己实现了 <code>ServeHTTP</code>，可以将符合签名的普通函数适配成 Handler。</p>
+<p>因此：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">p.scoreHandler（普通方法值）
+</span></span><span class="line"><span class="cl">       │
+</span></span><span class="line"><span class="cl">       ▼
+</span></span><span class="line"><span class="cl">http.HandlerFunc(...)
+</span></span><span class="line"><span class="cl">       │
+</span></span><span class="line"><span class="cl">       ▼
+</span></span><span class="line"><span class="cl">满足 http.Handler 接口
+</span></span><span class="line"><span class="cl">       │
+</span></span><span class="line"><span class="cl">       ▼
+</span></span><span class="line"><span class="cl">router.Handle(...)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>ServeMux</code> 自身同样实现了 <code>http.Handler</code>。</p>
+<p>所以最终可以调用 <code>router.ServeHTTP(w, r)</code>，让路由器继续分发请求。</p>
+<h2 id="go-122不要再手动截取路径参数">Go 1.22：不要再手动截取路径参数
+</h2><p>原章使用旧写法：</p>
+<p><code>&quot;/players/&quot;</code> 匹配路径前缀，然后自己切片。</p>
+<p>但 Go 1.22 已经支持：</p>
+<ul>
+<li><code>GET /players/{name}</code>：匹配 GET（也匹配 HEAD）。</li>
+<li><code>POST /players/{name}</code>：匹配 POST。</li>
+<li><code>r.PathValue(&quot;name&quot;)</code>：获取匹配的路径参数。</li>
+</ul>
+<p>其中 <code>{name}</code> 匹配一个非空路径段，而不是任意长度的剩余路径。</p>
+<p>例如：</p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>请求</th>
+          <th>预期结果</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>GET /players/Alice</code></td>
+          <td>匹配 GET 玩家 Handler</td>
+      </tr>
+      <tr>
+          <td><code>POST /players/Alice</code></td>
+          <td>匹配 POST 玩家 Handler</td>
+      </tr>
+      <tr>
+          <td><code>DELETE /players/Alice</code></td>
+          <td>405 Method Not Allowed</td>
+      </tr>
+      <tr>
+          <td><code>GET /players/Alice/history</code></td>
+          <td>404 Not Found</td>
+      </tr>
+      <tr>
+          <td><code>POST /league</code></td>
+          <td>405 Method Not Allowed</td>
+      </tr>
+  </tbody>
+</table></div>
+<p>Go 1.22 的 <code>ServeMux</code> 会自动处理一些未匹配情况，无须业务代码专门写 <code>switch</code>。</p>
+<p>更具体的路由优先级遵循“更具体的匹配优先”，不是注册顺序决定胜负。</p>
+<h2 id="路由规则会在请求之间改变吗">路由规则会在请求之间改变吗？
+</h2><p>观察上一篇的运行过程：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">请求 A
+</span></span><span class="line"><span class="cl">  → NewServeMux()
+</span></span><span class="line"><span class="cl">  → 注册三个 Handler
+</span></span><span class="line"><span class="cl">  → 匹配路径
+</span></span><span class="line"><span class="cl">  → 返回响应
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">请求 B
+</span></span><span class="line"><span class="cl">  → NewServeMux()
+</span></span><span class="line"><span class="cl">  → 注册三个 Handler
+</span></span><span class="line"><span class="cl">  → 匹配路径
+</span></span><span class="line"><span class="cl">  → 返回响应
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>请求 A 与请求 B 使用的路由规则完全相同。</p>
+<p>创建路由器、注册规则属于<strong>初始化工作</strong>，并不是每次请求都必须重复的业务工作。</p>
+<p>理想的生命周期：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">程序启动
+</span></span><span class="line"><span class="cl">   │
+</span></span><span class="line"><span class="cl">   ▼
+</span></span><span class="line"><span class="cl">NewPlayerServer(store)
+</span></span><span class="line"><span class="cl">   │
+</span></span><span class="line"><span class="cl">   ├── 创建 ServeMux
+</span></span><span class="line"><span class="cl">   ├── 注册 GET /league
+</span></span><span class="line"><span class="cl">   ├── 注册 GET /players/{name}
+</span></span><span class="line"><span class="cl">   └── 注册 POST /players/{name}
+</span></span><span class="line"><span class="cl">   │
+</span></span><span class="line"><span class="cl">   ▼
+</span></span><span class="line"><span class="cl">PlayerServer 保存路由器
+</span></span><span class="line"><span class="cl">   │
+</span></span><span class="line"><span class="cl">   ├── 请求 A → 使用已有路由器
+</span></span><span class="line"><span class="cl">   ├── 请求 B → 使用已有路由器
+</span></span><span class="line"><span class="cl">   └── 请求 C → 使用已有路由器
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>所以我们需要一个构造函数：<code>NewPlayerServer</code>。</p>
+<p>它同时接收 <code>PlayerStore</code> 依赖，并完成路由配置。</p>
+<h2 id="为什么使用嵌入而不是手写-servehttp">为什么使用嵌入，而不是手写 ServeHTTP？
+</h2><p>先设想一个普通字段：</p>
+<p><code>router *http.ServeMux</code></p>
+<p>那么 <code>PlayerServer</code> 可以通过一个显式的 <code>ServeHTTP</code> 方法，委托给 <code>router.ServeHTTP</code>。</p>
+<p>这是完全合理的写法。</p>
+<p>原章进一步尝试 Go 的<strong>嵌入</strong>：</p>
+<p><code>PlayerServer</code> 嵌入 <code>http.Handler</code> 接口。</p>
+<p>对象关系变成：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">PlayerServer
+</span></span><span class="line"><span class="cl">├── store: PlayerStore
+</span></span><span class="line"><span class="cl">└── Handler: http.Handler
+</span></span><span class="line"><span class="cl">       │
+</span></span><span class="line"><span class="cl">       └── 实际保存 *http.ServeMux
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>因为 <code>http.Handler</code> 有 <code>ServeHTTP</code> 方法，嵌入后，Go 的方法提升机制会使 <code>*PlayerServer</code> 拥有这个方法。</p>
+<p>于是可以删除自己写的委托方法。</p>
+<p>这里不是 Java 式的继承。</p>
+<p>更准确地说：</p>
+<p><strong>结构体里有一个嵌入字段，Go 将这个字段的方法提升到外层类型的方法集中。</strong></p>
+<p>没有发生对象继承，也没有复制一份路由器。</p>
+<p>当外部调用 <code>server.ServeHTTP</code> 时，最终执行的仍然是内部 <code>ServeMux</code> 的实现。</p>
+<p>注意必须先给嵌入字段赋值。如果没有调用构造函数就直接使用未初始化的 <code>PlayerServer</code>，其嵌入的 Handler 仍可能是 nil。</p>
+<h2 id="为什么不直接嵌入-servemux">为什么不直接嵌入 ServeMux？
+</h2><p>假设嵌入具体的 <code>http.ServeMux</code>。</p>
+<p>由于它有 <code>Handle</code>、<code>HandleFunc</code> 等公开方法，这些方法也会提升到外层。</p>
+<p>调用者可能获得这样的能力：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">PlayerServer
+</span></span><span class="line"><span class="cl">├── ServeHTTP()
+</span></span><span class="line"><span class="cl">├── Handle()
+</span></span><span class="line"><span class="cl">└── HandleFunc()
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这意味着外部代码能修改服务器内部的路由配置。</p>
+<p>但 <code>PlayerServer</code> 原本只想对外提供请求处理能力，不一定想提供路由配置能力。</p>
+<p>嵌入 <code>http.Handler</code> 接口后，提升的方法只有 <code>ServeHTTP</code>。</p>
+<p>需要注意：嵌入的接口字段本身依然可被赋值，因此这不是最严格的封装。若必须禁止外部替换内部 Handler，可以保留私有字段并显式实现 <code>ServeHTTP</code>。</p>
+<p><strong>设计取舍：嵌入可以减少委托代码，但要清楚它会暴露什么 API。</strong></p>
+<p>同样地，Go 的接口也可以嵌入其它接口。例如 <code>Animal</code> 可以通过嵌入 <code>Eater</code> 和 <code>Sleeper</code>，组合两组方法要求。</p>
+<h2 id="league-应该返回什么"><code>/league</code> 应该返回什么？
+</h2><p>目前访问 <code>GET /league</code>，只会得到一个 200 状态码。</p>
+<p>产品需求却是返回玩家清单，例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">[</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;Name&#34;</span><span class="p">:</span> <span class="s2">&#34;Chris&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;Wins&#34;</span><span class="p">:</span> <span class="mi">20</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>注意这里存在两种不同的东西：</p>
+<ul>
+<li><strong>数据本身</strong>：一个玩家，姓名 Chris，胜场 20。</li>
+<li><strong>JSON 表示</strong>：把这个数据编码成文本，用于通过 HTTP 传输。</li>
+</ul>
+<p>这两个东西不应该混为一谈。</p>
+<p>Go 中可以先定义 <code>Player</code> 结构体，再用 <code>[]Player</code> 表示玩家列表。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">Go 内存中的数据
+</span></span><span class="line"><span class="cl">[]Player
+</span></span><span class="line"><span class="cl">   │
+</span></span><span class="line"><span class="cl">   ▼
+</span></span><span class="line"><span class="cl">JSON Encoder
+</span></span><span class="line"><span class="cl">   │
+</span></span><span class="line"><span class="cl">   ▼
+</span></span><span class="line"><span class="cl">HTTP ResponseWriter
+</span></span><span class="line"><span class="cl">   │
+</span></span><span class="line"><span class="cl">   ▼
+</span></span><span class="line"><span class="cl">网络上的 JSON 字节
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>测试时反过来：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">HTTP 响应体
+</span></span><span class="line"><span class="cl">   │
+</span></span><span class="line"><span class="cl">   ▼
+</span></span><span class="line"><span class="cl">JSON Decoder
+</span></span><span class="line"><span class="cl">   │
+</span></span><span class="line"><span class="cl">   ▼
+</span></span><span class="line"><span class="cl">[]Player
+</span></span><span class="line"><span class="cl">   │
+</span></span><span class="line"><span class="cl">   ▼
+</span></span><span class="line"><span class="cl">与预期数据比较
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="为什么不直接比较-json-字符串">为什么不直接比较 JSON 字符串？
+</h2><p>考虑下面两段 JSON：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span><span class="nt">&#34;Name&#34;</span><span class="p">:</span><span class="s2">&#34;Chris&#34;</span><span class="p">,</span><span class="nt">&#34;Wins&#34;</span><span class="p">:</span><span class="mi">20</span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;Wins&#34;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;Name&#34;</span><span class="p">:</span> <span class="s2">&#34;Chris&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>它们的空格、换行和字段顺序不同，但表示相同的数据。</p>
+<p>如果测试直接比较字符串，就可能因为无关紧要的格式改变而失败。</p>
+<p>更好的测试方法：</p>
+<ol>
+<li>发起请求。</li>
+<li>将响应 JSON 解码为 <code>[]Player</code>。</li>
+<li>比较解码后的 Go 数据。</li>
+</ol>
+<p>这也让失败信息更贴近业务数据，而不是一大段难以阅读的 JSON 字符串。</p>
+<p>不过有一个边界：<code>[]Player</code> 是切片，<code>reflect.DeepEqual</code> 会比较元素顺序。如果 API 不承诺联盟列表的排列顺序，测试也不应该假定顺序固定。</p>
+<p>本篇只有一个玩家，因此不会出现顺序问题。</p>
+<h2 id="encoder-和-decoder-为什么接收-readerwriter">Encoder 和 Decoder 为什么接收 Reader/Writer？
+</h2><p><code>json.NewEncoder(w)</code> 需要的是 <code>io.Writer</code>。</p>
+<p><code>http.ResponseWriter</code> 实现了 <code>io.Writer</code>，因此 JSON 编码器可以把编码后的字节写进 HTTP 响应。</p>
+<p><code>json.NewDecoder(response.Body)</code> 需要的是 <code>io.Reader</code>。</p>
+<p>测试里的 <code>response.Body</code> 是 <code>*bytes.Buffer</code>，它实现了 <code>io.Reader</code>，所以可以直接读取其中的响应正文。</p>
+<p>这正是接口带来的好处：</p>
+<p><strong>JSON 编解码器不需要知道数据来自 HTTP、文件，还是内存缓冲区。</strong></p>
+<p>调用 <code>Decode(&amp;got)</code> 时传入指针，是为了让解码器修改 <code>got</code> 中保存的数据。</p>
+<p>没有地址，解码器就不能把解析出来的结果写回调用者的变量。</p>
+<p>此外，Go 的 JSON 编码器只会编码可导出的结构体字段。<code>Name</code>、<code>Wins</code> 首字母大写，因此能被编码；如果写成 <code>name</code>、<code>wins</code>，在默认配置下就不能作为结构体的公开 JSON 字段输出。</p>
+<p>本章沿用原章的 <code>&quot;Name&quot;</code>、<code>&quot;Wins&quot;</code> 字段名。以后可以用 <code>json</code> 字段标签改变编码名称。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/go/">Go</a>
+        
+            <a href="/tags/net/http/">Net/Http</a>
+        
+            <a href="/tags/json/">JSON</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/go-json-handler-response/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/moe/animation_4bdee1467703bdad.jpg" loading="lazy" data-key="go-json-handler-response" data-hash="/moe/animation_4bdee1467703bdad.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Go JSON API｜存储接口、Content-Type 与响应构造</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/go-json-reader-offset/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/moe/animation_4fdc22df44a9b4b3.jpg" loading="lazy" data-key="go-json-reader-offset" data-hash="/moe/animation_4fdc22df44a9b4b3.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Go JSON 文件读取｜io.Reader 的消费语义与文件偏移</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/go-http-store-interface/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/moe/animation_4a953396b75c1997.jpg" loading="lazy" data-key="go-http-store-interface" data-hash="/moe/animation_4a953396b75c1997.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Go net/http｜PlayerStore 接口与 Handler 的存储依赖</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/go-http-handler-contract/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/moe/animation_44776825acbda88d.png" loading="lazy" data-key="go-http-handler-contract" data-hash="/moe/animation_44776825acbda88d.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Go net/http｜Handler、ResponseWriter 与进程内测试</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/go-video-feed-minio-presigned-url/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/moe/animation_da491b413f2fee6a.jpg" loading="lazy" data-key="go-video-feed-minio-presigned-url" data-hash="/moe/animation_da491b413f2fee6a.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Feed 04 · MinIO｜对象存储与预签名播放 URL</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script src="https://utteranc.es/client.js"
+        repo="anarchycuriosity/anarchycuriosity.github.io"
+        issue-term="pathname"
+        theme="github-light"
+        
+        crossorigin="anonymous"
+        async>
+</script>
+
+<style>
+    .utterances {
+        max-width: unset;
+    }
+</style>
+
+<script>
+    let utterancesLoaded = false;
+
+    function setUtterancesTheme(theme) {
+        let utterances = document.querySelector('.utterances iframe');
+        if (utterances) {
+            utterances.contentWindow.postMessage(
+                {
+                    type: 'set-theme',
+                    theme: `github-${theme}`
+                },
+                'https://utteranc.es'
+            );
+        }
+    }
+
+    addEventListener('message', event => {
+        if (event.origin !== 'https://utteranc.es') return;
+
+        
+        utterancesLoaded = true;
+        setUtterancesTheme(document.documentElement.dataset.scheme)
+    });
+
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (!utterancesLoaded) return;
+        setUtterancesTheme(e.detail)
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2026 Curiosity Anarchy
+    </section>
+    
+    <section class="powerby">
+        
+            by Curiosity Anarchy <br/>
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.34.1">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+    
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.c922af694cc257bf1ecc41c0dd7b0430f9114ec280ccf67cd2c6ad55f5316c4e.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<script>
+    
+    setTimeout(function()
+    {
+        if (document.querySelector('script[data-busuanzi-script]')) {
+            return;
+        }
+
+        var bsz = document.createElement('script');
+        bsz.src = "https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js";
+        bsz.async = true;
+        bsz.dataset.busuanziScript = "true";
+        document.head.appendChild(bsz);
+    }, 500);
+
+    
+    setTimeout(function()
+    {
+        var sakura = document.createElement('script');
+        sakura.src = "https:\/\/anarchycuriosity.github.io\/background\/sakura.js";
+        document.body.appendChild(sakura);
+    }, 1000);
+</script>
+
+    </body>
+</html>

@@ -3,124 +3,76 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://anarchycuriosity.github.io/</loc>
-    <lastmod>2026-11-23T00:00:00+08:00</lastmod>
+    <lastmod>2026-11-24T00:00:00+08:00</lastmod>
   </url><url>
     <loc>https://anarchycuriosity.github.io/categories/</loc>
-    <lastmod>2026-11-23T00:00:00+08:00</lastmod>
+    <lastmod>2026-11-24T00:00:00+08:00</lastmod>
   </url><url>
     <loc>https://anarchycuriosity.github.io/tags/feed/</loc>
-    <lastmod>2026-11-23T00:00:00+08:00</lastmod>
+    <lastmod>2026-11-24T00:00:00+08:00</lastmod>
   </url><url>
     <loc>https://anarchycuriosity.github.io/p/go-video-feed-minio-presigned-url/</loc>
-    <lastmod>2026-11-23T00:00:00+08:00</lastmod>
+    <lastmod>2026-11-24T00:00:00+08:00</lastmod>
   </url><url>
     <loc>https://anarchycuriosity.github.io/tags/go/</loc>
-    <lastmod>2026-11-23T00:00:00+08:00</lastmod>
+    <lastmod>2026-11-24T00:00:00+08:00</lastmod>
   </url><url>
     <loc>https://anarchycuriosity.github.io/tags/minio/</loc>
-    <lastmod>2026-11-23T00:00:00+08:00</lastmod>
+    <lastmod>2026-11-24T00:00:00+08:00</lastmod>
   </url><url>
     <loc>https://anarchycuriosity.github.io/post/</loc>
-    <lastmod>2026-11-23T00:00:00+08:00</lastmod>
+    <lastmod>2026-11-24T00:00:00+08:00</lastmod>
   </url><url>
     <loc>https://anarchycuriosity.github.io/tags/</loc>
-    <lastmod>2026-11-23T00:00:00+08:00</lastmod>
+    <lastmod>2026-11-24T00:00:00+08:00</lastmod>
   </url><url>
     <loc>https://anarchycuriosity.github.io/tags/%E5%AF%B9%E8%B1%A1%E5%AD%98%E5%82%A8/</loc>
-    <lastmod>2026-11-23T00:00:00+08:00</lastmod>
+    <lastmod>2026-11-24T00:00:00+08:00</lastmod>
   </url><url>
     <loc>https://anarchycuriosity.github.io/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/</loc>
-    <lastmod>2026-11-23T00:00:00+08:00</lastmod>
+    <lastmod>2026-11-24T00:00:00+08:00</lastmod>
   </url><url>
     <loc>https://anarchycuriosity.github.io/tags/%E9%A2%84%E7%AD%BE%E5%90%8D-url/</loc>
-    <lastmod>2026-11-23T00:00:00+08:00</lastmod>
+    <lastmod>2026-11-24T00:00:00+08:00</lastmod>
   </url><url>
     <loc>https://anarchycuriosity.github.io/p/go-feed-query-card-assembly/</loc>
-    <lastmod>2026-11-21T00:00:00+08:00</lastmod>
+    <lastmod>2026-11-17T00:00:00+08:00</lastmod>
   </url><url>
     <loc>https://anarchycuriosity.github.io/tags/mysql/</loc>
-    <lastmod>2026-11-21T00:00:00+08:00</lastmod>
+    <lastmod>2026-11-17T00:00:00+08:00</lastmod>
   </url><url>
     <loc>https://anarchycuriosity.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9F%A5%E8%AF%A2/</loc>
-    <lastmod>2026-11-21T00:00:00+08:00</lastmod>
+    <lastmod>2026-11-17T00:00:00+08:00</lastmod>
   </url><url>
     <loc>https://anarchycuriosity.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%84%E8%A3%85/</loc>
-    <lastmod>2026-11-21T00:00:00+08:00</lastmod>
+    <lastmod>2026-11-17T00:00:00+08:00</lastmod>
   </url><url>
-    <loc>https://anarchycuriosity.github.io/p/go-feed-kitex-rpc/</loc>
-    <lastmod>2026-11-19T00:00:00+08:00</lastmod>
+    <loc>https://anarchycuriosity.github.io/p/go-rpc-call-options/</loc>
+    <lastmod>2026-11-10T00:00:00+08:00</lastmod>
   </url><url>
     <loc>https://anarchycuriosity.github.io/tags/kitex/</loc>
-    <lastmod>2026-11-19T00:00:00+08:00</lastmod>
+    <lastmod>2026-11-10T00:00:00+08:00</lastmod>
   </url><url>
     <loc>https://anarchycuriosity.github.io/tags/rpc/</loc>
-    <lastmod>2026-11-19T00:00:00+08:00</lastmod>
+    <lastmod>2026-11-10T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/p/go-feed-kitex-rpc/</loc>
+    <lastmod>2026-11-03T00:00:00+08:00</lastmod>
   </url><url>
     <loc>https://anarchycuriosity.github.io/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/</loc>
-    <lastmod>2026-11-19T00:00:00+08:00</lastmod>
+    <lastmod>2026-11-03T00:00:00+08:00</lastmod>
   </url><url>
     <loc>https://anarchycuriosity.github.io/p/go-feed-http-entry/</loc>
-    <lastmod>2026-11-18T00:00:00+08:00</lastmod>
+    <lastmod>2026-10-27T00:00:00+08:00</lastmod>
   </url><url>
     <loc>https://anarchycuriosity.github.io/tags/hertz/</loc>
-    <lastmod>2026-11-18T00:00:00+08:00</lastmod>
+    <lastmod>2026-10-27T00:00:00+08:00</lastmod>
   </url><url>
     <loc>https://anarchycuriosity.github.io/tags/http/</loc>
-    <lastmod>2026-11-18T00:00:00+08:00</lastmod>
+    <lastmod>2026-10-27T00:00:00+08:00</lastmod>
   </url><url>
     <loc>https://anarchycuriosity.github.io/tags/%E8%B7%AF%E7%94%B1/</loc>
-    <lastmod>2026-11-18T00:00:00+08:00</lastmod>
-  </url><url>
-    <loc>https://anarchycuriosity.github.io/p/go-cli-http-shared-storage/</loc>
-    <lastmod>2026-11-13T00:00:00+08:00</lastmod>
-  </url><url>
-    <loc>https://anarchycuriosity.github.io/tags/%E6%8C%81%E4%B9%85%E5%8C%96/</loc>
-    <lastmod>2026-11-13T00:00:00+08:00</lastmod>
-  </url><url>
-    <loc>https://anarchycuriosity.github.io/tags/%E8%BF%9B%E7%A8%8B%E9%97%B4%E4%B8%80%E8%87%B4%E6%80%A7/</loc>
-    <lastmod>2026-11-13T00:00:00+08:00</lastmod>
-  </url><url>
-    <loc>https://anarchycuriosity.github.io/tags/%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8/</loc>
-    <lastmod>2026-11-13T00:00:00+08:00</lastmod>
-  </url><url>
-    <loc>https://anarchycuriosity.github.io/p/go-cli-http-persistence-test/</loc>
-    <lastmod>2026-11-12T00:00:00+08:00</lastmod>
-  </url><url>
-    <loc>https://anarchycuriosity.github.io/tags/%E9%9B%86%E6%88%90%E6%B5%8B%E8%AF%95/</loc>
-    <lastmod>2026-11-12T00:00:00+08:00</lastmod>
-  </url><url>
-    <loc>https://anarchycuriosity.github.io/tags/context/</loc>
-    <lastmod>2026-11-10T00:00:00+08:00</lastmod>
-  </url><url>
-    <loc>https://anarchycuriosity.github.io/p/go-context-cancellation/</loc>
-    <lastmod>2026-11-10T00:00:00+08:00</lastmod>
-  </url><url>
-    <loc>https://anarchycuriosity.github.io/tags/%E5%B9%B6%E5%8F%91/</loc>
-    <lastmod>2026-11-10T00:00:00+08:00</lastmod>
-  </url><url>
-    <loc>https://anarchycuriosity.github.io/tags/c&#43;&#43;/</loc>
-    <lastmod>2026-10-29T00:00:00+08:00</lastmod>
-  </url><url>
-    <loc>https://anarchycuriosity.github.io/tags/tinywebserver/</loc>
-    <lastmod>2026-10-29T00:00:00+08:00</lastmod>
-  </url><url>
-    <loc>https://anarchycuriosity.github.io/p/tiny-web-server-debug-trace/</loc>
-    <lastmod>2026-10-29T00:00:00+08:00</lastmod>
-  </url><url>
-    <loc>https://anarchycuriosity.github.io/tags/%E8%B0%83%E8%AF%95/</loc>
-    <lastmod>2026-10-29T00:00:00+08:00</lastmod>
-  </url><url>
-    <loc>https://anarchycuriosity.github.io/tags/%E7%8A%B6%E6%80%81%E6%9C%BA/</loc>
-    <lastmod>2026-10-29T00:00:00+08:00</lastmod>
-  </url><url>
-    <loc>https://anarchycuriosity.github.io/p/tiny-web-server-writev-partial-writes/</loc>
-    <lastmod>2026-10-23T00:00:00+08:00</lastmod>
-  </url><url>
-    <loc>https://anarchycuriosity.github.io/tags/writev/</loc>
-    <lastmod>2026-10-23T00:00:00+08:00</lastmod>
-  </url><url>
-    <loc>https://anarchycuriosity.github.io/tags/%E9%83%A8%E5%88%86%E5%86%99%E5%85%A5/</loc>
-    <lastmod>2026-10-23T00:00:00+08:00</lastmod>
+    <lastmod>2026-10-27T00:00:00+08:00</lastmod>
   </url><url>
     <loc>https://anarchycuriosity.github.io/p/2026-10-21-%E6%AD%BB%E4%BA%A1%E4%B8%8E%E6%81%90%E6%83%A7%E4%B8%8E%E8%BF%AB%E5%88%87%E8%87%AA%E8%AF%81%E7%9A%84%E5%BF%83%E7%90%86%E9%99%B7%E9%98%B1/</loc>
     <lastmod>2026-10-21T00:00:00+08:00</lastmod>
@@ -128,95 +80,110 @@
     <loc>https://anarchycuriosity.github.io/categories/%E5%90%91%E5%86%85%E6%8E%A2%E7%A9%B6/</loc>
     <lastmod>2026-10-21T00:00:00+08:00</lastmod>
   </url><url>
+    <loc>https://anarchycuriosity.github.io/p/go-jwt-verification/</loc>
+    <lastmod>2026-10-20T00:00:00+08:00</lastmod>
+  </url><url>
     <loc>https://anarchycuriosity.github.io/p/2026-10-20-go%E7%9A%84%E5%AD%A6%E4%B9%A0%E4%BD%93%E9%AA%8C%E4%B8%8E%E8%AF%AD%E8%A8%80%E9%80%89%E6%8B%A9/</loc>
+    <lastmod>2026-10-20T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/tags/jwt/</loc>
     <lastmod>2026-10-20T00:00:00+08:00</lastmod>
   </url><url>
     <loc>https://anarchycuriosity.github.io/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/</loc>
     <lastmod>2026-10-20T00:00:00+08:00</lastmod>
   </url><url>
-    <loc>https://anarchycuriosity.github.io/tags/mmap/</loc>
-    <lastmod>2026-10-18T00:00:00+08:00</lastmod>
+    <loc>https://anarchycuriosity.github.io/tags/%E9%89%B4%E6%9D%83/</loc>
+    <lastmod>2026-10-20T00:00:00+08:00</lastmod>
   </url><url>
-    <loc>https://anarchycuriosity.github.io/p/tiny-web-server-response-preparation/</loc>
-    <lastmod>2026-10-18T00:00:00+08:00</lastmod>
+    <loc>https://anarchycuriosity.github.io/p/go-jwt-signing/</loc>
+    <lastmod>2026-10-13T00:00:00+08:00</lastmod>
   </url><url>
-    <loc>https://anarchycuriosity.github.io/tags/%E5%93%8D%E5%BA%94%E6%9E%84%E9%80%A0/</loc>
-    <lastmod>2026-10-18T00:00:00+08:00</lastmod>
+    <loc>https://anarchycuriosity.github.io/p/go-registration-mysql-startup/</loc>
+    <lastmod>2026-10-06T00:00:00+08:00</lastmod>
   </url><url>
-    <loc>https://anarchycuriosity.github.io/p/http-parser-rebuild-notes/</loc>
-    <lastmod>2026-10-14T00:00:00+08:00</lastmod>
+    <loc>https://anarchycuriosity.github.io/tags/%E7%94%A8%E6%88%B7%E6%B3%A8%E5%86%8C/</loc>
+    <lastmod>2026-10-06T00:00:00+08:00</lastmod>
   </url><url>
-    <loc>https://anarchycuriosity.github.io/tags/%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/</loc>
-    <lastmod>2026-10-14T00:00:00+08:00</lastmod>
+    <loc>https://anarchycuriosity.github.io/p/go-registration-rpc-debug/</loc>
+    <lastmod>2026-09-29T00:00:00+08:00</lastmod>
   </url><url>
-    <loc>https://anarchycuriosity.github.io/tags/linux/</loc>
-    <lastmod>2026-10-08T00:00:00+08:00</lastmod>
+    <loc>https://anarchycuriosity.github.io/tags/%E8%B0%83%E8%AF%95/</loc>
+    <lastmod>2026-09-29T00:00:00+08:00</lastmod>
   </url><url>
-    <loc>https://anarchycuriosity.github.io/p/tiny-web-server-static-file-routing/</loc>
-    <lastmod>2026-10-08T00:00:00+08:00</lastmod>
-  </url><url>
-    <loc>https://anarchycuriosity.github.io/tags/%E9%9D%99%E6%80%81%E6%96%87%E4%BB%B6/</loc>
-    <lastmod>2026-10-08T00:00:00+08:00</lastmod>
-  </url><url>
-    <loc>https://anarchycuriosity.github.io/tags/tcp/</loc>
-    <lastmod>2026-10-04T00:00:00+08:00</lastmod>
-  </url><url>
-    <loc>https://anarchycuriosity.github.io/p/tiny-web-server-http-request-parsing/</loc>
-    <lastmod>2026-10-04T00:00:00+08:00</lastmod>
-  </url><url>
-    <loc>https://anarchycuriosity.github.io/tags/%E5%A2%9E%E9%87%8F%E8%A7%A3%E6%9E%90/</loc>
-    <lastmod>2026-10-04T00:00:00+08:00</lastmod>
-  </url><url>
-    <loc>https://anarchycuriosity.github.io/tags/boost.asio/</loc>
+    <loc>https://anarchycuriosity.github.io/p/go-registration-rpc/</loc>
     <lastmod>2026-09-22T00:00:00+08:00</lastmod>
   </url><url>
-    <loc>https://anarchycuriosity.github.io/p/cpp-asio-callback-lifetime/</loc>
-    <lastmod>2026-09-22T00:00:00+08:00</lastmod>
-  </url><url>
-    <loc>https://anarchycuriosity.github.io/categories/c&#43;&#43;/</loc>
-    <lastmod>2026-09-22T00:00:00+08:00</lastmod>
-  </url><url>
-    <loc>https://anarchycuriosity.github.io/tags/lambda/</loc>
-    <lastmod>2026-09-22T00:00:00+08:00</lastmod>
-  </url><url>
-    <loc>https://anarchycuriosity.github.io/tags/%E5%BC%82%E6%AD%A5-i/o/</loc>
-    <lastmod>2026-09-22T00:00:00+08:00</lastmod>
-  </url><url>
-    <loc>https://anarchycuriosity.github.io/p/cpp-string-view-trim/</loc>
+    <loc>https://anarchycuriosity.github.io/p/go-registration-http/</loc>
     <lastmod>2026-09-15T00:00:00+08:00</lastmod>
   </url><url>
-    <loc>https://anarchycuriosity.github.io/tags/string_view/</loc>
-    <lastmod>2026-09-15T00:00:00+08:00</lastmod>
+    <loc>https://anarchycuriosity.github.io/p/go-kitex-generated-boundary/</loc>
+    <lastmod>2026-09-08T00:00:00+08:00</lastmod>
   </url><url>
-    <loc>https://anarchycuriosity.github.io/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/</loc>
-    <lastmod>2026-09-15T00:00:00+08:00</lastmod>
+    <loc>https://anarchycuriosity.github.io/tags/%E6%8E%A5%E5%8F%A3/</loc>
+    <lastmod>2026-09-08T00:00:00+08:00</lastmod>
   </url><url>
-    <loc>https://anarchycuriosity.github.io/p/cpp-smart-pointer-ownership/</loc>
-    <lastmod>2026-09-07T00:00:00+08:00</lastmod>
+    <loc>https://anarchycuriosity.github.io/tags/etcd/</loc>
+    <lastmod>2026-09-01T00:00:00+08:00</lastmod>
   </url><url>
-    <loc>https://anarchycuriosity.github.io/tags/%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/</loc>
-    <lastmod>2026-09-07T00:00:00+08:00</lastmod>
+    <loc>https://anarchycuriosity.github.io/p/go-etcd-service-discovery/</loc>
+    <lastmod>2026-09-01T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/tags/%E6%9C%8D%E5%8A%A1%E5%8F%91%E7%8E%B0/</loc>
+    <lastmod>2026-09-01T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/p/cpp-webchat-pool-design/</loc>
+    <lastmod>2026-08-25T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/tags/cpp/</loc>
+    <lastmod>2026-08-25T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/tags/webchat/</loc>
+    <lastmod>2026-08-25T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/tags/%E8%BF%9E%E6%8E%A5%E6%B1%A0/</loc>
+    <lastmod>2026-08-25T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/tags/tinywebserver/</loc>
+    <lastmod>2026-08-18T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/p/tiny-web-server-writev-partial-writes/</loc>
+    <lastmod>2026-08-18T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/tags/writev/</loc>
+    <lastmod>2026-08-18T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/tags/%E9%83%A8%E5%88%86%E5%86%99%E5%85%A5/</loc>
+    <lastmod>2026-08-18T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/tags/raii/</loc>
+    <lastmod>2026-08-11T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/p/cpp-tiny-response-raii/</loc>
+    <lastmod>2026-08-11T00:00:00+08:00</lastmod>
   </url><url>
     <loc>https://anarchycuriosity.github.io/tags/%E8%B5%84%E6%BA%90%E6%89%80%E6%9C%89%E6%9D%83/</loc>
-    <lastmod>2026-09-07T00:00:00+08:00</lastmod>
+    <lastmod>2026-08-11T00:00:00+08:00</lastmod>
   </url><url>
-    <loc>https://anarchycuriosity.github.io/p/cpp-thread-control-flow/</loc>
-    <lastmod>2026-08-27T00:00:00+08:00</lastmod>
+    <loc>https://anarchycuriosity.github.io/tags/mmap/</loc>
+    <lastmod>2026-08-04T00:00:00+08:00</lastmod>
   </url><url>
-    <loc>https://anarchycuriosity.github.io/tags/pthread/</loc>
-    <lastmod>2026-08-27T00:00:00+08:00</lastmod>
+    <loc>https://anarchycuriosity.github.io/p/cpp-tiny-mapping-lifetime/</loc>
+    <lastmod>2026-08-04T00:00:00+08:00</lastmod>
   </url><url>
-    <loc>https://anarchycuriosity.github.io/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/</loc>
-    <lastmod>2026-08-27T00:00:00+08:00</lastmod>
+    <loc>https://anarchycuriosity.github.io/p/tiny-web-server-response-preparation/</loc>
+    <lastmod>2026-07-28T00:00:00+08:00</lastmod>
   </url><url>
-    <loc>https://anarchycuriosity.github.io/tags/epoll/</loc>
-    <lastmod>2026-08-07T00:00:00+08:00</lastmod>
+    <loc>https://anarchycuriosity.github.io/tags/%E5%93%8D%E5%BA%94%E6%9E%84%E9%80%A0/</loc>
+    <lastmod>2026-07-28T00:00:00+08:00</lastmod>
   </url><url>
-    <loc>https://anarchycuriosity.github.io/p/linux-epoll-recv/</loc>
-    <lastmod>2026-08-07T00:00:00+08:00</lastmod>
+    <loc>https://anarchycuriosity.github.io/tags/linux/</loc>
+    <lastmod>2026-07-21T00:00:00+08:00</lastmod>
   </url><url>
-    <loc>https://anarchycuriosity.github.io/tags/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/</loc>
-    <lastmod>2026-08-07T00:00:00+08:00</lastmod>
+    <loc>https://anarchycuriosity.github.io/p/tiny-web-server-static-file-routing/</loc>
+    <lastmod>2026-07-21T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/tags/%E9%9D%99%E6%80%81%E6%96%87%E4%BB%B6/</loc>
+    <lastmod>2026-07-21T00:00:00+08:00</lastmod>
   </url><url>
     <loc>https://anarchycuriosity.github.io/p/check50%E7%9A%84%E5%B9%BD%E7%81%B5token%E7%9A%84%E8%B0%83%E8%AF%95/</loc>
     <lastmod>2026-07-16T00:00:00+00:00</lastmod>
@@ -227,8 +194,38 @@
     <loc>https://anarchycuriosity.github.io/categories/%E6%8A%80%E6%9C%AF%E7%BB%8F%E9%AA%8C/</loc>
     <lastmod>2026-07-16T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://anarchycuriosity.github.io/tags/tcp/</loc>
+    <lastmod>2026-07-14T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/p/tiny-web-server-http-request-parsing/</loc>
+    <lastmod>2026-07-14T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/tags/%E5%A2%9E%E9%87%8F%E8%A7%A3%E6%9E%90/</loc>
+    <lastmod>2026-07-14T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/p/http-parser-rebuild-notes/</loc>
+    <lastmod>2026-07-07T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/tags/%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/</loc>
+    <lastmod>2026-07-07T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/p/tiny-web-server-debug-trace/</loc>
+    <lastmod>2026-06-30T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/tags/%E7%8A%B6%E6%80%81%E6%9C%BA/</loc>
+    <lastmod>2026-06-30T00:00:00+08:00</lastmod>
+  </url><url>
     <loc>https://anarchycuriosity.github.io/p/26%E5%B9%B4%E6%9C%88%E5%BA%A6%E6%80%BB%E7%BB%9303/</loc>
     <lastmod>2026-06-29T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/tags/errno/</loc>
+    <lastmod>2026-06-23T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/p/cpp-tiny-errno/</loc>
+    <lastmod>2026-06-23T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/tags/%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/</loc>
+    <lastmod>2026-06-23T00:00:00+08:00</lastmod>
   </url><url>
     <loc>https://anarchycuriosity.github.io/p/26%E5%B9%B46%E6%9C%88%E6%80%BB%E7%BB%9302/</loc>
     <lastmod>2026-06-20T00:00:00+00:00</lastmod>
@@ -236,14 +233,107 @@
     <loc>https://anarchycuriosity.github.io/p/%E9%97%B2%E7%BD%AE%E7%AC%94%E8%AE%B0%E6%9C%AC%E5%85%85%E5%BD%93%E5%89%AF%E5%B1%8F%E7%9A%84%E6%96%B9%E6%A1%88/</loc>
     <lastmod>2026-06-20T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://anarchycuriosity.github.io/p/cpp-tiny-connection-logging/</loc>
+    <lastmod>2026-06-16T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/tags/%E8%BF%9E%E6%8E%A5%E8%BF%BD%E8%B8%AA/</loc>
+    <lastmod>2026-06-16T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/tags/%E6%97%A5%E5%BF%97/</loc>
+    <lastmod>2026-06-16T00:00:00+08:00</lastmod>
+  </url><url>
     <loc>https://anarchycuriosity.github.io/p/26%E5%B9%B46%E6%9C%88%E6%80%BB%E7%BB%9301/</loc>
     <lastmod>2026-06-14T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/tags/makefile/</loc>
+    <lastmod>2026-06-09T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/p/cpp-tiny-make-debug/</loc>
+    <lastmod>2026-06-09T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/tags/context/</loc>
+    <lastmod>2026-06-02T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/p/go-context-cancellation/</loc>
+    <lastmod>2026-06-02T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/tags/%E5%B9%B6%E5%8F%91/</loc>
+    <lastmod>2026-06-02T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/tags/channel/</loc>
+    <lastmod>2026-05-26T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/p/go-channel-single-writer/</loc>
+    <lastmod>2026-05-26T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/p/go-concurrent-map-race/</loc>
+    <lastmod>2026-05-19T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/tags/map/</loc>
+    <lastmod>2026-05-19T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/tags/%E6%95%B0%E6%8D%AE%E7%AB%9E%E4%BA%89/</loc>
+    <lastmod>2026-05-19T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/p/go-goroutine-loop-capture/</loc>
+    <lastmod>2026-05-12T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/tags/goroutine/</loc>
+    <lastmod>2026-05-12T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/p/go-cli-http-shared-storage/</loc>
+    <lastmod>2026-05-05T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/tags/%E6%8C%81%E4%B9%85%E5%8C%96/</loc>
+    <lastmod>2026-05-05T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/tags/%E8%BF%9B%E7%A8%8B%E9%97%B4%E4%B8%80%E8%87%B4%E6%80%A7/</loc>
+    <lastmod>2026-05-05T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/tags/%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8/</loc>
+    <lastmod>2026-05-05T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/p/go-file-store-initialization/</loc>
+    <lastmod>2026-04-28T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/p/go-cli-http-persistence-test/</loc>
+    <lastmod>2026-04-21T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/tags/%E9%9B%86%E6%88%90%E6%B5%8B%E8%AF%95/</loc>
+    <lastmod>2026-04-21T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/p/go-file-store-sorting/</loc>
+    <lastmod>2026-04-14T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/tags/%E6%8E%92%E5%BA%8F/</loc>
+    <lastmod>2026-04-14T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/p/go-file-overwrite-truncate/</loc>
+    <lastmod>2026-04-07T00:00:00+08:00</lastmod>
   </url><url>
     <loc>https://anarchycuriosity.github.io/p/%E8%AE%BE%E7%BD%AEvsc%E5%86%85%E5%B5%8C%E6%8F%90%E7%A4%BA%E5%92%8C%E8%A7%A3%E5%86%B3%E5%B7%A5%E4%BD%9C%E5%8C%BA%E5%A4%9A%E4%BB%93%E5%BA%93git%E5%8F%AF%E8%A7%86%E5%8C%96%E7%95%8C%E9%9D%A2%E8%BF%BD%E8%B8%AA%E5%A4%B1%E6%95%88%E9%97%AE%E9%A2%98/</loc>
     <lastmod>2026-03-31T14:32:24+08:00</lastmod>
   </url><url>
+    <loc>https://anarchycuriosity.github.io/p/go-file-store-ownership/</loc>
+    <lastmod>2026-03-31T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/p/go-json-reader-offset/</loc>
+    <lastmod>2026-03-24T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/tags/json/</loc>
+    <lastmod>2026-03-24T00:00:00+08:00</lastmod>
+  </url><url>
     <loc>https://anarchycuriosity.github.io/p/wsl%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8tldr/</loc>
     <lastmod>2026-03-19T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/p/go-json-handler-response/</loc>
+    <lastmod>2026-03-17T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/tags/net/http/</loc>
+    <lastmod>2026-03-17T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/p/go-servemux-json/</loc>
+    <lastmod>2026-03-10T00:00:00+08:00</lastmod>
   </url><url>
     <loc>https://anarchycuriosity.github.io/tags/kmp/</loc>
     <lastmod>2026-03-04T00:00:00+00:00</lastmod>
@@ -254,11 +344,32 @@
     <loc>https://anarchycuriosity.github.io/categories/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%83/</loc>
     <lastmod>2026-03-04T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://anarchycuriosity.github.io/p/go-http-store-interface/</loc>
+    <lastmod>2026-03-03T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/tags/%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5/</loc>
+    <lastmod>2026-03-03T00:00:00+08:00</lastmod>
+  </url><url>
     <loc>https://anarchycuriosity.github.io/p/%E8%BE%97%E8%BD%AC%E6%B1%82%E5%85%AC%E5%9B%A0%E6%95%B0--%E7%A5%9E%E5%A5%87%E7%9A%84%E4%BD%99%E6%95%B0/</loc>
     <lastmod>2026-03-01T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://anarchycuriosity.github.io/p/mingw%E6%97%A0%E6%B3%95%E8%B0%83%E8%AF%95%E5%92%8C%E7%BC%96%E8%AF%91cpp%E6%97%A0%E6%B3%95%E8%BF%90%E8%A1%8C%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%96%87%E4%BB%B6/</loc>
     <lastmod>2026-02-28T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/p/go-http-handler-contract/</loc>
+    <lastmod>2026-02-24T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/tags/boost.asio/</loc>
+    <lastmod>2026-02-17T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/p/cpp-asio-callback-lifetime/</loc>
+    <lastmod>2026-02-17T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/tags/lambda/</loc>
+    <lastmod>2026-02-17T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/tags/%E5%BC%82%E6%AD%A5-i/o/</loc>
+    <lastmod>2026-02-17T00:00:00+08:00</lastmod>
   </url><url>
     <loc>https://anarchycuriosity.github.io/categories/cpp/</loc>
     <lastmod>2026-02-12T00:00:00+00:00</lastmod>
@@ -274,6 +385,12 @@
   </url><url>
     <loc>https://anarchycuriosity.github.io/p/%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F%E4%B8%8E%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F/</loc>
     <lastmod>2026-02-11T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/p/cpp-asio-socket-acceptor/</loc>
+    <lastmod>2026-02-10T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/tags/socket/</loc>
+    <lastmod>2026-02-10T00:00:00+08:00</lastmod>
   </url><url>
     <loc>https://anarchycuriosity.github.io/p/%E8%AE%B0%E5%BD%95%E4%B8%80%E4%BA%9B%E6%B7%B1%E5%88%BB%E7%9A%84%E6%95%99%E8%AE%AD/</loc>
     <lastmod>2026-02-08T00:00:00+00:00</lastmod>
@@ -319,6 +436,144 @@
   </url><url>
     <loc>https://anarchycuriosity.github.io/p/%E8%AE%A9%E5%BD%92%E6%A1%A3%E6%8C%89%E6%9C%88%E5%88%92%E5%88%86%E5%90%8C%E6%97%B6%E6%98%BE%E7%A4%BAtag/</loc>
     <lastmod>2026-02-03T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/tags/epoll/</loc>
+    <lastmod>2026-02-03T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/p/linux-epoll-recv/</loc>
+    <lastmod>2026-02-03T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/tags/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/</loc>
+    <lastmod>2026-02-03T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/p/linux-socket-linger/</loc>
+    <lastmod>2026-01-27T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/p/linux-thread-primitives/</loc>
+    <lastmod>2026-01-20T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/p/cpp-thread-control-flow/</loc>
+    <lastmod>2026-01-13T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/tags/pthread/</loc>
+    <lastmod>2026-01-13T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/</loc>
+    <lastmod>2026-01-13T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/p/linux-socket-lifecycle/</loc>
+    <lastmod>2026-01-06T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/p/cpp-string-view-trim/</loc>
+    <lastmod>2025-12-30T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/tags/string_view/</loc>
+    <lastmod>2025-12-30T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/</loc>
+    <lastmod>2025-12-30T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/p/go-reflection-walk/</loc>
+    <lastmod>2025-12-23T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/tags/%E5%8F%8D%E5%B0%84/</loc>
+    <lastmod>2025-12-23T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/p/go-io-writer-injection/</loc>
+    <lastmod>2025-12-16T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/tags/io.writer/</loc>
+    <lastmod>2025-12-16T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/p/go-mock-call-order/</loc>
+    <lastmod>2025-12-09T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/tags/mock/</loc>
+    <lastmod>2025-12-09T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/tags/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/</loc>
+    <lastmod>2025-12-09T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/p/go-package-visibility/</loc>
+    <lastmod>2025-12-02T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/tags/%E5%8C%85/</loc>
+    <lastmod>2025-12-02T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/p/cpp-course-schedule-topological-sort/</loc>
+    <lastmod>2025-11-25T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/tags/%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F/</loc>
+    <lastmod>2025-11-25T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/tags/%E5%9B%BE%E8%AE%BA/</loc>
+    <lastmod>2025-11-25T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/p/cpp-trie-prefix-tree/</loc>
+    <lastmod>2025-11-18T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/tags/trie/</loc>
+    <lastmod>2025-11-18T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</loc>
+    <lastmod>2025-11-18T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/p/cpp-smart-pointer-ownership/</loc>
+    <lastmod>2025-11-11T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/tags/%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/</loc>
+    <lastmod>2025-11-11T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/p/cpp-enum-underlying-types/</loc>
+    <lastmod>2025-11-04T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/tags/%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/</loc>
+    <lastmod>2025-11-04T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/tags/%E6%9E%9A%E4%B8%BE/</loc>
+    <lastmod>2025-11-04T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/p/go-map-lookup-update/</loc>
+    <lastmod>2025-10-28T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/p/go-errors-as-values/</loc>
+    <lastmod>2025-10-21T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/p/go-pointer-receiver-errors/</loc>
+    <lastmod>2025-10-14T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/p/go-interfaces-shapes/</loc>
+    <lastmod>2025-10-07T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/p/go-benchmark-iteration/</loc>
+    <lastmod>2025-09-30T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/tags/%E5%9F%BA%E5%87%86%E6%B5%8B%E8%AF%95/</loc>
+    <lastmod>2025-09-30T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/p/go-arrays-slices-capacity/</loc>
+    <lastmod>2025-09-23T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/tags/%E5%88%87%E7%89%87/</loc>
+    <lastmod>2025-09-23T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/p/go-subtests-table/</loc>
+    <lastmod>2025-09-16T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/tags/%E8%A1%A8%E9%A9%B1%E5%8A%A8%E6%B5%8B%E8%AF%95/</loc>
+    <lastmod>2025-09-16T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/p/go-test-red-green/</loc>
+    <lastmod>2025-09-09T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/tags/tdd/</loc>
+    <lastmod>2025-09-09T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/p/go-toolchain-path/</loc>
+    <lastmod>2025-09-02T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://anarchycuriosity.github.io/tags/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/</loc>
+    <lastmod>2025-09-02T00:00:00+08:00</lastmod>
   </url><url>
     <loc>https://anarchycuriosity.github.io/page/</loc>
     <lastmod>2019-05-28T00:00:00+00:00</lastmod>

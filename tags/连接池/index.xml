@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>连接池 on Curiosity Anarchy</title>
+        <link>https://anarchycuriosity.github.io/tags/%E8%BF%9E%E6%8E%A5%E6%B1%A0/</link>
+        <description>Recent content in 连接池 on Curiosity Anarchy</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <copyright>Curiosity Anarchy</copyright>
+        <lastBuildDate>Tue, 25 Aug 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/tags/%E8%BF%9E%E6%8E%A5%E6%B1%A0/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>C&#43;&#43; WebChat｜会话对象与数据库连接池的资源边界</title>
+        <link>https://anarchycuriosity.github.io/p/cpp-webchat-pool-design/</link>
+        <pubDate>Tue, 25 Aug 2026 00:00:00 +0800</pubDate>
+        
+        <guid>https://anarchycuriosity.github.io/p/cpp-webchat-pool-design/</guid>
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_883525848225aca8.jpg" alt="Featured image of post C&#43;&#43; WebChat｜会话对象与数据库连接池的资源边界" /&gt;&lt;h2 id=&#34;从会话对象看连接管理&#34;&gt;从会话对象看连接管理
+&lt;/h2&gt;&lt;p&gt;也就是说,虽然session持有api,但是我们允许有api就可以去改数据,这是为了防止什么问题?并发和接口对象过多?所以我们要保留session set的设计?毕竟它似乎不太能再被缩小,代表连接总数.我们把api从session移动server的一个池进行管理?这就是连接池吗?因为原本我是计划让每个session拿到server的redisAPI引用(由server管理,但server只有一个redisAPI),所以我们把一开始这个server对象持有的单个API(这不是项目现状,现状是每个session都有一个API)丢到server然后池化?&lt;/p&gt;
+&lt;h2 id=&#34;连接池与业务权限的边界&#34;&gt;连接池与业务权限的边界
+&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;Q1:我需要修改当前session对象的API吗?也就说需要有一个叫做mysqlAPI的变量,但是对象不是MySQLpp或者redisAPI&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;所以当前session对象持有的这个API虽然也是API,但是不是我们池化愿景中的API,因为它直接拥有和数据库连接的权限?我们希望它只是一个向server请求连接池的对象,而不是MySQLpp对象?&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;astra_sql&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;MySQLpp&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;mysqlAPI&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;A1:需要&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;code&gt;session_甲&lt;/code&gt; 活着，这个 &lt;code&gt;MySQLpp&lt;/code&gt; 通常就一直活着。它内部确实持有数据库连接，但这叫&lt;strong&gt;持有连接资源&lt;/strong&gt;，不是“拥有修改数据库的业务权限”。能否修改某条数据，仍要由服务端逻辑判断。&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

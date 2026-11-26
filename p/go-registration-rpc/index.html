@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="同一个注册请求，为什么停掉 user 就变了？ 整篇只追这一条请求：\n1 POST /douyin/user/register/?username=alice&amp;password=p 在 S03 的 show 里，user 在线时，这条请求得到 HTTP 200，响应中有 status_code: -1 和「账号持久化尚未接入」。只停 user，保留 API，再发同一条请求，HTTP 变成 502。与此同时，API 自己的 /healthz 仍可返回 200。\n">
+<title>Go Kitex 注册服务｜跨进程调用与 RPC 错误映射</title>
+
+<link rel='canonical' href='https://anarchycuriosity.github.io/p/go-registration-rpc/'>
+
+<link rel="stylesheet" href="/scss/style.min.c1b51a30df8ac209786d0bad641e606a0ad3c83218d05b1a01460049b2c0e683.css"><meta property='og:title' content="Go Kitex 注册服务｜跨进程调用与 RPC 错误映射">
+<meta property='og:description' content="同一个注册请求，为什么停掉 user 就变了？ 整篇只追这一条请求：\n1 POST /douyin/user/register/?username=alice&amp;password=p 在 S03 的 show 里，user 在线时，这条请求得到 HTTP 200，响应中有 status_code: -1 和「账号持久化尚未接入」。只停 user，保留 API，再发同一条请求，HTTP 变成 502。与此同时，API 自己的 /healthz 仍可返回 200。\n">
+<meta property='og:url' content='https://anarchycuriosity.github.io/p/go-registration-rpc/'>
+<meta property='og:site_name' content='Curiosity Anarchy'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Go' /><meta property='article:tag' content='Kitex' /><meta property='article:tag' content='RPC' /><meta property='article:tag' content='用户注册' /><meta property='article:published_time' content='2026-09-22T00:00:00&#43;08:00'/><meta property='article:modified_time' content='2026-09-22T00:00:00&#43;08:00'/><meta property='og:image' content='https://anarchycuriosity.github.io/moe/animation_9a7b825502bc8466.png' />
+<meta name="twitter:title" content="Go Kitex 注册服务｜跨进程调用与 RPC 错误映射">
+<meta name="twitter:description" content="同一个注册请求，为什么停掉 user 就变了？ 整篇只追这一条请求：\n1 POST /douyin/user/register/?username=alice&amp;password=p 在 S03 的 show 里，user 在线时，这条请求得到 HTTP 200，响应中有 status_code: -1 和「账号持久化尚未接入」。只停 user，保留 API，再发同一条请求，HTTP 变成 502。与此同时，API 自己的 /healthz 仍可返回 200。\n"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://anarchycuriosity.github.io/moe/animation_9a7b825502bc8466.png' />
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "light");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu_d1ed36d2754b4216.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Curiosity Anarchy</a></h1>
+            <h2 class="site-description">此博客主要分享本人的学习记录</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/anarchycuriosity'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E9%93%BE%E6%8E%A5/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>链接</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#同一个注册请求为什么停掉-user-就变了">同一个注册请求，为什么停掉 <code>user</code> 就变了？</a></li>
+    <li><a href="#启动时main-给-handler-的是什么">启动时，<code>main</code> 给 handler 的是什么？</a></li>
+    <li><a href="#user-收到请求以后怎样找到我们的业务方法"><code>user</code> 收到请求以后，怎样找到我们的业务方法？</a></li>
+    <li><a href="#结果回来以后谁选-200谁选-502">结果回来以后，谁选 <code>200</code>，谁选 <code>502</code>？</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            
+            
+            
+            <a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" style="background-color: hsl(291, 60%, 84%); color: hsl(291, 60%, 15%);">
+                后端开发
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/go-registration-rpc/">Go Kitex 注册服务｜跨进程调用与 RPC 错误映射</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2026-09-22</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 5 分钟
+                </time>
+            </div>
+        
+
+        
+        <div>
+            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-eye"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" /></svg>
+            <span class="article-time--reading">
+                <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv">...</span> 次阅读
+                </span>
+            </span>
+        </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+        <a class="article-image" href="/p/go-registration-rpc/" aria-label="Go Kitex 注册服务｜跨进程调用与 RPC 错误映射">
+            
+                <img src="/moe/animation_9a7b825502bc8466.png" loading="lazy" alt="Featured image of post Go Kitex 注册服务｜跨进程调用与 RPC 错误映射" />
+            
+        </a>
+    
+</header>
+
+
+    <section class="article-content">
+    
+    
+    <h2 id="同一个注册请求为什么停掉-user-就变了">同一个注册请求，为什么停掉 <code>user</code> 就变了？
+</h2><p>整篇只追这一条请求：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-http" data-lang="http"><span class="line"><span class="cl"><span class="err">POST /douyin/user/register/?username=alice&amp;password=p
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>在 S03 的 show 里，<code>user</code> 在线时，这条请求得到 HTTP <code>200</code>，响应中有 <code>status_code: -1</code> 和「账号持久化尚未接入」。只停 <code>user</code>，保留 API，再发同一条请求，HTTP 变成 <code>502</code>。与此同时，API 自己的 <code>/healthz</code> 仍可返回 <code>200</code>。</p>
+<p>这个现象把问题缩到一处。<strong>API 进程明明还活着，注册 handler 又要去哪里找答案？</strong> S02 已经把 <code>alice</code> 和 <code>p</code> 读出来并做了校验，接下来会调用 <code>register(ctx, username, password)</code>。S03 就是在启动 API 时给这个 <code>register</code> 接上真实的 RPC 调用。你自己的 learner 即使注册替身测试已经通过，总路由和真实进程入口仍要接好才能观察到这个现象。 S02 保留的 handler · API 自己的健康路由</p>
+<h2 id="启动时main-给-handler-的是什么">启动时，<code>main</code> 给 handler 的是什么？
+</h2><p>先看 <code>cmd/api/main.go</code>。它读用户服务地址，默认是 <code>127.0.0.1:8881</code>，然后调用 <code>user_rpc.NewClient</code>。返回的 <code>*user_rpc.Client</code> 持有一个由 <code>userservice.NewClient</code> 创建的 Kitex 客户端。前者是我们写的适配对象，后者负责发起 RPC。</p>
+<p>下一行关键代码是 <code>api.NewServer(address, user_client.Register)</code>。读这里时留意 <strong><code>Register</code> 后面没有括号</strong>。Go 会取出绑定在这一个 <code>user_client</code> 上的方法值，把它当函数传下去。你可以把它读成「收到合法注册请求时，就用这个客户端对象执行 <code>Register</code>」。真正调用的括号在 S02 handler 的 <code>register(ctx, username, password)</code> 上。</p>
+<p>所以 API 启动时已经知道<strong>将来用谁调用</strong>，只有请求来了才知道<strong>这次要传什么</strong>。创建客户端成功也只说明对象准备好了。能否连到 <code>8881</code>，要等实际调用才知道。 API 启动与方法值 · 适配对象和 <code>NewClient</code></p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>要找的角色</th>
+          <th>代码里看哪里</th>
+          <th>什么时候出现</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>API 的注册适配对象</td>
+          <td><code>cmd/api/main.go</code> 的 <code>user_client</code></td>
+          <td>启动时创建，后续多次请求共用</td>
+      </tr>
+      <tr>
+          <td>适配对象里的 Kitex 客户端</td>
+          <td><code>internal/user_rpc/register.go</code> 的 <code>c.user_client</code></td>
+          <td>创建适配对象时存进去，发 RPC 时使用</td>
+      </tr>
+      <tr>
+          <td>这一次注册请求</td>
+          <td><code>(*Client).Register</code> 里的 <code>request</code></td>
+          <td><code>alice</code> 通过 HTTP 校验后才创建</td>
+      </tr>
+      <tr>
+          <td>远端业务实现</td>
+          <td><code>cmd/user/main.go</code> 的 <code>handler</code></td>
+          <td><code>user</code> 启动时登记，收到 RPC 时才执行它的方法</td>
+      </tr>
+  </tbody>
+</table></div>
+<p><strong>停靠点。</strong> 在 <code>main</code> 里找到传方法值的位置，再到 handler 里找到有括号的那一次调用。假如 <code>user</code> 此刻没启动，API 仍可以先建立自己的监听。等第一个合法 POST 进来，连接问题才会出现在调用结果里。</p>
+<h2 id="user-收到请求以后怎样找到我们的业务方法"><code>user</code> 收到请求以后，怎样找到我们的业务方法？
+</h2><p>换到 <code>user</code> 进程。它的 <code>main</code> 创建 <code>&amp;user_service.UserServiceImpl{}</code>，把这个实例登记给生成的 <code>userservice.NewServer</code>，随后才开始监听。收到 <code>Register</code> 调用时，生成代码里的 <code>registerHandler</code> 取出解码好的请求，调用登记对象的 <code>Register</code> 方法。</p>
+<p>这就是为什么 <code>UserServiceImpl</code> 可以是空结构体。<strong>这一步框架需要的是它提供的 <code>Register</code> 方法。</strong> 当前没有数据库连接等状态要保存在实现对象里。<code>&amp;</code> 取出实例的指针，传给框架的是这个指针。</p>
+<p>看 <code>internal/user_service/register.go</code> 里的两次取值。<code>request.GetUsername()</code> 和 <code>request.GetPassword()</code> 来自 protobuf 生成代码，接收者为空时也会返回空字符串。业务方法再判断是否缺参或超过 32 字节。这次校验保护的是 RPC 入口，直接调 <code>user</code> 的其他调用方也会经过。<code>alice</code> 和 <code>p</code> 通过后，方法返回一份业务答复「账号持久化尚未接入」，第二个返回值为 <code>nil</code>。 user 进程启动 · 生成的服务端分发 · 生成的 getter · 业务方法</p>
+<p><strong>动手。</strong> 先按固定源码写 <code>internal/user_service/register.go</code>，把该文件的项目内 import 改成 learner 的 module 前缀。再写 <code>cmd/user/main.go</code>，参考附录。先用两个输入预测这个方法的行为。只有 <code>alice</code> 时会在 RPC 校验处得到「用户名或密码不符合要求」。给齐 <code>alice</code> 和 <code>p</code> 时，会继续到「账号持久化尚未接入」。</p>
+<p><strong><code>ctx</code> 在哪里交接？</strong> API 进程内，handler 把自己的 <code>ctx</code> 传给适配方法，适配方法再交给 Kitex 客户端。远端 handler 收到的是服务端框架提供的 context，两端各有自己的对象。本步把连接超时设为 <code>500ms</code>，RPC 超时设为 <code>2s</code>。客户端超时只说明它结束了这次等待，远端可能已经处理过请求，所以注册暂不自动重试。show 的超时测试里，客户端返回后，服务端仍要等测试主动释放。至于浏览器关闭时远端是否停工，从这条链推不出来。 show 的超时测试</p>
+<h2 id="结果回来以后谁选-200谁选-502">结果回来以后，谁选 <code>200</code>，谁选 <code>502</code>？
+</h2><p>用同一个 <code>alice</code> 和 <code>p</code> 对照每一次交接：</p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>调用的一方 → 接手的一方</th>
+          <th>这次交过去什么</th>
+          <th>返回后谁解释</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>HTTP handler → <code>(*Client).Register</code></td>
+          <td><code>ctx</code>、<code>alice</code>、<code>p</code></td>
+          <td>handler 检查 <code>error</code>，然后决定 HTTP 状态和 JSON</td>
+      </tr>
+      <tr>
+          <td>手写适配方法 → Kitex 客户端</td>
+          <td>本次 <code>UserRegisterRequest</code></td>
+          <td>适配方法检查调用错误和空响应，有响应时转成 <code>api.RegisterResult</code></td>
+      </tr>
+      <tr>
+          <td><code>registerHandler</code> → <code>UserServiceImpl.Register</code></td>
+          <td>服务端 context 与解码后的请求</td>
+          <td><code>user</code> 决定业务答复，框架把它带回 API</td>
+      </tr>
+  </tbody>
+</table></div>
+<p><code>user</code> 在线时，RPC 返回「账号持久化尚未接入」和 <code>nil</code> 错误。适配器把业务码 <code>-1</code> 原样交还，Hertz 写 HTTP <code>200</code>。停掉 <code>user</code> 时，适配器拿到调用错误，Hertz 走 S02 已有的 <code>502</code> 分支。<strong>用户服务解释业务，HTTP handler 解释怎样回 HTTP。</strong> 适配方法的返回分支 · HTTP 状态选择</p>
+<p><strong>动手。</strong> 保留 learner 的 S02 <code>internal/api/register.go</code>。在已有的 <code>server.go</code> 里沿 <code>NewServer → RegisterRoutes → RegisterUserRoute</code> 传下 <code>register</code>，然后补 <code>cmd/api/main.go</code>。现有测试里调用 <code>RegisterRoutes(hz)</code> 的位置要跟着新签名调整。健康路由测试可以传 <code>RegisterRoutes(hz, nil)</code>，直接登记注册路由的替身测试可以保留现有调用方式。 show 的总路由接线 · show 的测试调用点</p>
+<p><strong>预测一下。</strong> 如果总路由少了 <code>RegisterUserRoute(hz, register)</code>，同一个 POST 会在 Hertz 得到 <code>404</code>，独立登记路由的替身测试仍可能通过。如果路由接好了，但参数仍是 <code>nil</code>，合法请求会走 <code>503</code>。只有函数接好、实际调用失败时，才会看到这里要验证的 <code>502</code>。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/go/">Go</a>
+        
+            <a href="/tags/kitex/">Kitex</a>
+        
+            <a href="/tags/rpc/">RPC</a>
+        
+            <a href="/tags/%E7%94%A8%E6%88%B7%E6%B3%A8%E5%86%8C/">用户注册</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/go-registration-rpc-debug/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/moe/animation_9b073a060f72d35d.png" loading="lazy" data-key="go-registration-rpc-debug" data-hash="/moe/animation_9b073a060f72d35d.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Go Kitex 联调｜生成类型、err 与 nil 响应保护</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/go-rpc-call-options/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/moe/animation_a26355f67b5abf59.jpg" loading="lazy" data-key="go-rpc-call-options" data-hash="/moe/animation_a26355f67b5abf59.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Go Kitex｜客户端默认选项与单次调用覆盖</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/go-feed-kitex-rpc/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/moe/animation_9397ba4450852fc9.png" loading="lazy" data-key="go-feed-kitex-rpc" data-hash="/moe/animation_9397ba4450852fc9.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Feed 02 · Kitex RPC｜API 与 Video 服务的跨进程调用</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/go-kitex-generated-boundary/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/moe/animation_90b82d8470367131.jpg" loading="lazy" data-key="go-kitex-generated-boundary" data-hash="/moe/animation_90b82d8470367131.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Go Kitex｜生成的接口、客户端与服务端实现</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/go-registration-mysql-startup/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/moe/animation_9d8b341e45d3e617.jpg" loading="lazy" data-key="go-registration-mysql-startup" data-hash="/moe/animation_9d8b341e45d3e617.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Go MySQL 用户服务｜建表与监听端口的启动顺序</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script src="https://utteranc.es/client.js"
+        repo="anarchycuriosity/anarchycuriosity.github.io"
+        issue-term="pathname"
+        theme="github-light"
+        
+        crossorigin="anonymous"
+        async>
+</script>
+
+<style>
+    .utterances {
+        max-width: unset;
+    }
+</style>
+
+<script>
+    let utterancesLoaded = false;
+
+    function setUtterancesTheme(theme) {
+        let utterances = document.querySelector('.utterances iframe');
+        if (utterances) {
+            utterances.contentWindow.postMessage(
+                {
+                    type: 'set-theme',
+                    theme: `github-${theme}`
+                },
+                'https://utteranc.es'
+            );
+        }
+    }
+
+    addEventListener('message', event => {
+        if (event.origin !== 'https://utteranc.es') return;
+
+        
+        utterancesLoaded = true;
+        setUtterancesTheme(document.documentElement.dataset.scheme)
+    });
+
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (!utterancesLoaded) return;
+        setUtterancesTheme(e.detail)
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2026 Curiosity Anarchy
+    </section>
+    
+    <section class="powerby">
+        
+            by Curiosity Anarchy <br/>
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.34.1">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+    
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.c922af694cc257bf1ecc41c0dd7b0430f9114ec280ccf67cd2c6ad55f5316c4e.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<script>
+    
+    setTimeout(function()
+    {
+        if (document.querySelector('script[data-busuanzi-script]')) {
+            return;
+        }
+
+        var bsz = document.createElement('script');
+        bsz.src = "https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js";
+        bsz.async = true;
+        bsz.dataset.busuanziScript = "true";
+        document.head.appendChild(bsz);
+    }, 500);
+
+    
+    setTimeout(function()
+    {
+        var sakura = document.createElement('script');
+        sakura.src = "https:\/\/anarchycuriosity.github.io\/background\/sakura.js";
+        document.body.appendChild(sakura);
+    }, 1000);
+</script>
+
+    </body>
+</html>

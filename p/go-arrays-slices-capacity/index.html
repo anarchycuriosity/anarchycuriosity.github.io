@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="为什么数组不能满足所有需求？ 上一课：\n1 func Sum(numbers [5]int) int 现在希望它支持：\n1 2 Sum([]int{1, 2}) Sum([]int{1, 2, 3, 4, 5}) 如果只在测试中改成 []int，但不修改 Sum 的参数类型，就会得到编译错误。\n原因是 [5]int 和 []int 并不是同一种类型。\n">
+<title>Go 数组与切片｜底层数组、容量和 append</title>
+
+<link rel='canonical' href='https://anarchycuriosity.github.io/p/go-arrays-slices-capacity/'>
+
+<link rel="stylesheet" href="/scss/style.min.c1b51a30df8ac209786d0bad641e606a0ad3c83218d05b1a01460049b2c0e683.css"><meta property='og:title' content="Go 数组与切片｜底层数组、容量和 append">
+<meta property='og:description' content="为什么数组不能满足所有需求？ 上一课：\n1 func Sum(numbers [5]int) int 现在希望它支持：\n1 2 Sum([]int{1, 2}) Sum([]int{1, 2, 3, 4, 5}) 如果只在测试中改成 []int，但不修改 Sum 的参数类型，就会得到编译错误。\n原因是 [5]int 和 []int 并不是同一种类型。\n">
+<meta property='og:url' content='https://anarchycuriosity.github.io/p/go-arrays-slices-capacity/'>
+<meta property='og:site_name' content='Curiosity Anarchy'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Go' /><meta property='article:tag' content='数组' /><meta property='article:tag' content='切片' /><meta property='article:published_time' content='2025-09-23T00:00:00&#43;08:00'/><meta property='article:modified_time' content='2025-09-23T00:00:00&#43;08:00'/><meta property='og:image' content='https://anarchycuriosity.github.io/moe/animation_07e79bb42a54a035.jpg' />
+<meta name="twitter:title" content="Go 数组与切片｜底层数组、容量和 append">
+<meta name="twitter:description" content="为什么数组不能满足所有需求？ 上一课：\n1 func Sum(numbers [5]int) int 现在希望它支持：\n1 2 Sum([]int{1, 2}) Sum([]int{1, 2, 3, 4, 5}) 如果只在测试中改成 []int，但不修改 Sum 的参数类型，就会得到编译错误。\n原因是 [5]int 和 []int 并不是同一种类型。\n"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://anarchycuriosity.github.io/moe/animation_07e79bb42a54a035.jpg' />
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "light");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu_d1ed36d2754b4216.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Curiosity Anarchy</a></h1>
+            <h2 class="site-description">此博客主要分享本人的学习记录</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/anarchycuriosity'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E9%93%BE%E6%8E%A5/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>链接</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#为什么数组不能满足所有需求">为什么数组不能满足所有需求？</a></li>
+    <li><a href="#切片究竟是什么">切片究竟是什么？</a></li>
+    <li><a href="#有容量为什么不能直接写入">有容量，为什么不能直接写入？</a></li>
+    <li><a href="#append-为什么返回一个新切片"><code>append</code> 为什么返回一个新切片？</a></li>
+    <li><a href="#从-sumall-变成-sumalltails">从 <code>SumAll</code> 变成 <code>SumAllTails</code></a></li>
+    <li><a href="#如何得到切片的一部分">如何得到切片的一部分？</a></li>
+    <li><a href="#但空切片来了">但空切片来了</a></li>
+    <li><a href="#谁负责避免这个故障">谁负责避免这个故障？</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            
+            
+            
+            <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" style="background-color: hsl(148, 60%, 84%); color: hsl(148, 60%, 15%);">
+                编程语言
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/go-arrays-slices-capacity/">Go 数组与切片｜底层数组、容量和 append</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2025-09-23</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 4 分钟
+                </time>
+            </div>
+        
+
+        
+        <div>
+            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-eye"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" /></svg>
+            <span class="article-time--reading">
+                <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv">...</span> 次阅读
+                </span>
+            </span>
+        </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+        <a class="article-image" href="/p/go-arrays-slices-capacity/" aria-label="Go 数组与切片｜底层数组、容量和 append">
+            
+                <img src="/moe/animation_07e79bb42a54a035.jpg" loading="lazy" alt="Featured image of post Go 数组与切片｜底层数组、容量和 append" />
+            
+        </a>
+    
+</header>
+
+
+    <section class="article-content">
+    
+    
+    <h2 id="为什么数组不能满足所有需求">为什么数组不能满足所有需求？
+</h2><p>上一课：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">Sum</span><span class="p">(</span><span class="nx">numbers</span><span class="w"> </span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="kt">int</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>现在希望它支持：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nf">Sum</span><span class="p">([]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">})</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nf">Sum</span><span class="p">([]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">})</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果只在测试中改成 <code>[]int</code>，但不修改 <code>Sum</code> 的参数类型，就会得到编译错误。</p>
+<p>原因是 <code>[5]int</code> 和 <code>[]int</code> 并不是同一种类型。</p>
+<p>我们决定修改 API：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">Sum</span><span class="p">(</span><span class="nx">numbers</span><span class="w"> </span><span class="p">[]</span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="kt">int</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>[]int</code> 是切片类型，没有把长度固定在类型中。</p>
+<p>但这个修改也会破坏原本传入 <code>[5]int</code> 的调用方。</p>
+<p>如果有现成数组，可以用：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">array</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nf">Sum</span><span class="p">(</span><span class="nx">array</span><span class="p">[:])</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>array[:]</code> 创建一个引用该数组数据的切片。</p>
+<p>本课最终测试会直接使用切片。</p>
+<h2 id="切片究竟是什么">切片究竟是什么？
+</h2><p>可以先把切片理解成一份描述信息：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">slice 变量
+</span></span><span class="line"><span class="cl"> ├── 数据起始位置 ──────┐
+</span></span><span class="line"><span class="cl"> ├── len：当前长度      │
+</span></span><span class="line"><span class="cl"> └── cap：可用容量      │
+</span></span><span class="line"><span class="cl">                       ↓
+</span></span><span class="line"><span class="cl">                 底层数组
+</span></span><span class="line"><span class="cl">               [10,20,30,40]
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">backing</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="kt">int</span><span class="p">{</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w"> </span><span class="mi">40</span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nx">s</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">backing</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>此时：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">backing = [10 20 30 40]
+</span></span><span class="line"><span class="cl">s       = [10 20]
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">len(s) = 2
+</span></span><span class="line"><span class="cl">cap(s) = 4
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>len</code> 表示当前切片包含多少个元素。</p>
+<p><code>cap</code> 表示从切片起点开始，底层数组还有多少元素空间可供扩展。</p>
+<p>切片不是直接保存整份数组，而是通过描述信息引用底层数组。</p>
+<p>因此：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">99</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>会让 <code>backing[0]</code> 同样变为 <code>99</code>。</p>
+<p>反过来，数组变量之间的普通赋值会复制数组值：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">a</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nx">b</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">a</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nx">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">99</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// a 仍然是 [1 2]</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="有容量为什么不能直接写入">有容量，为什么不能直接写入？
+</h2><p>考虑：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">s</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>此时：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">len = 2
+</span></span><span class="line"><span class="cl">cap = 4
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">合法索引：0、1
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>预测：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">s</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">99</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>会怎样？</p>
+<p>答案：运行时 panic。</p>
+<p><strong>普通索引受 <code>len</code> 限制，而不是 <code>cap</code>。</strong></p>
+<p>容量充足并不意味着新元素已经属于当前切片。</p>
+<p>不过对于切片，允许在容量范围内重新切片：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">s</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">s</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nx">s</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">99</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>这样就合法了。</p>
+<p>这里 <code>s[:3]</code> 把切片长度扩展到 3，并没有新建底层数组。</p>
+<p>注意区别：</p>
+<ul>
+<li><code>s[2]</code>：按当前 <code>len</code> 检查索引。</li>
+<li><code>s[:3]</code>：对切片进行重新切片，允许在 <code>cap</code> 范围内扩展上界。</li>
+</ul>
+<h2 id="append-为什么返回一个新切片"><code>append</code> 为什么返回一个新切片？
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">backing</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="kt">int</span><span class="p">{</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w"> </span><span class="mi">40</span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nx">s</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">backing</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nx">next</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span><span class="w"> </span><span class="mi">99</span><span class="p">)</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>运行状态：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">原始：
+</span></span><span class="line"><span class="cl">backing = [10 20 30 40]
+</span></span><span class="line"><span class="cl">s       = [10 20]       len=2 cap=4
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">append 后：
+</span></span><span class="line"><span class="cl">backing = [10 20 99 40]
+</span></span><span class="line"><span class="cl">s       = [10 20]       len=2 cap=4
+</span></span><span class="line"><span class="cl">next    = [10 20 99]    len=3 cap=4
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>因为原本有足够容量，<code>append</code> 可以复用底层数组。</p>
+<p>但如果容量不足：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">full</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">backing</span><span class="p">[:]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nx">grown</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">full</span><span class="p">,</span><span class="w"> </span><span class="mi">77</span><span class="p">)</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>full</code> 的长度和容量都是 4。</p>
+<p>追加第五个元素就需要新的底层数组。</p>
+<p>因此，<code>append</code> 会返回新的切片描述信息，底层数组可能继续共享，也可能已经更换。</p>
+<p><strong>必须使用返回值：</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">s</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span><span class="w"> </span><span class="mi">99</span><span class="p">)</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>Go 不保证每次 <code>append</code> 都分配新数组，也不保证追加后容量按固定倍数增长。</p>
+<h2 id="从-sumall-变成-sumalltails">从 <code>SumAll</code> 变成 <code>SumAllTails</code>
+</h2><p>现在需求发生变化。</p>
+<p>以前：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nf">SumAll</span><span class="p">([]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">},</span><span class="w"> </span><span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">9</span><span class="p">})</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// [3 9]</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>现在：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nf">SumAllTails</span><span class="p">([]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">},</span><span class="w"> </span><span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">9</span><span class="p">})</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// [2 9]</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>Tails</code> 表示每个切片去掉第一个元素后剩下的部分。</p>
+<p>也就是：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">[1 2] → [2] → Sum → 2
+</span></span><span class="line"><span class="cl">[0 9] → [9] → Sum → 9
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="如何得到切片的一部分">如何得到切片的一部分？
+</h2><p>Go 的切片表达式：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">numbers</span><span class="p">[</span><span class="nx">low</span><span class="p">:</span><span class="nx">high</span><span class="p">]</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>选择从 <code>low</code> 开始，到 <code>high</code> 之前结束的元素。</p>
+<p>例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">numbers</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w"> </span><span class="mi">40</span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nx">a</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">numbers</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span><span class="w"> </span><span class="c1">// [20 30]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nx">b</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">numbers</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="w">  </span><span class="c1">// [20 30 40]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nx">c</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">numbers</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span><span class="w">  </span><span class="c1">// [10 20]</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>high</code> 是不包含的边界。</p>
+<p>省略 <code>low</code> 时默认从 0 开始；省略 <code>high</code> 时默认到当前切片长度结束。</p>
+<p>这些操作通常不会复制元素，只是创建引用同一底层数组的新切片。</p>
+<p>因此第一版实现很自然：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">SumAllTails</span><span class="p">(</span><span class="nx">numbersToSum</span><span class="w"> </span><span class="o">...</span><span class="p">[]</span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="p">[]</span><span class="kt">int</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">sums</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">numbersToSum</span><span class="p">))</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">numbers</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">numbersToSum</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nx">tail</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">numbers</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nx">sums</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">sums</span><span class="p">,</span><span class="w"> </span><span class="nf">Sum</span><span class="p">(</span><span class="nx">tail</span><span class="p">))</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">sums</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>对于普通输入，它可以得到正确结果。</p>
+<h2 id="但空切片来了">但空切片来了
+</h2><p>假设输入：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nf">SumAllTails</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">[]</span><span class="kt">int</span><span class="p">{},</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">},</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">)</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>我们希望：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">9</span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>因为空切片去掉第一个元素之后，结果仍然应该视为空集合，其总和为 0。</p>
+<p>可是第一版会执行：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">numbers</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">[]</span><span class="kt">int</span><span class="p">{}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nx">tail</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">numbers</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>此时：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">len(numbers) = 0
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">切片范围：
+</span></span><span class="line"><span class="cl">low  = 1
+</span></span><span class="line"><span class="cl">high = 0
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">low &gt; high
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这不符合切片边界规则，程序会发生运行时 panic。</p>
+<p>注意，即使空切片具有额外容量，<code>numbers[1:]</code> 也不能用它突破省略上界时的长度限制，因为这里的 <code>high</code> 默认是 <code>len(numbers)</code>。</p>
+<p>这正是测试必须覆盖边界输入的原因。</p>
+<h2 id="谁负责避免这个故障">谁负责避免这个故障？
+</h2><p>让 <code>SumAllTails</code> 在切片为空时直接追加 0：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="k">if</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">numbers</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">sums</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">sums</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">tail</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">numbers</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">sums</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">sums</span><span class="p">,</span><span class="w"> </span><span class="nf">Sum</span><span class="p">(</span><span class="nx">tail</span><span class="p">))</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>于是执行过程变成：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">numbers = []
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">len == 0
+</span></span><span class="line"><span class="cl">    ↓
+</span></span><span class="line"><span class="cl">追加 0
+</span></span><span class="line"><span class="cl">    ↓
+</span></span><span class="line"><span class="cl">跳过 numbers[1:]
+</span></span><span class="line"><span class="cl">    ↓
+</span></span><span class="line"><span class="cl">不会 panic
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这里的检查不是为了让代码更漂亮，而是为了阻止一次真实的越界操作。</p>
+<p>再考虑只有一个元素的输入：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">numbers</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">7</span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nx">tail</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">numbers</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>这个操作合法。</p>
+<p>因为 <code>low=1</code>、<code>high=1</code>，结果是空切片。</p>
+<p>所以：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nf">SumAllTails</span><span class="p">([]</span><span class="kt">int</span><span class="p">{</span><span class="mi">7</span><span class="p">})</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// [0]</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/go/">Go</a>
+        
+            <a href="/tags/%E6%95%B0%E7%BB%84/">数组</a>
+        
+            <a href="/tags/%E5%88%87%E7%89%87/">切片</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/go-reflection-walk/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/moe/animation_389dc825f5cdd6f2.jpg" loading="lazy" data-key="go-reflection-walk" data-hash="/moe/animation_389dc825f5cdd6f2.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Go reflect｜嵌套结构、指针与容器遍历</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/go-mock-call-order/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/moe/animation_2b372a022841729d.jpg" loading="lazy" data-key="go-mock-call-order" data-hash="/moe/animation_2b372a022841729d.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Go Mock｜时间依赖与调用顺序验证</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/go-package-visibility/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/moe/animation_2865e0743dc2fc45.jpg" loading="lazy" data-key="go-package-visibility" data-hash="/moe/animation_2865e0743dc2fc45.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Go 包边界｜导出 API、外部包测试与可见性</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/go-map-lookup-update/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/moe/animation_21598efd8cf1263c.png" loading="lazy" data-key="go-map-lookup-update" data-hash="/moe/animation_21598efd8cf1263c.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Go map｜键存在性、查询失败与修改语义</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/go-errors-as-values/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/moe/animation_2132a460f4487e8d.png" loading="lazy" data-key="go-errors-as-values" data-hash="/moe/animation_2132a460f4487e8d.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Go error｜错误值、语义判断与测试断言</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script src="https://utteranc.es/client.js"
+        repo="anarchycuriosity/anarchycuriosity.github.io"
+        issue-term="pathname"
+        theme="github-light"
+        
+        crossorigin="anonymous"
+        async>
+</script>
+
+<style>
+    .utterances {
+        max-width: unset;
+    }
+</style>
+
+<script>
+    let utterancesLoaded = false;
+
+    function setUtterancesTheme(theme) {
+        let utterances = document.querySelector('.utterances iframe');
+        if (utterances) {
+            utterances.contentWindow.postMessage(
+                {
+                    type: 'set-theme',
+                    theme: `github-${theme}`
+                },
+                'https://utteranc.es'
+            );
+        }
+    }
+
+    addEventListener('message', event => {
+        if (event.origin !== 'https://utteranc.es') return;
+
+        
+        utterancesLoaded = true;
+        setUtterancesTheme(document.documentElement.dataset.scheme)
+    });
+
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (!utterancesLoaded) return;
+        setUtterancesTheme(e.detail)
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2026 Curiosity Anarchy
+    </section>
+    
+    <section class="powerby">
+        
+            by Curiosity Anarchy <br/>
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.34.1">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+    
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.c922af694cc257bf1ecc41c0dd7b0430f9114ec280ccf67cd2c6ad55f5316c4e.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<script>
+    
+    setTimeout(function()
+    {
+        if (document.querySelector('script[data-busuanzi-script]')) {
+            return;
+        }
+
+        var bsz = document.createElement('script');
+        bsz.src = "https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js";
+        bsz.async = true;
+        bsz.dataset.busuanziScript = "true";
+        document.head.appendChild(bsz);
+    }, 500);
+
+    
+    setTimeout(function()
+    {
+        var sakura = document.createElement('script');
+        sakura.src = "https:\/\/anarchycuriosity.github.io\/background\/sakura.js";
+        document.body.appendChild(sakura);
+    }, 1000);
+</script>
+
+    </body>
+</html>

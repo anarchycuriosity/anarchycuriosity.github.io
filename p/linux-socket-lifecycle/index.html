@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="从头开始读tiny_web_server_rebuild的step1 我觉得我应该先把主线搞清楚,比如然后bind和connect会产生什么socket,也就是各个socket的生命周期,socket的数量和此刻各自在做什么我还不是很懂.\n">
+<title>Linux TCP Socket｜监听与已连接文件描述符的生命周期</title>
+
+<link rel='canonical' href='https://anarchycuriosity.github.io/p/linux-socket-lifecycle/'>
+
+<link rel="stylesheet" href="/scss/style.min.c1b51a30df8ac209786d0bad641e606a0ad3c83218d05b1a01460049b2c0e683.css"><meta property='og:title' content="Linux TCP Socket｜监听与已连接文件描述符的生命周期">
+<meta property='og:description' content="从头开始读tiny_web_server_rebuild的step1 我觉得我应该先把主线搞清楚,比如然后bind和connect会产生什么socket,也就是各个socket的生命周期,socket的数量和此刻各自在做什么我还不是很懂.\n">
+<meta property='og:url' content='https://anarchycuriosity.github.io/p/linux-socket-lifecycle/'>
+<meta property='og:site_name' content='Curiosity Anarchy'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Linux' /><meta property='article:tag' content='TCP' /><meta property='article:tag' content='Socket' /><meta property='article:tag' content='cpp' /><meta property='article:published_time' content='2026-01-06T00:00:00&#43;08:00'/><meta property='article:modified_time' content='2026-01-06T00:00:00&#43;08:00'/><meta property='og:image' content='https://anarchycuriosity.github.io/moe/animation_3add06671b616974.jpg' />
+<meta name="twitter:title" content="Linux TCP Socket｜监听与已连接文件描述符的生命周期">
+<meta name="twitter:description" content="从头开始读tiny_web_server_rebuild的step1 我觉得我应该先把主线搞清楚,比如然后bind和connect会产生什么socket,也就是各个socket的生命周期,socket的数量和此刻各自在做什么我还不是很懂.\n"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://anarchycuriosity.github.io/moe/animation_3add06671b616974.jpg' />
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "light");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu_d1ed36d2754b4216.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Curiosity Anarchy</a></h1>
+            <h2 class="site-description">此博客主要分享本人的学习记录</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/anarchycuriosity'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E9%93%BE%E6%8E%A5/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>链接</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#从头开始读tiny_web_server_rebuild的step1">从头开始读tiny_web_server_rebuild的step1</a></li>
+    <li><a href="#通过反例理解socket生命周期为什么不能用-listening_fd-调-recv">通过反例理解socket生命周期:为什么不能用 listening_fd 调 recv？</a></li>
+    <li><a href="#实际socket数量">实际socket数量</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            
+            
+            
+            <a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" style="background-color: hsl(291, 60%, 84%); color: hsl(291, 60%, 15%);">
+                后端开发
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/linux-socket-lifecycle/">Linux TCP Socket｜监听与已连接文件描述符的生命周期</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2026-01-06</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 3 分钟
+                </time>
+            </div>
+        
+
+        
+        <div>
+            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-eye"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" /></svg>
+            <span class="article-time--reading">
+                <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv">...</span> 次阅读
+                </span>
+            </span>
+        </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+        <a class="article-image" href="/p/linux-socket-lifecycle/" aria-label="Linux TCP Socket｜监听与已连接文件描述符的生命周期">
+            
+                <img src="/moe/animation_3add06671b616974.jpg" loading="lazy" alt="Featured image of post Linux TCP Socket｜监听与已连接文件描述符的生命周期" />
+            
+        </a>
+    
+</header>
+
+
+    <section class="article-content">
+    
+    
+    <h2 id="从头开始读tiny_web_server_rebuild的step1">从头开始读tiny_web_server_rebuild的step1
+</h2><p>我觉得我应该先把主线搞清楚,比如然后bind和connect会产生什么socket,也就是各个socket的生命周期,socket的数量和此刻各自在做什么我还不是很懂.</p>
+<p>我们一步步来看,比如main一开始这里就是先创建listening_fd,此时没有任何东西,只是确定了这个socket走什么协议,</p>
+<p>然后bind让这个socket绑定上某个端口,提前准备response的内容,同时满足也许是http的协议?也就是这个字符串为什么要硬编码一些body以外的东西,</p>
+<p>这是为了让后续用户拿到之后知道怎么解析这个数据?然后while连接,如果accept失败,connetion_fd就会是负数然后一直循环,accept成果说明连接建立,</p>
+<p>然后resv去拿到真实的请求数据.resv函数和send函数是需要这个connection_fd去执行吗?</p>
+<p>所以会这样写<code>::recv(connection_fd, request_buffer, sizeof(request_buffer), 0);send_all(connection_fd, response);</code></p>
+<p>connnection_fd的socket对象负责程序逻辑和数据缓冲区(也许不对,总之是实际数据存储的地方)之间的连接?任何纠正和补充?</p>
+<p>listen() 也不产生新 socket,只是让普通TCP socket变成监听socket</p>
+<p>connect() 通常不会创建第二个 socket,这里也仅仅是操作而已</p>
+<p>那服务器什么时候产生第二个 socket？-&gt;accept</p>
+<p>因为一个服务器会有很多个连接,所以 fd 的作用之一就是：</p>
+<p>告诉内核“我要操作哪一个 socket 对象”。</p>
+<h2 id="通过反例理解socket生命周期为什么不能用-listening_fd-调-recv">通过反例理解socket生命周期:为什么不能用 listening_fd 调 recv？
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">main 开始
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">socket()
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   │
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   ▼
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">S1 创建
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">fd 3
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   │
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">bind()
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   │
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   ▼
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">S1 = 127.0.0.1:9006
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   │
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">listen()
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   │
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   ▼
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">S1 = listening socket
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   │
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   │
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   │    客户端 connect
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   │
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">accept()
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   │
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   ▼
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">S2 创建/交给进程
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">fd 4
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   │
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   ├── recv(fd 4)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   │
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   ├── send(fd 4)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   │
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   ▼
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">close(fd 4)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">S2 生命周期结束
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   │
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   └─────────────→ 回到 accept()
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="实际socket数量">实际socket数量
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">accept
+</span></span><span class="line"><span class="cl">  ↓
+</span></span><span class="line"><span class="cl">S2
+</span></span><span class="line"><span class="cl">  ↓
+</span></span><span class="line"><span class="cl">recv/send
+</span></span><span class="line"><span class="cl">  ↓
+</span></span><span class="line"><span class="cl">close
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">下一客户：
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">accept
+</span></span><span class="line"><span class="cl">  ↓
+</span></span><span class="line"><span class="cl">S3
+</span></span><span class="line"><span class="cl">  ↓
+</span></span><span class="line"><span class="cl">recv/send
+</span></span><span class="line"><span class="cl">  ↓
+</span></span><span class="line"><span class="cl">close
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">S1：永生的门卫
+</span></span><span class="line"><span class="cl">    socket → bind → listen
+</span></span><span class="line"><span class="cl">                │
+</span></span><span class="line"><span class="cl">                └── accept 新连接
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">S2：一次性的服务员
+</span></span><span class="line"><span class="cl">    accept 得到
+</span></span><span class="line"><span class="cl">        ↓
+</span></span><span class="line"><span class="cl">    recv 请求
+</span></span><span class="line"><span class="cl">        ↓
+</span></span><span class="line"><span class="cl">    send 响应
+</span></span><span class="line"><span class="cl">        ↓
+</span></span><span class="line"><span class="cl">    close
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">客户端：`socket → connect`  
+</span></span><span class="line"><span class="cl">服务器：`socket → bind → listen → accept`
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>时刻</th>
+          <th style="text-align: right">Server sockets</th>
+          <th style="text-align: right">Client sockets</th>
+          <th>发生什么</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>server <code>socket()</code> 前</td>
+          <td style="text-align: right">0</td>
+          <td style="text-align: right">0</td>
+          <td>什么都没有</td>
+      </tr>
+      <tr>
+          <td>server <code>socket()</code> 后</td>
+          <td style="text-align: right">1</td>
+          <td style="text-align: right">0</td>
+          <td>S1</td>
+      </tr>
+      <tr>
+          <td><code>bind()</code> 后</td>
+          <td style="text-align: right">1</td>
+          <td style="text-align: right">0</td>
+          <td>还是 S1</td>
+      </tr>
+      <tr>
+          <td><code>listen()</code> 后</td>
+          <td style="text-align: right">1</td>
+          <td style="text-align: right">0</td>
+          <td>S1 成 listener</td>
+      </tr>
+      <tr>
+          <td>browser <code>socket()</code></td>
+          <td style="text-align: right">1</td>
+          <td style="text-align: right">1</td>
+          <td>C1 出现</td>
+      </tr>
+      <tr>
+          <td>browser <code>connect()</code></td>
+          <td style="text-align: right">1</td>
+          <td style="text-align: right">1</td>
+          <td>C1 开始连接</td>
+      </tr>
+      <tr>
+          <td>server <code>accept()</code> 后</td>
+          <td style="text-align: right">2</td>
+          <td style="text-align: right">1</td>
+          <td>S2 出现</td>
+      </tr>
+      <tr>
+          <td>HTTP 通信</td>
+          <td style="text-align: right">2</td>
+          <td style="text-align: right">1</td>
+          <td>C1 ↔ S2</td>
+      </tr>
+      <tr>
+          <td>server <code>close(S2)</code></td>
+          <td style="text-align: right">1</td>
+          <td style="text-align: right">1→0</td>
+          <td>单次连接结束</td>
+      </tr>
+      <tr>
+          <td>server 继续运行</td>
+          <td style="text-align: right">1</td>
+          <td style="text-align: right">0</td>
+          <td>S1 继续监听</td>
+      </tr>
+  </tbody>
+</table></div>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/linux/">Linux</a>
+        
+            <a href="/tags/tcp/">TCP</a>
+        
+            <a href="/tags/socket/">Socket</a>
+        
+            <a href="/tags/cpp/">Cpp</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/linux-socket-linger/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/moe/animation_413a9f13b2ba6c64.jpg" loading="lazy" data-key="linux-socket-linger" data-hash="/moe/animation_413a9f13b2ba6c64.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Linux TCP｜SO_LINGER 与 close 的连接关闭语义</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/tiny-web-server-static-file-routing/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/moe/animation_2de188f19d1e4457.png" loading="lazy" data-key="tiny-web-server-static-file-routing" data-hash="/moe/animation_2de188f19d1e4457.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">TinyWebServer 静态资源｜URL 路径解码与 openat 文件定位</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/tiny-web-server-http-request-parsing/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/moe/animation_2376b17b99aeaf7d.jpg" loading="lazy" data-key="tiny-web-server-http-request-parsing" data-hash="/moe/animation_2376b17b99aeaf7d.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">TinyWebServer 请求解析｜TCP 字节流与增量解析游标</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/cpp-asio-socket-acceptor/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/moe/animation_4327ac64842138e8.png" loading="lazy" data-key="cpp-asio-socket-acceptor" data-hash="/moe/animation_4327ac64842138e8.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Boost.Asio｜acceptor 与已连接 socket 的职责</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/linux-epoll-recv/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/moe/animation_2062f66eaa0df18b.jpg" loading="lazy" data-key="linux-epoll-recv" data-hash="/moe/animation_2062f66eaa0df18b.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Linux 网络 I/O｜epoll 就绪通知与 recv 数据读取</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script src="https://utteranc.es/client.js"
+        repo="anarchycuriosity/anarchycuriosity.github.io"
+        issue-term="pathname"
+        theme="github-light"
+        
+        crossorigin="anonymous"
+        async>
+</script>
+
+<style>
+    .utterances {
+        max-width: unset;
+    }
+</style>
+
+<script>
+    let utterancesLoaded = false;
+
+    function setUtterancesTheme(theme) {
+        let utterances = document.querySelector('.utterances iframe');
+        if (utterances) {
+            utterances.contentWindow.postMessage(
+                {
+                    type: 'set-theme',
+                    theme: `github-${theme}`
+                },
+                'https://utteranc.es'
+            );
+        }
+    }
+
+    addEventListener('message', event => {
+        if (event.origin !== 'https://utteranc.es') return;
+
+        
+        utterancesLoaded = true;
+        setUtterancesTheme(document.documentElement.dataset.scheme)
+    });
+
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (!utterancesLoaded) return;
+        setUtterancesTheme(e.detail)
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2026 Curiosity Anarchy
+    </section>
+    
+    <section class="powerby">
+        
+            by Curiosity Anarchy <br/>
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.34.1">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+    
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.c922af694cc257bf1ecc41c0dd7b0430f9114ec280ccf67cd2c6ad55f5316c4e.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<script>
+    
+    setTimeout(function()
+    {
+        if (document.querySelector('script[data-busuanzi-script]')) {
+            return;
+        }
+
+        var bsz = document.createElement('script');
+        bsz.src = "https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js";
+        bsz.async = true;
+        bsz.dataset.busuanziScript = "true";
+        document.head.appendChild(bsz);
+    }, 500);
+
+    
+    setTimeout(function()
+    {
+        var sakura = document.createElement('script');
+        sakura.src = "https:\/\/anarchycuriosity.github.io\/background\/sakura.js";
+        document.body.appendChild(sakura);
+    }, 1000);
+</script>
+
+    </body>
+</html>

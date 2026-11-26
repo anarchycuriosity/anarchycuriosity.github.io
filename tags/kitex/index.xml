@@ -7,10 +7,128 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Curiosity Anarchy</copyright>
-        <lastBuildDate>Thu, 19 Nov 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/tags/kitex/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 10 Nov 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/tags/kitex/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Go Kitex｜客户端默认选项与单次调用覆盖</title>
+        <link>https://anarchycuriosity.github.io/p/go-rpc-call-options/</link>
+        <pubDate>Tue, 10 Nov 2026 00:00:00 +0800</pubDate>
+        
+        <guid>https://anarchycuriosity.github.io/p/go-rpc-call-options/</guid>
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_a26355f67b5abf59.jpg" alt="Featured image of post Go Kitex｜客户端默认选项与单次调用覆盖" /&gt;&lt;h2 id=&#34;客户端默认配置与单次调用&#34;&gt;客户端默认配置与单次调用
+&lt;/h2&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                   NewClient
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                       │
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                       │ client.Option
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                       ▼
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;               客户端默认配置
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                 timeout=300s
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                       │
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;               ┌───────┴───────┐
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;               │               │
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;               ▼               ▼
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            调用 A           调用 B
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;               │               │
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;         克隆默认配置     克隆默认配置
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;               │               │
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;         timeout=300s    timeout=300s
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                               │
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                               │ callopt.Option
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                               ▼
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                         本次覆盖为 1s
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;这个 B 使用 1 秒超时的例子是&lt;strong&gt;假设修改&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;原版 &lt;code&gt;rpc.Feed&lt;/code&gt; 没有传入 &lt;code&gt;callopt.Option&lt;/code&gt;。&lt;/p&gt;
+&lt;h2 id=&#34;调用选项怎样应用到-rpc&#34;&gt;调用选项怎样应用到 RPC
+&lt;/h2&gt;&lt;p&gt;Kitex v0.4.4 中，大致经过：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;23
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;24
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;25
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;26
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;27
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;生成客户端 Feed
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       │
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       ▼
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;检查 callOptions
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       │
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       ├─ 没有选项
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       │      │
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       │      ▼
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       │   保留传入的 ctx
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       │
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       └─ 有选项
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;              │
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;              ▼
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       将选项关联到 ctx
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;              │
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;              ▼
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       Kitex Client.Call
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;              │
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;              ▼
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       initRPCInfo
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;              │
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;              ├─ 克隆客户端默认配置
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;              │
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;              └─ applyCallOptions
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                       │
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                       ▼
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                 应用本次覆盖
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;因此构造期和调用期是两种不同的时间点。&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>Feed 02 · Kitex RPC｜API 与 Video 服务的跨进程调用</title>
         <link>https://anarchycuriosity.github.io/p/go-feed-kitex-rpc/</link>
-        <pubDate>Thu, 19 Nov 2026 00:00:00 +0800</pubDate>
+        <pubDate>Tue, 03 Nov 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/go-feed-kitex-rpc/</guid>
         <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_9397ba4450852fc9.png" alt="Featured image of post Feed 02 · Kitex RPC｜API 与 Video 服务的跨进程调用" /&gt;&lt;h2 id=&#34;一次-rpc-的运行路径&#34;&gt;一次 RPC 的运行路径
@@ -133,6 +251,290 @@
 &lt;p&gt;Video → MinIO：MinIO SDK 处理。&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
+</description>
+        </item>
+        <item>
+        <title>Go Kitex 联调｜生成类型、err 与 nil 响应保护</title>
+        <link>https://anarchycuriosity.github.io/p/go-registration-rpc-debug/</link>
+        <pubDate>Tue, 29 Sep 2026 00:00:00 +0800</pubDate>
+        
+        <guid>https://anarchycuriosity.github.io/p/go-registration-rpc-debug/</guid>
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_9b073a060f72d35d.png" alt="Featured image of post Go Kitex 联调｜生成类型、err 与 nil 响应保护" /&gt;&lt;h2 id=&#34;生成代码的字段契约&#34;&gt;生成代码的字段契约
+&lt;/h2&gt;&lt;p&gt;在 &lt;code&gt;internal/user_rpc/register.go&lt;/code&gt; 的返回结构体里，把 &lt;code&gt;UserID: response.UserID&lt;/code&gt; 改成 &lt;code&gt;UserID: response.UserId&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;response&lt;/code&gt; 指向生成的 &lt;code&gt;user.UserRegisterResponse&lt;/code&gt;，它声明的是 &lt;code&gt;UserId&lt;/code&gt;。冒号左边在给手写的 &lt;code&gt;api.RegisterResult&lt;/code&gt; 填字段，那里声明的是 &lt;code&gt;UserID&lt;/code&gt;。例如 RPC 给了 &lt;code&gt;UserId = 42&lt;/code&gt;，适配器就把 &lt;code&gt;42&lt;/code&gt; 放进 API 结果的 &lt;code&gt;UserID&lt;/code&gt;，之后 HTTP 层通过 JSON tag 把它写成 &lt;code&gt;user_id&lt;/code&gt;。从生成文件里查字段名即可，修改落在手写适配器。 生成的响应类型&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$s04_go&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;test&lt;/span&gt; -tags stdjson -count&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; -v ./internal/user_rpc -run &lt;span class=&#34;s1&#34;&gt;&amp;#39;^TestRegisterMapsResponse$&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;strong&gt;检查点&lt;/strong&gt; 测试通过，&lt;code&gt;42&lt;/code&gt; 正确搬到了 API 结果。但日志还会冒出 &lt;code&gt;register response missing&lt;/code&gt;。明明有响应却打印「缺失」，先记下这个现象，下一轮先处理会崩溃的路径。&lt;/p&gt;
+&lt;h2 id=&#34;错误返回后的控制流&#34;&gt;错误返回后的控制流
+&lt;/h2&gt;&lt;p&gt;先单独跑调用失败测试。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$s04_go&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;test&lt;/span&gt; -tags stdjson -count&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; ./internal/user_rpc -run &lt;span class=&#34;s1&#34;&gt;&amp;#39;^TestRegisterReportsCallFailure$&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;这个测试让替身返回 &lt;code&gt;(nil, err)&lt;/code&gt;。旧代码进了 &lt;code&gt;if err != nil&lt;/code&gt;，打完日志就继续往下走。等它执行到 &lt;code&gt;response.StatusCode&lt;/code&gt; 时，&lt;code&gt;response&lt;/code&gt; 还是 &lt;code&gt;nil&lt;/code&gt;，没有结构体可读，于是 panic。&lt;/p&gt;
+&lt;p&gt;在 &lt;code&gt;err != nil&lt;/code&gt; 分支的日志后面加上 &lt;code&gt;return api.RegisterResult{}, err&lt;/code&gt;。重新跑同一条命令。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;检查点&lt;/strong&gt; 测试通过。适配器把原错误交还给调用它的 HTTP handler。真实请求中，handler 可以由此走到现有的 502 分支。&lt;/p&gt;
+&lt;h2 id=&#34;nil-响应保护&#34;&gt;nil 响应保护
+&lt;/h2&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$s04_go&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;test&lt;/span&gt; -tags stdjson -count&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; ./internal/user_rpc -run &lt;span class=&#34;s1&#34;&gt;&amp;#39;^TestRegisterReportsMissingResponse$&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;这次替身返回 &lt;code&gt;(nil, nil)&lt;/code&gt;，所以刚修好的 &lt;code&gt;err&lt;/code&gt; 分支不会执行。旧条件 &lt;code&gt;response != nil&lt;/code&gt; 又会跳过「响应缺失」分支，最后照样在 &lt;code&gt;response.StatusCode&lt;/code&gt; 处 panic。&lt;/p&gt;
+&lt;p&gt;把条件改为 &lt;code&gt;response == nil&lt;/code&gt;。在该分支的日志后返回 &lt;code&gt;api.RegisterResult{}, errors.New(&amp;quot;user rpc: missing register response&amp;quot;)&lt;/code&gt;，并在 import 中加入标准库 &lt;code&gt;&amp;quot;errors&amp;quot;&lt;/code&gt;。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;gofmt -w internal/user_rpc/register.go
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$s04_go&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;test&lt;/span&gt; -tags stdjson -count&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; -v ./internal/user_rpc -run &lt;span class=&#34;s1&#34;&gt;&amp;#39;^TestRegister(MapsResponse|ReportsCallFailure|ReportsMissingResponse)$&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;make &lt;span class=&#34;nv&#34;&gt;GO&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$s04_go&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;test&lt;/span&gt; build
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;strong&gt;检查点&lt;/strong&gt; 三条适配器测试都通过，有响应时也不再打印「响应缺失」。全量测试和两个进程的构建都通过。 适配器测试&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Go Kitex 注册服务｜跨进程调用与 RPC 错误映射</title>
+        <link>https://anarchycuriosity.github.io/p/go-registration-rpc/</link>
+        <pubDate>Tue, 22 Sep 2026 00:00:00 +0800</pubDate>
+        
+        <guid>https://anarchycuriosity.github.io/p/go-registration-rpc/</guid>
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_9a7b825502bc8466.png" alt="Featured image of post Go Kitex 注册服务｜跨进程调用与 RPC 错误映射" /&gt;&lt;h2 id=&#34;同一个注册请求为什么停掉-user-就变了&#34;&gt;同一个注册请求，为什么停掉 &lt;code&gt;user&lt;/code&gt; 就变了？
+&lt;/h2&gt;&lt;p&gt;整篇只追这一条请求：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-http&#34; data-lang=&#34;http&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;POST /douyin/user/register/?username=alice&amp;amp;password=p
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;在 S03 的 show 里，&lt;code&gt;user&lt;/code&gt; 在线时，这条请求得到 HTTP &lt;code&gt;200&lt;/code&gt;，响应中有 &lt;code&gt;status_code: -1&lt;/code&gt; 和「账号持久化尚未接入」。只停 &lt;code&gt;user&lt;/code&gt;，保留 API，再发同一条请求，HTTP 变成 &lt;code&gt;502&lt;/code&gt;。与此同时，API 自己的 &lt;code&gt;/healthz&lt;/code&gt; 仍可返回 &lt;code&gt;200&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;这个现象把问题缩到一处。&lt;strong&gt;API 进程明明还活着，注册 handler 又要去哪里找答案？&lt;/strong&gt; S02 已经把 &lt;code&gt;alice&lt;/code&gt; 和 &lt;code&gt;p&lt;/code&gt; 读出来并做了校验，接下来会调用 &lt;code&gt;register(ctx, username, password)&lt;/code&gt;。S03 就是在启动 API 时给这个 &lt;code&gt;register&lt;/code&gt; 接上真实的 RPC 调用。你自己的 learner 即使注册替身测试已经通过，总路由和真实进程入口仍要接好才能观察到这个现象。 S02 保留的 handler · API 自己的健康路由&lt;/p&gt;
+&lt;h2 id=&#34;启动时main-给-handler-的是什么&#34;&gt;启动时，&lt;code&gt;main&lt;/code&gt; 给 handler 的是什么？
+&lt;/h2&gt;&lt;p&gt;先看 &lt;code&gt;cmd/api/main.go&lt;/code&gt;。它读用户服务地址，默认是 &lt;code&gt;127.0.0.1:8881&lt;/code&gt;，然后调用 &lt;code&gt;user_rpc.NewClient&lt;/code&gt;。返回的 &lt;code&gt;*user_rpc.Client&lt;/code&gt; 持有一个由 &lt;code&gt;userservice.NewClient&lt;/code&gt; 创建的 Kitex 客户端。前者是我们写的适配对象，后者负责发起 RPC。&lt;/p&gt;
+&lt;p&gt;下一行关键代码是 &lt;code&gt;api.NewServer(address, user_client.Register)&lt;/code&gt;。读这里时留意 &lt;strong&gt;&lt;code&gt;Register&lt;/code&gt; 后面没有括号&lt;/strong&gt;。Go 会取出绑定在这一个 &lt;code&gt;user_client&lt;/code&gt; 上的方法值，把它当函数传下去。你可以把它读成「收到合法注册请求时，就用这个客户端对象执行 &lt;code&gt;Register&lt;/code&gt;」。真正调用的括号在 S02 handler 的 &lt;code&gt;register(ctx, username, password)&lt;/code&gt; 上。&lt;/p&gt;
+&lt;p&gt;所以 API 启动时已经知道&lt;strong&gt;将来用谁调用&lt;/strong&gt;，只有请求来了才知道&lt;strong&gt;这次要传什么&lt;/strong&gt;。创建客户端成功也只说明对象准备好了。能否连到 &lt;code&gt;8881&lt;/code&gt;，要等实际调用才知道。 API 启动与方法值 · 适配对象和 &lt;code&gt;NewClient&lt;/code&gt;&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;要找的角色&lt;/th&gt;
+          &lt;th&gt;代码里看哪里&lt;/th&gt;
+          &lt;th&gt;什么时候出现&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;API 的注册适配对象&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;cmd/api/main.go&lt;/code&gt; 的 &lt;code&gt;user_client&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;启动时创建，后续多次请求共用&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;适配对象里的 Kitex 客户端&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;internal/user_rpc/register.go&lt;/code&gt; 的 &lt;code&gt;c.user_client&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;创建适配对象时存进去，发 RPC 时使用&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;这一次注册请求&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;(*Client).Register&lt;/code&gt; 里的 &lt;code&gt;request&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;alice&lt;/code&gt; 通过 HTTP 校验后才创建&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;远端业务实现&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;cmd/user/main.go&lt;/code&gt; 的 &lt;code&gt;handler&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;user&lt;/code&gt; 启动时登记，收到 RPC 时才执行它的方法&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;strong&gt;停靠点。&lt;/strong&gt; 在 &lt;code&gt;main&lt;/code&gt; 里找到传方法值的位置，再到 handler 里找到有括号的那一次调用。假如 &lt;code&gt;user&lt;/code&gt; 此刻没启动，API 仍可以先建立自己的监听。等第一个合法 POST 进来，连接问题才会出现在调用结果里。&lt;/p&gt;
+&lt;h2 id=&#34;user-收到请求以后怎样找到我们的业务方法&#34;&gt;&lt;code&gt;user&lt;/code&gt; 收到请求以后，怎样找到我们的业务方法？
+&lt;/h2&gt;&lt;p&gt;换到 &lt;code&gt;user&lt;/code&gt; 进程。它的 &lt;code&gt;main&lt;/code&gt; 创建 &lt;code&gt;&amp;amp;user_service.UserServiceImpl{}&lt;/code&gt;，把这个实例登记给生成的 &lt;code&gt;userservice.NewServer&lt;/code&gt;，随后才开始监听。收到 &lt;code&gt;Register&lt;/code&gt; 调用时，生成代码里的 &lt;code&gt;registerHandler&lt;/code&gt; 取出解码好的请求，调用登记对象的 &lt;code&gt;Register&lt;/code&gt; 方法。&lt;/p&gt;
+&lt;p&gt;这就是为什么 &lt;code&gt;UserServiceImpl&lt;/code&gt; 可以是空结构体。&lt;strong&gt;这一步框架需要的是它提供的 &lt;code&gt;Register&lt;/code&gt; 方法。&lt;/strong&gt; 当前没有数据库连接等状态要保存在实现对象里。&lt;code&gt;&amp;amp;&lt;/code&gt; 取出实例的指针，传给框架的是这个指针。&lt;/p&gt;
+&lt;p&gt;看 &lt;code&gt;internal/user_service/register.go&lt;/code&gt; 里的两次取值。&lt;code&gt;request.GetUsername()&lt;/code&gt; 和 &lt;code&gt;request.GetPassword()&lt;/code&gt; 来自 protobuf 生成代码，接收者为空时也会返回空字符串。业务方法再判断是否缺参或超过 32 字节。这次校验保护的是 RPC 入口，直接调 &lt;code&gt;user&lt;/code&gt; 的其他调用方也会经过。&lt;code&gt;alice&lt;/code&gt; 和 &lt;code&gt;p&lt;/code&gt; 通过后，方法返回一份业务答复「账号持久化尚未接入」，第二个返回值为 &lt;code&gt;nil&lt;/code&gt;。 user 进程启动 · 生成的服务端分发 · 生成的 getter · 业务方法&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;动手。&lt;/strong&gt; 先按固定源码写 &lt;code&gt;internal/user_service/register.go&lt;/code&gt;，把该文件的项目内 import 改成 learner 的 module 前缀。再写 &lt;code&gt;cmd/user/main.go&lt;/code&gt;，参考附录。先用两个输入预测这个方法的行为。只有 &lt;code&gt;alice&lt;/code&gt; 时会在 RPC 校验处得到「用户名或密码不符合要求」。给齐 &lt;code&gt;alice&lt;/code&gt; 和 &lt;code&gt;p&lt;/code&gt; 时，会继续到「账号持久化尚未接入」。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;ctx&lt;/code&gt; 在哪里交接？&lt;/strong&gt; API 进程内，handler 把自己的 &lt;code&gt;ctx&lt;/code&gt; 传给适配方法，适配方法再交给 Kitex 客户端。远端 handler 收到的是服务端框架提供的 context，两端各有自己的对象。本步把连接超时设为 &lt;code&gt;500ms&lt;/code&gt;，RPC 超时设为 &lt;code&gt;2s&lt;/code&gt;。客户端超时只说明它结束了这次等待，远端可能已经处理过请求，所以注册暂不自动重试。show 的超时测试里，客户端返回后，服务端仍要等测试主动释放。至于浏览器关闭时远端是否停工，从这条链推不出来。 show 的超时测试&lt;/p&gt;
+&lt;h2 id=&#34;结果回来以后谁选-200谁选-502&#34;&gt;结果回来以后，谁选 &lt;code&gt;200&lt;/code&gt;，谁选 &lt;code&gt;502&lt;/code&gt;？
+&lt;/h2&gt;&lt;p&gt;用同一个 &lt;code&gt;alice&lt;/code&gt; 和 &lt;code&gt;p&lt;/code&gt; 对照每一次交接：&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;调用的一方 → 接手的一方&lt;/th&gt;
+          &lt;th&gt;这次交过去什么&lt;/th&gt;
+          &lt;th&gt;返回后谁解释&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;HTTP handler → &lt;code&gt;(*Client).Register&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;ctx&lt;/code&gt;、&lt;code&gt;alice&lt;/code&gt;、&lt;code&gt;p&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;handler 检查 &lt;code&gt;error&lt;/code&gt;，然后决定 HTTP 状态和 JSON&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;手写适配方法 → Kitex 客户端&lt;/td&gt;
+          &lt;td&gt;本次 &lt;code&gt;UserRegisterRequest&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;适配方法检查调用错误和空响应，有响应时转成 &lt;code&gt;api.RegisterResult&lt;/code&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;registerHandler&lt;/code&gt; → &lt;code&gt;UserServiceImpl.Register&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;服务端 context 与解码后的请求&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;user&lt;/code&gt; 决定业务答复，框架把它带回 API&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;code&gt;user&lt;/code&gt; 在线时，RPC 返回「账号持久化尚未接入」和 &lt;code&gt;nil&lt;/code&gt; 错误。适配器把业务码 &lt;code&gt;-1&lt;/code&gt; 原样交还，Hertz 写 HTTP &lt;code&gt;200&lt;/code&gt;。停掉 &lt;code&gt;user&lt;/code&gt; 时，适配器拿到调用错误，Hertz 走 S02 已有的 &lt;code&gt;502&lt;/code&gt; 分支。&lt;strong&gt;用户服务解释业务，HTTP handler 解释怎样回 HTTP。&lt;/strong&gt; 适配方法的返回分支 · HTTP 状态选择&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;动手。&lt;/strong&gt; 保留 learner 的 S02 &lt;code&gt;internal/api/register.go&lt;/code&gt;。在已有的 &lt;code&gt;server.go&lt;/code&gt; 里沿 &lt;code&gt;NewServer → RegisterRoutes → RegisterUserRoute&lt;/code&gt; 传下 &lt;code&gt;register&lt;/code&gt;，然后补 &lt;code&gt;cmd/api/main.go&lt;/code&gt;。现有测试里调用 &lt;code&gt;RegisterRoutes(hz)&lt;/code&gt; 的位置要跟着新签名调整。健康路由测试可以传 &lt;code&gt;RegisterRoutes(hz, nil)&lt;/code&gt;，直接登记注册路由的替身测试可以保留现有调用方式。 show 的总路由接线 · show 的测试调用点&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;预测一下。&lt;/strong&gt; 如果总路由少了 &lt;code&gt;RegisterUserRoute(hz, register)&lt;/code&gt;，同一个 POST 会在 Hertz 得到 &lt;code&gt;404&lt;/code&gt;，独立登记路由的替身测试仍可能通过。如果路由接好了，但参数仍是 &lt;code&gt;nil&lt;/code&gt;，合法请求会走 &lt;code&gt;503&lt;/code&gt;。只有函数接好、实际调用失败时，才会看到这里要验证的 &lt;code&gt;502&lt;/code&gt;。&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Go Kitex｜生成的接口、客户端与服务端实现</title>
+        <link>https://anarchycuriosity.github.io/p/go-kitex-generated-boundary/</link>
+        <pubDate>Tue, 08 Sep 2026 00:00:00 +0800</pubDate>
+        
+        <guid>https://anarchycuriosity.github.io/p/go-kitex-generated-boundary/</guid>
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_90b82d8470367131.jpg" alt="Featured image of post Go Kitex｜生成的接口、客户端与服务端实现" /&gt;&lt;h2 id=&#34;疑问&#34;&gt;疑问
+&lt;/h2&gt;&lt;p&gt;阅读main的video链路的包,包包装了往下的客户端方法,然后往下应该去看具体的客户端的源码.其他链路也是这样类推是我注意到从NewClient那里f12之后就到达了kitex自动生成的代码了,也就是项目的kitex目录下的,然后我不是很理解kitex自动生成代码指的是什么,为什么它似乎能针对我的videoservice生成对应业务的代码?
+其实我觉得从NewClient读下去是不是不太对?
+我的理解是,api下面有两个文件夹,一个是handler,一个是rpc,其中rpc是交给kitex生成的服务,而handler是我对于某个业务链路的处理,然后rpc文件夹里面的只负责创建kitex用户端然后和那边对接,逻辑跟handler是一致的但是由kitex根据对面是情况来生成.因为我注意到handler里面有PublishAction和PublishList,然后我觉得一些Request和Response是跟kitex有关吧,因为kitex和http有关系,但是和业务逻辑关系不是很大&lt;/p&gt;
+&lt;h2 id=&#34;go微服务的重要概念-代码生成&#34;&gt;Go微服务的重要概念-&amp;gt;代码生成
+&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;Kitex 明明是一个通用框架，为什么它竟然知道我的业务叫 &lt;code&gt;VideoService&lt;/code&gt;，甚至知道里面有 &lt;code&gt;Feed&lt;/code&gt; 方法？&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Kitex 不是专门处理 HTTP 的框架。 这个项目使用 Hertz 处理 HTTP，Kitex 处理服务之间的 RPC 通信。&lt;code&gt;Request&lt;/code&gt; 和 &lt;code&gt;Response&lt;/code&gt; 则是两种通信都可能使用的概念。&lt;/p&gt;
+&lt;p&gt;注意一个细节,有些地方的kitex不是指通用的kitex框架包而是文件中给自己项目生成的代码包取的命名.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;kitex&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;github.com/bytedance-youthcamp-jbzx/tiktok/kitex/kitex_gen/video&amp;#34;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;我现在对于handlerrpc还有kitex生成源码他们背后的业务和关系还是很模糊&#34;&gt;我现在对于handler,rpc,还有kitex生成源码,他们背后的业务和关系还是很模糊
+&lt;/h2&gt;&lt;p&gt;我们先从用户的角度来看,这个项目不是一个程序包办所有服务的
+API进程专门用来接待app发来的http请求,video进程负责执行视频的相关业务,比如查数据库.
+当用户发送请求的时候,请求首先抵达API进程,但是真正查询视频列表的代码在video进程里面.问题来了,api进程怎样让另一个独立进程进行查询?它不能像调用自己进程的一个普通函数那样直接跳到另一个进程的函数内部执行&lt;/p&gt;
+&lt;h2 id=&#34;阅读rpc下的video包的initvideo的时候&#34;&gt;阅读rpc下的video包的InitVideo的时候
+&lt;/h2&gt;&lt;p&gt;我们首先看注册这个&lt;/p&gt;
+&lt;p&gt;为什么明明是videoservice调用了NewClient但是video进程不是客户端?虽然我看过项目架构我知道它不是客户端而是服务端,但是为什么函数是这样的?
+关键偏差是,videoservice是go的包名,而不代表正在执行代码的video进程.实际上你看它的文件所在位置就可以知道,它其实是由api进程执行的.
+同一个videoservice包,同时提供了NewClient和NewServer,因为这是kitex根据.proto生成的代码包,要同时提供客户端和服务端所需的代码&lt;/p&gt;
+&lt;h2 id=&#34;调用代码包不会跨越进程而是在后续发起rpc请求的时候&#34;&gt;调用代码包不会跨越进程,而是在后续发起RPC请求的时候
+&lt;/h2&gt;&lt;p&gt;比如&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// cmd/api/rpc/video.go&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Feed&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;ctx&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;context&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Context&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;req&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;video&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;FeedRequest&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;video&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;FeedResponse&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;error&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;videoClient&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Feed&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;ctx&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;req&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;进一步进入生成代码&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;c&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Call&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;ctx&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;Feed&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;_args&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;_result&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;kitex会通过RPC通信机制将请求发给远程的video服务&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;API 进程内存
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;┌─────────────────────────────────┐
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;│ InitVideo()                     │
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;│    ↓                            │
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;│ videoservice.NewClient()        │
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;│    ↓                            │
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;│ videoClient 对象                │
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;│    ↓                            │
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;│ videoClient.Feed()              │
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;└──────────────┬──────────────────┘
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;               │
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;               │ 网络 RPC
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;               ▼
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Video 进程内存
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;┌─────────────────────────────────┐
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;│ Kitex Server                    │
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;│    ↓                            │
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;│ VideoServiceImpl.Feed()         │
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;│    ↓                            │
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;│ 执行真正的业务逻辑              │
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;└─────────────────────────────────┘
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;videoservice包其实是kitex为双端提供的契约和动作&#34;&gt;videoservice包其实是kitex为双端提供的契约和动作
+&lt;/h2&gt;&lt;p&gt;好吧那么kitex提供了一个代码包来为两端服务,可是这个代码包是怎么来的?也就是说只要我通过proto提供接口和协议,这样我就只用写一端的逻辑,另一端的逻辑由kitex负责?可是为什么我在video里面看到的videoservice全都是kitex产生的代码包,这感觉像是凭空产生,可是这要如何跟我们的业务对接?
+kitex生成了什么?我们需要写什么?Kitex 自动生成的是两端的通信代码，而不是自动实现一端的业务逻辑。&lt;/p&gt;
+&lt;p&gt;第 1 步：开发者编写 &lt;code&gt;video.proto&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;定义 &lt;code&gt;FeedRequest&lt;/code&gt;、&lt;code&gt;FeedResponse&lt;/code&gt; 和 &lt;code&gt;VideoService&lt;/code&gt; 的 RPC 接口。&lt;/p&gt;
+&lt;p&gt;运行 kitex 代码生成命令&lt;/p&gt;
+&lt;p&gt;第 2 步：Kitex 生成 Go 源码&lt;/p&gt;
+&lt;p&gt;生成消息类型、RPC 接口、客户端代理、服务端分发代码等。&lt;/p&gt;
+&lt;p&gt;开发者编写业务实现&lt;/p&gt;
+&lt;p&gt;第 3 步：实现 &lt;code&gt;VideoServiceImpl&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;自己编写数据库查询、视频发布、MinIO 访问等业务。&lt;/p&gt;
+&lt;p&gt;第 4 步：编译并运行 API 和 Video 进程&lt;/p&gt;
+&lt;p&gt;两端使用生成的 Go 代码完成 RPC 通信。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;具体的实现就是到了video微服务的文件夹了&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;kitex生成的代码并不是替代我们写的业务的关系,而是在需要rpc通信的时候执行那个部分的源码.也就说实际的数据流差不多是,api进程在handler解析http参数,然后rpc的feed函数调用了videoservice,那么api进程就会通过kitex生成的代码来向video进程通信,跨进程.&lt;/p&gt;
 </description>
         </item>
         

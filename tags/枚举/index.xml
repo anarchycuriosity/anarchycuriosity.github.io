@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>枚举 on Curiosity Anarchy</title>
+        <link>https://anarchycuriosity.github.io/tags/%E6%9E%9A%E4%B8%BE/</link>
+        <description>Recent content in 枚举 on Curiosity Anarchy</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <copyright>Curiosity Anarchy</copyright>
+        <lastBuildDate>Tue, 04 Nov 2025 00:00:00 +0800</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/tags/%E6%9E%9A%E4%B8%BE/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>C&#43;&#43; enum class｜底层表示与显式类型转换</title>
+        <link>https://anarchycuriosity.github.io/p/cpp-enum-underlying-types/</link>
+        <pubDate>Tue, 04 Nov 2025 00:00:00 +0800</pubDate>
+        
+        <guid>https://anarchycuriosity.github.io/p/cpp-enum-underlying-types/</guid>
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_21a0902a045ab984.jpg" alt="Featured image of post C&#43;&#43; enum class｜底层表示与显式类型转换" /&gt;&lt;h2 id=&#34;枚举类是编号吗为什么在debug的print里面要强转int然后输出&#34;&gt;枚举类是编号吗?为什么在debug的print里面要强转int然后输出?
+&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;那这么多个相同的变量都可以是1,那把这个类转为1会不会有比如重复的风险?这个或者说这个转化之后的整数我觉得很神秘,所以我一直定义和使用的一个枚举类它的本质只是一个编号?枚举类和普通类有区别吗?比如他不能存什么数据?&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;如果枚举成员最后都只是整数，那么不同的枚举成员能不能对应同一个整数？如果可以，程序怎么区分它们？&lt;code&gt;enum class&lt;/code&gt; 和普通的 &lt;code&gt;class&lt;/code&gt; 究竟有什么区别？&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;先说结论：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;enum class&lt;/code&gt; 本质上是一种具有独立类型身份、以整数作为底层表示的枚举类型。它不是普通的类，也不会为每个枚举成员创建一个对象。&lt;/p&gt;
+&lt;p&gt;而且你担心的重复问题确实存在：不同枚举成员可以拥有相同的整数值，C++ 不会自动禁止这种情况。
+如果你没有给它们指定数值，C++ 默认从 0 开始递增。&lt;/p&gt;
+&lt;p&gt;编译器确定的枚举值&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;&lt;/th&gt;
+          &lt;th&gt;&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;成员名称&lt;/td&gt;
+          &lt;td&gt;底层整数值&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;need_data&lt;/td&gt;
+          &lt;td&gt;0&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;complete&lt;/td&gt;
+          &lt;td&gt;1&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;bad_request&lt;/td&gt;
+          &lt;td&gt;2&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;header_too_large&lt;/td&gt;
+          &lt;td&gt;3&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;编译器会知道这个是一个枚举值,所以&lt;code&gt;int x = result;  // 错误&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;但是允许转换&lt;/td&gt;
+          &lt;td&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;强类型枚举&#34;&gt;强类型枚举
+&lt;/h2&gt;&lt;p&gt;对于同一个枚举类里面的不同的枚举成员,如果我们把比如need_data和bad_request都赋值为1,那么就会出现无法判断的情况,因为无论如何第一个if分支都会先成立&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;result&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;parse_result&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;need_data&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;c1&#34;&gt;// ...
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;else&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;result&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;parse_result&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;bad_request&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;c1&#34;&gt;// ...
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;但是我们允许不同强枚举类里面的成员值相同,因为强枚举本身就能区分它们.但如果我们进行强转的话,就会失去强枚举类带给我们的这个区分能力.&lt;/p&gt;
+&lt;p&gt;记住&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;parse_result&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;result&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;parse_result&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;bad_request&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;这里的 &lt;code&gt;result&lt;/code&gt; 是一个变量，&lt;code&gt;parse_result&lt;/code&gt; 是类型，&lt;code&gt;parse_result::bad_request&lt;/code&gt; 是枚举常量。&lt;/p&gt;
+&lt;p&gt;它不是创建了一个 &lt;code&gt;bad_request&lt;/code&gt; 类对象，也不是保存了 &lt;code&gt;&amp;quot;bad_request&amp;quot;&lt;/code&gt; 这个字符串。&lt;/p&gt;
+&lt;p&gt;你以前一直在使用的 &lt;code&gt;parse_result&lt;/code&gt;，本质上就是用类型安全的命名数值，替代那些难以理解的魔法数字。&lt;/p&gt;
+&lt;h2 id=&#34;转化的意义是什么&#34;&gt;转化的意义是什么
+&lt;/h2&gt;&lt;p&gt;&lt;code&gt;static_cast&amp;lt;int&amp;gt;(result)&lt;/code&gt; 的意义，是主动放弃 &lt;code&gt;parse_result&lt;/code&gt; 的类型限制，取出它对应的整数值，以便交给只接受整数的接口使用。&lt;/p&gt;
+&lt;p&gt;在cpp中,底层表示和身份类型是需要被区分的.强转之后数值不变,但是编译器不认了.这样就可以区分不同的业务&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

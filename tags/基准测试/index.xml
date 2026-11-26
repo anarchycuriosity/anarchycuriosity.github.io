@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>基准测试 on Curiosity Anarchy</title>
+        <link>https://anarchycuriosity.github.io/tags/%E5%9F%BA%E5%87%86%E6%B5%8B%E8%AF%95/</link>
+        <description>Recent content in 基准测试 on Curiosity Anarchy</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <copyright>Curiosity Anarchy</copyright>
+        <lastBuildDate>Tue, 30 Sep 2025 00:00:00 +0800</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/tags/%E5%9F%BA%E5%87%86%E6%B5%8B%E8%AF%95/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Go Benchmark｜循环基准与调用成本</title>
+        <link>https://anarchycuriosity.github.io/p/go-benchmark-iteration/</link>
+        <pubDate>Tue, 30 Sep 2025 00:00:00 +0800</pubDate>
+        
+        <guid>https://anarchycuriosity.github.io/p/go-benchmark-iteration/</guid>
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_0d5db53fcaf469e5.jpg" alt="Featured image of post Go Benchmark｜循环基准与调用成本" /&gt;&lt;h2 id=&#34;普通测试与基准测试有什么区别&#34;&gt;普通测试与基准测试有什么区别？
+&lt;/h2&gt;&lt;p&gt;普通测试关心：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;结果正确吗？&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;基准测试关心：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;执行这段代码需要多少时间，以及产生多少内存分配？&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Go 的 &lt;code&gt;testing&lt;/code&gt; 包同时支持这两种测试。&lt;/p&gt;
+&lt;p&gt;普通测试使用 &lt;code&gt;*testing.T&lt;/code&gt;；基准测试使用 &lt;code&gt;*testing.B&lt;/code&gt;。&lt;/p&gt;
+&lt;h2 id=&#34;bn-是什么&#34;&gt;b.N 是什么？
+&lt;/h2&gt;&lt;p&gt;基准测试包含一个循环：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;for i := 0; i &amp;lt; b.N; i++&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;这里的 &lt;code&gt;b.N&lt;/code&gt; 并不是我们自己设置的常量。&lt;/p&gt;
+&lt;p&gt;测试框架会自动选择运行次数，用多次执行测量平均成本。&lt;/p&gt;
+&lt;p&gt;注意区分：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Repeat(&amp;#34;a&amp;#34;)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   ↓
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;函数内部循环 5 次
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;BenchmarkRepeat
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   ↓
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;调用 Repeat 共 b.N 次
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;这是两层不同的循环。&lt;/p&gt;
+&lt;h2 id=&#34;实际测量&#34;&gt;实际测量
+&lt;/h2&gt;&lt;p&gt;保持上一课的 &lt;code&gt;repeat.go&lt;/code&gt;，将 &lt;code&gt;repeat_test.go&lt;/code&gt; 替换为末尾版本。&lt;/p&gt;
+&lt;p&gt;在 &lt;code&gt;04-iteration/&lt;/code&gt; 执行：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;gofmt -w repeat.go repeat_test.go
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;go &lt;span class=&#34;nb&#34;&gt;test&lt;/span&gt; -run &lt;span class=&#34;s1&#34;&gt;&amp;#39;^$&amp;#39;&lt;/span&gt; -bench&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;. -benchmem
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;这里：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;-run &#39;^$&#39;&lt;/code&gt;：跳过普通测试。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;-bench=.&lt;/code&gt;：运行名称匹配的基准测试。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;-benchmem&lt;/code&gt;：同时报告内存分配指标。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;预期出现以 &lt;code&gt;BenchmarkRepeat&lt;/code&gt; 开头的结果，包含：&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;指标&lt;/th&gt;
+          &lt;th&gt;含义&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;b.N&lt;/code&gt; 对应的执行次数&lt;/td&gt;
+          &lt;td&gt;框架本次选择的调用次数&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;ns/op&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;平均每次操作的纳秒数&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;B/op&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;平均每次操作分配的字节数&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;allocs/op&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;平均每次操作的内存分配次数&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;实际数字取决于机器、编译器、负载和代码，不能预先指定。&lt;/p&gt;
+&lt;p&gt;默认情况下，各基准测试不会自动并行执行，但操作系统仍可能带来测量波动。&lt;/p&gt;
+&lt;h2 id=&#34;立即预测&#34;&gt;立即预测
+&lt;/h2&gt;&lt;p&gt;如果把基准测试中的 &lt;code&gt;Repeat(&amp;quot;a&amp;quot;)&lt;/code&gt; 改成 &lt;code&gt;Repeat(&amp;quot;abc&amp;quot;)&lt;/code&gt;：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;函数内部循环次数变了吗？&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;b.N&lt;/code&gt; 一定和之前相同吗？&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ns/op&lt;/code&gt; 一定更大吗？&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;先预测，再运行两组测试。需要重复观察时可执行：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;go &lt;span class=&#34;nb&#34;&gt;test&lt;/span&gt; -run &lt;span class=&#34;s1&#34;&gt;&amp;#39;^$&amp;#39;&lt;/span&gt; -bench&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;. -benchmem -count&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;3&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;关键结论：&lt;strong&gt;Benchmark 测量的是实际工作负载的运行成本，不是根据源码行数推断速度。&lt;/strong&gt;&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

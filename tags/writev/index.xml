@@ -7,10 +7,10 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Curiosity Anarchy</copyright>
-        <lastBuildDate>Fri, 23 Oct 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/tags/writev/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 18 Aug 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/tags/writev/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>TinyWebServer 响应发送｜writev 聚集写入与部分写入游标</title>
         <link>https://anarchycuriosity.github.io/p/tiny-web-server-writev-partial-writes/</link>
-        <pubDate>Fri, 23 Oct 2026 00:00:00 +0800</pubDate>
+        <pubDate>Tue, 18 Aug 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/tiny-web-server-writev-partial-writes/</guid>
         <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_89ade664ebe797e4.png" alt="Featured image of post TinyWebServer 响应发送｜writev 聚集写入与部分写入游标" /&gt;&lt;h2 id=&#34;响应头和正文怎样交给同一次-writev&#34;&gt;响应头和正文怎样交给同一次 writev
