@@ -7,10 +7,10 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Curiosity Anarchy</copyright>
-        <lastBuildDate>Tue, 23 Dec 2025 00:00:00 +0800</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/tags/%E5%8F%8D%E5%B0%84/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 20 Oct 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/tags/%E5%8F%8D%E5%B0%84/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Go reflect｜嵌套结构、指针与容器遍历</title>
         <link>https://anarchycuriosity.github.io/p/go-reflection-walk/</link>
-        <pubDate>Tue, 23 Dec 2025 00:00:00 +0800</pubDate>
+        <pubDate>Tue, 20 Oct 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/go-reflection-walk/</guid>
         <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_389dc825f5cdd6f2.jpg" alt="Featured image of post Go reflect｜嵌套结构、指针与容器遍历" /&gt;&lt;h2 id=&#34;嵌套结构体为什么没有被遍历&#34;&gt;嵌套结构体为什么没有被遍历？

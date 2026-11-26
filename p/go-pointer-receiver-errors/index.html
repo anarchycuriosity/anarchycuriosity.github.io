@@ -10,7 +10,7 @@
 <meta property='og:description' content="指针接收者 把方法接收者改成：\n1 2 3 func (w *Wallet) Deposit(amount int) { w.balance += amount } *Wallet 表示指向 Wallet 的指针。\n现在运行时的关系变成：\n1 2 3 4 5 6 7 8 9 10 测试中的 wallet balance = 0 ▲ │ w 指向它 │ Deposit(10) │ ▼ 原对象 balance = 10 此时 w 是指针变量，它本身也按值传递。被复制的是地址，而不是整个钱包。\n">
 <meta property='og:url' content='https://anarchycuriosity.github.io/p/go-pointer-receiver-errors/'>
 <meta property='og:site_name' content='Curiosity Anarchy'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Go' /><meta property='article:tag' content='指针' /><meta property='article:tag' content='错误处理' /><meta property='article:published_time' content='2025-10-14T00:00:00&#43;08:00'/><meta property='article:modified_time' content='2025-10-14T00:00:00&#43;08:00'/><meta property='og:image' content='https://anarchycuriosity.github.io/moe/animation_1e1fa335c149b096.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Go' /><meta property='article:tag' content='指针' /><meta property='article:tag' content='错误处理' /><meta property='article:published_time' content='2026-10-20T00:00:00&#43;08:00'/><meta property='article:modified_time' content='2026-10-20T00:00:00&#43;08:00'/><meta property='og:image' content='https://anarchycuriosity.github.io/moe/animation_1e1fa335c149b096.png' />
 <meta name="twitter:title" content="Go 指针接收者｜原地修改与错误返回">
 <meta name="twitter:description" content="指针接收者 把方法接收者改成：\n1 2 3 func (w *Wallet) Deposit(amount int) { w.balance += amount } *Wallet 表示指向 Wallet 的指针。\n现在运行时的关系变成：\n1 2 3 4 5 6 7 8 9 10 测试中的 wallet balance = 0 ▲ │ w 指向它 │ Deposit(10) │ ▼ 原对象 balance = 10 此时 w 是指针变量，它本身也按值传递。被复制的是地址，而不是整个钱包。\n"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://anarchycuriosity.github.io/moe/animation_1e1fa335c149b096.png' />
@@ -315,7 +315,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">2025-10-14</time>
+                <time class="article-time--published">2026-10-20</time>
             </div>
         
 
@@ -643,25 +643,6 @@
             
                 
 <article class="has-image">
-    <a href="/p/go-map-lookup-update/">
-        
-        
-            <div class="article-image">
-                
-                    <img src="/moe/animation_21598efd8cf1263c.png" loading="lazy" data-key="go-map-lookup-update" data-hash="/moe/animation_21598efd8cf1263c.png"/>
-                
-            </div>
-        
-
-        <div class="article-details">
-            <h2 class="article-title">Go map｜键存在性、查询失败与修改语义</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="has-image">
     <a href="/p/go-errors-as-values/">
         
         
@@ -681,18 +662,37 @@
             
                 
 <article class="has-image">
-    <a href="/p/go-reflection-walk/">
+    <a href="/p/go-map-lookup-update/">
         
         
             <div class="article-image">
                 
-                    <img src="/moe/animation_389dc825f5cdd6f2.jpg" loading="lazy" data-key="go-reflection-walk" data-hash="/moe/animation_389dc825f5cdd6f2.jpg"/>
+                    <img src="/moe/animation_21598efd8cf1263c.png" loading="lazy" data-key="go-map-lookup-update" data-hash="/moe/animation_21598efd8cf1263c.png"/>
                 
             </div>
         
 
         <div class="article-details">
-            <h2 class="article-title">Go reflect｜嵌套结构、指针与容器遍历</h2>
+            <h2 class="article-title">Go map｜键存在性、查询失败与修改语义</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/go-benchmark-iteration/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/moe/animation_0d5db53fcaf469e5.jpg" loading="lazy" data-key="go-benchmark-iteration" data-hash="/moe/animation_0d5db53fcaf469e5.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Go Benchmark｜循环基准与调用成本</h2>
         </div>
     </a>
 </article>
@@ -719,18 +719,18 @@
             
                 
 <article class="has-image">
-    <a href="/p/go-package-visibility/">
+    <a href="/p/go-reflection-walk/">
         
         
             <div class="article-image">
                 
-                    <img src="/moe/animation_2865e0743dc2fc45.jpg" loading="lazy" data-key="go-package-visibility" data-hash="/moe/animation_2865e0743dc2fc45.jpg"/>
+                    <img src="/moe/animation_389dc825f5cdd6f2.jpg" loading="lazy" data-key="go-reflection-walk" data-hash="/moe/animation_389dc825f5cdd6f2.jpg"/>
                 
             </div>
         
 
         <div class="article-details">
-            <h2 class="article-title">Go 包边界｜导出 API、外部包测试与可见性</h2>
+            <h2 class="article-title">Go reflect｜嵌套结构、指针与容器遍历</h2>
         </div>
     </a>
 </article>

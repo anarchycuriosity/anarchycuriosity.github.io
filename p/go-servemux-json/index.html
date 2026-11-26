@@ -10,7 +10,7 @@
 <meta property='og:description' content="为什么不继续写一堆 if？ 上一篇已经暴露了问题：\nPlayerServer 不应该在确认请求路径之前，就直接切割字符串。\n最直接的修复是：\n1 2 if path == &#34;/league&#34; ... else if strings.HasPrefix(path, &#34;/players/&#34;) ... 但随着端点数量增加，每次请求都需要自己判断路径、HTTP 方法、路径参数，以及没有匹配时如何回应。\n">
 <meta property='og:url' content='https://anarchycuriosity.github.io/p/go-servemux-json/'>
 <meta property='og:site_name' content='Curiosity Anarchy'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Go' /><meta property='article:tag' content='net/http' /><meta property='article:tag' content='JSON' /><meta property='article:published_time' content='2026-03-10T00:00:00&#43;08:00'/><meta property='article:modified_time' content='2026-03-10T00:00:00&#43;08:00'/><meta property='og:image' content='https://anarchycuriosity.github.io/moe/animation_4b77f25ab3e0235b.jpg' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Go' /><meta property='article:tag' content='net/http' /><meta property='article:tag' content='JSON' /><meta property='article:published_time' content='2026-10-20T00:00:00&#43;08:00'/><meta property='article:modified_time' content='2026-10-20T00:00:00&#43;08:00'/><meta property='og:image' content='https://anarchycuriosity.github.io/moe/animation_4b77f25ab3e0235b.jpg' />
 <meta name="twitter:title" content="Go ServeMux｜路由复用与 JSON 响应断言">
 <meta name="twitter:description" content="为什么不继续写一堆 if？ 上一篇已经暴露了问题：\nPlayerServer 不应该在确认请求路径之前，就直接切割字符串。\n最直接的修复是：\n1 2 if path == &#34;/league&#34; ... else if strings.HasPrefix(path, &#34;/players/&#34;) ... 但随着端点数量增加，每次请求都需要自己判断路径、HTTP 方法、路径参数，以及没有匹配时如何回应。\n"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://anarchycuriosity.github.io/moe/animation_4b77f25ab3e0235b.jpg' />
@@ -306,7 +306,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">2026-03-10</time>
+                <time class="article-time--published">2026-10-20</time>
             </div>
         
 
@@ -819,25 +819,6 @@
             
                 
 <article class="has-image">
-    <a href="/p/go-http-store-interface/">
-        
-        
-            <div class="article-image">
-                
-                    <img src="/moe/animation_4a953396b75c1997.jpg" loading="lazy" data-key="go-http-store-interface" data-hash="/moe/animation_4a953396b75c1997.jpg"/>
-                
-            </div>
-        
-
-        <div class="article-details">
-            <h2 class="article-title">Go net/http｜PlayerStore 接口与 Handler 的存储依赖</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="has-image">
     <a href="/p/go-http-handler-contract/">
         
         
@@ -857,18 +838,37 @@
             
                 
 <article class="has-image">
-    <a href="/p/go-feed-query-card-assembly/">
+    <a href="/p/go-http-store-interface/">
         
         
             <div class="article-image">
                 
-                    <img src="/moe/animation_a2336e6bf7ac2475.jpg" loading="lazy" data-key="go-feed-query-card-assembly" data-hash="/moe/animation_a2336e6bf7ac2475.jpg"/>
+                    <img src="/moe/animation_4a953396b75c1997.jpg" loading="lazy" data-key="go-http-store-interface" data-hash="/moe/animation_4a953396b75c1997.jpg"/>
                 
             </div>
         
 
         <div class="article-details">
-            <h2 class="article-title">Feed 03 · MySQL｜时间窗口查询与视频卡片组装</h2>
+            <h2 class="article-title">Go net/http｜PlayerStore 接口与 Handler 的存储依赖</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/go-registration-rpc/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/moe/animation_9a7b825502bc8466.png" loading="lazy" data-key="go-registration-rpc" data-hash="/moe/animation_9a7b825502bc8466.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Go Kitex 注册服务｜跨进程调用与 RPC 错误映射</h2>
         </div>
     </a>
 </article>

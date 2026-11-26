@@ -10,7 +10,7 @@
 <meta property='og:description' content="先预测一个故障 假设文件原有五个字节：\n1 1 2 3 4 5 执行 Seek(0, io.SeekStart)，然后写入 &quot;abc&quot;。\n文件会变成什么？\n答案不是 abc，而是：\n1 a b c 4 5 因为 Seek 只改变文件当前位置，Write 只覆盖被写入的字节，并不会自动缩短文件长度。\n">
 <meta property='og:url' content='https://anarchycuriosity.github.io/p/go-file-overwrite-truncate/'>
 <meta property='og:site_name' content='Curiosity Anarchy'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Go' /><meta property='article:tag' content='文件存储' /><meta property='article:tag' content='持久化' /><meta property='article:published_time' content='2026-04-07T00:00:00&#43;08:00'/><meta property='article:modified_time' content='2026-04-07T00:00:00&#43;08:00'/><meta property='og:image' content='https://anarchycuriosity.github.io/moe/animation_56bc59673976b9cb.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Go' /><meta property='article:tag' content='文件存储' /><meta property='article:tag' content='持久化' /><meta property='article:published_time' content='2026-10-20T00:00:00&#43;08:00'/><meta property='article:modified_time' content='2026-10-20T00:00:00&#43;08:00'/><meta property='og:image' content='https://anarchycuriosity.github.io/moe/animation_56bc59673976b9cb.png' />
 <meta name="twitter:title" content="Go 文件写入｜Seek、Truncate 与短写">
 <meta name="twitter:description" content="先预测一个故障 假设文件原有五个字节：\n1 1 2 3 4 5 执行 Seek(0, io.SeekStart)，然后写入 &quot;abc&quot;。\n文件会变成什么？\n答案不是 abc，而是：\n1 a b c 4 5 因为 Seek 只改变文件当前位置，Write 只覆盖被写入的字节，并不会自动缩短文件长度。\n"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://anarchycuriosity.github.io/moe/animation_56bc59673976b9cb.png' />
@@ -301,7 +301,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">2026-04-07</time>
+                <time class="article-time--published">2026-10-20</time>
             </div>
         
 
@@ -505,25 +505,6 @@
             
                 
 <article class="has-image">
-    <a href="/p/go-file-store-initialization/">
-        
-        
-            <div class="article-image">
-                
-                    <img src="/moe/animation_5a6f5495ee8a4bd6.png" loading="lazy" data-key="go-file-store-initialization" data-hash="/moe/animation_5a6f5495ee8a4bd6.png"/>
-                
-            </div>
-        
-
-        <div class="article-details">
-            <h2 class="article-title">Go 文件存储｜空文件、损坏数据与失败后的缓存一致性</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="has-image">
     <a href="/p/go-cli-http-persistence-test/">
         
         
@@ -543,18 +524,37 @@
             
                 
 <article class="has-image">
-    <a href="/p/go-file-store-sorting/">
+    <a href="/p/go-file-store-initialization/">
         
         
             <div class="article-image">
                 
-                    <img src="/moe/animation_57c7f1a9ded2f373.jpg" loading="lazy" data-key="go-file-store-sorting" data-hash="/moe/animation_57c7f1a9ded2f373.jpg"/>
+                    <img src="/moe/animation_5a6f5495ee8a4bd6.png" loading="lazy" data-key="go-file-store-initialization" data-hash="/moe/animation_5a6f5495ee8a4bd6.png"/>
                 
             </div>
         
 
         <div class="article-details">
-            <h2 class="article-title">Go 文件存储｜排序职责、切片副本与端到端测试</h2>
+            <h2 class="article-title">Go 文件存储｜空文件、损坏数据与失败后的缓存一致性</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/go-json-reader-offset/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/moe/animation_4fdc22df44a9b4b3.jpg" loading="lazy" data-key="go-json-reader-offset" data-hash="/moe/animation_4fdc22df44a9b4b3.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Go JSON 文件读取｜io.Reader 的消费语义与文件偏移</h2>
         </div>
     </a>
 </article>

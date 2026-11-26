@@ -10,7 +10,7 @@
 <meta property='og:description' content="为什么先从硬编码开始？ 需求：\nGET /players/Pepper → 20 以后还要支持其他玩家和记录胜场。 先不考虑存储。我们只验证一条链路：\n1 2 3 4 5 6 7 8 9 客户端发出 GET 请求 ↓ net/http 接收请求 ↓ 调用 PlayerServer ↓ PlayerServer 写入 &#34;20&#34; ↓ 客户端收到 HTTP 响应 PlayerServer 暂时不知道 Pepper 是谁，也不知道分数来自哪里。\n">
 <meta property='og:url' content='https://anarchycuriosity.github.io/p/go-http-handler-contract/'>
 <meta property='og:site_name' content='Curiosity Anarchy'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Go' /><meta property='article:tag' content='net/http' /><meta property='article:tag' content='HTTP' /><meta property='article:published_time' content='2026-02-24T00:00:00&#43;08:00'/><meta property='article:modified_time' content='2026-02-24T00:00:00&#43;08:00'/><meta property='og:image' content='https://anarchycuriosity.github.io/moe/animation_44776825acbda88d.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Go' /><meta property='article:tag' content='net/http' /><meta property='article:tag' content='HTTP' /><meta property='article:published_time' content='2026-10-20T00:00:00&#43;08:00'/><meta property='article:modified_time' content='2026-10-20T00:00:00&#43;08:00'/><meta property='og:image' content='https://anarchycuriosity.github.io/moe/animation_44776825acbda88d.png' />
 <meta name="twitter:title" content="Go net/http｜Handler、ResponseWriter 与进程内测试">
 <meta name="twitter:description" content="为什么先从硬编码开始？ 需求：\nGET /players/Pepper → 20 以后还要支持其他玩家和记录胜场。 先不考虑存储。我们只验证一条链路：\n1 2 3 4 5 6 7 8 9 客户端发出 GET 请求 ↓ net/http 接收请求 ↓ 调用 PlayerServer ↓ PlayerServer 写入 &#34;20&#34; ↓ 客户端收到 HTTP 响应 PlayerServer 暂时不知道 Pepper 是谁，也不知道分数来自哪里。\n"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://anarchycuriosity.github.io/moe/animation_44776825acbda88d.png' />
@@ -303,7 +303,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">2026-02-24</time>
+                <time class="article-time--published">2026-10-20</time>
             </div>
         
 
@@ -688,6 +688,25 @@
             
                 
 <article class="has-image">
+    <a href="/p/go-registration-http/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/moe/animation_9495f9458174f956.jpg" loading="lazy" data-key="go-registration-http" data-hash="/moe/animation_9495f9458174f956.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Go Hertz 注册接口｜POST 路由、参数校验与 HTTP 状态</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
     <a href="/p/go-feed-http-entry/">
         
         
@@ -707,18 +726,18 @@
             
                 
 <article class="has-image">
-    <a href="/p/go-registration-http/">
+    <a href="/p/go-json-handler-response/">
         
         
             <div class="article-image">
                 
-                    <img src="/moe/animation_9495f9458174f956.jpg" loading="lazy" data-key="go-registration-http" data-hash="/moe/animation_9495f9458174f956.jpg"/>
+                    <img src="/moe/animation_4bdee1467703bdad.jpg" loading="lazy" data-key="go-json-handler-response" data-hash="/moe/animation_4bdee1467703bdad.jpg"/>
                 
             </div>
         
 
         <div class="article-details">
-            <h2 class="article-title">Go Hertz 注册接口｜POST 路由、参数校验与 HTTP 状态</h2>
+            <h2 class="article-title">Go JSON API｜存储接口、Content-Type 与响应构造</h2>
         </div>
     </a>
 </article>
@@ -745,37 +764,18 @@
             
                 
 <article class="has-image">
-    <a href="/p/go-cli-http-persistence-test/">
+    <a href="/p/go-servemux-json/">
         
         
             <div class="article-image">
                 
-                    <img src="/moe/animation_baf0d256570f1143.jpg" loading="lazy" data-key="go-cli-http-persistence-test" data-hash="/moe/animation_baf0d256570f1143.jpg"/>
+                    <img src="/moe/animation_4b77f25ab3e0235b.jpg" loading="lazy" data-key="go-servemux-json" data-hash="/moe/animation_4b77f25ab3e0235b.jpg"/>
                 
             </div>
         
 
         <div class="article-details">
-            <h2 class="article-title">Go httptest｜CLI 与 HTTP 的 JSON 持久化集成测试</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="has-image">
-    <a href="/p/go-json-handler-response/">
-        
-        
-            <div class="article-image">
-                
-                    <img src="/moe/animation_4bdee1467703bdad.jpg" loading="lazy" data-key="go-json-handler-response" data-hash="/moe/animation_4bdee1467703bdad.jpg"/>
-                
-            </div>
-        
-
-        <div class="article-details">
-            <h2 class="article-title">Go JSON API｜存储接口、Content-Type 与响应构造</h2>
+            <h2 class="article-title">Go ServeMux｜路由复用与 JSON 响应断言</h2>
         </div>
     </a>
 </article>

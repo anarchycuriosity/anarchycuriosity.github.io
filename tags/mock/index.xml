@@ -7,10 +7,10 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Curiosity Anarchy</copyright>
-        <lastBuildDate>Tue, 09 Dec 2025 00:00:00 +0800</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/tags/mock/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 20 Oct 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/tags/mock/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Go Mock｜时间依赖与调用顺序验证</title>
         <link>https://anarchycuriosity.github.io/p/go-mock-call-order/</link>
-        <pubDate>Tue, 09 Dec 2025 00:00:00 +0800</pubDate>
+        <pubDate>Tue, 20 Oct 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/go-mock-call-order/</guid>
         <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_2b372a022841729d.jpg" alt="Featured image of post Go Mock｜时间依赖与调用顺序验证" /&gt;&lt;h2 id=&#34;功能正确为什么测试却变差了&#34;&gt;功能正确，为什么测试却变差了？

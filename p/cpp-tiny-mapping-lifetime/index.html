@@ -10,7 +10,7 @@
 <meta property='og:description' content="四、mmap 不等于把整个文件立即读进物理内存 这一点必须单独标记。\n错误近似：\n1 2 3 mmap(file) = 立即把整个文件复制到 RAM 更合适的模型：\n1 2 3 4 5 文件 ↓ 建立虚拟地址映射关系 ↓ 进程可以通过 file_address 访问文件内容 相关页面什么时候真正进入物理内存，是更底层的内核内存管理问题。\n">
 <meta property='og:url' content='https://anarchycuriosity.github.io/p/cpp-tiny-mapping-lifetime/'>
 <meta property='og:site_name' content='Curiosity Anarchy'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='cpp' /><meta property='article:tag' content='TinyWebServer' /><meta property='article:tag' content='mmap' /><meta property='article:tag' content='资源所有权' /><meta property='article:published_time' content='2026-08-04T00:00:00&#43;08:00'/><meta property='article:modified_time' content='2026-08-04T00:00:00&#43;08:00'/><meta property='og:image' content='https://anarchycuriosity.github.io/moe/animation_81e4ff5c88067d92.jpg' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='cpp' /><meta property='article:tag' content='TinyWebServer' /><meta property='article:tag' content='mmap' /><meta property='article:tag' content='资源所有权' /><meta property='article:published_time' content='2026-10-18T00:00:00&#43;08:00'/><meta property='article:modified_time' content='2026-10-18T00:00:00&#43;08:00'/><meta property='og:image' content='https://anarchycuriosity.github.io/moe/animation_81e4ff5c88067d92.jpg' />
 <meta name="twitter:title" content="TinyWebServer mmap｜文件描述符、映射区域和连接的生命周期">
 <meta name="twitter:description" content="四、mmap 不等于把整个文件立即读进物理内存 这一点必须单独标记。\n错误近似：\n1 2 3 mmap(file) = 立即把整个文件复制到 RAM 更合适的模型：\n1 2 3 4 5 文件 ↓ 建立虚拟地址映射关系 ↓ 进程可以通过 file_address 访问文件内容 相关页面什么时候真正进入物理内存，是更底层的内核内存管理问题。\n"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://anarchycuriosity.github.io/moe/animation_81e4ff5c88067d92.jpg' />
@@ -301,7 +301,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">2026-08-04</time>
+                <time class="article-time--published">2026-10-18</time>
             </div>
         
 
@@ -673,18 +673,18 @@
             
                 
 <article class="has-image">
-    <a href="/p/cpp-tiny-connection-logging/">
+    <a href="/p/tiny-web-server-writev-partial-writes/">
         
         
             <div class="article-image">
                 
-                    <img src="/moe/animation_7551dccf55d5aa69.jpg" loading="lazy" data-key="cpp-tiny-connection-logging" data-hash="/moe/animation_7551dccf55d5aa69.jpg"/>
+                    <img src="/moe/animation_89ade664ebe797e4.png" loading="lazy" data-key="tiny-web-server-writev-partial-writes" data-hash="/moe/animation_89ade664ebe797e4.png"/>
                 
             </div>
         
 
         <div class="article-details">
-            <h2 class="article-title">TinyWebServer 日志｜连接编号与格式化输出</h2>
+            <h2 class="article-title">TinyWebServer 响应发送｜writev 聚集写入与部分写入游标</h2>
         </div>
     </a>
 </article>
@@ -692,18 +692,18 @@
             
                 
 <article class="has-image">
-    <a href="/p/cpp-tiny-make-debug/">
+    <a href="/p/tiny-web-server-http-request-parsing/">
         
         
             <div class="article-image">
                 
-                    <img src="/moe/animation_6f4d837b9d443c05.jpg" loading="lazy" data-key="cpp-tiny-make-debug" data-hash="/moe/animation_6f4d837b9d443c05.jpg"/>
+                    <img src="/moe/animation_2376b17b99aeaf7d.jpg" loading="lazy" data-key="tiny-web-server-http-request-parsing" data-hash="/moe/animation_2376b17b99aeaf7d.jpg"/>
                 
             </div>
         
 
         <div class="article-details">
-            <h2 class="article-title">TinyWebServer 构建｜Makefile 调试目标与运行开关</h2>
+            <h2 class="article-title">TinyWebServer 请求解析｜TCP 字节流与增量解析游标</h2>
         </div>
     </a>
 </article>
@@ -711,18 +711,18 @@
             
                 
 <article class="has-image">
-    <a href="/p/cpp-tiny-errno/">
+    <a href="/p/tiny-web-server-static-file-routing/">
         
         
             <div class="article-image">
                 
-                    <img src="/moe/animation_789df0f4ef2ca147.png" loading="lazy" data-key="cpp-tiny-errno" data-hash="/moe/animation_789df0f4ef2ca147.png"/>
+                    <img src="/moe/animation_2de188f19d1e4457.png" loading="lazy" data-key="tiny-web-server-static-file-routing" data-hash="/moe/animation_2de188f19d1e4457.png"/>
                 
             </div>
         
 
         <div class="article-details">
-            <h2 class="article-title">TinyWebServer 诊断｜errno 与解析失败原因</h2>
+            <h2 class="article-title">TinyWebServer 静态资源｜URL 路径解码与 openat 文件定位</h2>
         </div>
     </a>
 </article>

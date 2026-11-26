@@ -7,10 +7,10 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Curiosity Anarchy</copyright>
-        <lastBuildDate>Tue, 02 Sep 2025 00:00:00 +0800</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/tags/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 20 Oct 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/tags/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Go 工具链｜PATH 查找、GOPATH 与模块边界</title>
         <link>https://anarchycuriosity.github.io/p/go-toolchain-path/</link>
-        <pubDate>Tue, 02 Sep 2025 00:00:00 +0800</pubDate>
+        <pubDate>Tue, 20 Oct 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/go-toolchain-path/</guid>
         <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_04fc6b7aa5add77a.jpg" alt="Featured image of post Go 工具链｜PATH 查找、GOPATH 与模块边界" /&gt;&lt;h2 id=&#34;path-与命令查找&#34;&gt;PATH 与命令查找

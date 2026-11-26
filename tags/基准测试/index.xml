@@ -7,10 +7,10 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Curiosity Anarchy</copyright>
-        <lastBuildDate>Tue, 30 Sep 2025 00:00:00 +0800</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/tags/%E5%9F%BA%E5%87%86%E6%B5%8B%E8%AF%95/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 20 Oct 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/tags/%E5%9F%BA%E5%87%86%E6%B5%8B%E8%AF%95/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Go Benchmark｜循环基准与调用成本</title>
         <link>https://anarchycuriosity.github.io/p/go-benchmark-iteration/</link>
-        <pubDate>Tue, 30 Sep 2025 00:00:00 +0800</pubDate>
+        <pubDate>Tue, 20 Oct 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/go-benchmark-iteration/</guid>
         <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_0d5db53fcaf469e5.jpg" alt="Featured image of post Go Benchmark｜循环基准与调用成本" /&gt;&lt;h2 id=&#34;普通测试与基准测试有什么区别&#34;&gt;普通测试与基准测试有什么区别？

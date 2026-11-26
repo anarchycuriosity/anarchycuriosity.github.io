@@ -7,10 +7,10 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Curiosity Anarchy</copyright>
-        <lastBuildDate>Tue, 26 May 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/tags/channel/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 20 Oct 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/tags/channel/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Go Channel｜并发执行与单一写入者</title>
         <link>https://anarchycuriosity.github.io/p/go-channel-single-writer/</link>
-        <pubDate>Tue, 26 May 2026 00:00:00 +0800</pubDate>
+        <pubDate>Tue, 20 Oct 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/go-channel-single-writer/</guid>
         <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_66a20d894787bf42.png" alt="Featured image of post Go Channel｜并发执行与单一写入者" /&gt;&lt;h2 id=&#34;重新分配职责&#34;&gt;重新分配职责

@@ -10,7 +10,7 @@
 <meta property='og:description' content="同一个注册请求，为什么停掉 user 就变了？ 整篇只追这一条请求：\n1 POST /douyin/user/register/?username=alice&amp;password=p 在 S03 的 show 里，user 在线时，这条请求得到 HTTP 200，响应中有 status_code: -1 和「账号持久化尚未接入」。只停 user，保留 API，再发同一条请求，HTTP 变成 502。与此同时，API 自己的 /healthz 仍可返回 200。\n">
 <meta property='og:url' content='https://anarchycuriosity.github.io/p/go-registration-rpc/'>
 <meta property='og:site_name' content='Curiosity Anarchy'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Go' /><meta property='article:tag' content='Kitex' /><meta property='article:tag' content='RPC' /><meta property='article:tag' content='用户注册' /><meta property='article:published_time' content='2026-09-22T00:00:00&#43;08:00'/><meta property='article:modified_time' content='2026-09-22T00:00:00&#43;08:00'/><meta property='og:image' content='https://anarchycuriosity.github.io/moe/animation_9a7b825502bc8466.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Go' /><meta property='article:tag' content='Kitex' /><meta property='article:tag' content='RPC' /><meta property='article:tag' content='用户注册' /><meta property='article:published_time' content='2026-11-22T00:00:00&#43;08:00'/><meta property='article:modified_time' content='2026-11-22T00:00:00&#43;08:00'/><meta property='og:image' content='https://anarchycuriosity.github.io/moe/animation_9a7b825502bc8466.png' />
 <meta name="twitter:title" content="Go Kitex 注册服务｜跨进程调用与 RPC 错误映射">
 <meta name="twitter:description" content="同一个注册请求，为什么停掉 user 就变了？ 整篇只追这一条请求：\n1 POST /douyin/user/register/?username=alice&amp;password=p 在 S03 的 show 里，user 在线时，这条请求得到 HTTP 200，响应中有 status_code: -1 和「账号持久化尚未接入」。只停 user，保留 API，再发同一条请求，HTTP 变成 502。与此同时，API 自己的 /healthz 仍可返回 200。\n"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://anarchycuriosity.github.io/moe/animation_9a7b825502bc8466.png' />
@@ -301,7 +301,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">2026-09-22</time>
+                <time class="article-time--published">2026-11-22</time>
             </div>
         
 
@@ -502,6 +502,25 @@
             
                 
 <article class="has-image">
+    <a href="/p/go-kitex-generated-boundary/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/moe/animation_90b82d8470367131.jpg" loading="lazy" data-key="go-kitex-generated-boundary" data-hash="/moe/animation_90b82d8470367131.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Go Kitex｜生成的接口、客户端与服务端实现</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
     <a href="/p/go-rpc-call-options/">
         
         
@@ -540,37 +559,18 @@
             
                 
 <article class="has-image">
-    <a href="/p/go-kitex-generated-boundary/">
+    <a href="/p/go-registration-mysql-startup/">
         
         
             <div class="article-image">
                 
-                    <img src="/moe/animation_90b82d8470367131.jpg" loading="lazy" data-key="go-kitex-generated-boundary" data-hash="/moe/animation_90b82d8470367131.jpg"/>
+                    <img src="/moe/animation_9d8b341e45d3e617.jpg" loading="lazy" data-key="go-registration-mysql-startup" data-hash="/moe/animation_9d8b341e45d3e617.jpg"/>
                 
             </div>
         
 
         <div class="article-details">
-            <h2 class="article-title">Go Kitex｜生成的接口、客户端与服务端实现</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="has-image">
-    <a href="/p/go-context-cancellation/">
-        
-        
-            <div class="article-image">
-                
-                    <img src="/moe/animation_a6c393737b5185c5.jpg" loading="lazy" data-key="go-context-cancellation" data-hash="/moe/animation_a6c393737b5185c5.jpg"/>
-                
-            </div>
-        
-
-        <div class="article-details">
-            <h2 class="article-title">Go context.Context｜请求取消、Done 通道与协作退出</h2>
+            <h2 class="article-title">Go MySQL 用户服务｜建表与监听端口的启动顺序</h2>
         </div>
     </a>
 </article>
