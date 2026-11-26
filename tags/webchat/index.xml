@@ -7,10 +7,10 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Curiosity Anarchy</copyright>
-        <lastBuildDate>Tue, 25 Aug 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/tags/webchat/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 01 Oct 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/tags/webchat/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>C&#43;&#43; WebChat｜会话对象与数据库连接池的资源边界</title>
         <link>https://anarchycuriosity.github.io/p/cpp-webchat-pool-design/</link>
-        <pubDate>Tue, 25 Aug 2026 00:00:00 +0800</pubDate>
+        <pubDate>Thu, 01 Oct 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/cpp-webchat-pool-design/</guid>
         <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_883525848225aca8.jpg" alt="Featured image of post C&#43;&#43; WebChat｜会话对象与数据库连接池的资源边界" /&gt;&lt;h2 id=&#34;从会话对象看连接管理&#34;&gt;从会话对象看连接管理

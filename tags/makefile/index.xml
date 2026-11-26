@@ -7,10 +7,10 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Curiosity Anarchy</copyright>
-        <lastBuildDate>Tue, 09 Jun 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/tags/makefile/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 13 Oct 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/tags/makefile/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>TinyWebServer 构建｜Makefile 调试目标与运行开关</title>
         <link>https://anarchycuriosity.github.io/p/cpp-tiny-make-debug/</link>
-        <pubDate>Tue, 09 Jun 2026 00:00:00 +0800</pubDate>
+        <pubDate>Tue, 13 Oct 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/cpp-tiny-make-debug/</guid>
         <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_6f4d837b9d443c05.jpg" alt="Featured image of post TinyWebServer 构建｜Makefile 调试目标与运行开关" /&gt;&lt;h2 id=&#34;make-是什么&#34;&gt;$(MAKE) 是什么？

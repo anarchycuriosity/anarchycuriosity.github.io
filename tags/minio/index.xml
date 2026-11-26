@@ -7,10 +7,10 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Curiosity Anarchy</copyright>
-        <lastBuildDate>Tue, 24 Nov 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/tags/minio/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sat, 14 Nov 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/tags/minio/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Feed 04 · MinIO｜对象存储与预签名播放 URL</title>
         <link>https://anarchycuriosity.github.io/p/go-video-feed-minio-presigned-url/</link>
-        <pubDate>Tue, 24 Nov 2026 00:00:00 +0800</pubDate>
+        <pubDate>Sat, 14 Nov 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/go-video-feed-minio-presigned-url/</guid>
         <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_da491b413f2fee6a.jpg" alt="Featured image of post Feed 04 · MinIO｜对象存储与预签名播放 URL" /&gt;&lt;h2 id=&#34;数据库与对象存储各自负责什么&#34;&gt;数据库与对象存储各自负责什么

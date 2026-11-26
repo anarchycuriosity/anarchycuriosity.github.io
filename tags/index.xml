@@ -7,10 +7,10 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Curiosity Anarchy</copyright>
-        <lastBuildDate>Tue, 24 Nov 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 17 Nov 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/tags/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Feed</title>
         <link>https://anarchycuriosity.github.io/tags/feed/</link>
-        <pubDate>Tue, 24 Nov 2026 00:00:00 +0800</pubDate>
+        <pubDate>Tue, 17 Nov 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/tags/feed/</guid>
         <description></description>
@@ -18,33 +18,9 @@
         <item>
         <title>Go</title>
         <link>https://anarchycuriosity.github.io/tags/go/</link>
-        <pubDate>Tue, 24 Nov 2026 00:00:00 +0800</pubDate>
+        <pubDate>Tue, 17 Nov 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/tags/go/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>MinIO</title>
-        <link>https://anarchycuriosity.github.io/tags/minio/</link>
-        <pubDate>Tue, 24 Nov 2026 00:00:00 +0800</pubDate>
-        
-        <guid>https://anarchycuriosity.github.io/tags/minio/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>对象存储</title>
-        <link>https://anarchycuriosity.github.io/tags/%E5%AF%B9%E8%B1%A1%E5%AD%98%E5%82%A8/</link>
-        <pubDate>Tue, 24 Nov 2026 00:00:00 +0800</pubDate>
-        
-        <guid>https://anarchycuriosity.github.io/tags/%E5%AF%B9%E8%B1%A1%E5%AD%98%E5%82%A8/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>预签名 URL</title>
-        <link>https://anarchycuriosity.github.io/tags/%E9%A2%84%E7%AD%BE%E5%90%8D-url/</link>
-        <pubDate>Tue, 24 Nov 2026 00:00:00 +0800</pubDate>
-        
-        <guid>https://anarchycuriosity.github.io/tags/%E9%A2%84%E7%AD%BE%E5%90%8D-url/</guid>
         <description></description>
         </item>
         <item>
@@ -72,6 +48,54 @@
         <description></description>
         </item>
         <item>
+        <title>Context</title>
+        <link>https://anarchycuriosity.github.io/tags/context/</link>
+        <pubDate>Sat, 14 Nov 2026 00:00:00 +0800</pubDate>
+        
+        <guid>https://anarchycuriosity.github.io/tags/context/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>MinIO</title>
+        <link>https://anarchycuriosity.github.io/tags/minio/</link>
+        <pubDate>Sat, 14 Nov 2026 00:00:00 +0800</pubDate>
+        
+        <guid>https://anarchycuriosity.github.io/tags/minio/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>RPC</title>
+        <link>https://anarchycuriosity.github.io/tags/rpc/</link>
+        <pubDate>Sat, 14 Nov 2026 00:00:00 +0800</pubDate>
+        
+        <guid>https://anarchycuriosity.github.io/tags/rpc/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>并发</title>
+        <link>https://anarchycuriosity.github.io/tags/%E5%B9%B6%E5%8F%91/</link>
+        <pubDate>Sat, 14 Nov 2026 00:00:00 +0800</pubDate>
+        
+        <guid>https://anarchycuriosity.github.io/tags/%E5%B9%B6%E5%8F%91/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>对象存储</title>
+        <link>https://anarchycuriosity.github.io/tags/%E5%AF%B9%E8%B1%A1%E5%AD%98%E5%82%A8/</link>
+        <pubDate>Sat, 14 Nov 2026 00:00:00 +0800</pubDate>
+        
+        <guid>https://anarchycuriosity.github.io/tags/%E5%AF%B9%E8%B1%A1%E5%AD%98%E5%82%A8/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>预签名 URL</title>
+        <link>https://anarchycuriosity.github.io/tags/%E9%A2%84%E7%AD%BE%E5%90%8D-url/</link>
+        <pubDate>Sat, 14 Nov 2026 00:00:00 +0800</pubDate>
+        
+        <guid>https://anarchycuriosity.github.io/tags/%E9%A2%84%E7%AD%BE%E5%90%8D-url/</guid>
+        <description></description>
+        </item>
+        <item>
         <title>Kitex</title>
         <link>https://anarchycuriosity.github.io/tags/kitex/</link>
         <pubDate>Tue, 10 Nov 2026 00:00:00 +0800</pubDate>
@@ -80,11 +104,19 @@
         <description></description>
         </item>
         <item>
-        <title>RPC</title>
-        <link>https://anarchycuriosity.github.io/tags/rpc/</link>
-        <pubDate>Tue, 10 Nov 2026 00:00:00 +0800</pubDate>
+        <title>JWT</title>
+        <link>https://anarchycuriosity.github.io/tags/jwt/</link>
+        <pubDate>Tue, 03 Nov 2026 00:00:00 +0800</pubDate>
         
-        <guid>https://anarchycuriosity.github.io/tags/rpc/</guid>
+        <guid>https://anarchycuriosity.github.io/tags/jwt/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>鉴权</title>
+        <link>https://anarchycuriosity.github.io/tags/%E9%89%B4%E6%9D%83/</link>
+        <pubDate>Tue, 03 Nov 2026 00:00:00 +0800</pubDate>
+        
+        <guid>https://anarchycuriosity.github.io/tags/%E9%89%B4%E6%9D%83/</guid>
         <description></description>
         </item>
         <item>
@@ -93,6 +125,14 @@
         <pubDate>Tue, 03 Nov 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Etcd</title>
+        <link>https://anarchycuriosity.github.io/tags/etcd/</link>
+        <pubDate>Tue, 27 Oct 2026 00:00:00 +0800</pubDate>
+        
+        <guid>https://anarchycuriosity.github.io/tags/etcd/</guid>
         <description></description>
         </item>
         <item>
@@ -112,6 +152,22 @@
         <description></description>
         </item>
         <item>
+        <title>服务发现</title>
+        <link>https://anarchycuriosity.github.io/tags/%E6%9C%8D%E5%8A%A1%E5%8F%91%E7%8E%B0/</link>
+        <pubDate>Tue, 27 Oct 2026 00:00:00 +0800</pubDate>
+        
+        <guid>https://anarchycuriosity.github.io/tags/%E6%9C%8D%E5%8A%A1%E5%8F%91%E7%8E%B0/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>接口</title>
+        <link>https://anarchycuriosity.github.io/tags/%E6%8E%A5%E5%8F%A3/</link>
+        <pubDate>Tue, 27 Oct 2026 00:00:00 +0800</pubDate>
+        
+        <guid>https://anarchycuriosity.github.io/tags/%E6%8E%A5%E5%8F%A3/</guid>
+        <description></description>
+        </item>
+        <item>
         <title>路由</title>
         <link>https://anarchycuriosity.github.io/tags/%E8%B7%AF%E7%94%B1/</link>
         <pubDate>Tue, 27 Oct 2026 00:00:00 +0800</pubDate>
@@ -120,19 +176,131 @@
         <description></description>
         </item>
         <item>
-        <title>JWT</title>
-        <link>https://anarchycuriosity.github.io/tags/jwt/</link>
-        <pubDate>Tue, 20 Oct 2026 00:00:00 +0800</pubDate>
+        <title>Cpp</title>
+        <link>https://anarchycuriosity.github.io/tags/cpp/</link>
+        <pubDate>Tue, 13 Oct 2026 00:00:00 +0800</pubDate>
         
-        <guid>https://anarchycuriosity.github.io/tags/jwt/</guid>
+        <guid>https://anarchycuriosity.github.io/tags/cpp/</guid>
         <description></description>
         </item>
         <item>
-        <title>鉴权</title>
-        <link>https://anarchycuriosity.github.io/tags/%E9%89%B4%E6%9D%83/</link>
-        <pubDate>Tue, 20 Oct 2026 00:00:00 +0800</pubDate>
+        <title>Errno</title>
+        <link>https://anarchycuriosity.github.io/tags/errno/</link>
+        <pubDate>Tue, 13 Oct 2026 00:00:00 +0800</pubDate>
         
-        <guid>https://anarchycuriosity.github.io/tags/%E9%89%B4%E6%9D%83/</guid>
+        <guid>https://anarchycuriosity.github.io/tags/errno/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Makefile</title>
+        <link>https://anarchycuriosity.github.io/tags/makefile/</link>
+        <pubDate>Tue, 13 Oct 2026 00:00:00 +0800</pubDate>
+        
+        <guid>https://anarchycuriosity.github.io/tags/makefile/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>TinyWebServer</title>
+        <link>https://anarchycuriosity.github.io/tags/tinywebserver/</link>
+        <pubDate>Tue, 13 Oct 2026 00:00:00 +0800</pubDate>
+        
+        <guid>https://anarchycuriosity.github.io/tags/tinywebserver/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>错误处理</title>
+        <link>https://anarchycuriosity.github.io/tags/%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/</link>
+        <pubDate>Tue, 13 Oct 2026 00:00:00 +0800</pubDate>
+        
+        <guid>https://anarchycuriosity.github.io/tags/%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>调试</title>
+        <link>https://anarchycuriosity.github.io/tags/%E8%B0%83%E8%AF%95/</link>
+        <pubDate>Tue, 13 Oct 2026 00:00:00 +0800</pubDate>
+        
+        <guid>https://anarchycuriosity.github.io/tags/%E8%B0%83%E8%AF%95/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>连接追踪</title>
+        <link>https://anarchycuriosity.github.io/tags/%E8%BF%9E%E6%8E%A5%E8%BF%BD%E8%B8%AA/</link>
+        <pubDate>Tue, 13 Oct 2026 00:00:00 +0800</pubDate>
+        
+        <guid>https://anarchycuriosity.github.io/tags/%E8%BF%9E%E6%8E%A5%E8%BF%BD%E8%B8%AA/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>日志</title>
+        <link>https://anarchycuriosity.github.io/tags/%E6%97%A5%E5%BF%97/</link>
+        <pubDate>Tue, 13 Oct 2026 00:00:00 +0800</pubDate>
+        
+        <guid>https://anarchycuriosity.github.io/tags/%E6%97%A5%E5%BF%97/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>状态机</title>
+        <link>https://anarchycuriosity.github.io/tags/%E7%8A%B6%E6%80%81%E6%9C%BA/</link>
+        <pubDate>Tue, 13 Oct 2026 00:00:00 +0800</pubDate>
+        
+        <guid>https://anarchycuriosity.github.io/tags/%E7%8A%B6%E6%80%81%E6%9C%BA/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>类型转换</title>
+        <link>https://anarchycuriosity.github.io/tags/%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/</link>
+        <pubDate>Sun, 11 Oct 2026 00:00:00 +0800</pubDate>
+        
+        <guid>https://anarchycuriosity.github.io/tags/%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>枚举</title>
+        <link>https://anarchycuriosity.github.io/tags/%E6%9E%9A%E4%B8%BE/</link>
+        <pubDate>Sun, 11 Oct 2026 00:00:00 +0800</pubDate>
+        
+        <guid>https://anarchycuriosity.github.io/tags/%E6%9E%9A%E4%B8%BE/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>拓扑排序</title>
+        <link>https://anarchycuriosity.github.io/tags/%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F/</link>
+        <pubDate>Thu, 08 Oct 2026 00:00:00 +0800</pubDate>
+        
+        <guid>https://anarchycuriosity.github.io/tags/%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>图论</title>
+        <link>https://anarchycuriosity.github.io/tags/%E5%9B%BE%E8%AE%BA/</link>
+        <pubDate>Thu, 08 Oct 2026 00:00:00 +0800</pubDate>
+        
+        <guid>https://anarchycuriosity.github.io/tags/%E5%9B%BE%E8%AE%BA/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Trie</title>
+        <link>https://anarchycuriosity.github.io/tags/trie/</link>
+        <pubDate>Wed, 07 Oct 2026 00:00:00 +0800</pubDate>
+        
+        <guid>https://anarchycuriosity.github.io/tags/trie/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>数据结构</title>
+        <link>https://anarchycuriosity.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</link>
+        <pubDate>Wed, 07 Oct 2026 00:00:00 +0800</pubDate>
+        
+        <guid>https://anarchycuriosity.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>源码阅读</title>
+        <link>https://anarchycuriosity.github.io/tags/%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/</link>
+        <pubDate>Wed, 07 Oct 2026 00:00:00 +0800</pubDate>
+        
+        <guid>https://anarchycuriosity.github.io/tags/%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/</guid>
         <description></description>
         </item>
         <item>
@@ -144,49 +312,49 @@
         <description></description>
         </item>
         <item>
-        <title>调试</title>
-        <link>https://anarchycuriosity.github.io/tags/%E8%B0%83%E8%AF%95/</link>
-        <pubDate>Tue, 29 Sep 2026 00:00:00 +0800</pubDate>
+        <title>String_view</title>
+        <link>https://anarchycuriosity.github.io/tags/string_view/</link>
+        <pubDate>Sat, 03 Oct 2026 00:00:00 +0800</pubDate>
         
-        <guid>https://anarchycuriosity.github.io/tags/%E8%B0%83%E8%AF%95/</guid>
+        <guid>https://anarchycuriosity.github.io/tags/string_view/</guid>
         <description></description>
         </item>
         <item>
-        <title>接口</title>
-        <link>https://anarchycuriosity.github.io/tags/%E6%8E%A5%E5%8F%A3/</link>
-        <pubDate>Tue, 08 Sep 2026 00:00:00 +0800</pubDate>
+        <title>字符串</title>
+        <link>https://anarchycuriosity.github.io/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/</link>
+        <pubDate>Sat, 03 Oct 2026 00:00:00 +0800</pubDate>
         
-        <guid>https://anarchycuriosity.github.io/tags/%E6%8E%A5%E5%8F%A3/</guid>
+        <guid>https://anarchycuriosity.github.io/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/</guid>
         <description></description>
         </item>
         <item>
-        <title>Etcd</title>
-        <link>https://anarchycuriosity.github.io/tags/etcd/</link>
-        <pubDate>Tue, 01 Sep 2026 00:00:00 +0800</pubDate>
+        <title>Linux</title>
+        <link>https://anarchycuriosity.github.io/tags/linux/</link>
+        <pubDate>Thu, 01 Oct 2026 00:00:00 +0800</pubDate>
         
-        <guid>https://anarchycuriosity.github.io/tags/etcd/</guid>
+        <guid>https://anarchycuriosity.github.io/tags/linux/</guid>
         <description></description>
         </item>
         <item>
-        <title>服务发现</title>
-        <link>https://anarchycuriosity.github.io/tags/%E6%9C%8D%E5%8A%A1%E5%8F%91%E7%8E%B0/</link>
-        <pubDate>Tue, 01 Sep 2026 00:00:00 +0800</pubDate>
+        <title>Socket</title>
+        <link>https://anarchycuriosity.github.io/tags/socket/</link>
+        <pubDate>Thu, 01 Oct 2026 00:00:00 +0800</pubDate>
         
-        <guid>https://anarchycuriosity.github.io/tags/%E6%9C%8D%E5%8A%A1%E5%8F%91%E7%8E%B0/</guid>
+        <guid>https://anarchycuriosity.github.io/tags/socket/</guid>
         <description></description>
         </item>
         <item>
-        <title>Cpp</title>
-        <link>https://anarchycuriosity.github.io/tags/cpp/</link>
-        <pubDate>Tue, 25 Aug 2026 00:00:00 +0800</pubDate>
+        <title>TCP</title>
+        <link>https://anarchycuriosity.github.io/tags/tcp/</link>
+        <pubDate>Thu, 01 Oct 2026 00:00:00 +0800</pubDate>
         
-        <guid>https://anarchycuriosity.github.io/tags/cpp/</guid>
+        <guid>https://anarchycuriosity.github.io/tags/tcp/</guid>
         <description></description>
         </item>
         <item>
         <title>WebChat</title>
         <link>https://anarchycuriosity.github.io/tags/webchat/</link>
-        <pubDate>Tue, 25 Aug 2026 00:00:00 +0800</pubDate>
+        <pubDate>Thu, 01 Oct 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/tags/webchat/</guid>
         <description></description>
@@ -194,17 +362,81 @@
         <item>
         <title>连接池</title>
         <link>https://anarchycuriosity.github.io/tags/%E8%BF%9E%E6%8E%A5%E6%B1%A0/</link>
-        <pubDate>Tue, 25 Aug 2026 00:00:00 +0800</pubDate>
+        <pubDate>Thu, 01 Oct 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/tags/%E8%BF%9E%E6%8E%A5%E6%B1%A0/</guid>
         <description></description>
         </item>
         <item>
-        <title>TinyWebServer</title>
-        <link>https://anarchycuriosity.github.io/tags/tinywebserver/</link>
-        <pubDate>Tue, 18 Aug 2026 00:00:00 +0800</pubDate>
+        <title>智能指针</title>
+        <link>https://anarchycuriosity.github.io/tags/%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/</link>
+        <pubDate>Mon, 21 Sep 2026 00:00:00 +0800</pubDate>
         
-        <guid>https://anarchycuriosity.github.io/tags/tinywebserver/</guid>
+        <guid>https://anarchycuriosity.github.io/tags/%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>资源所有权</title>
+        <link>https://anarchycuriosity.github.io/tags/%E8%B5%84%E6%BA%90%E6%89%80%E6%9C%89%E6%9D%83/</link>
+        <pubDate>Mon, 21 Sep 2026 00:00:00 +0800</pubDate>
+        
+        <guid>https://anarchycuriosity.github.io/tags/%E8%B5%84%E6%BA%90%E6%89%80%E6%9C%89%E6%9D%83/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Boost.Asio</title>
+        <link>https://anarchycuriosity.github.io/tags/boost.asio/</link>
+        <pubDate>Fri, 18 Sep 2026 00:00:00 +0800</pubDate>
+        
+        <guid>https://anarchycuriosity.github.io/tags/boost.asio/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Lambda</title>
+        <link>https://anarchycuriosity.github.io/tags/lambda/</link>
+        <pubDate>Fri, 18 Sep 2026 00:00:00 +0800</pubDate>
+        
+        <guid>https://anarchycuriosity.github.io/tags/lambda/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>异步 I/O</title>
+        <link>https://anarchycuriosity.github.io/tags/%E5%BC%82%E6%AD%A5-i/o/</link>
+        <pubDate>Fri, 18 Sep 2026 00:00:00 +0800</pubDate>
+        
+        <guid>https://anarchycuriosity.github.io/tags/%E5%BC%82%E6%AD%A5-i/o/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Pthread</title>
+        <link>https://anarchycuriosity.github.io/tags/pthread/</link>
+        <pubDate>Thu, 17 Sep 2026 00:00:00 +0800</pubDate>
+        
+        <guid>https://anarchycuriosity.github.io/tags/pthread/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>多线程</title>
+        <link>https://anarchycuriosity.github.io/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/</link>
+        <pubDate>Thu, 17 Sep 2026 00:00:00 +0800</pubDate>
+        
+        <guid>https://anarchycuriosity.github.io/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Epoll</title>
+        <link>https://anarchycuriosity.github.io/tags/epoll/</link>
+        <pubDate>Tue, 15 Sep 2026 00:00:00 +0800</pubDate>
+        
+        <guid>https://anarchycuriosity.github.io/tags/epoll/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>网络编程</title>
+        <link>https://anarchycuriosity.github.io/tags/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/</link>
+        <pubDate>Tue, 15 Sep 2026 00:00:00 +0800</pubDate>
+        
+        <guid>https://anarchycuriosity.github.io/tags/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/</guid>
         <description></description>
         </item>
         <item>
@@ -232,14 +464,6 @@
         <description></description>
         </item>
         <item>
-        <title>资源所有权</title>
-        <link>https://anarchycuriosity.github.io/tags/%E8%B5%84%E6%BA%90%E6%89%80%E6%9C%89%E6%9D%83/</link>
-        <pubDate>Tue, 11 Aug 2026 00:00:00 +0800</pubDate>
-        
-        <guid>https://anarchycuriosity.github.io/tags/%E8%B5%84%E6%BA%90%E6%89%80%E6%9C%89%E6%9D%83/</guid>
-        <description></description>
-        </item>
-        <item>
         <title>Mmap</title>
         <link>https://anarchycuriosity.github.io/tags/mmap/</link>
         <pubDate>Tue, 04 Aug 2026 00:00:00 +0800</pubDate>
@@ -253,14 +477,6 @@
         <pubDate>Tue, 28 Jul 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/tags/%E5%93%8D%E5%BA%94%E6%9E%84%E9%80%A0/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>Linux</title>
-        <link>https://anarchycuriosity.github.io/tags/linux/</link>
-        <pubDate>Tue, 21 Jul 2026 00:00:00 +0800</pubDate>
-        
-        <guid>https://anarchycuriosity.github.io/tags/linux/</guid>
         <description></description>
         </item>
         <item>
@@ -280,91 +496,11 @@
         <description></description>
         </item>
         <item>
-        <title>TCP</title>
-        <link>https://anarchycuriosity.github.io/tags/tcp/</link>
-        <pubDate>Tue, 14 Jul 2026 00:00:00 +0800</pubDate>
-        
-        <guid>https://anarchycuriosity.github.io/tags/tcp/</guid>
-        <description></description>
-        </item>
-        <item>
         <title>增量解析</title>
         <link>https://anarchycuriosity.github.io/tags/%E5%A2%9E%E9%87%8F%E8%A7%A3%E6%9E%90/</link>
         <pubDate>Tue, 14 Jul 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/tags/%E5%A2%9E%E9%87%8F%E8%A7%A3%E6%9E%90/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>源码阅读</title>
-        <link>https://anarchycuriosity.github.io/tags/%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/</link>
-        <pubDate>Tue, 07 Jul 2026 00:00:00 +0800</pubDate>
-        
-        <guid>https://anarchycuriosity.github.io/tags/%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>状态机</title>
-        <link>https://anarchycuriosity.github.io/tags/%E7%8A%B6%E6%80%81%E6%9C%BA/</link>
-        <pubDate>Tue, 30 Jun 2026 00:00:00 +0800</pubDate>
-        
-        <guid>https://anarchycuriosity.github.io/tags/%E7%8A%B6%E6%80%81%E6%9C%BA/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>Errno</title>
-        <link>https://anarchycuriosity.github.io/tags/errno/</link>
-        <pubDate>Tue, 23 Jun 2026 00:00:00 +0800</pubDate>
-        
-        <guid>https://anarchycuriosity.github.io/tags/errno/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>错误处理</title>
-        <link>https://anarchycuriosity.github.io/tags/%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/</link>
-        <pubDate>Tue, 23 Jun 2026 00:00:00 +0800</pubDate>
-        
-        <guid>https://anarchycuriosity.github.io/tags/%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>连接追踪</title>
-        <link>https://anarchycuriosity.github.io/tags/%E8%BF%9E%E6%8E%A5%E8%BF%BD%E8%B8%AA/</link>
-        <pubDate>Tue, 16 Jun 2026 00:00:00 +0800</pubDate>
-        
-        <guid>https://anarchycuriosity.github.io/tags/%E8%BF%9E%E6%8E%A5%E8%BF%BD%E8%B8%AA/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>日志</title>
-        <link>https://anarchycuriosity.github.io/tags/%E6%97%A5%E5%BF%97/</link>
-        <pubDate>Tue, 16 Jun 2026 00:00:00 +0800</pubDate>
-        
-        <guid>https://anarchycuriosity.github.io/tags/%E6%97%A5%E5%BF%97/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>Makefile</title>
-        <link>https://anarchycuriosity.github.io/tags/makefile/</link>
-        <pubDate>Tue, 09 Jun 2026 00:00:00 +0800</pubDate>
-        
-        <guid>https://anarchycuriosity.github.io/tags/makefile/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>Context</title>
-        <link>https://anarchycuriosity.github.io/tags/context/</link>
-        <pubDate>Tue, 02 Jun 2026 00:00:00 +0800</pubDate>
-        
-        <guid>https://anarchycuriosity.github.io/tags/context/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>并发</title>
-        <link>https://anarchycuriosity.github.io/tags/%E5%B9%B6%E5%8F%91/</link>
-        <pubDate>Tue, 02 Jun 2026 00:00:00 +0800</pubDate>
-        
-        <guid>https://anarchycuriosity.github.io/tags/%E5%B9%B6%E5%8F%91/</guid>
         <description></description>
         </item>
         <item>
@@ -472,43 +608,11 @@
         <description></description>
         </item>
         <item>
-        <title>Boost.Asio</title>
-        <link>https://anarchycuriosity.github.io/tags/boost.asio/</link>
-        <pubDate>Tue, 17 Feb 2026 00:00:00 +0800</pubDate>
-        
-        <guid>https://anarchycuriosity.github.io/tags/boost.asio/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>Lambda</title>
-        <link>https://anarchycuriosity.github.io/tags/lambda/</link>
-        <pubDate>Tue, 17 Feb 2026 00:00:00 +0800</pubDate>
-        
-        <guid>https://anarchycuriosity.github.io/tags/lambda/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>异步 I/O</title>
-        <link>https://anarchycuriosity.github.io/tags/%E5%BC%82%E6%AD%A5-i/o/</link>
-        <pubDate>Tue, 17 Feb 2026 00:00:00 +0800</pubDate>
-        
-        <guid>https://anarchycuriosity.github.io/tags/%E5%BC%82%E6%AD%A5-i/o/</guid>
-        <description></description>
-        </item>
-        <item>
         <title>指针</title>
         <link>https://anarchycuriosity.github.io/tags/%E6%8C%87%E9%92%88/</link>
         <pubDate>Thu, 12 Feb 2026 00:00:00 +0000</pubDate>
         
         <guid>https://anarchycuriosity.github.io/tags/%E6%8C%87%E9%92%88/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>Socket</title>
-        <link>https://anarchycuriosity.github.io/tags/socket/</link>
-        <pubDate>Tue, 10 Feb 2026 00:00:00 +0800</pubDate>
-        
-        <guid>https://anarchycuriosity.github.io/tags/socket/</guid>
         <description></description>
         </item>
         <item>
@@ -552,54 +656,6 @@
         <description></description>
         </item>
         <item>
-        <title>Epoll</title>
-        <link>https://anarchycuriosity.github.io/tags/epoll/</link>
-        <pubDate>Tue, 03 Feb 2026 00:00:00 +0800</pubDate>
-        
-        <guid>https://anarchycuriosity.github.io/tags/epoll/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>网络编程</title>
-        <link>https://anarchycuriosity.github.io/tags/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/</link>
-        <pubDate>Tue, 03 Feb 2026 00:00:00 +0800</pubDate>
-        
-        <guid>https://anarchycuriosity.github.io/tags/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>Pthread</title>
-        <link>https://anarchycuriosity.github.io/tags/pthread/</link>
-        <pubDate>Tue, 13 Jan 2026 00:00:00 +0800</pubDate>
-        
-        <guid>https://anarchycuriosity.github.io/tags/pthread/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>多线程</title>
-        <link>https://anarchycuriosity.github.io/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/</link>
-        <pubDate>Tue, 13 Jan 2026 00:00:00 +0800</pubDate>
-        
-        <guid>https://anarchycuriosity.github.io/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>String_view</title>
-        <link>https://anarchycuriosity.github.io/tags/string_view/</link>
-        <pubDate>Tue, 30 Dec 2025 00:00:00 +0800</pubDate>
-        
-        <guid>https://anarchycuriosity.github.io/tags/string_view/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>字符串</title>
-        <link>https://anarchycuriosity.github.io/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/</link>
-        <pubDate>Tue, 30 Dec 2025 00:00:00 +0800</pubDate>
-        
-        <guid>https://anarchycuriosity.github.io/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/</guid>
-        <description></description>
-        </item>
-        <item>
         <title>反射</title>
         <link>https://anarchycuriosity.github.io/tags/%E5%8F%8D%E5%B0%84/</link>
         <pubDate>Tue, 23 Dec 2025 00:00:00 +0800</pubDate>
@@ -637,62 +693,6 @@
         <pubDate>Tue, 02 Dec 2025 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/tags/%E5%8C%85/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>拓扑排序</title>
-        <link>https://anarchycuriosity.github.io/tags/%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F/</link>
-        <pubDate>Tue, 25 Nov 2025 00:00:00 +0800</pubDate>
-        
-        <guid>https://anarchycuriosity.github.io/tags/%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>图论</title>
-        <link>https://anarchycuriosity.github.io/tags/%E5%9B%BE%E8%AE%BA/</link>
-        <pubDate>Tue, 25 Nov 2025 00:00:00 +0800</pubDate>
-        
-        <guid>https://anarchycuriosity.github.io/tags/%E5%9B%BE%E8%AE%BA/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>Trie</title>
-        <link>https://anarchycuriosity.github.io/tags/trie/</link>
-        <pubDate>Tue, 18 Nov 2025 00:00:00 +0800</pubDate>
-        
-        <guid>https://anarchycuriosity.github.io/tags/trie/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>数据结构</title>
-        <link>https://anarchycuriosity.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</link>
-        <pubDate>Tue, 18 Nov 2025 00:00:00 +0800</pubDate>
-        
-        <guid>https://anarchycuriosity.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>智能指针</title>
-        <link>https://anarchycuriosity.github.io/tags/%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/</link>
-        <pubDate>Tue, 11 Nov 2025 00:00:00 +0800</pubDate>
-        
-        <guid>https://anarchycuriosity.github.io/tags/%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>类型转换</title>
-        <link>https://anarchycuriosity.github.io/tags/%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/</link>
-        <pubDate>Tue, 04 Nov 2025 00:00:00 +0800</pubDate>
-        
-        <guid>https://anarchycuriosity.github.io/tags/%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>枚举</title>
-        <link>https://anarchycuriosity.github.io/tags/%E6%9E%9A%E4%B8%BE/</link>
-        <pubDate>Tue, 04 Nov 2025 00:00:00 +0800</pubDate>
-        
-        <guid>https://anarchycuriosity.github.io/tags/%E6%9E%9A%E4%B8%BE/</guid>
         <description></description>
         </item>
         <item>

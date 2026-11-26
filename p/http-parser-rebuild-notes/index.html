@@ -10,7 +10,7 @@
 <meta property='og:description' content="为什么照着头文件抄容易卡住 我在rebuild我的tiny_web_server到http解析器的部分,我已经比较理解了设计意图,但是我不明白应该怎么样正确地抄这个部分,如果抄完头文件然后抄实现感觉跟抄字典没什么区别,头文件本身就没什么逻辑可言,而对于一些小的部分,我可以做到看一次实现然后想到思路然后默写下来,就像写算法题填空一样.我应该怎么做\n">
 <meta property='og:url' content='https://anarchycuriosity.github.io/p/http-parser-rebuild-notes/'>
 <meta property='og:site_name' content='Curiosity Anarchy'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='cpp' /><meta property='article:tag' content='HTTP' /><meta property='article:tag' content='TinyWebServer' /><meta property='article:tag' content='源码阅读' /><meta property='article:published_time' content='2026-07-07T00:00:00&#43;08:00'/><meta property='article:modified_time' content='2026-07-07T00:00:00&#43;08:00'/><meta property='og:image' content='https://anarchycuriosity.github.io/moe/animation_798f0e2012a2f534.jpg' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='cpp' /><meta property='article:tag' content='HTTP' /><meta property='article:tag' content='TinyWebServer' /><meta property='article:tag' content='源码阅读' /><meta property='article:published_time' content='2026-10-07T00:00:00&#43;08:00'/><meta property='article:modified_time' content='2026-10-07T00:00:00&#43;08:00'/><meta property='og:image' content='https://anarchycuriosity.github.io/moe/animation_798f0e2012a2f534.jpg' />
 <meta name="twitter:title" content="TinyWebServer HTTP Parser｜从请求行到请求体的状态机设计">
 <meta name="twitter:description" content="为什么照着头文件抄容易卡住 我在rebuild我的tiny_web_server到http解析器的部分,我已经比较理解了设计意图,但是我不明白应该怎么样正确地抄这个部分,如果抄完头文件然后抄实现感觉跟抄字典没什么区别,头文件本身就没什么逻辑可言,而对于一些小的部分,我可以做到看一次实现然后想到思路然后默写下来,就像写算法题填空一样.我应该怎么做\n"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://anarchycuriosity.github.io/moe/animation_798f0e2012a2f534.jpg' />
@@ -301,7 +301,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">2026-07-07</time>
+                <time class="article-time--published">2026-10-07</time>
             </div>
         
 
@@ -521,6 +521,25 @@
             
                 
 <article class="has-image">
+    <a href="/p/tiny-web-server-debug-trace/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/moe/animation_155a548b61aa41e7.jpg" loading="lazy" data-key="tiny-web-server-debug-trace" data-hash="/moe/animation_155a548b61aa41e7.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">TinyWebServer 调试｜控制流打点、解析状态与 errno 保留</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
     <a href="/p/tiny-web-server-writev-partial-writes/">
         
         
@@ -590,25 +609,6 @@
 
         <div class="article-details">
             <h2 class="article-title">TinyWebServer 请求解析｜TCP 字节流与增量解析游标</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="has-image">
-    <a href="/p/tiny-web-server-debug-trace/">
-        
-        
-            <div class="article-image">
-                
-                    <img src="/moe/animation_155a548b61aa41e7.jpg" loading="lazy" data-key="tiny-web-server-debug-trace" data-hash="/moe/animation_155a548b61aa41e7.jpg"/>
-                
-            </div>
-        
-
-        <div class="article-details">
-            <h2 class="article-title">TinyWebServer 调试｜控制流打点、解析状态与 errno 保留</h2>
         </div>
     </a>
 </article>

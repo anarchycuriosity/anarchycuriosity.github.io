@@ -10,7 +10,7 @@
 <meta property='og:description' content="从会话对象看连接管理 也就是说,虽然session持有api,但是我们允许有api就可以去改数据,这是为了防止什么问题?并发和接口对象过多?所以我们要保留session set的设计?毕竟它似乎不太能再被缩小,代表连接总数.我们把api从session移动server的一个池进行管理?这就是连接池吗?因为原本我是计划让每个session拿到server的redisAPI引用(由server管理,但server只有一个redisAPI),所以我们把一开始这个server对象持有的单个API(这不是项目现状,现状是每个session都有一个API)丢到server然后池化?\n">
 <meta property='og:url' content='https://anarchycuriosity.github.io/p/cpp-webchat-pool-design/'>
 <meta property='og:site_name' content='Curiosity Anarchy'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='cpp' /><meta property='article:tag' content='WebChat' /><meta property='article:tag' content='连接池' /><meta property='article:published_time' content='2026-08-25T00:00:00&#43;08:00'/><meta property='article:modified_time' content='2026-08-25T00:00:00&#43;08:00'/><meta property='og:image' content='https://anarchycuriosity.github.io/moe/animation_883525848225aca8.jpg' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='cpp' /><meta property='article:tag' content='WebChat' /><meta property='article:tag' content='连接池' /><meta property='article:published_time' content='2026-10-01T00:00:00&#43;08:00'/><meta property='article:modified_time' content='2026-10-01T00:00:00&#43;08:00'/><meta property='og:image' content='https://anarchycuriosity.github.io/moe/animation_883525848225aca8.jpg' />
 <meta name="twitter:title" content="C++ WebChat｜会话对象与数据库连接池的资源边界">
 <meta name="twitter:description" content="从会话对象看连接管理 也就是说,虽然session持有api,但是我们允许有api就可以去改数据,这是为了防止什么问题?并发和接口对象过多?所以我们要保留session set的设计?毕竟它似乎不太能再被缩小,代表连接总数.我们把api从session移动server的一个池进行管理?这就是连接池吗?因为原本我是计划让每个session拿到server的redisAPI引用(由server管理,但server只有一个redisAPI),所以我们把一开始这个server对象持有的单个API(这不是项目现状,现状是每个session都有一个API)丢到server然后池化?\n"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://anarchycuriosity.github.io/moe/animation_883525848225aca8.jpg' />
@@ -299,7 +299,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">2026-08-25</time>
+                <time class="article-time--published">2026-10-01</time>
             </div>
         
 
@@ -413,18 +413,18 @@
             
                 
 <article class="has-image">
-    <a href="/p/tiny-web-server-writev-partial-writes/">
+    <a href="/p/cpp-tiny-connection-logging/">
         
         
             <div class="article-image">
                 
-                    <img src="/moe/animation_89ade664ebe797e4.png" loading="lazy" data-key="tiny-web-server-writev-partial-writes" data-hash="/moe/animation_89ade664ebe797e4.png"/>
+                    <img src="/moe/animation_7551dccf55d5aa69.jpg" loading="lazy" data-key="cpp-tiny-connection-logging" data-hash="/moe/animation_7551dccf55d5aa69.jpg"/>
                 
             </div>
         
 
         <div class="article-details">
-            <h2 class="article-title">TinyWebServer 响应发送｜writev 聚集写入与部分写入游标</h2>
+            <h2 class="article-title">TinyWebServer 日志｜连接编号与格式化输出</h2>
         </div>
     </a>
 </article>
@@ -432,18 +432,18 @@
             
                 
 <article class="has-image">
-    <a href="/p/cpp-tiny-response-raii/">
+    <a href="/p/cpp-tiny-make-debug/">
         
         
             <div class="article-image">
                 
-                    <img src="/moe/animation_8598950d2e37c534.jpg" loading="lazy" data-key="cpp-tiny-response-raii" data-hash="/moe/animation_8598950d2e37c534.jpg"/>
+                    <img src="/moe/animation_6f4d837b9d443c05.jpg" loading="lazy" data-key="cpp-tiny-make-debug" data-hash="/moe/animation_6f4d837b9d443c05.jpg"/>
                 
             </div>
         
 
         <div class="article-details">
-            <h2 class="article-title">TinyWebServer RAII｜映射资源、复制限制与析构清理</h2>
+            <h2 class="article-title">TinyWebServer 构建｜Makefile 调试目标与运行开关</h2>
         </div>
     </a>
 </article>
@@ -451,18 +451,18 @@
             
                 
 <article class="has-image">
-    <a href="/p/cpp-tiny-mapping-lifetime/">
+    <a href="/p/cpp-tiny-errno/">
         
         
             <div class="article-image">
                 
-                    <img src="/moe/animation_81e4ff5c88067d92.jpg" loading="lazy" data-key="cpp-tiny-mapping-lifetime" data-hash="/moe/animation_81e4ff5c88067d92.jpg"/>
+                    <img src="/moe/animation_789df0f4ef2ca147.png" loading="lazy" data-key="cpp-tiny-errno" data-hash="/moe/animation_789df0f4ef2ca147.png"/>
                 
             </div>
         
 
         <div class="article-details">
-            <h2 class="article-title">TinyWebServer mmap｜文件描述符、映射区域和连接的生命周期</h2>
+            <h2 class="article-title">TinyWebServer 诊断｜errno 与解析失败原因</h2>
         </div>
     </a>
 </article>
@@ -470,18 +470,18 @@
             
                 
 <article class="has-image">
-    <a href="/p/tiny-web-server-response-preparation/">
+    <a href="/p/tiny-web-server-debug-trace/">
         
         
             <div class="article-image">
                 
-                    <img src="/moe/animation_6ed0660db26cb453.png" loading="lazy" data-key="tiny-web-server-response-preparation" data-hash="/moe/animation_6ed0660db26cb453.png"/>
+                    <img src="/moe/animation_155a548b61aa41e7.jpg" loading="lazy" data-key="tiny-web-server-debug-trace" data-hash="/moe/animation_155a548b61aa41e7.jpg"/>
                 
             </div>
         
 
         <div class="article-details">
-            <h2 class="article-title">TinyWebServer 响应构造｜200 文件响应与 404 错误响应</h2>
+            <h2 class="article-title">TinyWebServer 调试｜控制流打点、解析状态与 errno 保留</h2>
         </div>
     </a>
 </article>
@@ -489,18 +489,18 @@
             
                 
 <article class="has-image">
-    <a href="/p/tiny-web-server-static-file-routing/">
+    <a href="/p/http-parser-rebuild-notes/">
         
         
             <div class="article-image">
                 
-                    <img src="/moe/animation_2de188f19d1e4457.png" loading="lazy" data-key="tiny-web-server-static-file-routing" data-hash="/moe/animation_2de188f19d1e4457.png"/>
+                    <img src="/moe/animation_798f0e2012a2f534.jpg" loading="lazy" data-key="http-parser-rebuild-notes" data-hash="/moe/animation_798f0e2012a2f534.jpg"/>
                 
             </div>
         
 
         <div class="article-details">
-            <h2 class="article-title">TinyWebServer 静态资源｜URL 路径解码与 openat 文件定位</h2>
+            <h2 class="article-title">TinyWebServer HTTP Parser｜从请求行到请求体的状态机设计</h2>
         </div>
     </a>
 </article>

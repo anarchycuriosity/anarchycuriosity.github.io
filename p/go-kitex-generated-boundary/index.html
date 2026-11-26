@@ -10,7 +10,7 @@
 <meta property='og:description' content="疑问 阅读main的video链路的包,包包装了往下的客户端方法,然后往下应该去看具体的客户端的源码.其他链路也是这样类推是我注意到从NewClient那里f12之后就到达了kitex自动生成的代码了,也就是项目的kitex目录下的,然后我不是很理解kitex自动生成代码指的是什么,为什么它似乎能针对我的videoservice生成对应业务的代码? 其实我觉得从NewClient读下去是不是不太对? 我的理解是,api下面有两个文件夹,一个是handler,一个是rpc,其中rpc是交给kitex生成的服务,而handler是我对于某个业务链路的处理,然后rpc文件夹里面的只负责创建kitex用户端然后和那边对接,逻辑跟handler是一致的但是由kitex根据对面是情况来生成.因为我注意到handler里面有PublishAction和PublishList,然后我觉得一些Request和Response是跟kitex有关吧,因为kitex和http有关系,但是和业务逻辑关系不是很大\n">
 <meta property='og:url' content='https://anarchycuriosity.github.io/p/go-kitex-generated-boundary/'>
 <meta property='og:site_name' content='Curiosity Anarchy'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Go' /><meta property='article:tag' content='Kitex' /><meta property='article:tag' content='RPC' /><meta property='article:tag' content='接口' /><meta property='article:published_time' content='2026-09-08T00:00:00&#43;08:00'/><meta property='article:modified_time' content='2026-09-08T00:00:00&#43;08:00'/><meta property='og:image' content='https://anarchycuriosity.github.io/moe/animation_90b82d8470367131.jpg' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Go' /><meta property='article:tag' content='Kitex' /><meta property='article:tag' content='RPC' /><meta property='article:tag' content='接口' /><meta property='article:published_time' content='2026-10-27T00:00:00&#43;08:00'/><meta property='article:modified_time' content='2026-10-27T00:00:00&#43;08:00'/><meta property='og:image' content='https://anarchycuriosity.github.io/moe/animation_90b82d8470367131.jpg' />
 <meta name="twitter:title" content="Go Kitex｜生成的接口、客户端与服务端实现">
 <meta name="twitter:description" content="疑问 阅读main的video链路的包,包包装了往下的客户端方法,然后往下应该去看具体的客户端的源码.其他链路也是这样类推是我注意到从NewClient那里f12之后就到达了kitex自动生成的代码了,也就是项目的kitex目录下的,然后我不是很理解kitex自动生成代码指的是什么,为什么它似乎能针对我的videoservice生成对应业务的代码? 其实我觉得从NewClient读下去是不是不太对? 我的理解是,api下面有两个文件夹,一个是handler,一个是rpc,其中rpc是交给kitex生成的服务,而handler是我对于某个业务链路的处理,然后rpc文件夹里面的只负责创建kitex用户端然后和那边对接,逻辑跟handler是一致的但是由kitex根据对面是情况来生成.因为我注意到handler里面有PublishAction和PublishList,然后我觉得一些Request和Response是跟kitex有关吧,因为kitex和http有关系,但是和业务逻辑关系不是很大\n"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://anarchycuriosity.github.io/moe/animation_90b82d8470367131.jpg' />
@@ -303,7 +303,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">2026-09-08</time>
+                <time class="article-time--published">2026-10-27</time>
             </div>
         
 

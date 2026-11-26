@@ -7,10 +7,10 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Curiosity Anarchy</copyright>
-        <lastBuildDate>Tue, 23 Jun 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/tags/%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 13 Oct 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/tags/%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>TinyWebServer 诊断｜errno 与解析失败原因</title>
         <link>https://anarchycuriosity.github.io/p/cpp-tiny-errno/</link>
-        <pubDate>Tue, 23 Jun 2026 00:00:00 +0800</pubDate>
+        <pubDate>Tue, 13 Oct 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/cpp-tiny-errno/</guid>
         <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_789df0f4ef2ca147.png" alt="Featured image of post TinyWebServer 诊断｜errno 与解析失败原因" /&gt;&lt;h2 id=&#34;errno-是不是程序运行中不断产生的状态&#34;&gt;errno 是不是程序运行中不断产生的状态？

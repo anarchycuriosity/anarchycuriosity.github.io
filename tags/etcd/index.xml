@@ -7,10 +7,10 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Curiosity Anarchy</copyright>
-        <lastBuildDate>Tue, 01 Sep 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/tags/etcd/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 27 Oct 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/tags/etcd/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Go 微服务｜etcd 注册与服务发现</title>
         <link>https://anarchycuriosity.github.io/p/go-etcd-service-discovery/</link>
-        <pubDate>Tue, 01 Sep 2026 00:00:00 +0800</pubDate>
+        <pubDate>Tue, 27 Oct 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/go-etcd-service-discovery/</guid>
         <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_8ee144b205ce645a.jpg" alt="Featured image of post Go 微服务｜etcd 注册与服务发现" /&gt;&lt;h2 id=&#34;etcd-与-mysql-的职责&#34;&gt;etcd 与 MySQL 的职责
