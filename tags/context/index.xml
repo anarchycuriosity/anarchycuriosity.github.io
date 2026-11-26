@@ -8,12 +8,12 @@
         <language>zh-cn</language>
         <copyright>Curiosity Anarchy</copyright>
         <lastBuildDate>Tue, 10 Nov 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/tags/context/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>Go 请求取消笔记：从调用链理解 Context 和 Done</title>
+        <title>Go context.Context｜请求取消、Done 通道与协作退出</title>
         <link>https://anarchycuriosity.github.io/p/go-context-cancellation/</link>
         <pubDate>Tue, 10 Nov 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/go-context-cancellation/</guid>
-        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_a6c393737b5185c5.jpg" alt="Featured image of post Go 请求取消笔记：从调用链理解 Context 和 Done" /&gt;&lt;h2 id=&#34;一个已经不需要结果的请求&#34;&gt;一个已经不需要结果的请求
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_a6c393737b5185c5.jpg" alt="Featured image of post Go context.Context｜请求取消、Done 通道与协作退出" /&gt;&lt;h2 id=&#34;一个已经不需要结果的请求&#34;&gt;一个已经不需要结果的请求
 &lt;/h2&gt;&lt;p&gt;在Go的服务端开发中,一个请求往往需要经过许多函数,但这些函数需要知道:这个请求是否还值得继续执行.
 比如我们来看feed请求链&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;

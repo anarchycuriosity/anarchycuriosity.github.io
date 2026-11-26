@@ -2,16 +2,16 @@
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="从请求目标取出资源路径 请求：\n1 2 3 GET /judge.html?x=1 HTTP/1.1\\r\\n Host: x\\r\\n \\r\\n parser 已经产生：\n1 target = &#34;/judge.html?x=1&#34; 但是这个字符串还不能直接作为文件名。\n因为：\n1 ?x=1 属于 query。\n实际资源路径是：\n1 /judge.html 所以第一层处理是：\n1 2 3 4 5 /judge.html?x=1 ↓ 去掉 query ↓ /judge.html 路径解码与静态路由 路径来自客户端，因此不能默认可信。\n">
-<title>TinyWebServer｜从 HTTP 请求路径找到静态文件</title>
+<title>TinyWebServer 静态资源｜URL 路径解码与 openat 文件定位</title>
 
 <link rel='canonical' href='https://anarchycuriosity.github.io/p/tiny-web-server-static-file-routing/'>
 
-<link rel="stylesheet" href="/scss/style.min.c1b51a30df8ac209786d0bad641e606a0ad3c83218d05b1a01460049b2c0e683.css"><meta property='og:title' content="TinyWebServer｜从 HTTP 请求路径找到静态文件">
+<link rel="stylesheet" href="/scss/style.min.c1b51a30df8ac209786d0bad641e606a0ad3c83218d05b1a01460049b2c0e683.css"><meta property='og:title' content="TinyWebServer 静态资源｜URL 路径解码与 openat 文件定位">
 <meta property='og:description' content="从请求目标取出资源路径 请求：\n1 2 3 GET /judge.html?x=1 HTTP/1.1\\r\\n Host: x\\r\\n \\r\\n parser 已经产生：\n1 target = &#34;/judge.html?x=1&#34; 但是这个字符串还不能直接作为文件名。\n因为：\n1 ?x=1 属于 query。\n实际资源路径是：\n1 /judge.html 所以第一层处理是：\n1 2 3 4 5 /judge.html?x=1 ↓ 去掉 query ↓ /judge.html 路径解码与静态路由 路径来自客户端，因此不能默认可信。\n">
 <meta property='og:url' content='https://anarchycuriosity.github.io/p/tiny-web-server-static-file-routing/'>
 <meta property='og:site_name' content='Curiosity Anarchy'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='TinyWebServer' /><meta property='article:tag' content='C&#43;&#43;' /><meta property='article:tag' content='HTTP' /><meta property='article:tag' content='静态文件' /><meta property='article:tag' content='Linux' /><meta property='article:published_time' content='2026-10-08T00:00:00&#43;08:00'/><meta property='article:modified_time' content='2026-10-08T00:00:00&#43;08:00'/><meta property='og:image' content='https://anarchycuriosity.github.io/moe/animation_2de188f19d1e4457.png' />
-<meta name="twitter:title" content="TinyWebServer｜从 HTTP 请求路径找到静态文件">
+<meta name="twitter:title" content="TinyWebServer 静态资源｜URL 路径解码与 openat 文件定位">
 <meta name="twitter:description" content="从请求目标取出资源路径 请求：\n1 2 3 GET /judge.html?x=1 HTTP/1.1\\r\\n Host: x\\r\\n \\r\\n parser 已经产生：\n1 target = &#34;/judge.html?x=1&#34; 但是这个字符串还不能直接作为文件名。\n因为：\n1 ?x=1 属于 query。\n实际资源路径是：\n1 /judge.html 所以第一层处理是：\n1 2 3 4 5 /judge.html?x=1 ↓ 去掉 query ↓ /judge.html 路径解码与静态路由 路径来自客户端，因此不能默认可信。\n"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://anarchycuriosity.github.io/moe/animation_2de188f19d1e4457.png' />
     <link rel="shortcut icon" href="/favicon.ico" />
@@ -279,7 +279,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/tiny-web-server-static-file-routing/">TinyWebServer｜从 HTTP 请求路径找到静态文件</a>
+            <a href="/p/tiny-web-server-static-file-routing/">TinyWebServer 静态资源｜URL 路径解码与 openat 文件定位</a>
         </h2>
     
         
@@ -337,9 +337,9 @@
     
 </div>
 
-        <a class="article-image" href="/p/tiny-web-server-static-file-routing/" aria-label="TinyWebServer｜从 HTTP 请求路径找到静态文件">
+        <a class="article-image" href="/p/tiny-web-server-static-file-routing/" aria-label="TinyWebServer 静态资源｜URL 路径解码与 openat 文件定位">
             
-                <img src="/moe/animation_2de188f19d1e4457.png" loading="lazy" alt="Featured image of post TinyWebServer｜从 HTTP 请求路径找到静态文件" />
+                <img src="/moe/animation_2de188f19d1e4457.png" loading="lazy" alt="Featured image of post TinyWebServer 静态资源｜URL 路径解码与 openat 文件定位" />
             
         </a>
     
@@ -684,7 +684,7 @@
         
 
         <div class="article-details">
-            <h2 class="article-title">TinyWebServer 调试笔记：从 return 找到值得打日志的位置</h2>
+            <h2 class="article-title">TinyWebServer 调试｜控制流打点、解析状态与 errno 保留</h2>
         </div>
     </a>
 </article>
@@ -703,7 +703,7 @@
         
 
         <div class="article-details">
-            <h2 class="article-title">TinyWebServer｜writev 只写完一部分，下一次从哪发？</h2>
+            <h2 class="article-title">TinyWebServer 响应发送｜writev 聚集写入与部分写入游标</h2>
         </div>
     </a>
 </article>
@@ -722,7 +722,7 @@
         
 
         <div class="article-details">
-            <h2 class="article-title">TinyWebServer｜200 和 404 的响应头怎样准备？</h2>
+            <h2 class="article-title">TinyWebServer 响应构造｜200 文件响应与 404 错误响应</h2>
         </div>
     </a>
 </article>
@@ -741,7 +741,7 @@
         
 
         <div class="article-details">
-            <h2 class="article-title">重建 HTTP 解析器：让输入决定下一步实现</h2>
+            <h2 class="article-title">TinyWebServer HTTP Parser｜从请求行到请求体的状态机设计</h2>
         </div>
     </a>
 </article>
@@ -760,7 +760,7 @@
         
 
         <div class="article-details">
-            <h2 class="article-title">TinyWebServer｜一次 recv 没读完整，HTTP 解析器怎么继续？</h2>
+            <h2 class="article-title">TinyWebServer 请求解析｜TCP 字节流与增量解析游标</h2>
         </div>
     </a>
 </article>

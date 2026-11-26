@@ -8,12 +8,12 @@
         <language>zh-cn</language>
         <copyright>Curiosity Anarchy</copyright>
         <lastBuildDate>Sun, 04 Oct 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/tags/%E5%A2%9E%E9%87%8F%E8%A7%A3%E6%9E%90/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>TinyWebServer｜一次 recv 没读完整，HTTP 解析器怎么继续？</title>
+        <title>TinyWebServer 请求解析｜TCP 字节流与增量解析游标</title>
         <link>https://anarchycuriosity.github.io/p/tiny-web-server-http-request-parsing/</link>
         <pubDate>Sun, 04 Oct 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/tiny-web-server-http-request-parsing/</guid>
-        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_2376b17b99aeaf7d.jpg" alt="Featured image of post TinyWebServer｜一次 recv 没读完整，HTTP 解析器怎么继续？" /&gt;&lt;h2 id=&#34;接收网络字节与解析-http&#34;&gt;接收网络字节与解析 HTTP
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_2376b17b99aeaf7d.jpg" alt="Featured image of post TinyWebServer 请求解析｜TCP 字节流与增量解析游标" /&gt;&lt;h2 id=&#34;接收网络字节与解析-http&#34;&gt;接收网络字节与解析 HTTP
 &lt;/h2&gt;&lt;p&gt;M02/S01 引入 &lt;code&gt;http_parser&lt;/code&gt; 后，一个非常重要的边界出现了：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;

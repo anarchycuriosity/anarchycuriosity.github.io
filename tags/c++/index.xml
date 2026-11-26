@@ -8,12 +8,12 @@
         <language>zh-cn</language>
         <copyright>Curiosity Anarchy</copyright>
         <lastBuildDate>Thu, 29 Oct 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/tags/c++/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>TinyWebServer 调试笔记：从 return 找到值得打日志的位置</title>
+        <title>TinyWebServer 调试｜控制流打点、解析状态与 errno 保留</title>
         <link>https://anarchycuriosity.github.io/p/tiny-web-server-debug-trace/</link>
         <pubDate>Thu, 29 Oct 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/tiny-web-server-debug-trace/</guid>
-        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_155a548b61aa41e7.jpg" alt="Featured image of post TinyWebServer 调试笔记：从 return 找到值得打日志的位置" /&gt;&lt;h2 id=&#34;从函数出口反推决策点&#34;&gt;从函数出口反推决策点
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_155a548b61aa41e7.jpg" alt="Featured image of post TinyWebServer 调试｜控制流打点、解析状态与 errno 保留" /&gt;&lt;h2 id=&#34;从函数出口反推决策点&#34;&gt;从函数出口反推决策点
 &lt;/h2&gt;&lt;blockquote&gt;
 &lt;p&gt;我感觉我一般都是对着 return 附近的位置，视线拉远一些，看看是不是在某个逻辑模块内，打 debug_trace。&lt;/p&gt;
 &lt;p&gt;你觉得这个思路对吗？因为 return 往往对应某种状态的改变？&lt;/p&gt;
@@ -227,12 +227,12 @@
 </description>
         </item>
         <item>
-        <title>TinyWebServer｜writev 只写完一部分，下一次从哪发？</title>
+        <title>TinyWebServer 响应发送｜writev 聚集写入与部分写入游标</title>
         <link>https://anarchycuriosity.github.io/p/tiny-web-server-writev-partial-writes/</link>
         <pubDate>Fri, 23 Oct 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/tiny-web-server-writev-partial-writes/</guid>
-        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_89ade664ebe797e4.png" alt="Featured image of post TinyWebServer｜writev 只写完一部分，下一次从哪发？" /&gt;&lt;h2 id=&#34;响应头和正文怎样交给同一次-writev&#34;&gt;响应头和正文怎样交给同一次 writev
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_89ade664ebe797e4.png" alt="Featured image of post TinyWebServer 响应发送｜writev 聚集写入与部分写入游标" /&gt;&lt;h2 id=&#34;响应头和正文怎样交给同一次-writev&#34;&gt;响应头和正文怎样交给同一次 writev
 &lt;/h2&gt;&lt;p&gt;逻辑响应是一段连续字节：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -540,12 +540,12 @@
 &lt;/div&gt;</description>
         </item>
         <item>
-        <title>TinyWebServer｜200 和 404 的响应头怎样准备？</title>
+        <title>TinyWebServer 响应构造｜200 文件响应与 404 错误响应</title>
         <link>https://anarchycuriosity.github.io/p/tiny-web-server-response-preparation/</link>
         <pubDate>Sun, 18 Oct 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/tiny-web-server-response-preparation/</guid>
-        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_6ed0660db26cb453.png" alt="Featured image of post TinyWebServer｜200 和 404 的响应头怎样准备？" /&gt;&lt;h2 id=&#34;prepare_header-写的是响应头&#34;&gt;prepare_header 写的是响应头
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_6ed0660db26cb453.png" alt="Featured image of post TinyWebServer 响应构造｜200 文件响应与 404 错误响应" /&gt;&lt;h2 id=&#34;prepare_header-写的是响应头&#34;&gt;prepare_header 写的是响应头
 &lt;/h2&gt;&lt;p&gt;一次 HTTP 交互里有两个方向：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -889,12 +889,12 @@
 </description>
         </item>
         <item>
-        <title>重建 HTTP 解析器：让输入决定下一步实现</title>
+        <title>TinyWebServer HTTP Parser｜从请求行到请求体的状态机设计</title>
         <link>https://anarchycuriosity.github.io/p/http-parser-rebuild-notes/</link>
         <pubDate>Wed, 14 Oct 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/http-parser-rebuild-notes/</guid>
-        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_798f0e2012a2f534.jpg" alt="Featured image of post 重建 HTTP 解析器：让输入决定下一步实现" /&gt;&lt;h2 id=&#34;为什么照着头文件抄容易卡住&#34;&gt;为什么照着头文件抄容易卡住
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_798f0e2012a2f534.jpg" alt="Featured image of post TinyWebServer HTTP Parser｜从请求行到请求体的状态机设计" /&gt;&lt;h2 id=&#34;为什么照着头文件抄容易卡住&#34;&gt;为什么照着头文件抄容易卡住
 &lt;/h2&gt;&lt;p&gt;我在rebuild我的tiny_web_server到http解析器的部分,我已经比较理解了设计意图,但是我不明白应该怎么样正确地抄这个部分,如果抄完头文件然后抄实现感觉跟抄字典没什么区别,头文件本身就没什么逻辑可言,而对于一些小的部分,我可以做到看一次实现然后想到思路然后默写下来,就像写算法题填空一样.我应该怎么做&lt;/p&gt;
 &lt;h2 id=&#34;从请求行一路推到请求体&#34;&gt;从请求行一路推到请求体
 &lt;/h2&gt;&lt;blockquote&gt;
@@ -1020,12 +1020,12 @@
 </description>
         </item>
         <item>
-        <title>TinyWebServer｜从 HTTP 请求路径找到静态文件</title>
+        <title>TinyWebServer 静态资源｜URL 路径解码与 openat 文件定位</title>
         <link>https://anarchycuriosity.github.io/p/tiny-web-server-static-file-routing/</link>
         <pubDate>Thu, 08 Oct 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/tiny-web-server-static-file-routing/</guid>
-        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_2de188f19d1e4457.png" alt="Featured image of post TinyWebServer｜从 HTTP 请求路径找到静态文件" /&gt;&lt;h2 id=&#34;从请求目标取出资源路径&#34;&gt;从请求目标取出资源路径
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_2de188f19d1e4457.png" alt="Featured image of post TinyWebServer 静态资源｜URL 路径解码与 openat 文件定位" /&gt;&lt;h2 id=&#34;从请求目标取出资源路径&#34;&gt;从请求目标取出资源路径
 &lt;/h2&gt;&lt;p&gt;请求：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -1301,12 +1301,12 @@
 </description>
         </item>
         <item>
-        <title>TinyWebServer｜一次 recv 没读完整，HTTP 解析器怎么继续？</title>
+        <title>TinyWebServer 请求解析｜TCP 字节流与增量解析游标</title>
         <link>https://anarchycuriosity.github.io/p/tiny-web-server-http-request-parsing/</link>
         <pubDate>Sun, 04 Oct 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/tiny-web-server-http-request-parsing/</guid>
-        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_2376b17b99aeaf7d.jpg" alt="Featured image of post TinyWebServer｜一次 recv 没读完整，HTTP 解析器怎么继续？" /&gt;&lt;h2 id=&#34;接收网络字节与解析-http&#34;&gt;接收网络字节与解析 HTTP
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_2376b17b99aeaf7d.jpg" alt="Featured image of post TinyWebServer 请求解析｜TCP 字节流与增量解析游标" /&gt;&lt;h2 id=&#34;接收网络字节与解析-http&#34;&gt;接收网络字节与解析 HTTP
 &lt;/h2&gt;&lt;p&gt;M02/S01 引入 &lt;code&gt;http_parser&lt;/code&gt; 后，一个非常重要的边界出现了：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -1676,12 +1676,12 @@
 </description>
         </item>
         <item>
-        <title>C&#43;&#43; 异步回调：函数返回以后，Lambda 什么时候执行？</title>
+        <title>Boost.Asio 异步 I/O｜完成回调的生命周期</title>
         <link>https://anarchycuriosity.github.io/p/cpp-asio-callback-lifetime/</link>
         <pubDate>Tue, 22 Sep 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/cpp-asio-callback-lifetime/</guid>
-        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_c820c2ff55f8a585.png" alt="Featured image of post C&#43;&#43; 异步回调：函数返回以后，Lambda 什么时候执行？" /&gt;&lt;h2 id=&#34;sort-与异步读取&#34;&gt;sort 与异步读取
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_c820c2ff55f8a585.png" alt="Featured image of post Boost.Asio 异步 I/O｜完成回调的生命周期" /&gt;&lt;h2 id=&#34;sort-与异步读取&#34;&gt;sort 与异步读取
 &lt;/h2&gt;&lt;p&gt;sort函数与作为参数的lambda函数的生命周期基本对齐,然而异步函数并不总是这样.
 猜你在找&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -1865,12 +1865,12 @@
 &lt;/div&gt;</description>
         </item>
         <item>
-        <title>用 std::string_view 去掉 HTTP 字段两端的空白</title>
+        <title>C&#43;&#43; std::string_view｜HTTP 字段的无拷贝空白裁剪</title>
         <link>https://anarchycuriosity.github.io/p/cpp-string-view-trim/</link>
         <pubDate>Tue, 15 Sep 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/cpp-string-view-trim/</guid>
-        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_5f1935c88a23193c.jpg" alt="Featured image of post 用 std::string_view 去掉 HTTP 字段两端的空白" /&gt;&lt;h2 id=&#34;移动视图的起点与终点&#34;&gt;移动视图的起点与终点
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_5f1935c88a23193c.jpg" alt="Featured image of post C&#43;&#43; std::string_view｜HTTP 字段的无拷贝空白裁剪" /&gt;&lt;h2 id=&#34;移动视图的起点与终点&#34;&gt;移动视图的起点与终点
 &lt;/h2&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
@@ -1948,12 +1948,12 @@
 &lt;/div&gt;</description>
         </item>
         <item>
-        <title>从作用域看 C&#43;&#43; 智能指针：独占与共享</title>
+        <title>C&#43;&#43; 智能指针｜unique_ptr 所有权转移与 shared_ptr 引用计数</title>
         <link>https://anarchycuriosity.github.io/p/cpp-smart-pointer-ownership/</link>
         <pubDate>Mon, 07 Sep 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/cpp-smart-pointer-ownership/</guid>
-        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_55ce8588580226d6.jpg" alt="Featured image of post 从作用域看 C&#43;&#43; 智能指针：独占与共享" /&gt;&lt;h2 id=&#34;unique_ptr-如何转移所有权&#34;&gt;unique_ptr 如何转移所有权
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_55ce8588580226d6.jpg" alt="Featured image of post C&#43;&#43; 智能指针｜unique_ptr 所有权转移与 shared_ptr 引用计数" /&gt;&lt;h2 id=&#34;unique_ptr-如何转移所有权&#34;&gt;unique_ptr 如何转移所有权
 &lt;/h2&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
@@ -2006,12 +2006,12 @@
 </description>
         </item>
         <item>
-        <title>从源码追踪线程：谁在执行 run()？</title>
+        <title>Linux pthread｜线程执行流、独立栈与共享队列</title>
         <link>https://anarchycuriosity.github.io/p/cpp-thread-control-flow/</link>
         <pubDate>Thu, 27 Aug 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/cpp-thread-control-flow/</guid>
-        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_4a01d535daa4d84b.jpg" alt="Featured image of post 从源码追踪线程：谁在执行 run()？" /&gt;&lt;h2 id=&#34;从源码走到运行中的线程&#34;&gt;从源码走到运行中的线程
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_4a01d535daa4d84b.jpg" alt="Featured image of post Linux pthread｜线程执行流、独立栈与共享队列" /&gt;&lt;h2 id=&#34;从源码走到运行中的线程&#34;&gt;从源码走到运行中的线程
 &lt;/h2&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1

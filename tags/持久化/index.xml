@@ -8,12 +8,12 @@
         <language>zh-cn</language>
         <copyright>Curiosity Anarchy</copyright>
         <lastBuildDate>Fri, 13 Nov 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/tags/%E6%8C%81%E4%B9%85%E5%8C%96/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>Go 的 CLI 与 HTTP 共用 JSON 后，为什么还会读到旧数据？</title>
+        <title>Go JSON 文件存储｜进程内缓存与跨进程更新丢失</title>
         <link>https://anarchycuriosity.github.io/p/go-cli-http-shared-storage/</link>
         <pubDate>Fri, 13 Nov 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/go-cli-http-shared-storage/</guid>
-        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_368f31f803cb0396.jpg" alt="Featured image of post Go 的 CLI 与 HTTP 共用 JSON 后，为什么还会读到旧数据？" /&gt;&lt;h2 id=&#34;共享文件与进程内缓存&#34;&gt;共享文件与进程内缓存
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_368f31f803cb0396.jpg" alt="Featured image of post Go JSON 文件存储｜进程内缓存与跨进程更新丢失" /&gt;&lt;h2 id=&#34;共享文件与进程内缓存&#34;&gt;共享文件与进程内缓存
 &lt;/h2&gt;&lt;p&gt;假设两个进程同时运行。&lt;/p&gt;
 &lt;p&gt;时间线：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -104,12 +104,12 @@
 </description>
         </item>
         <item>
-        <title>Go 集成测试｜怎样验证 CLI 的记录确实写进了 JSON？</title>
+        <title>Go httptest｜CLI 与 HTTP 的 JSON 持久化集成测试</title>
         <link>https://anarchycuriosity.github.io/p/go-cli-http-persistence-test/</link>
         <pubDate>Thu, 12 Nov 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/go-cli-http-persistence-test/</guid>
-        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_baf0d256570f1143.jpg" alt="Featured image of post Go 集成测试｜怎样验证 CLI 的记录确实写进了 JSON？" /&gt;&lt;h2 id=&#34;两个入口如何连到同一份数据&#34;&gt;两个入口如何连到同一份数据
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_baf0d256570f1143.jpg" alt="Featured image of post Go httptest｜CLI 与 HTTP 的 JSON 持久化集成测试" /&gt;&lt;h2 id=&#34;两个入口如何连到同一份数据&#34;&gt;两个入口如何连到同一份数据
 &lt;/h2&gt;&lt;p&gt;两个可执行程序共同使用 &lt;code&gt;poker&lt;/code&gt; 包。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;

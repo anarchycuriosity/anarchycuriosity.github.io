@@ -8,12 +8,12 @@
         <language>zh-cn</language>
         <copyright>Curiosity Anarchy</copyright>
         <lastBuildDate>Sun, 18 Oct 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/tags/mmap/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>TinyWebServer｜200 和 404 的响应头怎样准备？</title>
+        <title>TinyWebServer 响应构造｜200 文件响应与 404 错误响应</title>
         <link>https://anarchycuriosity.github.io/p/tiny-web-server-response-preparation/</link>
         <pubDate>Sun, 18 Oct 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/tiny-web-server-response-preparation/</guid>
-        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_6ed0660db26cb453.png" alt="Featured image of post TinyWebServer｜200 和 404 的响应头怎样准备？" /&gt;&lt;h2 id=&#34;prepare_header-写的是响应头&#34;&gt;prepare_header 写的是响应头
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_6ed0660db26cb453.png" alt="Featured image of post TinyWebServer 响应构造｜200 文件响应与 404 错误响应" /&gt;&lt;h2 id=&#34;prepare_header-写的是响应头&#34;&gt;prepare_header 写的是响应头
 &lt;/h2&gt;&lt;p&gt;一次 HTTP 交互里有两个方向：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;

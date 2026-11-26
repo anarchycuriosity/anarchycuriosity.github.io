@@ -2,16 +2,16 @@
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="prepare_header 写的是响应头 一次 HTTP 交互里有两个方向：\n1 2 3 4 5 6 7 8 9 10 11 客户端 │ │ request ▼ 服务器 服务器 │ │ response ▼ 客户端 所以存在：\n1 request headers 和：\n1 response headers 当前：\n">
-<title>TinyWebServer｜200 和 404 的响应头怎样准备？</title>
+<title>TinyWebServer 响应构造｜200 文件响应与 404 错误响应</title>
 
 <link rel='canonical' href='https://anarchycuriosity.github.io/p/tiny-web-server-response-preparation/'>
 
-<link rel="stylesheet" href="/scss/style.min.c1b51a30df8ac209786d0bad641e606a0ad3c83218d05b1a01460049b2c0e683.css"><meta property='og:title' content="TinyWebServer｜200 和 404 的响应头怎样准备？">
+<link rel="stylesheet" href="/scss/style.min.c1b51a30df8ac209786d0bad641e606a0ad3c83218d05b1a01460049b2c0e683.css"><meta property='og:title' content="TinyWebServer 响应构造｜200 文件响应与 404 错误响应">
 <meta property='og:description' content="prepare_header 写的是响应头 一次 HTTP 交互里有两个方向：\n1 2 3 4 5 6 7 8 9 10 11 客户端 │ │ request ▼ 服务器 服务器 │ │ response ▼ 客户端 所以存在：\n1 request headers 和：\n1 response headers 当前：\n">
 <meta property='og:url' content='https://anarchycuriosity.github.io/p/tiny-web-server-response-preparation/'>
 <meta property='og:site_name' content='Curiosity Anarchy'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='TinyWebServer' /><meta property='article:tag' content='C&#43;&#43;' /><meta property='article:tag' content='HTTP' /><meta property='article:tag' content='响应构造' /><meta property='article:tag' content='mmap' /><meta property='article:published_time' content='2026-10-18T00:00:00&#43;08:00'/><meta property='article:modified_time' content='2026-10-18T00:00:00&#43;08:00'/><meta property='og:image' content='https://anarchycuriosity.github.io/moe/animation_6ed0660db26cb453.png' />
-<meta name="twitter:title" content="TinyWebServer｜200 和 404 的响应头怎样准备？">
+<meta name="twitter:title" content="TinyWebServer 响应构造｜200 文件响应与 404 错误响应">
 <meta name="twitter:description" content="prepare_header 写的是响应头 一次 HTTP 交互里有两个方向：\n1 2 3 4 5 6 7 8 9 10 11 客户端 │ │ request ▼ 服务器 服务器 │ │ response ▼ 客户端 所以存在：\n1 request headers 和：\n1 response headers 当前：\n"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://anarchycuriosity.github.io/moe/animation_6ed0660db26cb453.png' />
     <link rel="shortcut icon" href="/favicon.ico" />
@@ -279,7 +279,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/tiny-web-server-response-preparation/">TinyWebServer｜200 和 404 的响应头怎样准备？</a>
+            <a href="/p/tiny-web-server-response-preparation/">TinyWebServer 响应构造｜200 文件响应与 404 错误响应</a>
         </h2>
     
         
@@ -337,9 +337,9 @@
     
 </div>
 
-        <a class="article-image" href="/p/tiny-web-server-response-preparation/" aria-label="TinyWebServer｜200 和 404 的响应头怎样准备？">
+        <a class="article-image" href="/p/tiny-web-server-response-preparation/" aria-label="TinyWebServer 响应构造｜200 文件响应与 404 错误响应">
             
-                <img src="/moe/animation_6ed0660db26cb453.png" loading="lazy" alt="Featured image of post TinyWebServer｜200 和 404 的响应头怎样准备？" />
+                <img src="/moe/animation_6ed0660db26cb453.png" loading="lazy" alt="Featured image of post TinyWebServer 响应构造｜200 文件响应与 404 错误响应" />
             
         </a>
     
@@ -752,7 +752,7 @@
         
 
         <div class="article-details">
-            <h2 class="article-title">TinyWebServer 调试笔记：从 return 找到值得打日志的位置</h2>
+            <h2 class="article-title">TinyWebServer 调试｜控制流打点、解析状态与 errno 保留</h2>
         </div>
     </a>
 </article>
@@ -771,7 +771,7 @@
         
 
         <div class="article-details">
-            <h2 class="article-title">TinyWebServer｜writev 只写完一部分，下一次从哪发？</h2>
+            <h2 class="article-title">TinyWebServer 响应发送｜writev 聚集写入与部分写入游标</h2>
         </div>
     </a>
 </article>
@@ -790,7 +790,7 @@
         
 
         <div class="article-details">
-            <h2 class="article-title">重建 HTTP 解析器：让输入决定下一步实现</h2>
+            <h2 class="article-title">TinyWebServer HTTP Parser｜从请求行到请求体的状态机设计</h2>
         </div>
     </a>
 </article>
@@ -809,7 +809,7 @@
         
 
         <div class="article-details">
-            <h2 class="article-title">TinyWebServer｜从 HTTP 请求路径找到静态文件</h2>
+            <h2 class="article-title">TinyWebServer 静态资源｜URL 路径解码与 openat 文件定位</h2>
         </div>
     </a>
 </article>
@@ -828,7 +828,7 @@
         
 
         <div class="article-details">
-            <h2 class="article-title">TinyWebServer｜一次 recv 没读完整，HTTP 解析器怎么继续？</h2>
+            <h2 class="article-title">TinyWebServer 请求解析｜TCP 字节流与增量解析游标</h2>
         </div>
     </a>
 </article>

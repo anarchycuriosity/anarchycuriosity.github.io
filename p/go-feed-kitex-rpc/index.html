@@ -2,16 +2,16 @@
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="一次 RPC 的运行路径 使用一个近似模型：\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 API 程序 │ │ 调用 videoClient.Feed(...) ▼ RPC 客户端 │ │ 组织远程调用请求 ▼ 网络通信 │ ▼ video 程序 │ │ 执行 Feed ▼ 得到结果 │ │ 返回远程调用结果 ▼ API 程序 真正执行 Feed 业务逻辑的是另一个程序。\n">
-<title>Feed 02｜Kitex 怎样把 Feed 调用送到 Video 服务</title>
+<title>Feed 02 · Kitex RPC｜API 与 Video 服务的跨进程调用</title>
 
 <link rel='canonical' href='https://anarchycuriosity.github.io/p/go-feed-kitex-rpc/'>
 
-<link rel="stylesheet" href="/scss/style.min.c1b51a30df8ac209786d0bad641e606a0ad3c83218d05b1a01460049b2c0e683.css"><meta property='og:title' content="Feed 02｜Kitex 怎样把 Feed 调用送到 Video 服务">
+<link rel="stylesheet" href="/scss/style.min.c1b51a30df8ac209786d0bad641e606a0ad3c83218d05b1a01460049b2c0e683.css"><meta property='og:title' content="Feed 02 · Kitex RPC｜API 与 Video 服务的跨进程调用">
 <meta property='og:description' content="一次 RPC 的运行路径 使用一个近似模型：\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 API 程序 │ │ 调用 videoClient.Feed(...) ▼ RPC 客户端 │ │ 组织远程调用请求 ▼ 网络通信 │ ▼ video 程序 │ │ 执行 Feed ▼ 得到结果 │ │ 返回远程调用结果 ▼ API 程序 真正执行 Feed 业务逻辑的是另一个程序。\n">
 <meta property='og:url' content='https://anarchycuriosity.github.io/p/go-feed-kitex-rpc/'>
 <meta property='og:site_name' content='Curiosity Anarchy'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Feed' /><meta property='article:tag' content='Go' /><meta property='article:tag' content='Kitex' /><meta property='article:tag' content='RPC' /><meta property='article:tag' content='微服务' /><meta property='article:published_time' content='2026-11-19T00:00:00&#43;08:00'/><meta property='article:modified_time' content='2026-11-19T00:00:00&#43;08:00'/><meta property='og:image' content='https://anarchycuriosity.github.io/moe/animation_9397ba4450852fc9.png' />
-<meta name="twitter:title" content="Feed 02｜Kitex 怎样把 Feed 调用送到 Video 服务">
+<meta name="twitter:title" content="Feed 02 · Kitex RPC｜API 与 Video 服务的跨进程调用">
 <meta name="twitter:description" content="一次 RPC 的运行路径 使用一个近似模型：\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 API 程序 │ │ 调用 videoClient.Feed(...) ▼ RPC 客户端 │ │ 组织远程调用请求 ▼ 网络通信 │ ▼ video 程序 │ │ 执行 Feed ▼ 得到结果 │ │ 返回远程调用结果 ▼ API 程序 真正执行 Feed 业务逻辑的是另一个程序。\n"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://anarchycuriosity.github.io/moe/animation_9397ba4450852fc9.png' />
     <link rel="shortcut icon" href="/favicon.ico" />
@@ -278,7 +278,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/go-feed-kitex-rpc/">Feed 02｜Kitex 怎样把 Feed 调用送到 Video 服务</a>
+            <a href="/p/go-feed-kitex-rpc/">Feed 02 · Kitex RPC｜API 与 Video 服务的跨进程调用</a>
         </h2>
     
         
@@ -336,9 +336,9 @@
     
 </div>
 
-        <a class="article-image" href="/p/go-feed-kitex-rpc/" aria-label="Feed 02｜Kitex 怎样把 Feed 调用送到 Video 服务">
+        <a class="article-image" href="/p/go-feed-kitex-rpc/" aria-label="Feed 02 · Kitex RPC｜API 与 Video 服务的跨进程调用">
             
-                <img src="/moe/animation_9397ba4450852fc9.png" loading="lazy" alt="Featured image of post Feed 02｜Kitex 怎样把 Feed 调用送到 Video 服务" />
+                <img src="/moe/animation_9397ba4450852fc9.png" loading="lazy" alt="Featured image of post Feed 02 · Kitex RPC｜API 与 Video 服务的跨进程调用" />
             
         </a>
     
@@ -530,7 +530,7 @@
         
 
         <div class="article-details">
-            <h2 class="article-title">Feed 04｜MinIO 对象存储与预签名播放地址</h2>
+            <h2 class="article-title">Feed 04 · MinIO｜对象存储与预签名播放 URL</h2>
         </div>
     </a>
 </article>
@@ -549,7 +549,7 @@
         
 
         <div class="article-details">
-            <h2 class="article-title">Feed 03｜从 SQL 视频查询到作者、关注和点赞</h2>
+            <h2 class="article-title">Feed 03 · MySQL｜时间窗口查询与视频卡片组装</h2>
         </div>
     </a>
 </article>
@@ -568,7 +568,7 @@
         
 
         <div class="article-details">
-            <h2 class="article-title">Feed 01｜HTTP 请求怎样进入 Hertz Handler</h2>
+            <h2 class="article-title">Feed 01 · Hertz HTTP｜路由分发、RequestContext 与 JSON 响应</h2>
         </div>
     </a>
 </article>
@@ -587,7 +587,7 @@
         
 
         <div class="article-details">
-            <h2 class="article-title">Go 请求取消笔记：从调用链理解 Context 和 Done</h2>
+            <h2 class="article-title">Go context.Context｜请求取消、Done 通道与协作退出</h2>
         </div>
     </a>
 </article>
@@ -606,7 +606,7 @@
         
 
         <div class="article-details">
-            <h2 class="article-title">Go 的 CLI 与 HTTP 共用 JSON 后，为什么还会读到旧数据？</h2>
+            <h2 class="article-title">Go JSON 文件存储｜进程内缓存与跨进程更新丢失</h2>
         </div>
     </a>
 </article>

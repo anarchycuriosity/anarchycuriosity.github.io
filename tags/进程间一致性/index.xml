@@ -8,12 +8,12 @@
         <language>zh-cn</language>
         <copyright>Curiosity Anarchy</copyright>
         <lastBuildDate>Fri, 13 Nov 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/tags/%E8%BF%9B%E7%A8%8B%E9%97%B4%E4%B8%80%E8%87%B4%E6%80%A7/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>Go 的 CLI 与 HTTP 共用 JSON 后，为什么还会读到旧数据？</title>
+        <title>Go JSON 文件存储｜进程内缓存与跨进程更新丢失</title>
         <link>https://anarchycuriosity.github.io/p/go-cli-http-shared-storage/</link>
         <pubDate>Fri, 13 Nov 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/go-cli-http-shared-storage/</guid>
-        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_368f31f803cb0396.jpg" alt="Featured image of post Go 的 CLI 与 HTTP 共用 JSON 后，为什么还会读到旧数据？" /&gt;&lt;h2 id=&#34;共享文件与进程内缓存&#34;&gt;共享文件与进程内缓存
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_368f31f803cb0396.jpg" alt="Featured image of post Go JSON 文件存储｜进程内缓存与跨进程更新丢失" /&gt;&lt;h2 id=&#34;共享文件与进程内缓存&#34;&gt;共享文件与进程内缓存
 &lt;/h2&gt;&lt;p&gt;假设两个进程同时运行。&lt;/p&gt;
 &lt;p&gt;时间线：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;

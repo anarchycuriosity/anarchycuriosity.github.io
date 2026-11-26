@@ -8,12 +8,12 @@
         <language>zh-cn</language>
         <copyright>Curiosity Anarchy</copyright>
         <lastBuildDate>Mon, 23 Nov 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/tags/go/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>Feed 04｜MinIO 对象存储与预签名播放地址</title>
+        <title>Feed 04 · MinIO｜对象存储与预签名播放 URL</title>
         <link>https://anarchycuriosity.github.io/p/go-video-feed-minio-presigned-url/</link>
         <pubDate>Mon, 23 Nov 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/go-video-feed-minio-presigned-url/</guid>
-        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_da491b413f2fee6a.jpg" alt="Featured image of post Feed 04｜MinIO 对象存储与预签名播放地址" /&gt;&lt;h2 id=&#34;数据库与对象存储各自负责什么&#34;&gt;数据库与对象存储各自负责什么
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_da491b413f2fee6a.jpg" alt="Featured image of post Feed 04 · MinIO｜对象存储与预签名播放 URL" /&gt;&lt;h2 id=&#34;数据库与对象存储各自负责什么&#34;&gt;数据库与对象存储各自负责什么
 &lt;/h2&gt;&lt;blockquote&gt;
 &lt;p&gt;db的参数和函数我很好理解,默认传入遍历单元r的特定成员,如果需要关联用户就传入userID,一般都需要传入ctx来控制停止,但是minio的部分我完全不了解.我甚至连miniIO是什么角色我都不是很熟悉.&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -127,12 +127,12 @@
 </description>
         </item>
         <item>
-        <title>Feed 03｜从 SQL 视频查询到作者、关注和点赞</title>
+        <title>Feed 03 · MySQL｜时间窗口查询与视频卡片组装</title>
         <link>https://anarchycuriosity.github.io/p/go-feed-query-card-assembly/</link>
         <pubDate>Sat, 21 Nov 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/go-feed-query-card-assembly/</guid>
-        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_a2336e6bf7ac2475.jpg" alt="Featured image of post Feed 03｜从 SQL 视频查询到作者、关注和点赞" /&gt;&lt;h2 id=&#34;时间边界与查询数量&#34;&gt;时间边界与查询数量
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_a2336e6bf7ac2475.jpg" alt="Featured image of post Feed 03 · MySQL｜时间窗口查询与视频卡片组装" /&gt;&lt;h2 id=&#34;时间边界与查询数量&#34;&gt;时间边界与查询数量
 &lt;/h2&gt;&lt;p&gt;身份处理之后，Feed 调用：&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;db.MGetVideos(ctx, limit, &amp;amp;req.LatestTime)&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;本项目将 &lt;code&gt;limit&lt;/code&gt; 定义为 30。&lt;/p&gt;
@@ -325,12 +325,12 @@ r.AuthorID = 7
 </description>
         </item>
         <item>
-        <title>Feed 02｜Kitex 怎样把 Feed 调用送到 Video 服务</title>
+        <title>Feed 02 · Kitex RPC｜API 与 Video 服务的跨进程调用</title>
         <link>https://anarchycuriosity.github.io/p/go-feed-kitex-rpc/</link>
         <pubDate>Thu, 19 Nov 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/go-feed-kitex-rpc/</guid>
-        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_9397ba4450852fc9.png" alt="Featured image of post Feed 02｜Kitex 怎样把 Feed 调用送到 Video 服务" /&gt;&lt;h2 id=&#34;一次-rpc-的运行路径&#34;&gt;一次 RPC 的运行路径
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_9397ba4450852fc9.png" alt="Featured image of post Feed 02 · Kitex RPC｜API 与 Video 服务的跨进程调用" /&gt;&lt;h2 id=&#34;一次-rpc-的运行路径&#34;&gt;一次 RPC 的运行路径
 &lt;/h2&gt;&lt;p&gt;使用一个近似模型：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -453,12 +453,12 @@ r.AuthorID = 7
 </description>
         </item>
         <item>
-        <title>Feed 01｜HTTP 请求怎样进入 Hertz Handler</title>
+        <title>Feed 01 · Hertz HTTP｜路由分发、RequestContext 与 JSON 响应</title>
         <link>https://anarchycuriosity.github.io/p/go-feed-http-entry/</link>
         <pubDate>Wed, 18 Nov 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/go-feed-http-entry/</guid>
-        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_08def339607ce81a.jpg" alt="Featured image of post Feed 01｜HTTP 请求怎样进入 Hertz Handler" /&gt;&lt;h2 id=&#34;路由注册和实际调用&#34;&gt;路由注册和实际调用
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_08def339607ce81a.jpg" alt="Featured image of post Feed 01 · Hertz HTTP｜路由分发、RequestContext 与 JSON 响应" /&gt;&lt;h2 id=&#34;路由注册和实际调用&#34;&gt;路由注册和实际调用
 &lt;/h2&gt;&lt;p&gt;模型箭头：URL 被绑定到 Go 处理函数；注册发生于启动，实际调用发生于请求到来。下一站打开 handler 的完整 &lt;code&gt;Feed&lt;/code&gt;。&lt;/p&gt;
 &lt;h2 id=&#34;从查询参数到-requestcontext&#34;&gt;从查询参数到 RequestContext
 &lt;/h2&gt;&lt;p&gt;客户端请求：&lt;/p&gt;
@@ -569,12 +569,12 @@ r.AuthorID = 7
 </description>
         </item>
         <item>
-        <title>Go 的 CLI 与 HTTP 共用 JSON 后，为什么还会读到旧数据？</title>
+        <title>Go JSON 文件存储｜进程内缓存与跨进程更新丢失</title>
         <link>https://anarchycuriosity.github.io/p/go-cli-http-shared-storage/</link>
         <pubDate>Fri, 13 Nov 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/go-cli-http-shared-storage/</guid>
-        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_368f31f803cb0396.jpg" alt="Featured image of post Go 的 CLI 与 HTTP 共用 JSON 后，为什么还会读到旧数据？" /&gt;&lt;h2 id=&#34;共享文件与进程内缓存&#34;&gt;共享文件与进程内缓存
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_368f31f803cb0396.jpg" alt="Featured image of post Go JSON 文件存储｜进程内缓存与跨进程更新丢失" /&gt;&lt;h2 id=&#34;共享文件与进程内缓存&#34;&gt;共享文件与进程内缓存
 &lt;/h2&gt;&lt;p&gt;假设两个进程同时运行。&lt;/p&gt;
 &lt;p&gt;时间线：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -665,12 +665,12 @@ r.AuthorID = 7
 </description>
         </item>
         <item>
-        <title>Go 集成测试｜怎样验证 CLI 的记录确实写进了 JSON？</title>
+        <title>Go httptest｜CLI 与 HTTP 的 JSON 持久化集成测试</title>
         <link>https://anarchycuriosity.github.io/p/go-cli-http-persistence-test/</link>
         <pubDate>Thu, 12 Nov 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/go-cli-http-persistence-test/</guid>
-        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_baf0d256570f1143.jpg" alt="Featured image of post Go 集成测试｜怎样验证 CLI 的记录确实写进了 JSON？" /&gt;&lt;h2 id=&#34;两个入口如何连到同一份数据&#34;&gt;两个入口如何连到同一份数据
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_baf0d256570f1143.jpg" alt="Featured image of post Go httptest｜CLI 与 HTTP 的 JSON 持久化集成测试" /&gt;&lt;h2 id=&#34;两个入口如何连到同一份数据&#34;&gt;两个入口如何连到同一份数据
 &lt;/h2&gt;&lt;p&gt;两个可执行程序共同使用 &lt;code&gt;poker&lt;/code&gt; 包。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -763,12 +763,12 @@ r.AuthorID = 7
 </description>
         </item>
         <item>
-        <title>Go 请求取消笔记：从调用链理解 Context 和 Done</title>
+        <title>Go context.Context｜请求取消、Done 通道与协作退出</title>
         <link>https://anarchycuriosity.github.io/p/go-context-cancellation/</link>
         <pubDate>Tue, 10 Nov 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/go-context-cancellation/</guid>
-        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_a6c393737b5185c5.jpg" alt="Featured image of post Go 请求取消笔记：从调用链理解 Context 和 Done" /&gt;&lt;h2 id=&#34;一个已经不需要结果的请求&#34;&gt;一个已经不需要结果的请求
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_a6c393737b5185c5.jpg" alt="Featured image of post Go context.Context｜请求取消、Done 通道与协作退出" /&gt;&lt;h2 id=&#34;一个已经不需要结果的请求&#34;&gt;一个已经不需要结果的请求
 &lt;/h2&gt;&lt;p&gt;在Go的服务端开发中,一个请求往往需要经过许多函数,但这些函数需要知道:这个请求是否还值得继续执行.
 比如我们来看feed请求链&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;

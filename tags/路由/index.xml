@@ -8,12 +8,12 @@
         <language>zh-cn</language>
         <copyright>Curiosity Anarchy</copyright>
         <lastBuildDate>Wed, 18 Nov 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/tags/%E8%B7%AF%E7%94%B1/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>Feed 01｜HTTP 请求怎样进入 Hertz Handler</title>
+        <title>Feed 01 · Hertz HTTP｜路由分发、RequestContext 与 JSON 响应</title>
         <link>https://anarchycuriosity.github.io/p/go-feed-http-entry/</link>
         <pubDate>Wed, 18 Nov 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/go-feed-http-entry/</guid>
-        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_08def339607ce81a.jpg" alt="Featured image of post Feed 01｜HTTP 请求怎样进入 Hertz Handler" /&gt;&lt;h2 id=&#34;路由注册和实际调用&#34;&gt;路由注册和实际调用
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_08def339607ce81a.jpg" alt="Featured image of post Feed 01 · Hertz HTTP｜路由分发、RequestContext 与 JSON 响应" /&gt;&lt;h2 id=&#34;路由注册和实际调用&#34;&gt;路由注册和实际调用
 &lt;/h2&gt;&lt;p&gt;模型箭头：URL 被绑定到 Go 处理函数；注册发生于启动，实际调用发生于请求到来。下一站打开 handler 的完整 &lt;code&gt;Feed&lt;/code&gt;。&lt;/p&gt;
 &lt;h2 id=&#34;从查询参数到-requestcontext&#34;&gt;从查询参数到 RequestContext
 &lt;/h2&gt;&lt;p&gt;客户端请求：&lt;/p&gt;

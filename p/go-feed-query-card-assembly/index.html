@@ -2,16 +2,16 @@
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="时间边界与查询数量 身份处理之后，Feed 调用：\ndb.MGetVideos(ctx, limit, &amp;req.LatestTime)\n本项目将 limit 定义为 30。\n但它不是查询 30 位作者，也不是查询 30 条关注关系。\n它查询的是最多 30 条视频记录。\n5.1 查询条件 MGetVideos 的核心逻辑是：\n">
-<title>Feed 03｜从 SQL 视频查询到作者、关注和点赞</title>
+<title>Feed 03 · MySQL｜时间窗口查询与视频卡片组装</title>
 
 <link rel='canonical' href='https://anarchycuriosity.github.io/p/go-feed-query-card-assembly/'>
 
-<link rel="stylesheet" href="/scss/style.min.c1b51a30df8ac209786d0bad641e606a0ad3c83218d05b1a01460049b2c0e683.css"><meta property='og:title' content="Feed 03｜从 SQL 视频查询到作者、关注和点赞">
+<link rel="stylesheet" href="/scss/style.min.c1b51a30df8ac209786d0bad641e606a0ad3c83218d05b1a01460049b2c0e683.css"><meta property='og:title' content="Feed 03 · MySQL｜时间窗口查询与视频卡片组装">
 <meta property='og:description' content="时间边界与查询数量 身份处理之后，Feed 调用：\ndb.MGetVideos(ctx, limit, &amp;req.LatestTime)\n本项目将 limit 定义为 30。\n但它不是查询 30 位作者，也不是查询 30 条关注关系。\n它查询的是最多 30 条视频记录。\n5.1 查询条件 MGetVideos 的核心逻辑是：\n">
 <meta property='og:url' content='https://anarchycuriosity.github.io/p/go-feed-query-card-assembly/'>
 <meta property='og:site_name' content='Curiosity Anarchy'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Feed' /><meta property='article:tag' content='Go' /><meta property='article:tag' content='MySQL' /><meta property='article:tag' content='数据库查询' /><meta property='article:tag' content='数据组装' /><meta property='article:published_time' content='2026-11-21T00:00:00&#43;08:00'/><meta property='article:modified_time' content='2026-11-21T00:00:00&#43;08:00'/><meta property='og:image' content='https://anarchycuriosity.github.io/moe/animation_a2336e6bf7ac2475.jpg' />
-<meta name="twitter:title" content="Feed 03｜从 SQL 视频查询到作者、关注和点赞">
+<meta name="twitter:title" content="Feed 03 · MySQL｜时间窗口查询与视频卡片组装">
 <meta name="twitter:description" content="时间边界与查询数量 身份处理之后，Feed 调用：\ndb.MGetVideos(ctx, limit, &amp;req.LatestTime)\n本项目将 limit 定义为 30。\n但它不是查询 30 位作者，也不是查询 30 条关注关系。\n它查询的是最多 30 条视频记录。\n5.1 查询条件 MGetVideos 的核心逻辑是：\n"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://anarchycuriosity.github.io/moe/animation_a2336e6bf7ac2475.jpg' />
     <link rel="shortcut icon" href="/favicon.ico" />
@@ -283,7 +283,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/go-feed-query-card-assembly/">Feed 03｜从 SQL 视频查询到作者、关注和点赞</a>
+            <a href="/p/go-feed-query-card-assembly/">Feed 03 · MySQL｜时间窗口查询与视频卡片组装</a>
         </h2>
     
         
@@ -341,9 +341,9 @@
     
 </div>
 
-        <a class="article-image" href="/p/go-feed-query-card-assembly/" aria-label="Feed 03｜从 SQL 视频查询到作者、关注和点赞">
+        <a class="article-image" href="/p/go-feed-query-card-assembly/" aria-label="Feed 03 · MySQL｜时间窗口查询与视频卡片组装">
             
-                <img src="/moe/animation_a2336e6bf7ac2475.jpg" loading="lazy" alt="Featured image of post Feed 03｜从 SQL 视频查询到作者、关注和点赞" />
+                <img src="/moe/animation_a2336e6bf7ac2475.jpg" loading="lazy" alt="Featured image of post Feed 03 · MySQL｜时间窗口查询与视频卡片组装" />
             
         </a>
     
@@ -605,7 +605,7 @@ r.AuthorID = 7
         
 
         <div class="article-details">
-            <h2 class="article-title">Feed 04｜MinIO 对象存储与预签名播放地址</h2>
+            <h2 class="article-title">Feed 04 · MinIO｜对象存储与预签名播放 URL</h2>
         </div>
     </a>
 </article>
@@ -624,7 +624,7 @@ r.AuthorID = 7
         
 
         <div class="article-details">
-            <h2 class="article-title">Feed 02｜Kitex 怎样把 Feed 调用送到 Video 服务</h2>
+            <h2 class="article-title">Feed 02 · Kitex RPC｜API 与 Video 服务的跨进程调用</h2>
         </div>
     </a>
 </article>
@@ -643,7 +643,7 @@ r.AuthorID = 7
         
 
         <div class="article-details">
-            <h2 class="article-title">Feed 01｜HTTP 请求怎样进入 Hertz Handler</h2>
+            <h2 class="article-title">Feed 01 · Hertz HTTP｜路由分发、RequestContext 与 JSON 响应</h2>
         </div>
     </a>
 </article>
@@ -662,7 +662,7 @@ r.AuthorID = 7
         
 
         <div class="article-details">
-            <h2 class="article-title">Go 的 CLI 与 HTTP 共用 JSON 后，为什么还会读到旧数据？</h2>
+            <h2 class="article-title">Go JSON 文件存储｜进程内缓存与跨进程更新丢失</h2>
         </div>
     </a>
 </article>
@@ -681,7 +681,7 @@ r.AuthorID = 7
         
 
         <div class="article-details">
-            <h2 class="article-title">Go 集成测试｜怎样验证 CLI 的记录确实写进了 JSON？</h2>
+            <h2 class="article-title">Go httptest｜CLI 与 HTTP 的 JSON 持久化集成测试</h2>
         </div>
     </a>
 </article>

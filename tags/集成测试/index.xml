@@ -8,12 +8,12 @@
         <language>zh-cn</language>
         <copyright>Curiosity Anarchy</copyright>
         <lastBuildDate>Thu, 12 Nov 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/tags/%E9%9B%86%E6%88%90%E6%B5%8B%E8%AF%95/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>Go 集成测试｜怎样验证 CLI 的记录确实写进了 JSON？</title>
+        <title>Go httptest｜CLI 与 HTTP 的 JSON 持久化集成测试</title>
         <link>https://anarchycuriosity.github.io/p/go-cli-http-persistence-test/</link>
         <pubDate>Thu, 12 Nov 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/go-cli-http-persistence-test/</guid>
-        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_baf0d256570f1143.jpg" alt="Featured image of post Go 集成测试｜怎样验证 CLI 的记录确实写进了 JSON？" /&gt;&lt;h2 id=&#34;两个入口如何连到同一份数据&#34;&gt;两个入口如何连到同一份数据
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_baf0d256570f1143.jpg" alt="Featured image of post Go httptest｜CLI 与 HTTP 的 JSON 持久化集成测试" /&gt;&lt;h2 id=&#34;两个入口如何连到同一份数据&#34;&gt;两个入口如何连到同一份数据
 &lt;/h2&gt;&lt;p&gt;两个可执行程序共同使用 &lt;code&gt;poker&lt;/code&gt; 包。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;

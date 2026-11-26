@@ -2,16 +2,16 @@
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="从源码走到运行中的线程 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 源码 main() pthread_create(...) worker() run() request-&gt;process() │ │ 编译、运行 ▼ 操作系统中的进程 │ ├─ 主线程 T0 │ 寄存器 + 自己的栈 + 当前执行位置 │ ├─ 工作线程 T1 │ 寄存器 + 自己的栈 + 当前执行位置 │ ├─ 工作线程 T2 │ 寄存器 + 自己的栈 + 当前执行位置 │ └─ 共享：代码、堆、全局对象等 函数是“代码”，线程是“现在是谁正在执行这些代码”。\n">
-<title>从源码追踪线程：谁在执行 run()？</title>
+<title>Linux pthread｜线程执行流、独立栈与共享队列</title>
 
 <link rel='canonical' href='https://anarchycuriosity.github.io/p/cpp-thread-control-flow/'>
 
-<link rel="stylesheet" href="/scss/style.min.c1b51a30df8ac209786d0bad641e606a0ad3c83218d05b1a01460049b2c0e683.css"><meta property='og:title' content="从源码追踪线程：谁在执行 run()？">
+<link rel="stylesheet" href="/scss/style.min.c1b51a30df8ac209786d0bad641e606a0ad3c83218d05b1a01460049b2c0e683.css"><meta property='og:title' content="Linux pthread｜线程执行流、独立栈与共享队列">
 <meta property='og:description' content="从源码走到运行中的线程 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 源码 main() pthread_create(...) worker() run() request-&gt;process() │ │ 编译、运行 ▼ 操作系统中的进程 │ ├─ 主线程 T0 │ 寄存器 + 自己的栈 + 当前执行位置 │ ├─ 工作线程 T1 │ 寄存器 + 自己的栈 + 当前执行位置 │ ├─ 工作线程 T2 │ 寄存器 + 自己的栈 + 当前执行位置 │ └─ 共享：代码、堆、全局对象等 函数是“代码”，线程是“现在是谁正在执行这些代码”。\n">
 <meta property='og:url' content='https://anarchycuriosity.github.io/p/cpp-thread-control-flow/'>
 <meta property='og:site_name' content='Curiosity Anarchy'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='C&#43;&#43;' /><meta property='article:tag' content='Linux' /><meta property='article:tag' content='多线程' /><meta property='article:tag' content='pthread' /><meta property='article:published_time' content='2026-08-27T00:00:00&#43;08:00'/><meta property='article:modified_time' content='2026-08-27T00:00:00&#43;08:00'/><meta property='og:image' content='https://anarchycuriosity.github.io/moe/animation_4a01d535daa4d84b.jpg' />
-<meta name="twitter:title" content="从源码追踪线程：谁在执行 run()？">
+<meta name="twitter:title" content="Linux pthread｜线程执行流、独立栈与共享队列">
 <meta name="twitter:description" content="从源码走到运行中的线程 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 源码 main() pthread_create(...) worker() run() request-&gt;process() │ │ 编译、运行 ▼ 操作系统中的进程 │ ├─ 主线程 T0 │ 寄存器 + 自己的栈 + 当前执行位置 │ ├─ 工作线程 T1 │ 寄存器 + 自己的栈 + 当前执行位置 │ ├─ 工作线程 T2 │ 寄存器 + 自己的栈 + 当前执行位置 │ └─ 共享：代码、堆、全局对象等 函数是“代码”，线程是“现在是谁正在执行这些代码”。\n"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://anarchycuriosity.github.io/moe/animation_4a01d535daa4d84b.jpg' />
     <link rel="shortcut icon" href="/favicon.ico" />
@@ -278,7 +278,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/cpp-thread-control-flow/">从源码追踪线程：谁在执行 run()？</a>
+            <a href="/p/cpp-thread-control-flow/">Linux pthread｜线程执行流、独立栈与共享队列</a>
         </h2>
     
         
@@ -336,9 +336,9 @@
     
 </div>
 
-        <a class="article-image" href="/p/cpp-thread-control-flow/" aria-label="从源码追踪线程：谁在执行 run()？">
+        <a class="article-image" href="/p/cpp-thread-control-flow/" aria-label="Linux pthread｜线程执行流、独立栈与共享队列">
             
-                <img src="/moe/animation_4a01d535daa4d84b.jpg" loading="lazy" alt="Featured image of post 从源码追踪线程：谁在执行 run()？" />
+                <img src="/moe/animation_4a01d535daa4d84b.jpg" loading="lazy" alt="Featured image of post Linux pthread｜线程执行流、独立栈与共享队列" />
             
         </a>
     
@@ -555,7 +555,7 @@
         
 
         <div class="article-details">
-            <h2 class="article-title">C&#43;&#43; 异步回调：函数返回以后，Lambda 什么时候执行？</h2>
+            <h2 class="article-title">Boost.Asio 异步 I/O｜完成回调的生命周期</h2>
         </div>
     </a>
 </article>
@@ -574,7 +574,7 @@
         
 
         <div class="article-details">
-            <h2 class="article-title">用 std::string_view 去掉 HTTP 字段两端的空白</h2>
+            <h2 class="article-title">C&#43;&#43; std::string_view｜HTTP 字段的无拷贝空白裁剪</h2>
         </div>
     </a>
 </article>
@@ -593,7 +593,7 @@
         
 
         <div class="article-details">
-            <h2 class="article-title">从作用域看 C&#43;&#43; 智能指针：独占与共享</h2>
+            <h2 class="article-title">C&#43;&#43; 智能指针｜unique_ptr 所有权转移与 shared_ptr 引用计数</h2>
         </div>
     </a>
 </article>
@@ -612,7 +612,7 @@
         
 
         <div class="article-details">
-            <h2 class="article-title">TinyWebServer｜从 HTTP 请求路径找到静态文件</h2>
+            <h2 class="article-title">TinyWebServer 静态资源｜URL 路径解码与 openat 文件定位</h2>
         </div>
     </a>
 </article>

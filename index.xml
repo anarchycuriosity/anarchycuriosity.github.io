@@ -8,12 +8,12 @@
         <language>zh-cn</language>
         <copyright>Curiosity Anarchy</copyright>
         <lastBuildDate>Mon, 23 Nov 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>Feed 04｜MinIO 对象存储与预签名播放地址</title>
+        <title>Feed 04 · MinIO｜对象存储与预签名播放 URL</title>
         <link>https://anarchycuriosity.github.io/p/go-video-feed-minio-presigned-url/</link>
         <pubDate>Mon, 23 Nov 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/go-video-feed-minio-presigned-url/</guid>
-        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_da491b413f2fee6a.jpg" alt="Featured image of post Feed 04｜MinIO 对象存储与预签名播放地址" /&gt;&lt;h2 id=&#34;数据库与对象存储各自负责什么&#34;&gt;数据库与对象存储各自负责什么
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_da491b413f2fee6a.jpg" alt="Featured image of post Feed 04 · MinIO｜对象存储与预签名播放 URL" /&gt;&lt;h2 id=&#34;数据库与对象存储各自负责什么&#34;&gt;数据库与对象存储各自负责什么
 &lt;/h2&gt;&lt;blockquote&gt;
 &lt;p&gt;db的参数和函数我很好理解,默认传入遍历单元r的特定成员,如果需要关联用户就传入userID,一般都需要传入ctx来控制停止,但是minio的部分我完全不了解.我甚至连miniIO是什么角色我都不是很熟悉.&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -127,12 +127,12 @@
 </description>
         </item>
         <item>
-        <title>Feed 03｜从 SQL 视频查询到作者、关注和点赞</title>
+        <title>Feed 03 · MySQL｜时间窗口查询与视频卡片组装</title>
         <link>https://anarchycuriosity.github.io/p/go-feed-query-card-assembly/</link>
         <pubDate>Sat, 21 Nov 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/go-feed-query-card-assembly/</guid>
-        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_a2336e6bf7ac2475.jpg" alt="Featured image of post Feed 03｜从 SQL 视频查询到作者、关注和点赞" /&gt;&lt;h2 id=&#34;时间边界与查询数量&#34;&gt;时间边界与查询数量
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_a2336e6bf7ac2475.jpg" alt="Featured image of post Feed 03 · MySQL｜时间窗口查询与视频卡片组装" /&gt;&lt;h2 id=&#34;时间边界与查询数量&#34;&gt;时间边界与查询数量
 &lt;/h2&gt;&lt;p&gt;身份处理之后，Feed 调用：&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;db.MGetVideos(ctx, limit, &amp;amp;req.LatestTime)&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;本项目将 &lt;code&gt;limit&lt;/code&gt; 定义为 30。&lt;/p&gt;
@@ -325,12 +325,12 @@ r.AuthorID = 7
 </description>
         </item>
         <item>
-        <title>Feed 02｜Kitex 怎样把 Feed 调用送到 Video 服务</title>
+        <title>Feed 02 · Kitex RPC｜API 与 Video 服务的跨进程调用</title>
         <link>https://anarchycuriosity.github.io/p/go-feed-kitex-rpc/</link>
         <pubDate>Thu, 19 Nov 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/go-feed-kitex-rpc/</guid>
-        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_9397ba4450852fc9.png" alt="Featured image of post Feed 02｜Kitex 怎样把 Feed 调用送到 Video 服务" /&gt;&lt;h2 id=&#34;一次-rpc-的运行路径&#34;&gt;一次 RPC 的运行路径
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_9397ba4450852fc9.png" alt="Featured image of post Feed 02 · Kitex RPC｜API 与 Video 服务的跨进程调用" /&gt;&lt;h2 id=&#34;一次-rpc-的运行路径&#34;&gt;一次 RPC 的运行路径
 &lt;/h2&gt;&lt;p&gt;使用一个近似模型：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -453,12 +453,12 @@ r.AuthorID = 7
 </description>
         </item>
         <item>
-        <title>Feed 01｜HTTP 请求怎样进入 Hertz Handler</title>
+        <title>Feed 01 · Hertz HTTP｜路由分发、RequestContext 与 JSON 响应</title>
         <link>https://anarchycuriosity.github.io/p/go-feed-http-entry/</link>
         <pubDate>Wed, 18 Nov 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/go-feed-http-entry/</guid>
-        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_08def339607ce81a.jpg" alt="Featured image of post Feed 01｜HTTP 请求怎样进入 Hertz Handler" /&gt;&lt;h2 id=&#34;路由注册和实际调用&#34;&gt;路由注册和实际调用
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_08def339607ce81a.jpg" alt="Featured image of post Feed 01 · Hertz HTTP｜路由分发、RequestContext 与 JSON 响应" /&gt;&lt;h2 id=&#34;路由注册和实际调用&#34;&gt;路由注册和实际调用
 &lt;/h2&gt;&lt;p&gt;模型箭头：URL 被绑定到 Go 处理函数；注册发生于启动，实际调用发生于请求到来。下一站打开 handler 的完整 &lt;code&gt;Feed&lt;/code&gt;。&lt;/p&gt;
 &lt;h2 id=&#34;从查询参数到-requestcontext&#34;&gt;从查询参数到 RequestContext
 &lt;/h2&gt;&lt;p&gt;客户端请求：&lt;/p&gt;
@@ -569,12 +569,12 @@ r.AuthorID = 7
 </description>
         </item>
         <item>
-        <title>Go 的 CLI 与 HTTP 共用 JSON 后，为什么还会读到旧数据？</title>
+        <title>Go JSON 文件存储｜进程内缓存与跨进程更新丢失</title>
         <link>https://anarchycuriosity.github.io/p/go-cli-http-shared-storage/</link>
         <pubDate>Fri, 13 Nov 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/go-cli-http-shared-storage/</guid>
-        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_368f31f803cb0396.jpg" alt="Featured image of post Go 的 CLI 与 HTTP 共用 JSON 后，为什么还会读到旧数据？" /&gt;&lt;h2 id=&#34;共享文件与进程内缓存&#34;&gt;共享文件与进程内缓存
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_368f31f803cb0396.jpg" alt="Featured image of post Go JSON 文件存储｜进程内缓存与跨进程更新丢失" /&gt;&lt;h2 id=&#34;共享文件与进程内缓存&#34;&gt;共享文件与进程内缓存
 &lt;/h2&gt;&lt;p&gt;假设两个进程同时运行。&lt;/p&gt;
 &lt;p&gt;时间线：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -665,12 +665,12 @@ r.AuthorID = 7
 </description>
         </item>
         <item>
-        <title>Go 集成测试｜怎样验证 CLI 的记录确实写进了 JSON？</title>
+        <title>Go httptest｜CLI 与 HTTP 的 JSON 持久化集成测试</title>
         <link>https://anarchycuriosity.github.io/p/go-cli-http-persistence-test/</link>
         <pubDate>Thu, 12 Nov 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/go-cli-http-persistence-test/</guid>
-        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_baf0d256570f1143.jpg" alt="Featured image of post Go 集成测试｜怎样验证 CLI 的记录确实写进了 JSON？" /&gt;&lt;h2 id=&#34;两个入口如何连到同一份数据&#34;&gt;两个入口如何连到同一份数据
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_baf0d256570f1143.jpg" alt="Featured image of post Go httptest｜CLI 与 HTTP 的 JSON 持久化集成测试" /&gt;&lt;h2 id=&#34;两个入口如何连到同一份数据&#34;&gt;两个入口如何连到同一份数据
 &lt;/h2&gt;&lt;p&gt;两个可执行程序共同使用 &lt;code&gt;poker&lt;/code&gt; 包。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -763,12 +763,12 @@ r.AuthorID = 7
 </description>
         </item>
         <item>
-        <title>Go 请求取消笔记：从调用链理解 Context 和 Done</title>
+        <title>Go context.Context｜请求取消、Done 通道与协作退出</title>
         <link>https://anarchycuriosity.github.io/p/go-context-cancellation/</link>
         <pubDate>Tue, 10 Nov 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/go-context-cancellation/</guid>
-        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_a6c393737b5185c5.jpg" alt="Featured image of post Go 请求取消笔记：从调用链理解 Context 和 Done" /&gt;&lt;h2 id=&#34;一个已经不需要结果的请求&#34;&gt;一个已经不需要结果的请求
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_a6c393737b5185c5.jpg" alt="Featured image of post Go context.Context｜请求取消、Done 通道与协作退出" /&gt;&lt;h2 id=&#34;一个已经不需要结果的请求&#34;&gt;一个已经不需要结果的请求
 &lt;/h2&gt;&lt;p&gt;在Go的服务端开发中,一个请求往往需要经过许多函数,但这些函数需要知道:这个请求是否还值得继续执行.
 比如我们来看feed请求链&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -976,12 +976,12 @@ context本身并不具备取消的功能,要看函数或者它调用的库是否
 </description>
         </item>
         <item>
-        <title>TinyWebServer 调试笔记：从 return 找到值得打日志的位置</title>
+        <title>TinyWebServer 调试｜控制流打点、解析状态与 errno 保留</title>
         <link>https://anarchycuriosity.github.io/p/tiny-web-server-debug-trace/</link>
         <pubDate>Thu, 29 Oct 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/tiny-web-server-debug-trace/</guid>
-        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_155a548b61aa41e7.jpg" alt="Featured image of post TinyWebServer 调试笔记：从 return 找到值得打日志的位置" /&gt;&lt;h2 id=&#34;从函数出口反推决策点&#34;&gt;从函数出口反推决策点
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_155a548b61aa41e7.jpg" alt="Featured image of post TinyWebServer 调试｜控制流打点、解析状态与 errno 保留" /&gt;&lt;h2 id=&#34;从函数出口反推决策点&#34;&gt;从函数出口反推决策点
 &lt;/h2&gt;&lt;blockquote&gt;
 &lt;p&gt;我感觉我一般都是对着 return 附近的位置，视线拉远一些，看看是不是在某个逻辑模块内，打 debug_trace。&lt;/p&gt;
 &lt;p&gt;你觉得这个思路对吗？因为 return 往往对应某种状态的改变？&lt;/p&gt;
@@ -1195,12 +1195,12 @@ context本身并不具备取消的功能,要看函数或者它调用的库是否
 </description>
         </item>
         <item>
-        <title>TinyWebServer｜writev 只写完一部分，下一次从哪发？</title>
+        <title>TinyWebServer 响应发送｜writev 聚集写入与部分写入游标</title>
         <link>https://anarchycuriosity.github.io/p/tiny-web-server-writev-partial-writes/</link>
         <pubDate>Fri, 23 Oct 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/tiny-web-server-writev-partial-writes/</guid>
-        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_89ade664ebe797e4.png" alt="Featured image of post TinyWebServer｜writev 只写完一部分，下一次从哪发？" /&gt;&lt;h2 id=&#34;响应头和正文怎样交给同一次-writev&#34;&gt;响应头和正文怎样交给同一次 writev
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_89ade664ebe797e4.png" alt="Featured image of post TinyWebServer 响应发送｜writev 聚集写入与部分写入游标" /&gt;&lt;h2 id=&#34;响应头和正文怎样交给同一次-writev&#34;&gt;响应头和正文怎样交给同一次 writev
 &lt;/h2&gt;&lt;p&gt;逻辑响应是一段连续字节：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -1542,12 +1542,12 @@ context本身并不具备取消的功能,要看函数或者它调用的库是否
 </description>
         </item>
         <item>
-        <title>TinyWebServer｜200 和 404 的响应头怎样准备？</title>
+        <title>TinyWebServer 响应构造｜200 文件响应与 404 错误响应</title>
         <link>https://anarchycuriosity.github.io/p/tiny-web-server-response-preparation/</link>
         <pubDate>Sun, 18 Oct 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/tiny-web-server-response-preparation/</guid>
-        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_6ed0660db26cb453.png" alt="Featured image of post TinyWebServer｜200 和 404 的响应头怎样准备？" /&gt;&lt;h2 id=&#34;prepare_header-写的是响应头&#34;&gt;prepare_header 写的是响应头
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_6ed0660db26cb453.png" alt="Featured image of post TinyWebServer 响应构造｜200 文件响应与 404 错误响应" /&gt;&lt;h2 id=&#34;prepare_header-写的是响应头&#34;&gt;prepare_header 写的是响应头
 &lt;/h2&gt;&lt;p&gt;一次 HTTP 交互里有两个方向：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -1891,12 +1891,12 @@ context本身并不具备取消的功能,要看函数或者它调用的库是否
 </description>
         </item>
         <item>
-        <title>重建 HTTP 解析器：让输入决定下一步实现</title>
+        <title>TinyWebServer HTTP Parser｜从请求行到请求体的状态机设计</title>
         <link>https://anarchycuriosity.github.io/p/http-parser-rebuild-notes/</link>
         <pubDate>Wed, 14 Oct 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/http-parser-rebuild-notes/</guid>
-        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_798f0e2012a2f534.jpg" alt="Featured image of post 重建 HTTP 解析器：让输入决定下一步实现" /&gt;&lt;h2 id=&#34;为什么照着头文件抄容易卡住&#34;&gt;为什么照着头文件抄容易卡住
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_798f0e2012a2f534.jpg" alt="Featured image of post TinyWebServer HTTP Parser｜从请求行到请求体的状态机设计" /&gt;&lt;h2 id=&#34;为什么照着头文件抄容易卡住&#34;&gt;为什么照着头文件抄容易卡住
 &lt;/h2&gt;&lt;p&gt;我在rebuild我的tiny_web_server到http解析器的部分,我已经比较理解了设计意图,但是我不明白应该怎么样正确地抄这个部分,如果抄完头文件然后抄实现感觉跟抄字典没什么区别,头文件本身就没什么逻辑可言,而对于一些小的部分,我可以做到看一次实现然后想到思路然后默写下来,就像写算法题填空一样.我应该怎么做&lt;/p&gt;
 &lt;h2 id=&#34;从请求行一路推到请求体&#34;&gt;从请求行一路推到请求体
 &lt;/h2&gt;&lt;blockquote&gt;
@@ -2022,12 +2022,12 @@ context本身并不具备取消的功能,要看函数或者它调用的库是否
 </description>
         </item>
         <item>
-        <title>TinyWebServer｜从 HTTP 请求路径找到静态文件</title>
+        <title>TinyWebServer 静态资源｜URL 路径解码与 openat 文件定位</title>
         <link>https://anarchycuriosity.github.io/p/tiny-web-server-static-file-routing/</link>
         <pubDate>Thu, 08 Oct 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/tiny-web-server-static-file-routing/</guid>
-        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_2de188f19d1e4457.png" alt="Featured image of post TinyWebServer｜从 HTTP 请求路径找到静态文件" /&gt;&lt;h2 id=&#34;从请求目标取出资源路径&#34;&gt;从请求目标取出资源路径
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_2de188f19d1e4457.png" alt="Featured image of post TinyWebServer 静态资源｜URL 路径解码与 openat 文件定位" /&gt;&lt;h2 id=&#34;从请求目标取出资源路径&#34;&gt;从请求目标取出资源路径
 &lt;/h2&gt;&lt;p&gt;请求：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -2303,12 +2303,12 @@ context本身并不具备取消的功能,要看函数或者它调用的库是否
 </description>
         </item>
         <item>
-        <title>TinyWebServer｜一次 recv 没读完整，HTTP 解析器怎么继续？</title>
+        <title>TinyWebServer 请求解析｜TCP 字节流与增量解析游标</title>
         <link>https://anarchycuriosity.github.io/p/tiny-web-server-http-request-parsing/</link>
         <pubDate>Sun, 04 Oct 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/tiny-web-server-http-request-parsing/</guid>
-        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_2376b17b99aeaf7d.jpg" alt="Featured image of post TinyWebServer｜一次 recv 没读完整，HTTP 解析器怎么继续？" /&gt;&lt;h2 id=&#34;接收网络字节与解析-http&#34;&gt;接收网络字节与解析 HTTP
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_2376b17b99aeaf7d.jpg" alt="Featured image of post TinyWebServer 请求解析｜TCP 字节流与增量解析游标" /&gt;&lt;h2 id=&#34;接收网络字节与解析-http&#34;&gt;接收网络字节与解析 HTTP
 &lt;/h2&gt;&lt;p&gt;M02/S01 引入 &lt;code&gt;http_parser&lt;/code&gt; 后，一个非常重要的边界出现了：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -2678,12 +2678,12 @@ context本身并不具备取消的功能,要看函数或者它调用的库是否
 </description>
         </item>
         <item>
-        <title>C&#43;&#43; 异步回调：函数返回以后，Lambda 什么时候执行？</title>
+        <title>Boost.Asio 异步 I/O｜完成回调的生命周期</title>
         <link>https://anarchycuriosity.github.io/p/cpp-asio-callback-lifetime/</link>
         <pubDate>Tue, 22 Sep 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/cpp-asio-callback-lifetime/</guid>
-        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_c820c2ff55f8a585.png" alt="Featured image of post C&#43;&#43; 异步回调：函数返回以后，Lambda 什么时候执行？" /&gt;&lt;h2 id=&#34;sort-与异步读取&#34;&gt;sort 与异步读取
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_c820c2ff55f8a585.png" alt="Featured image of post Boost.Asio 异步 I/O｜完成回调的生命周期" /&gt;&lt;h2 id=&#34;sort-与异步读取&#34;&gt;sort 与异步读取
 &lt;/h2&gt;&lt;p&gt;sort函数与作为参数的lambda函数的生命周期基本对齐,然而异步函数并不总是这样.
 猜你在找&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -2867,12 +2867,12 @@ context本身并不具备取消的功能,要看函数或者它调用的库是否
 &lt;/div&gt;</description>
         </item>
         <item>
-        <title>用 std::string_view 去掉 HTTP 字段两端的空白</title>
+        <title>C&#43;&#43; std::string_view｜HTTP 字段的无拷贝空白裁剪</title>
         <link>https://anarchycuriosity.github.io/p/cpp-string-view-trim/</link>
         <pubDate>Tue, 15 Sep 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/cpp-string-view-trim/</guid>
-        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_5f1935c88a23193c.jpg" alt="Featured image of post 用 std::string_view 去掉 HTTP 字段两端的空白" /&gt;&lt;h2 id=&#34;移动视图的起点与终点&#34;&gt;移动视图的起点与终点
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_5f1935c88a23193c.jpg" alt="Featured image of post C&#43;&#43; std::string_view｜HTTP 字段的无拷贝空白裁剪" /&gt;&lt;h2 id=&#34;移动视图的起点与终点&#34;&gt;移动视图的起点与终点
 &lt;/h2&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
@@ -2950,12 +2950,12 @@ context本身并不具备取消的功能,要看函数或者它调用的库是否
 &lt;/div&gt;</description>
         </item>
         <item>
-        <title>从作用域看 C&#43;&#43; 智能指针：独占与共享</title>
+        <title>C&#43;&#43; 智能指针｜unique_ptr 所有权转移与 shared_ptr 引用计数</title>
         <link>https://anarchycuriosity.github.io/p/cpp-smart-pointer-ownership/</link>
         <pubDate>Mon, 07 Sep 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/cpp-smart-pointer-ownership/</guid>
-        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_55ce8588580226d6.jpg" alt="Featured image of post 从作用域看 C&#43;&#43; 智能指针：独占与共享" /&gt;&lt;h2 id=&#34;unique_ptr-如何转移所有权&#34;&gt;unique_ptr 如何转移所有权
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_55ce8588580226d6.jpg" alt="Featured image of post C&#43;&#43; 智能指针｜unique_ptr 所有权转移与 shared_ptr 引用计数" /&gt;&lt;h2 id=&#34;unique_ptr-如何转移所有权&#34;&gt;unique_ptr 如何转移所有权
 &lt;/h2&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
@@ -3008,12 +3008,12 @@ context本身并不具备取消的功能,要看函数或者它调用的库是否
 </description>
         </item>
         <item>
-        <title>从源码追踪线程：谁在执行 run()？</title>
+        <title>Linux pthread｜线程执行流、独立栈与共享队列</title>
         <link>https://anarchycuriosity.github.io/p/cpp-thread-control-flow/</link>
         <pubDate>Thu, 27 Aug 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/cpp-thread-control-flow/</guid>
-        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_4a01d535daa4d84b.jpg" alt="Featured image of post 从源码追踪线程：谁在执行 run()？" /&gt;&lt;h2 id=&#34;从源码走到运行中的线程&#34;&gt;从源码走到运行中的线程
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_4a01d535daa4d84b.jpg" alt="Featured image of post Linux pthread｜线程执行流、独立栈与共享队列" /&gt;&lt;h2 id=&#34;从源码走到运行中的线程&#34;&gt;从源码走到运行中的线程
 &lt;/h2&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
@@ -3163,12 +3163,12 @@ context本身并不具备取消的功能,要看函数或者它调用的库是否
 &lt;/div&gt;</description>
         </item>
         <item>
-        <title>从网卡到用户缓冲区：epoll 和 recv 各做什么</title>
+        <title>Linux 网络 I/O｜epoll 就绪通知与 recv 数据读取</title>
         <link>https://anarchycuriosity.github.io/p/linux-epoll-recv/</link>
         <pubDate>Fri, 07 Aug 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/linux-epoll-recv/</guid>
-        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_2062f66eaa0df18b.jpg" alt="Featured image of post 从网卡到用户缓冲区：epoll 和 recv 各做什么" /&gt;&lt;h2 id=&#34;字节从网卡走到哪里&#34;&gt;字节从网卡走到哪里
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_2062f66eaa0df18b.jpg" alt="Featured image of post Linux 网络 I/O｜epoll 就绪通知与 recv 数据读取" /&gt;&lt;h2 id=&#34;字节从网卡走到哪里&#34;&gt;字节从网卡走到哪里
 &lt;/h2&gt;&lt;p&gt;不要漏掉发送和接受函数中间的那些层级,字节不是直接飞进&lt;code&gt;char buff[1024]&lt;/code&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;

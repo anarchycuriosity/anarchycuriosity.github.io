@@ -8,12 +8,12 @@
         <language>zh-cn</language>
         <copyright>Curiosity Anarchy</copyright>
         <lastBuildDate>Mon, 07 Sep 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/tags/%E8%B5%84%E6%BA%90%E6%89%80%E6%9C%89%E6%9D%83/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>从作用域看 C&#43;&#43; 智能指针：独占与共享</title>
+        <title>C&#43;&#43; 智能指针｜unique_ptr 所有权转移与 shared_ptr 引用计数</title>
         <link>https://anarchycuriosity.github.io/p/cpp-smart-pointer-ownership/</link>
         <pubDate>Mon, 07 Sep 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/cpp-smart-pointer-ownership/</guid>
-        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_55ce8588580226d6.jpg" alt="Featured image of post 从作用域看 C&#43;&#43; 智能指针：独占与共享" /&gt;&lt;h2 id=&#34;unique_ptr-如何转移所有权&#34;&gt;unique_ptr 如何转移所有权
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_55ce8588580226d6.jpg" alt="Featured image of post C&#43;&#43; 智能指针｜unique_ptr 所有权转移与 shared_ptr 引用计数" /&gt;&lt;h2 id=&#34;unique_ptr-如何转移所有权&#34;&gt;unique_ptr 如何转移所有权
 &lt;/h2&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1

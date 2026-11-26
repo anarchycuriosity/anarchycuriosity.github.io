@@ -8,12 +8,12 @@
         <language>zh-cn</language>
         <copyright>Curiosity Anarchy</copyright>
         <lastBuildDate>Tue, 22 Sep 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/tags/lambda/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>C&#43;&#43; 异步回调：函数返回以后，Lambda 什么时候执行？</title>
+        <title>Boost.Asio 异步 I/O｜完成回调的生命周期</title>
         <link>https://anarchycuriosity.github.io/p/cpp-asio-callback-lifetime/</link>
         <pubDate>Tue, 22 Sep 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/cpp-asio-callback-lifetime/</guid>
-        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_c820c2ff55f8a585.png" alt="Featured image of post C&#43;&#43; 异步回调：函数返回以后，Lambda 什么时候执行？" /&gt;&lt;h2 id=&#34;sort-与异步读取&#34;&gt;sort 与异步读取
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_c820c2ff55f8a585.png" alt="Featured image of post Boost.Asio 异步 I/O｜完成回调的生命周期" /&gt;&lt;h2 id=&#34;sort-与异步读取&#34;&gt;sort 与异步读取
 &lt;/h2&gt;&lt;p&gt;sort函数与作为参数的lambda函数的生命周期基本对齐,然而异步函数并不总是这样.
 猜你在找&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;

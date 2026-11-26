@@ -8,12 +8,12 @@
         <language>zh-cn</language>
         <copyright>Curiosity Anarchy</copyright>
         <lastBuildDate>Thu, 29 Oct 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/tags/%E8%B0%83%E8%AF%95/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>TinyWebServer 调试笔记：从 return 找到值得打日志的位置</title>
+        <title>TinyWebServer 调试｜控制流打点、解析状态与 errno 保留</title>
         <link>https://anarchycuriosity.github.io/p/tiny-web-server-debug-trace/</link>
         <pubDate>Thu, 29 Oct 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/tiny-web-server-debug-trace/</guid>
-        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_155a548b61aa41e7.jpg" alt="Featured image of post TinyWebServer 调试笔记：从 return 找到值得打日志的位置" /&gt;&lt;h2 id=&#34;从函数出口反推决策点&#34;&gt;从函数出口反推决策点
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_155a548b61aa41e7.jpg" alt="Featured image of post TinyWebServer 调试｜控制流打点、解析状态与 errno 保留" /&gt;&lt;h2 id=&#34;从函数出口反推决策点&#34;&gt;从函数出口反推决策点
 &lt;/h2&gt;&lt;blockquote&gt;
 &lt;p&gt;我感觉我一般都是对着 return 附近的位置，视线拉远一些，看看是不是在某个逻辑模块内，打 debug_trace。&lt;/p&gt;
 &lt;p&gt;你觉得这个思路对吗？因为 return 往往对应某种状态的改变？&lt;/p&gt;

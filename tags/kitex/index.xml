@@ -8,12 +8,12 @@
         <language>zh-cn</language>
         <copyright>Curiosity Anarchy</copyright>
         <lastBuildDate>Thu, 19 Nov 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/tags/kitex/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>Feed 02｜Kitex 怎样把 Feed 调用送到 Video 服务</title>
+        <title>Feed 02 · Kitex RPC｜API 与 Video 服务的跨进程调用</title>
         <link>https://anarchycuriosity.github.io/p/go-feed-kitex-rpc/</link>
         <pubDate>Thu, 19 Nov 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/go-feed-kitex-rpc/</guid>
-        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_9397ba4450852fc9.png" alt="Featured image of post Feed 02｜Kitex 怎样把 Feed 调用送到 Video 服务" /&gt;&lt;h2 id=&#34;一次-rpc-的运行路径&#34;&gt;一次 RPC 的运行路径
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_9397ba4450852fc9.png" alt="Featured image of post Feed 02 · Kitex RPC｜API 与 Video 服务的跨进程调用" /&gt;&lt;h2 id=&#34;一次-rpc-的运行路径&#34;&gt;一次 RPC 的运行路径
 &lt;/h2&gt;&lt;p&gt;使用一个近似模型：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;

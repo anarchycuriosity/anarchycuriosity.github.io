@@ -8,12 +8,12 @@
         <language>zh-cn</language>
         <copyright>Curiosity Anarchy</copyright>
         <lastBuildDate>Wed, 14 Oct 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/tags/%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>重建 HTTP 解析器：让输入决定下一步实现</title>
+        <title>TinyWebServer HTTP Parser｜从请求行到请求体的状态机设计</title>
         <link>https://anarchycuriosity.github.io/p/http-parser-rebuild-notes/</link>
         <pubDate>Wed, 14 Oct 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/http-parser-rebuild-notes/</guid>
-        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_798f0e2012a2f534.jpg" alt="Featured image of post 重建 HTTP 解析器：让输入决定下一步实现" /&gt;&lt;h2 id=&#34;为什么照着头文件抄容易卡住&#34;&gt;为什么照着头文件抄容易卡住
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_798f0e2012a2f534.jpg" alt="Featured image of post TinyWebServer HTTP Parser｜从请求行到请求体的状态机设计" /&gt;&lt;h2 id=&#34;为什么照着头文件抄容易卡住&#34;&gt;为什么照着头文件抄容易卡住
 &lt;/h2&gt;&lt;p&gt;我在rebuild我的tiny_web_server到http解析器的部分,我已经比较理解了设计意图,但是我不明白应该怎么样正确地抄这个部分,如果抄完头文件然后抄实现感觉跟抄字典没什么区别,头文件本身就没什么逻辑可言,而对于一些小的部分,我可以做到看一次实现然后想到思路然后默写下来,就像写算法题填空一样.我应该怎么做&lt;/p&gt;
 &lt;h2 id=&#34;从请求行一路推到请求体&#34;&gt;从请求行一路推到请求体
 &lt;/h2&gt;&lt;blockquote&gt;
