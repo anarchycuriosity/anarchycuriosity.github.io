@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://anarchycuriosity.github.io/p/cpp-tiny-mapping-lifetime/'>
 
-<link rel="stylesheet" href="/scss/style.min.c1b51a30df8ac209786d0bad641e606a0ad3c83218d05b1a01460049b2c0e683.css"><meta property='og:title' content="TinyWebServer mmap｜文件描述符、映射区域和连接的生命周期">
+<link rel="stylesheet" href="/scss/style.min.79262a95b2ad9351386f0b891ab91e5e26687c356c2a27135dd328369015597f.css"><meta property='og:title' content="TinyWebServer mmap｜文件描述符、映射区域和连接的生命周期">
 <meta property='og:description' content="四、mmap 不等于把整个文件立即读进物理内存 这一点必须单独标记。\n错误近似：\n1 2 3 mmap(file) = 立即把整个文件复制到 RAM 更合适的模型：\n1 2 3 4 5 文件 ↓ 建立虚拟地址映射关系 ↓ 进程可以通过 file_address 访问文件内容 相关页面什么时候真正进入物理内存，是更底层的内核内存管理问题。\n">
 <meta property='og:url' content='https://anarchycuriosity.github.io/p/cpp-tiny-mapping-lifetime/'>
 <meta property='og:site_name' content='Curiosity Anarchy'>
@@ -631,7 +631,7 @@
 <aside class="related-content--wrapper">
     <h2 class="section-title">相关文章</h2>
     <div class="related-content">
-        <div class="flex article-list--tile">
+        <div class="article-list--tile topic-grid">
             
                 
 <article class="has-image">
@@ -731,6 +731,7 @@
         </div>
     </div>
 </aside>
+
 
      
     

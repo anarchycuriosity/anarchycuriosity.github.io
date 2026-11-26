@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://anarchycuriosity.github.io/p/linux-epoll-recv/'>
 
-<link rel="stylesheet" href="/scss/style.min.c1b51a30df8ac209786d0bad641e606a0ad3c83218d05b1a01460049b2c0e683.css"><meta property='og:title' content="Linux 网络 I/O｜epoll 就绪通知与 recv 数据读取">
+<link rel="stylesheet" href="/scss/style.min.79262a95b2ad9351386f0b891ab91e5e26687c356c2a27135dd328369015597f.css"><meta property='og:title' content="Linux 网络 I/O｜epoll 就绪通知与 recv 数据读取">
 <meta property='og:description' content="字节从网卡走到哪里 不要漏掉发送和接受函数中间的那些层级,字节不是直接飞进char buff[1024]\n1 2 3 4 5 6 7 8 9 10 11 客户端 ↓ 网络 你的网卡 ↓ Linux 内核 TCP/IP 协议栈 ↓ 这个 socket 对应的【内核接收缓冲区】 ↓ recv(fd, user_buf, ...) ↓ 你的 C++ 用户态数组 user_buf 拿到了数据并不代表这个数据被接受了,也就是没有被recv(),没有被程序处理,我们暂存\n">
 <meta property='og:url' content='https://anarchycuriosity.github.io/p/linux-epoll-recv/'>
 <meta property='og:site_name' content='Curiosity Anarchy'>
@@ -545,7 +545,7 @@
 <aside class="related-content--wrapper">
     <h2 class="section-title">相关文章</h2>
     <div class="related-content">
-        <div class="flex article-list--tile">
+        <div class="article-list--tile topic-grid">
             
                 
 <article class="has-image">
@@ -645,6 +645,7 @@
         </div>
     </div>
 </aside>
+
 
      
     

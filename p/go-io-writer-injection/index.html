@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://anarchycuriosity.github.io/p/go-io-writer-injection/'>
 
-<link rel="stylesheet" href="/scss/style.min.c1b51a30df8ac209786d0bad641e606a0ad3c83218d05b1a01460049b2c0e683.css"><meta property='og:title' content="Go io.Writer｜输出依赖注入与可测试边界">
+<link rel="stylesheet" href="/scss/style.min.79262a95b2ad9351386f0b891ab91e5e26687c356c2a27135dd328369015597f.css"><meta property='og:title' content="Go io.Writer｜输出依赖注入与可测试边界">
 <meta property='og:description' content="上一篇留下了什么限制？ 目前的函数参数是：\n1 func Greet(writer *bytes.Buffer, name string) 测试已经可以通过。\n但如果我们希望在终端直接输出，不经过缓冲区中转呢？\n自然想到：\n1 Greet(os.Stdout, &#34;Elodie&#34;) os.Stdout 是什么？\n它的类型是 *os.File，表示一个打开的文件对象，通常关联当前进程的标准输出。\n">
 <meta property='og:url' content='https://anarchycuriosity.github.io/p/go-io-writer-injection/'>
 <meta property='og:site_name' content='Curiosity Anarchy'>
@@ -716,7 +716,7 @@
 <aside class="related-content--wrapper">
     <h2 class="section-title">相关文章</h2>
     <div class="related-content">
-        <div class="flex article-list--tile">
+        <div class="article-list--tile topic-grid">
             
                 
 <article class="has-image">
@@ -816,6 +816,7 @@
         </div>
     </div>
 </aside>
+
 
      
     

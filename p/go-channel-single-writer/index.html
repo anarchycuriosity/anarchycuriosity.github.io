@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://anarchycuriosity.github.io/p/go-channel-single-writer/'>
 
-<link rel="stylesheet" href="/scss/style.min.c1b51a30df8ac209786d0bad641e606a0ad3c83218d05b1a01460049b2c0e683.css"><meta property='og:title' content="Go Channel｜并发执行与单一写入者">
+<link rel="stylesheet" href="/scss/style.min.79262a95b2ad9351386f0b891ab91e5e26687c356c2a27135dd328369015597f.css"><meta property='og:title' content="Go Channel｜并发执行与单一写入者">
 <meta property='og:description' content="重新分配职责 之前的错误设计：\n1 2 3 4 5 worker A ── 检查 ── 写 map worker B ── 检查 ── 写 map worker C ── 检查 ── 写 map 调用者 ── 不等待就返回 新的设计：\n1 2 3 4 5 6 7 8 9 10 11 worker A ── 检查 ──┐ worker B ── 检查 ──┼──&gt; resultChannel worker C ── 检查 ──┘ | v 调用者逐条接收 | v 写入 results map | v 收完后 return worker 只负责计算和发送结果。\n">
 <meta property='og:url' content='https://anarchycuriosity.github.io/p/go-channel-single-writer/'>
 <meta property='og:site_name' content='Curiosity Anarchy'>
@@ -655,7 +655,7 @@
 <aside class="related-content--wrapper">
     <h2 class="section-title">相关文章</h2>
     <div class="related-content">
-        <div class="flex article-list--tile">
+        <div class="article-list--tile topic-grid">
             
                 
 <article class="has-image">
@@ -755,6 +755,7 @@
         </div>
     </div>
 </aside>
+
 
      
     

@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://anarchycuriosity.github.io/p/linux-thread-primitives/'>
 
-<link rel="stylesheet" href="/scss/style.min.c1b51a30df8ac209786d0bad641e606a0ad3c83218d05b1a01460049b2c0e683.css"><meta property='og:title' content="Linux 阻塞原语｜epoll_wait、sem_wait 与 pthread_cond_wait">
+<link rel="stylesheet" href="/scss/style.min.79262a95b2ad9351386f0b891ab91e5e26687c356c2a27135dd328369015597f.css"><meta property='og:title' content="Linux 阻塞原语｜epoll_wait、sem_wait 与 pthread_cond_wait">
 <meta property='og:description' content="epoll_wait() 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 某线程正在运行 ↓ 调用 xxx_wait(...) ↓ 检查：“我等的条件现在满足了吗？” ├─ 满足 → 直接返回，线程继续执行 │ └─ 不满足 ↓ 把这个线程登记为“等待者” ↓ 线程进入阻塞/睡眠状态 ↓ CPU 去运行别的线程 ↓ 某个事件发生 ↓ 等待线程被唤醒 ↓ xxx_wait() 返回 ↓ 从下一行继续执行 1 int number = epoll_wait(m_epollfd, events, MAX_EVENT_NUMBER, -1); 注意这里的执行的对象是eventloop,准确地说也就是真正执行等待的是执行event_loop的线程 如果有任何感兴趣的fd可以recv,那么就返回值,否则不要反复检查,堵塞在这里.堵塞在这里是好的,因为确实没有任务.\n">
 <meta property='og:url' content='https://anarchycuriosity.github.io/p/linux-thread-primitives/'>
 <meta property='og:site_name' content='Curiosity Anarchy'>
@@ -472,7 +472,7 @@
 <aside class="related-content--wrapper">
     <h2 class="section-title">相关文章</h2>
     <div class="related-content">
-        <div class="flex article-list--tile">
+        <div class="article-list--tile topic-grid">
             
                 
 <article class="has-image">
@@ -572,6 +572,7 @@
         </div>
     </div>
 </aside>
+
 
      
     

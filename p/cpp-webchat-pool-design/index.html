@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://anarchycuriosity.github.io/p/cpp-webchat-pool-design/'>
 
-<link rel="stylesheet" href="/scss/style.min.c1b51a30df8ac209786d0bad641e606a0ad3c83218d05b1a01460049b2c0e683.css"><meta property='og:title' content="C++ WebChat｜会话对象与数据库连接池的资源边界">
+<link rel="stylesheet" href="/scss/style.min.79262a95b2ad9351386f0b891ab91e5e26687c356c2a27135dd328369015597f.css"><meta property='og:title' content="C++ WebChat｜会话对象与数据库连接池的资源边界">
 <meta property='og:description' content="从会话对象看连接管理 也就是说,虽然session持有api,但是我们允许有api就可以去改数据,这是为了防止什么问题?并发和接口对象过多?所以我们要保留session set的设计?毕竟它似乎不太能再被缩小,代表连接总数.我们把api从session移动server的一个池进行管理?这就是连接池吗?因为原本我是计划让每个session拿到server的redisAPI引用(由server管理,但server只有一个redisAPI),所以我们把一开始这个server对象持有的单个API(这不是项目现状,现状是每个session都有一个API)丢到server然后池化?\n">
 <meta property='og:url' content='https://anarchycuriosity.github.io/p/cpp-webchat-pool-design/'>
 <meta property='og:site_name' content='Curiosity Anarchy'>
@@ -409,7 +409,7 @@
 <aside class="related-content--wrapper">
     <h2 class="section-title">相关文章</h2>
     <div class="related-content">
-        <div class="flex article-list--tile">
+        <div class="article-list--tile topic-grid">
             
                 
 <article class="has-image">
@@ -509,6 +509,7 @@
         </div>
     </div>
 </aside>
+
 
      
     

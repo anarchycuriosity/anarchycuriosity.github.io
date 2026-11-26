@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://anarchycuriosity.github.io/p/go-file-store-initialization/'>
 
-<link rel="stylesheet" href="/scss/style.min.c1b51a30df8ac209786d0bad641e606a0ad3c83218d05b1a01460049b2c0e683.css"><meta property='og:title' content="Go 文件存储｜空文件、损坏数据与失败后的缓存一致性">
+<link rel="stylesheet" href="/scss/style.min.79262a95b2ad9351386f0b891ab91e5e26687c356c2a27135dd328369015597f.css"><meta property='og:title' content="Go 文件存储｜空文件、损坏数据与失败后的缓存一致性">
 <meta property='og:description' content="为什么之前一直没有发现初始化错误？ 我们在构造函数中写过：\n1 league, _ := NewLeague(file) 下划线直接忽略了错误。\n对于空文件，JSON 解码器会返回 EOF。\n但空文件和损坏文件并不应该采用相同处理方式。\n文件内容 应该怎么处理 空文件，长度为 0 初始化为空数组 [] 合法 JSON 数组 正常解码 not JSON 返回解析错误 文件读取失败 返回读取错误 写入失败 返回错误，HTTP 不应报告 202 怎样判断文件真的为空？ 使用 file.Stat() 获取文件信息，再调用 Size()。\n">
 <meta property='og:url' content='https://anarchycuriosity.github.io/p/go-file-store-initialization/'>
 <meta property='og:site_name' content='Curiosity Anarchy'>
@@ -547,7 +547,7 @@
 <aside class="related-content--wrapper">
     <h2 class="section-title">相关文章</h2>
     <div class="related-content">
-        <div class="flex article-list--tile">
+        <div class="article-list--tile topic-grid">
             
                 
 <article class="has-image">
@@ -647,6 +647,7 @@
         </div>
     </div>
 </aside>
+
 
      
     

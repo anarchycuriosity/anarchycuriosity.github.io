@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://anarchycuriosity.github.io/p/go-kitex-generated-boundary/'>
 
-<link rel="stylesheet" href="/scss/style.min.c1b51a30df8ac209786d0bad641e606a0ad3c83218d05b1a01460049b2c0e683.css"><meta property='og:title' content="Go Kitex｜生成的接口、客户端与服务端实现">
+<link rel="stylesheet" href="/scss/style.min.79262a95b2ad9351386f0b891ab91e5e26687c356c2a27135dd328369015597f.css"><meta property='og:title' content="Go Kitex｜生成的接口、客户端与服务端实现">
 <meta property='og:description' content="疑问 阅读main的video链路的包,包包装了往下的客户端方法,然后往下应该去看具体的客户端的源码.其他链路也是这样类推是我注意到从NewClient那里f12之后就到达了kitex自动生成的代码了,也就是项目的kitex目录下的,然后我不是很理解kitex自动生成代码指的是什么,为什么它似乎能针对我的videoservice生成对应业务的代码? 其实我觉得从NewClient读下去是不是不太对? 我的理解是,api下面有两个文件夹,一个是handler,一个是rpc,其中rpc是交给kitex生成的服务,而handler是我对于某个业务链路的处理,然后rpc文件夹里面的只负责创建kitex用户端然后和那边对接,逻辑跟handler是一致的但是由kitex根据对面是情况来生成.因为我注意到handler里面有PublishAction和PublishList,然后我觉得一些Request和Response是跟kitex有关吧,因为kitex和http有关系,但是和业务逻辑关系不是很大\n">
 <meta property='og:url' content='https://anarchycuriosity.github.io/p/go-kitex-generated-boundary/'>
 <meta property='og:site_name' content='Curiosity Anarchy'>
@@ -522,7 +522,7 @@ kitex生成了什么?我们需要写什么?Kitex 自动生成的是两端的通�
 <aside class="related-content--wrapper">
     <h2 class="section-title">相关文章</h2>
     <div class="related-content">
-        <div class="flex article-list--tile">
+        <div class="article-list--tile topic-grid">
             
                 
 <article class="has-image">
@@ -622,6 +622,7 @@ kitex生成了什么?我们需要写什么?Kitex 自动生成的是两端的通�
         </div>
     </div>
 </aside>
+
 
      
     

@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://anarchycuriosity.github.io/p/cpp-asio-socket-acceptor/'>
 
-<link rel="stylesheet" href="/scss/style.min.c1b51a30df8ac209786d0bad641e606a0ad3c83218d05b1a01460049b2c0e683.css"><meta property='og:title' content="Boost.Asio｜acceptor 与已连接 socket 的职责">
+<link rel="stylesheet" href="/scss/style.min.79262a95b2ad9351386f0b891ab91e5e26687c356c2a27135dd328369015597f.css"><meta property='og:title' content="Boost.Asio｜acceptor 与已连接 socket 的职责">
 <meta property='og:description' content="io_context、acceptor 与 session tcp::acceptor则是专门负责监听端口和接受新TCP连接的对象 tcp::socket一条已经建立好连接的tcp连接 1 2 3 4 5 6 7 8 9 10 class server { protected: tcp::acceptor serverAcceptor; std::set&lt;std::shared_ptr&lt;session&gt;&gt; sessionSet; void doAccept(); public: server(boost::asio::io_context &amp;io, short port); }; 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 io_context “整个 I/O 调度中心” │ │ 管理异步操作 ▼ serverAcceptor “监听 9191 端口” │ 有客户端连接进来 ▼ socket “某个客户端连接” │ ▼ session “管理这条连接的业务” ">
 <meta property='og:url' content='https://anarchycuriosity.github.io/p/cpp-asio-socket-acceptor/'>
 <meta property='og:site_name' content='Curiosity Anarchy'>
@@ -458,7 +458,7 @@
 <aside class="related-content--wrapper">
     <h2 class="section-title">相关文章</h2>
     <div class="related-content">
-        <div class="flex article-list--tile">
+        <div class="article-list--tile topic-grid">
             
                 
 <article class="has-image">
@@ -558,6 +558,7 @@
         </div>
     </div>
 </aside>
+
 
      
     

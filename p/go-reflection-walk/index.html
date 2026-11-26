@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://anarchycuriosity.github.io/p/go-reflection-walk/'>
 
-<link rel="stylesheet" href="/scss/style.min.c1b51a30df8ac209786d0bad641e606a0ad3c83218d05b1a01460049b2c0e683.css"><meta property='og:title' content="Go reflect｜嵌套结构、指针与容器遍历">
+<link rel="stylesheet" href="/scss/style.min.79262a95b2ad9351386f0b891ab91e5e26687c356c2a27135dd328369015597f.css"><meta property='og:title' content="Go reflect｜嵌套结构、指针与容器遍历">
 <meta property='og:description' content="嵌套结构体为什么没有被遍历？ 假设：\n1 2 3 4 5 Person ├── Name = &#34;Chris&#34; └── Profile ├── Age = 33 └── City = &#34;London&#34; 上一篇的 walk 只遍历 Person 的直接字段。\n它发现：\n1 2 Name → String → 收集 &#34;Chris&#34; Profile → Struct → 跳过 因此得到：\n1 2 got = [&#34;Chris&#34;] want = [&#34;Chris&#34;, &#34;London&#34;] 我们的要求不是只检查第一层，而是检查所有嵌套层次中的字符串。\n">
 <meta property='og:url' content='https://anarchycuriosity.github.io/p/go-reflection-walk/'>
 <meta property='og:site_name' content='Curiosity Anarchy'>
@@ -796,7 +796,7 @@
 <aside class="related-content--wrapper">
     <h2 class="section-title">相关文章</h2>
     <div class="related-content">
-        <div class="flex article-list--tile">
+        <div class="article-list--tile topic-grid">
             
                 
 <article class="has-image">
@@ -896,6 +896,7 @@
         </div>
     </div>
 </aside>
+
 
      
     

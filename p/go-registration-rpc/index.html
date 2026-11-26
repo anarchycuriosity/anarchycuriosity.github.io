@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://anarchycuriosity.github.io/p/go-registration-rpc/'>
 
-<link rel="stylesheet" href="/scss/style.min.c1b51a30df8ac209786d0bad641e606a0ad3c83218d05b1a01460049b2c0e683.css"><meta property='og:title' content="Go Kitex 注册服务｜跨进程调用与 RPC 错误映射">
+<link rel="stylesheet" href="/scss/style.min.79262a95b2ad9351386f0b891ab91e5e26687c356c2a27135dd328369015597f.css"><meta property='og:title' content="Go Kitex 注册服务｜跨进程调用与 RPC 错误映射">
 <meta property='og:description' content="同一个注册请求，为什么停掉 user 就变了？ 整篇只追这一条请求：\n1 POST /douyin/user/register/?username=alice&amp;password=p 在 S03 的 show 里，user 在线时，这条请求得到 HTTP 200，响应中有 status_code: -1 和「账号持久化尚未接入」。只停 user，保留 API，再发同一条请求，HTTP 变成 502。与此同时，API 自己的 /healthz 仍可返回 200。\n">
 <meta property='og:url' content='https://anarchycuriosity.github.io/p/go-registration-rpc/'>
 <meta property='og:site_name' content='Curiosity Anarchy'>
@@ -479,7 +479,7 @@
 <aside class="related-content--wrapper">
     <h2 class="section-title">相关文章</h2>
     <div class="related-content">
-        <div class="flex article-list--tile">
+        <div class="article-list--tile topic-grid">
             
                 
 <article class="has-image">
@@ -579,6 +579,7 @@
         </div>
     </div>
 </aside>
+
 
      
     

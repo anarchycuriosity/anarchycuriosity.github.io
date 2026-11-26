@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://anarchycuriosity.github.io/p/go-registration-rpc-debug/'>
 
-<link rel="stylesheet" href="/scss/style.min.c1b51a30df8ac209786d0bad641e606a0ad3c83218d05b1a01460049b2c0e683.css"><meta property='og:title' content="Go Kitex 联调｜生成类型、err 与 nil 响应保护">
+<link rel="stylesheet" href="/scss/style.min.79262a95b2ad9351386f0b891ab91e5e26687c356c2a27135dd328369015597f.css"><meta property='og:title' content="Go Kitex 联调｜生成类型、err 与 nil 响应保护">
 <meta property='og:description' content="生成代码的字段契约 在 internal/user_rpc/register.go 的返回结构体里，把 UserID: response.UserID 改成 UserID: response.UserId。\nresponse 指向生成的 user.UserRegisterResponse，它声明的是 UserId。冒号左边在给手写的 api.RegisterResult 填字段，那里声明的是 UserID。例如 RPC 给了 UserId = 42，适配器就把 42 放进 API 结果的 UserID，之后 HTTP 层通过 JSON tag 把它写成 user_id。从生成文件里查字段名即可，修改落在手写适配器。 生成的响应类型\n">
 <meta property='og:url' content='https://anarchycuriosity.github.io/p/go-registration-rpc-debug/'>
 <meta property='og:site_name' content='Curiosity Anarchy'>
@@ -444,7 +444,7 @@
 <aside class="related-content--wrapper">
     <h2 class="section-title">相关文章</h2>
     <div class="related-content">
-        <div class="flex article-list--tile">
+        <div class="article-list--tile topic-grid">
             
                 
 <article class="has-image">
@@ -544,6 +544,7 @@
         </div>
     </div>
 </aside>
+
 
      
     

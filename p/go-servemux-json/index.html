@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://anarchycuriosity.github.io/p/go-servemux-json/'>
 
-<link rel="stylesheet" href="/scss/style.min.c1b51a30df8ac209786d0bad641e606a0ad3c83218d05b1a01460049b2c0e683.css"><meta property='og:title' content="Go ServeMux｜路由复用与 JSON 响应断言">
+<link rel="stylesheet" href="/scss/style.min.79262a95b2ad9351386f0b891ab91e5e26687c356c2a27135dd328369015597f.css"><meta property='og:title' content="Go ServeMux｜路由复用与 JSON 响应断言">
 <meta property='og:description' content="为什么不继续写一堆 if？ 上一篇已经暴露了问题：\nPlayerServer 不应该在确认请求路径之前，就直接切割字符串。\n最直接的修复是：\n1 2 if path == &#34;/league&#34; ... else if strings.HasPrefix(path, &#34;/players/&#34;) ... 但随着端点数量增加，每次请求都需要自己判断路径、HTTP 方法、路径参数，以及没有匹配时如何回应。\n">
 <meta property='og:url' content='https://anarchycuriosity.github.io/p/go-servemux-json/'>
 <meta property='og:site_name' content='Curiosity Anarchy'>
@@ -777,7 +777,7 @@
 <aside class="related-content--wrapper">
     <h2 class="section-title">相关文章</h2>
     <div class="related-content">
-        <div class="flex article-list--tile">
+        <div class="article-list--tile topic-grid">
             
                 
 <article class="has-image">
@@ -877,6 +877,7 @@
         </div>
     </div>
 </aside>
+
 
      
     

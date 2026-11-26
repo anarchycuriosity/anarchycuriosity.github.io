@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://anarchycuriosity.github.io/p/tiny-web-server-static-file-routing/'>
 
-<link rel="stylesheet" href="/scss/style.min.c1b51a30df8ac209786d0bad641e606a0ad3c83218d05b1a01460049b2c0e683.css"><meta property='og:title' content="TinyWebServer 静态资源｜URL 路径解码与 openat 文件定位">
+<link rel="stylesheet" href="/scss/style.min.79262a95b2ad9351386f0b891ab91e5e26687c356c2a27135dd328369015597f.css"><meta property='og:title' content="TinyWebServer 静态资源｜URL 路径解码与 openat 文件定位">
 <meta property='og:description' content="从请求目标取出资源路径 请求：\n1 2 3 GET /judge.html?x=1 HTTP/1.1\\r\\n Host: x\\r\\n \\r\\n parser 已经产生：\n1 target = &#34;/judge.html?x=1&#34; 但是这个字符串还不能直接作为文件名。\n因为：\n1 ?x=1 属于 query。\n实际资源路径是：\n1 /judge.html 所以第一层处理是：\n1 2 3 4 5 /judge.html?x=1 ↓ 去掉 query ↓ /judge.html 路径解码与静态路由 路径来自客户端，因此不能默认可信。\n">
 <meta property='og:url' content='https://anarchycuriosity.github.io/p/tiny-web-server-static-file-routing/'>
 <meta property='og:site_name' content='Curiosity Anarchy'>
@@ -669,7 +669,7 @@
 <aside class="related-content--wrapper">
     <h2 class="section-title">相关文章</h2>
     <div class="related-content">
-        <div class="flex article-list--tile">
+        <div class="article-list--tile topic-grid">
             
                 
 <article class="has-image">
@@ -769,6 +769,7 @@
         </div>
     </div>
 </aside>
+
 
      
     

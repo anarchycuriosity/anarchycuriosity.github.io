@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://anarchycuriosity.github.io/p/cpp-tiny-make-debug/'>
 
-<link rel="stylesheet" href="/scss/style.min.c1b51a30df8ac209786d0bad641e606a0ad3c83218d05b1a01460049b2c0e683.css"><meta property='og:title' content="TinyWebServer 构建｜Makefile 调试目标与运行开关">
+<link rel="stylesheet" href="/scss/style.min.79262a95b2ad9351386f0b891ab91e5e26687c356c2a27135dd328369015597f.css"><meta property='og:title' content="TinyWebServer 构建｜Makefile 调试目标与运行开关">
 <meta property='og:description' content="$(MAKE) 是什么？ 原注释：\n这个 MAKE 变量是什么？-B？\n$(MAKE) 是 GNU Make 提供的特殊变量，通常用于在一个 Makefile 的配方中递归调用 Make。\n当前 .debug 目标执行的核心动作是：\n1 2 3 4 5 6 7 8 9 make .debug ↓ $(MAKE) -B all CXXFLAGS=... ↓ 再次执行 Make ↓ 使用指定编译选项重新构建 all ↓ 生成 tiny_web_server $(MAKE) 不是 C++ 变量，而是 Make 的变量引用。\n">
 <meta property='og:url' content='https://anarchycuriosity.github.io/p/cpp-tiny-make-debug/'>
 <meta property='og:site_name' content='Curiosity Anarchy'>
@@ -483,7 +483,7 @@
 <aside class="related-content--wrapper">
     <h2 class="section-title">相关文章</h2>
     <div class="related-content">
-        <div class="flex article-list--tile">
+        <div class="article-list--tile topic-grid">
             
                 
 <article class="has-image">
@@ -583,6 +583,7 @@
         </div>
     </div>
 </aside>
+
 
      
     

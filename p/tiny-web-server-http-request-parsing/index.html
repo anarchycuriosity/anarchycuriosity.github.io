@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://anarchycuriosity.github.io/p/tiny-web-server-http-request-parsing/'>
 
-<link rel="stylesheet" href="/scss/style.min.c1b51a30df8ac209786d0bad641e606a0ad3c83218d05b1a01460049b2c0e683.css"><meta property='og:title' content="TinyWebServer 请求解析｜TCP 字节流与增量解析游标">
+<link rel="stylesheet" href="/scss/style.min.79262a95b2ad9351386f0b891ab91e5e26687c356c2a27135dd328369015597f.css"><meta property='og:title' content="TinyWebServer 请求解析｜TCP 字节流与增量解析游标">
 <meta property='og:description' content="接收网络字节与解析 HTTP M02/S01 引入 http_parser 后，一个非常重要的边界出现了：\n1 2 3 4 5 6 7 8 9 主线程 / read_request │ │ recv ▼ 一批 bytes │ │ parser.append(bytes) ▼ http_parser 这里有两个不同职责。\n网络层 负责：\n1 2 3 什么时候 recv recv 返回多少 连接是否 EOF / 出错 parser 负责：\n">
 <meta property='og:url' content='https://anarchycuriosity.github.io/p/tiny-web-server-http-request-parsing/'>
 <meta property='og:site_name' content='Curiosity Anarchy'>
@@ -768,7 +768,7 @@
 <aside class="related-content--wrapper">
     <h2 class="section-title">相关文章</h2>
     <div class="related-content">
-        <div class="flex article-list--tile">
+        <div class="article-list--tile topic-grid">
             
                 
 <article class="has-image">
@@ -868,6 +868,7 @@
         </div>
     </div>
 </aside>
+
 
      
     

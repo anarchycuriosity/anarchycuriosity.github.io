@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://anarchycuriosity.github.io/p/go-context-cancellation/'>
 
-<link rel="stylesheet" href="/scss/style.min.c1b51a30df8ac209786d0bad641e606a0ad3c83218d05b1a01460049b2c0e683.css"><meta property='og:title' content="Go context.Context｜请求取消、Done 通道与协作退出">
+<link rel="stylesheet" href="/scss/style.min.79262a95b2ad9351386f0b891ab91e5e26687c356c2a27135dd328369015597f.css"><meta property='og:title' content="Go context.Context｜请求取消、Done 通道与协作退出">
 <meta property='og:description' content="一个已经不需要结果的请求 在Go的服务端开发中,一个请求往往需要经过许多函数,但这些函数需要知道:这个请求是否还值得继续执行. 比如我们来看feed请求链\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 用户发起 HTTP 请求 │ ▼ Hertz API Handler │ ▼ Kitex RPC Client │ ▼ VideoServiceImpl.Feed │ ▼ db.MGetVideos │ ▼ 数据库 假如用户在请求完成中途就关闭了界面,那么数据库怎么知道用户不需要结果了? 如果不使用取消机制,那么有大量这样的请求的时候,服务端就可能白白占用大量链接CPU和内存. 从http开始,context就像是一个随着请求流动的控制凭证. context本身并不具备取消的功能,要看函数或者它调用的库是否主动响应取消信号\n">
 <meta property='og:url' content='https://anarchycuriosity.github.io/p/go-context-cancellation/'>
 <meta property='og:site_name' content='Curiosity Anarchy'>
@@ -610,7 +610,7 @@ context本身并不具备取消的功能,要看函数或者它调用的库是否
 <aside class="related-content--wrapper">
     <h2 class="section-title">相关文章</h2>
     <div class="related-content">
-        <div class="flex article-list--tile">
+        <div class="article-list--tile topic-grid">
             
                 
 <article class="has-image">
@@ -710,6 +710,7 @@ context本身并不具备取消的功能,要看函数或者它调用的库是否
         </div>
     </div>
 </aside>
+
 
      
     

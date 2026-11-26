@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://anarchycuriosity.github.io/p/go-registration-mysql-startup/'>
 
-<link rel="stylesheet" href="/scss/style.min.c1b51a30df8ac209786d0bad641e606a0ad3c83218d05b1a01460049b2c0e683.css"><meta property='og:title' content="Go MySQL 用户服务｜建表与监听端口的启动顺序">
+<link rel="stylesheet" href="/scss/style.min.79262a95b2ad9351386f0b891ab91e5e26687c356c2a27135dd328369015597f.css"><meta property='og:title' content="Go MySQL 用户服务｜建表与监听端口的启动顺序">
 <meta property='og:description' content="用户服务启动时准备数据表 想象 user 进程已经开始接 RPC，随后才发现库名写错。对 API 来说，user 的端口看起来开着，但数据库准备失败只能等进程内部再处理。S05 把检查移到监听之前，失败时进程直接退出，原因留在 user 的启动日志里。\n">
 <meta property='og:url' content='https://anarchycuriosity.github.io/p/go-registration-mysql-startup/'>
 <meta property='og:site_name' content='Curiosity Anarchy'>
@@ -405,7 +405,7 @@
 <aside class="related-content--wrapper">
     <h2 class="section-title">相关文章</h2>
     <div class="related-content">
-        <div class="flex article-list--tile">
+        <div class="article-list--tile topic-grid">
             
                 
 <article class="has-image">
@@ -505,6 +505,7 @@
         </div>
     </div>
 </aside>
+
 
      
     

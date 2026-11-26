@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://anarchycuriosity.github.io/p/cpp-string-view-trim/'>
 
-<link rel="stylesheet" href="/scss/style.min.c1b51a30df8ac209786d0bad641e606a0ad3c83218d05b1a01460049b2c0e683.css"><meta property='og:title' content="C++ std::string_view｜HTTP 字段的无拷贝空白裁剪">
+<link rel="stylesheet" href="/scss/style.min.79262a95b2ad9351386f0b891ab91e5e26687c356c2a27135dd328369015597f.css"><meta property='og:title' content="C++ std::string_view｜HTTP 字段的无拷贝空白裁剪">
 <meta property='og:description' content="移动视图的起点与终点 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 std::string_view trim_space(std::string_view value) { while (!value.empty() &amp;&amp; (value.front() == &#39; &#39; || value.front() == &#39;\\t&#39;)) { value.remove_prefix(1); } while (!value.empty() &amp;&amp; (value.back() == &#39; &#39; || value.back() == &#39;\\t&#39;)) { value.remove_suffix(1); } return value; } 视图变了，字符串内容没变 string_view虽然不能直接更改数值,但是\n">
 <meta property='og:url' content='https://anarchycuriosity.github.io/p/cpp-string-view-trim/'>
 <meta property='og:site_name' content='Curiosity Anarchy'>
@@ -467,7 +467,7 @@
 <aside class="related-content--wrapper">
     <h2 class="section-title">相关文章</h2>
     <div class="related-content">
-        <div class="flex article-list--tile">
+        <div class="article-list--tile topic-grid">
             
                 
 <article class="has-image">
@@ -567,6 +567,7 @@
         </div>
     </div>
 </aside>
+
 
      
     
