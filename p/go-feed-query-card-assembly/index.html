@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="时间边界与查询数量 身份处理之后，Feed 调用：\ndb.MGetVideos(ctx, limit, &amp;req.LatestTime)\n本项目将 limit 定义为 30。\n但它不是查询 30 位作者，也不是查询 30 条关注关系。\n它查询的是最多 30 条视频记录。\n5.1 查询条件 MGetVideos 的核心逻辑是：\n">
+<title>Feed 03｜从 SQL 视频查询到作者、关注和点赞</title>
+
+<link rel='canonical' href='https://anarchycuriosity.github.io/p/go-feed-query-card-assembly/'>
+
+<link rel="stylesheet" href="/scss/style.min.c1b51a30df8ac209786d0bad641e606a0ad3c83218d05b1a01460049b2c0e683.css"><meta property='og:title' content="Feed 03｜从 SQL 视频查询到作者、关注和点赞">
+<meta property='og:description' content="时间边界与查询数量 身份处理之后，Feed 调用：\ndb.MGetVideos(ctx, limit, &amp;req.LatestTime)\n本项目将 limit 定义为 30。\n但它不是查询 30 位作者，也不是查询 30 条关注关系。\n它查询的是最多 30 条视频记录。\n5.1 查询条件 MGetVideos 的核心逻辑是：\n">
+<meta property='og:url' content='https://anarchycuriosity.github.io/p/go-feed-query-card-assembly/'>
+<meta property='og:site_name' content='Curiosity Anarchy'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Feed' /><meta property='article:tag' content='Go' /><meta property='article:tag' content='MySQL' /><meta property='article:tag' content='数据库查询' /><meta property='article:tag' content='数据组装' /><meta property='article:published_time' content='2026-11-21T00:00:00&#43;08:00'/><meta property='article:modified_time' content='2026-11-21T00:00:00&#43;08:00'/><meta property='og:image' content='https://anarchycuriosity.github.io/moe/animation_a2336e6bf7ac2475.jpg' />
+<meta name="twitter:title" content="Feed 03｜从 SQL 视频查询到作者、关注和点赞">
+<meta name="twitter:description" content="时间边界与查询数量 身份处理之后，Feed 调用：\ndb.MGetVideos(ctx, limit, &amp;req.LatestTime)\n本项目将 limit 定义为 30。\n但它不是查询 30 位作者，也不是查询 30 条关注关系。\n它查询的是最多 30 条视频记录。\n5.1 查询条件 MGetVideos 的核心逻辑是：\n"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://anarchycuriosity.github.io/moe/animation_a2336e6bf7ac2475.jpg' />
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "light");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu_d1ed36d2754b4216.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Curiosity Anarchy</a></h1>
+            <h2 class="site-description">此博客主要分享本人的学习记录</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/anarchycuriosity'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E9%93%BE%E6%8E%A5/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>链接</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#时间边界与查询数量">时间边界与查询数量</a>
+      <ol>
+        <li><a href="#51-查询条件">5.1 查询条件</a></li>
+      </ol>
+    </li>
+    <li><a href="#查询结果与返回对象">查询结果与返回对象</a></li>
+    <li><a href="#从作者-id-补齐作者信息">从作者 ID 补齐作者信息</a></li>
+    <li><a href="#关注和点赞如何区分">关注和点赞如何区分</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            
+            
+            
+            <a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" style="background-color: hsl(291, 60%, 84%); color: hsl(291, 60%, 15%);">
+                后端开发
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/go-feed-query-card-assembly/">Feed 03｜从 SQL 视频查询到作者、关注和点赞</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2026-11-21</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 3 分钟
+                </time>
+            </div>
+        
+
+        
+        <div>
+            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-eye"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" /></svg>
+            <span class="article-time--reading">
+                <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv">...</span> 次阅读
+                </span>
+            </span>
+        </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+        <a class="article-image" href="/p/go-feed-query-card-assembly/" aria-label="Feed 03｜从 SQL 视频查询到作者、关注和点赞">
+            
+                <img src="/moe/animation_a2336e6bf7ac2475.jpg" loading="lazy" alt="Featured image of post Feed 03｜从 SQL 视频查询到作者、关注和点赞" />
+            
+        </a>
+    
+</header>
+
+
+    <section class="article-content">
+    
+    
+    <h2 id="时间边界与查询数量">时间边界与查询数量
+</h2><p>身份处理之后，Feed 调用：</p>
+<p><code>db.MGetVideos(ctx, limit, &amp;req.LatestTime)</code></p>
+<p>本项目将 <code>limit</code> 定义为 30。</p>
+<p>但它不是查询 30 位作者，也不是查询 30 条关注关系。</p>
+<p>它查询的是最多 30 条视频记录。</p>
+<h3 id="51-查询条件">5.1 查询条件
+</h3><p><code>MGetVideos</code> 的核心逻辑是：</p>
+<ul>
+<li>根据 <code>created_at</code> 限制时间范围；</li>
+<li>只选取创建时间早于 <code>latestTime</code> 的视频；</li>
+<li>按 <code>created_at desc</code> 倒序排列；</li>
+<li>最多取 30 条。</li>
+</ul>
+<p>如果传入时间为 0，函数会在内部使用当前毫秒时间。</p>
+<p>这是一个简单的按时间倒序排列的 Feed，并不是根据观看历史、兴趣或推荐算法计算出来的个性化信息流。</p>
+<h2 id="查询结果与返回对象">查询结果与返回对象
+</h2><p>假设数据库只有以下两条满足查询条件的视频：</p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>视频 ID</th>
+          <th>作者 ID</th>
+          <th>标题</th>
+          <th>CreatedAt</th>
+          <th>UpdatedAt</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>101</td>
+          <td>7</td>
+          <td>海边日落</td>
+          <td>20:00:03.000</td>
+          <td>20:00:03.500</td>
+      </tr>
+      <tr>
+          <td>102</td>
+          <td>9</td>
+          <td>校园散步</td>
+          <td>20:00:02.000</td>
+          <td>20:00:02.500</td>
+      </tr>
+  </tbody>
+</table></div>
+<p>另有两个作者：</p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>用户 ID</th>
+          <th>用户名</th>
+          <th>头像对象名</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>7</td>
+          <td>Alice</td>
+          <td>alice.jpg</td>
+      </tr>
+      <tr>
+          <td>9</td>
+          <td>Bob</td>
+          <td>bob.jpg</td>
+      </tr>
+  </tbody>
+</table></div>
+<p>假设查询时间边界为：</p>
+<p><code>latest_time = 20:00:04.000</code></p>
+<p>因此返回：</p>
+<pre><code>videos
+  ├── db.Video{ID:101, AuthorID:7, ...}
+  └── db.Video{ID:102, AuthorID:9, ...}
+</code></pre>
+<p>结果顺序是 101、102。</p>
+<p>这里的 <code>videos</code> 类型是数据库模型列表：</p>
+<p><code>[]*db.Video</code></p>
+<p>但最终返回所使用的是：</p>
+<p><code>[]*video.Video</code></p>
+<p>二者代表不同层次。</p>
+<p><code>db.Video</code> 主要保存与视频表对应的字段，例如：</p>
+<ul>
+<li>ID</li>
+<li>AuthorID</li>
+<li>Title</li>
+<li>PlayUrl</li>
+<li>CoverUrl</li>
+<li>FavoriteCount</li>
+<li>CommentCount</li>
+<li>CreatedAt、UpdatedAt</li>
+</ul>
+<p>而 <code>video.Video</code> 还需要完整作者对象、当前观看者点赞状态，以及可供客户端访问的媒体 URL。</p>
+<p>另外，虽然 <code>db.Video</code> 模型中有 <code>Author</code> 关联字段，但当前 <code>MGetVideos</code> 没有通过 <code>Preload</code> 加载作者。</p>
+<p>因此，不能认为查询出视频后，作者信息已经自动完整存在于 <code>r.Author</code> 中。</p>
+<p>这就解释了为什么后面还需要循环。</p>
+<h2 id="从作者-id-补齐作者信息">从作者 ID 补齐作者信息
+</h2><p>第一条视频：</p>
+<pre><code>r.ID = 101
+r.AuthorID = 7
+</code></pre>
+<p>代码通过 <code>GetUserByID(ctx, 7)</code> 查询作者。</p>
+<p>这里查询的是 <code>users</code> 表。</p>
+<p>得到的数据库对象可以包含：</p>
+<pre><code>作者ID：7
+用户名：Alice
+头像对象名：alice.jpg
+粉丝数、关注数、简介等
+</code></pre>
+<p>为什么不直接把 <code>AuthorID=7</code> 返回？</p>
+<p>因为客户端需要显示 Alice 的名字、头像等资料，单独一个 ID 不足以构造完整作者信息。</p>
+<p>但是也不应该把数据库用户对象直接不加选择地返回。</p>
+<p>例如数据库模型包含密码字段，这不是视频卡片需要展示的内容。</p>
+<p>因此，Feed 显式地从数据库用户模型中挑选所需字段，构造生成的 <code>user.User</code> 对象。</p>
+<p>这里有一个很重要的区别：</p>
+<p><strong><code>user.User</code> 是 RPC 数据类型，不表示调用了 User 微服务。</strong></p>
+<h2 id="关注和点赞如何区分">关注和点赞如何区分
+</h2><p>现在已知：</p>
+<pre><code>观看者：42
+作者：7
+</code></pre>
+<p>需要回答：</p>
+<p>用户 42 是否关注作者 7？</p>
+<p>源码调用：</p>
+<p><code>db.GetRelationByUserIDs(ctx, 42, 7)</code></p>
+<p>查询关系方向：</p>
+<pre><code>观看者 42
+    │ 关注？
+    ↓
+作者 7
+</code></pre>
+<p>数据库中的关系可以表示为：</p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>user_id</th>
+          <th>to_user_id</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>42</td>
+          <td>7</td>
+      </tr>
+  </tbody>
+</table></div>
+<p>如果存在匹配记录，返回非 nil 的关系对象。</p>
+<p>最终：</p>
+<p><code>IsFollow = relation != nil</code></p>
+<p>如果不存在匹配记录，数据库函数将 <code>ErrRecordNotFound</code> 转成 <code>(nil, nil)</code>。</p>
+<p>于是：</p>
+<p><code>IsFollow = false</code></p>
+<p>这里一定要区分：</p>
+<ul>
+<li>没有记录：正常业务状态，不代表数据库故障。</li>
+<li>查询失败：返回真正的错误，需要由业务处理。</li>
+</ul>
+<p>现在需要回答：</p>
+<p>用户 42 是否点赞了视频 101？</p>
+<p>源码调用：</p>
+<p><code>db.GetFavoriteVideoRelationByUserVideoID(ctx, 42, 101)</code></p>
+<p>其关联对象不是作者，而是视频。</p>
+<pre><code>观看者 42
+    │ 点赞？
+    ↓
+视频 101
+</code></pre>
+<p>假设存在：</p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>user_id</th>
+          <th>video_id</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>42</td>
+          <td>101</td>
+      </tr>
+  </tbody>
+</table></div>
+<p>则：</p>
+<p><code>IsFavorite = favorite != nil</code></p>
+<p>为什么视频本身的 <code>FavoriteCount</code> 不能代替这个查询？</p>
+<p>因为：</p>
+<ul>
+<li><code>FavoriteCount=12</code>：表示视频累计有多少点赞。</li>
+<li><code>IsFavorite=true</code>：表示当前观看者是否点过赞。</li>
+</ul>
+<p>总数与个人状态是不同的业务问题。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/feed/">Feed</a>
+        
+            <a href="/tags/go/">Go</a>
+        
+            <a href="/tags/mysql/">MySQL</a>
+        
+            <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9F%A5%E8%AF%A2/">数据库查询</a>
+        
+            <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%84%E8%A3%85/">数据组装</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/go-video-feed-minio-presigned-url/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/moe/animation_da491b413f2fee6a.jpg" loading="lazy" data-key="go-video-feed-minio-presigned-url" data-hash="/moe/animation_da491b413f2fee6a.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Feed 04｜MinIO 对象存储与预签名播放地址</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/go-feed-kitex-rpc/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/moe/animation_9397ba4450852fc9.png" loading="lazy" data-key="go-feed-kitex-rpc" data-hash="/moe/animation_9397ba4450852fc9.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Feed 02｜Kitex 怎样把 Feed 调用送到 Video 服务</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/go-feed-http-entry/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/moe/animation_08def339607ce81a.jpg" loading="lazy" data-key="go-feed-http-entry" data-hash="/moe/animation_08def339607ce81a.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Feed 01｜HTTP 请求怎样进入 Hertz Handler</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/go-cli-http-shared-storage/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/moe/animation_368f31f803cb0396.jpg" loading="lazy" data-key="go-cli-http-shared-storage" data-hash="/moe/animation_368f31f803cb0396.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Go 的 CLI 与 HTTP 共用 JSON 后，为什么还会读到旧数据？</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/go-context-cancellation/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/moe/animation_a6c393737b5185c5.jpg" loading="lazy" data-key="go-context-cancellation" data-hash="/moe/animation_a6c393737b5185c5.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Go 请求取消笔记：从调用链理解 Context 和 Done</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script src="https://utteranc.es/client.js"
+        repo="anarchycuriosity/anarchycuriosity.github.io"
+        issue-term="pathname"
+        theme="github-light"
+        
+        crossorigin="anonymous"
+        async>
+</script>
+
+<style>
+    .utterances {
+        max-width: unset;
+    }
+</style>
+
+<script>
+    let utterancesLoaded = false;
+
+    function setUtterancesTheme(theme) {
+        let utterances = document.querySelector('.utterances iframe');
+        if (utterances) {
+            utterances.contentWindow.postMessage(
+                {
+                    type: 'set-theme',
+                    theme: `github-${theme}`
+                },
+                'https://utteranc.es'
+            );
+        }
+    }
+
+    addEventListener('message', event => {
+        if (event.origin !== 'https://utteranc.es') return;
+
+        
+        utterancesLoaded = true;
+        setUtterancesTheme(document.documentElement.dataset.scheme)
+    });
+
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (!utterancesLoaded) return;
+        setUtterancesTheme(e.detail)
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2026 Curiosity Anarchy
+    </section>
+    
+    <section class="powerby">
+        
+            by Curiosity Anarchy <br/>
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.34.1">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+    
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.c922af694cc257bf1ecc41c0dd7b0430f9114ec280ccf67cd2c6ad55f5316c4e.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<script>
+    
+    setTimeout(function()
+    {
+        if (document.querySelector('script[data-busuanzi-script]')) {
+            return;
+        }
+
+        var bsz = document.createElement('script');
+        bsz.src = "https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js";
+        bsz.async = true;
+        bsz.dataset.busuanziScript = "true";
+        document.head.appendChild(bsz);
+    }, 500);
+
+    
+    setTimeout(function()
+    {
+        var sakura = document.createElement('script');
+        sakura.src = "https:\/\/anarchycuriosity.github.io\/background\/sakura.js";
+        document.body.appendChild(sakura);
+    }, 1000);
+</script>
+
+    </body>
+</html>

@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>数据组装 on Curiosity Anarchy</title>
+        <link>https://anarchycuriosity.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%84%E8%A3%85/</link>
+        <description>Recent content in 数据组装 on Curiosity Anarchy</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <copyright>Curiosity Anarchy</copyright>
+        <lastBuildDate>Sat, 21 Nov 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%84%E8%A3%85/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Feed 03｜从 SQL 视频查询到作者、关注和点赞</title>
+        <link>https://anarchycuriosity.github.io/p/go-feed-query-card-assembly/</link>
+        <pubDate>Sat, 21 Nov 2026 00:00:00 +0800</pubDate>
+        
+        <guid>https://anarchycuriosity.github.io/p/go-feed-query-card-assembly/</guid>
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_a2336e6bf7ac2475.jpg" alt="Featured image of post Feed 03｜从 SQL 视频查询到作者、关注和点赞" /&gt;&lt;h2 id=&#34;时间边界与查询数量&#34;&gt;时间边界与查询数量
+&lt;/h2&gt;&lt;p&gt;身份处理之后，Feed 调用：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;db.MGetVideos(ctx, limit, &amp;amp;req.LatestTime)&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;本项目将 &lt;code&gt;limit&lt;/code&gt; 定义为 30。&lt;/p&gt;
+&lt;p&gt;但它不是查询 30 位作者，也不是查询 30 条关注关系。&lt;/p&gt;
+&lt;p&gt;它查询的是最多 30 条视频记录。&lt;/p&gt;
+&lt;h3 id=&#34;51-查询条件&#34;&gt;5.1 查询条件
+&lt;/h3&gt;&lt;p&gt;&lt;code&gt;MGetVideos&lt;/code&gt; 的核心逻辑是：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;根据 &lt;code&gt;created_at&lt;/code&gt; 限制时间范围；&lt;/li&gt;
+&lt;li&gt;只选取创建时间早于 &lt;code&gt;latestTime&lt;/code&gt; 的视频；&lt;/li&gt;
+&lt;li&gt;按 &lt;code&gt;created_at desc&lt;/code&gt; 倒序排列；&lt;/li&gt;
+&lt;li&gt;最多取 30 条。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;如果传入时间为 0，函数会在内部使用当前毫秒时间。&lt;/p&gt;
+&lt;p&gt;这是一个简单的按时间倒序排列的 Feed，并不是根据观看历史、兴趣或推荐算法计算出来的个性化信息流。&lt;/p&gt;
+&lt;h2 id=&#34;查询结果与返回对象&#34;&gt;查询结果与返回对象
+&lt;/h2&gt;&lt;p&gt;假设数据库只有以下两条满足查询条件的视频：&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;视频 ID&lt;/th&gt;
+          &lt;th&gt;作者 ID&lt;/th&gt;
+          &lt;th&gt;标题&lt;/th&gt;
+          &lt;th&gt;CreatedAt&lt;/th&gt;
+          &lt;th&gt;UpdatedAt&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;101&lt;/td&gt;
+          &lt;td&gt;7&lt;/td&gt;
+          &lt;td&gt;海边日落&lt;/td&gt;
+          &lt;td&gt;20:00:03.000&lt;/td&gt;
+          &lt;td&gt;20:00:03.500&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;102&lt;/td&gt;
+          &lt;td&gt;9&lt;/td&gt;
+          &lt;td&gt;校园散步&lt;/td&gt;
+          &lt;td&gt;20:00:02.000&lt;/td&gt;
+          &lt;td&gt;20:00:02.500&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;另有两个作者：&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;用户 ID&lt;/th&gt;
+          &lt;th&gt;用户名&lt;/th&gt;
+          &lt;th&gt;头像对象名&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;7&lt;/td&gt;
+          &lt;td&gt;Alice&lt;/td&gt;
+          &lt;td&gt;alice.jpg&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;9&lt;/td&gt;
+          &lt;td&gt;Bob&lt;/td&gt;
+          &lt;td&gt;bob.jpg&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;假设查询时间边界为：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;latest_time = 20:00:04.000&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;因此返回：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;videos
+  ├── db.Video{ID:101, AuthorID:7, ...}
+  └── db.Video{ID:102, AuthorID:9, ...}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;结果顺序是 101、102。&lt;/p&gt;
+&lt;p&gt;这里的 &lt;code&gt;videos&lt;/code&gt; 类型是数据库模型列表：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;[]*db.Video&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;但最终返回所使用的是：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;[]*video.Video&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;二者代表不同层次。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;db.Video&lt;/code&gt; 主要保存与视频表对应的字段，例如：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ID&lt;/li&gt;
+&lt;li&gt;AuthorID&lt;/li&gt;
+&lt;li&gt;Title&lt;/li&gt;
+&lt;li&gt;PlayUrl&lt;/li&gt;
+&lt;li&gt;CoverUrl&lt;/li&gt;
+&lt;li&gt;FavoriteCount&lt;/li&gt;
+&lt;li&gt;CommentCount&lt;/li&gt;
+&lt;li&gt;CreatedAt、UpdatedAt&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;而 &lt;code&gt;video.Video&lt;/code&gt; 还需要完整作者对象、当前观看者点赞状态，以及可供客户端访问的媒体 URL。&lt;/p&gt;
+&lt;p&gt;另外，虽然 &lt;code&gt;db.Video&lt;/code&gt; 模型中有 &lt;code&gt;Author&lt;/code&gt; 关联字段，但当前 &lt;code&gt;MGetVideos&lt;/code&gt; 没有通过 &lt;code&gt;Preload&lt;/code&gt; 加载作者。&lt;/p&gt;
+&lt;p&gt;因此，不能认为查询出视频后，作者信息已经自动完整存在于 &lt;code&gt;r.Author&lt;/code&gt; 中。&lt;/p&gt;
+&lt;p&gt;这就解释了为什么后面还需要循环。&lt;/p&gt;
+&lt;h2 id=&#34;从作者-id-补齐作者信息&#34;&gt;从作者 ID 补齐作者信息
+&lt;/h2&gt;&lt;p&gt;第一条视频：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;r.ID = 101
+r.AuthorID = 7
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;代码通过 &lt;code&gt;GetUserByID(ctx, 7)&lt;/code&gt; 查询作者。&lt;/p&gt;
+&lt;p&gt;这里查询的是 &lt;code&gt;users&lt;/code&gt; 表。&lt;/p&gt;
+&lt;p&gt;得到的数据库对象可以包含：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;作者ID：7
+用户名：Alice
+头像对象名：alice.jpg
+粉丝数、关注数、简介等
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;为什么不直接把 &lt;code&gt;AuthorID=7&lt;/code&gt; 返回？&lt;/p&gt;
+&lt;p&gt;因为客户端需要显示 Alice 的名字、头像等资料，单独一个 ID 不足以构造完整作者信息。&lt;/p&gt;
+&lt;p&gt;但是也不应该把数据库用户对象直接不加选择地返回。&lt;/p&gt;
+&lt;p&gt;例如数据库模型包含密码字段，这不是视频卡片需要展示的内容。&lt;/p&gt;
+&lt;p&gt;因此，Feed 显式地从数据库用户模型中挑选所需字段，构造生成的 &lt;code&gt;user.User&lt;/code&gt; 对象。&lt;/p&gt;
+&lt;p&gt;这里有一个很重要的区别：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;user.User&lt;/code&gt; 是 RPC 数据类型，不表示调用了 User 微服务。&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;关注和点赞如何区分&#34;&gt;关注和点赞如何区分
+&lt;/h2&gt;&lt;p&gt;现在已知：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;观看者：42
+作者：7
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;需要回答：&lt;/p&gt;
+&lt;p&gt;用户 42 是否关注作者 7？&lt;/p&gt;
+&lt;p&gt;源码调用：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;db.GetRelationByUserIDs(ctx, 42, 7)&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;查询关系方向：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;观看者 42
+    │ 关注？
+    ↓
+作者 7
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;数据库中的关系可以表示为：&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;user_id&lt;/th&gt;
+          &lt;th&gt;to_user_id&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;42&lt;/td&gt;
+          &lt;td&gt;7&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;如果存在匹配记录，返回非 nil 的关系对象。&lt;/p&gt;
+&lt;p&gt;最终：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;IsFollow = relation != nil&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;如果不存在匹配记录，数据库函数将 &lt;code&gt;ErrRecordNotFound&lt;/code&gt; 转成 &lt;code&gt;(nil, nil)&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;于是：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;IsFollow = false&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;这里一定要区分：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;没有记录：正常业务状态，不代表数据库故障。&lt;/li&gt;
+&lt;li&gt;查询失败：返回真正的错误，需要由业务处理。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;现在需要回答：&lt;/p&gt;
+&lt;p&gt;用户 42 是否点赞了视频 101？&lt;/p&gt;
+&lt;p&gt;源码调用：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;db.GetFavoriteVideoRelationByUserVideoID(ctx, 42, 101)&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;其关联对象不是作者，而是视频。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;观看者 42
+    │ 点赞？
+    ↓
+视频 101
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;假设存在：&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;user_id&lt;/th&gt;
+          &lt;th&gt;video_id&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;42&lt;/td&gt;
+          &lt;td&gt;101&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;则：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;IsFavorite = favorite != nil&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;为什么视频本身的 &lt;code&gt;FavoriteCount&lt;/code&gt; 不能代替这个查询？&lt;/p&gt;
+&lt;p&gt;因为：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;FavoriteCount=12&lt;/code&gt;：表示视频累计有多少点赞。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;IsFavorite=true&lt;/code&gt;：表示当前观看者是否点过赞。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;总数与个人状态是不同的业务问题。&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

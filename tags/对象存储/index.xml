@@ -8,12 +8,12 @@
         <language>zh-cn</language>
         <copyright>Curiosity Anarchy</copyright>
         <lastBuildDate>Mon, 23 Nov 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/tags/%E5%AF%B9%E8%B1%A1%E5%AD%98%E5%82%A8/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>Go 视频服务读码笔记：Feed、MinIO 与预签名 URL</title>
+        <title>Feed 04｜MinIO 对象存储与预签名播放地址</title>
         <link>https://anarchycuriosity.github.io/p/go-video-feed-minio-presigned-url/</link>
         <pubDate>Mon, 23 Nov 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/go-video-feed-minio-presigned-url/</guid>
-        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_da491b413f2fee6a.jpg" alt="Featured image of post Go 视频服务读码笔记：Feed、MinIO 与预签名 URL" /&gt;&lt;h2 id=&#34;数据库与对象存储各自负责什么&#34;&gt;数据库与对象存储各自负责什么
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_da491b413f2fee6a.jpg" alt="Featured image of post Feed 04｜MinIO 对象存储与预签名播放地址" /&gt;&lt;h2 id=&#34;数据库与对象存储各自负责什么&#34;&gt;数据库与对象存储各自负责什么
 &lt;/h2&gt;&lt;blockquote&gt;
 &lt;p&gt;db的参数和函数我很好理解,默认传入遍历单元r的特定成员,如果需要关联用户就传入userID,一般都需要传入ctx来控制停止,但是minio的部分我完全不了解.我甚至连miniIO是什么角色我都不是很熟悉.&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -122,22 +122,6 @@
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;code&gt;Feed&lt;/code&gt;：只关心需要哪些文件的访问地址，不负责实现对象存储协议。&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;kitex-在调用链上的位置&#34;&gt;Kitex 在调用链上的位置
-&lt;/h2&gt;&lt;p&gt;注意，Kitex &lt;strong&gt;不负责所有网络通信&lt;/strong&gt;：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;手机 → API：Hertz 处理 HTTP。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;API → Video：Kitex 处理 RPC。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Video → MySQL：数据库驱动处理。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Video → MinIO：MinIO SDK 处理。&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 </description>

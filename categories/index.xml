@@ -40,28 +40,12 @@
         <description></description>
         </item>
         <item>
-        <title>技术分享</title>
-        <link>https://anarchycuriosity.github.io/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/</link>
+        <title>技术经验</title>
+        <link>https://anarchycuriosity.github.io/categories/%E6%8A%80%E6%9C%AF%E7%BB%8F%E9%AA%8C/</link>
         <pubDate>Thu, 16 Jul 2026 00:00:00 +0000</pubDate>
         
-        <guid>https://anarchycuriosity.github.io/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>周度总结</title>
-        <link>https://anarchycuriosity.github.io/categories/%E5%91%A8%E5%BA%A6%E6%80%BB%E7%BB%93/</link>
-        <pubDate>Mon, 29 Jun 2026 00:00:00 +0000</pubDate>
-        
-        <guid>https://anarchycuriosity.github.io/categories/%E5%91%A8%E5%BA%A6%E6%80%BB%E7%BB%93/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>环境问题</title>
-        <link>https://anarchycuriosity.github.io/categories/%E7%8E%AF%E5%A2%83%E9%97%AE%E9%A2%98/</link>
-        <pubDate>Tue, 31 Mar 2026 14:32:24 +0800</pubDate>
-        
-        <guid>https://anarchycuriosity.github.io/categories/%E7%8E%AF%E5%A2%83%E9%97%AE%E9%A2%98/</guid>
-        <description>&lt;img src="https://anarchycuriosity.github.io/img/kagami.jpg" alt="Featured image of post 环境问题" /&gt;</description>
+        <guid>https://anarchycuriosity.github.io/categories/%E6%8A%80%E6%9C%AF%E7%BB%8F%E9%AA%8C/</guid>
+        <description>&lt;img src="https://anarchycuriosity.github.io/img/kumiko.jpg" alt="Featured image of post 技术经验" /&gt;</description>
         </item>
         <item>
         <title>算法训练</title>
@@ -78,22 +62,6 @@
         
         <guid>https://anarchycuriosity.github.io/categories/cpp/</guid>
         <description></description>
-        </item>
-        <item>
-        <title>经验总结</title>
-        <link>https://anarchycuriosity.github.io/categories/%E7%BB%8F%E9%AA%8C%E6%80%BB%E7%BB%93/</link>
-        <pubDate>Sun, 08 Feb 2026 00:00:00 +0000</pubDate>
-        
-        <guid>https://anarchycuriosity.github.io/categories/%E7%BB%8F%E9%AA%8C%E6%80%BB%E7%BB%93/</guid>
-        <description>&lt;img src="https://anarchycuriosity.github.io/img/kumiko.jpg" alt="Featured image of post 经验总结" /&gt;</description>
-        </item>
-        <item>
-        <title>博客配置</title>
-        <link>https://anarchycuriosity.github.io/categories/%E5%8D%9A%E5%AE%A2%E9%85%8D%E7%BD%AE/</link>
-        <pubDate>Fri, 06 Feb 2026 00:00:00 +0000</pubDate>
-        
-        <guid>https://anarchycuriosity.github.io/categories/%E5%8D%9A%E5%AE%A2%E9%85%8D%E7%BD%AE/</guid>
-        <description>&lt;img src="https://anarchycuriosity.github.io/img/morisa.jpg" alt="Featured image of post 博客配置" /&gt;</description>
         </item>
         
     </channel>

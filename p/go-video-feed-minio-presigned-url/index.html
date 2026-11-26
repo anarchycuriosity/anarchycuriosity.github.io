@@ -2,16 +2,16 @@
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="数据库与对象存储各自负责什么 db的参数和函数我很好理解,默认传入遍历单元r的特定成员,如果需要关联用户就传入userID,一般都需要传入ctx来控制停止,但是minio的部分我完全不了解.我甚至连miniIO是什么角色我都不是很熟悉.\n">
-<title>Go 视频服务读码笔记：Feed、MinIO 与预签名 URL</title>
+<title>Feed 04｜MinIO 对象存储与预签名播放地址</title>
 
 <link rel='canonical' href='https://anarchycuriosity.github.io/p/go-video-feed-minio-presigned-url/'>
 
-<link rel="stylesheet" href="/scss/style.min.c1b51a30df8ac209786d0bad641e606a0ad3c83218d05b1a01460049b2c0e683.css"><meta property='og:title' content="Go 视频服务读码笔记：Feed、MinIO 与预签名 URL">
+<link rel="stylesheet" href="/scss/style.min.c1b51a30df8ac209786d0bad641e606a0ad3c83218d05b1a01460049b2c0e683.css"><meta property='og:title' content="Feed 04｜MinIO 对象存储与预签名播放地址">
 <meta property='og:description' content="数据库与对象存储各自负责什么 db的参数和函数我很好理解,默认传入遍历单元r的特定成员,如果需要关联用户就传入userID,一般都需要传入ctx来控制停止,但是minio的部分我完全不了解.我甚至连miniIO是什么角色我都不是很熟悉.\n">
 <meta property='og:url' content='https://anarchycuriosity.github.io/p/go-video-feed-minio-presigned-url/'>
 <meta property='og:site_name' content='Curiosity Anarchy'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Go' /><meta property='article:tag' content='MinIO' /><meta property='article:tag' content='对象存储' /><meta property='article:tag' content='Kitex' /><meta property='article:tag' content='RPC' /><meta property='article:published_time' content='2026-11-23T00:00:00&#43;08:00'/><meta property='article:modified_time' content='2026-11-23T00:00:00&#43;08:00'/><meta property='og:image' content='https://anarchycuriosity.github.io/moe/animation_da491b413f2fee6a.jpg' />
-<meta name="twitter:title" content="Go 视频服务读码笔记：Feed、MinIO 与预签名 URL">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Feed' /><meta property='article:tag' content='Go' /><meta property='article:tag' content='MinIO' /><meta property='article:tag' content='对象存储' /><meta property='article:tag' content='预签名 URL' /><meta property='article:published_time' content='2026-11-23T00:00:00&#43;08:00'/><meta property='article:modified_time' content='2026-11-23T00:00:00&#43;08:00'/><meta property='og:image' content='https://anarchycuriosity.github.io/moe/animation_da491b413f2fee6a.jpg' />
+<meta name="twitter:title" content="Feed 04｜MinIO 对象存储与预签名播放地址">
 <meta name="twitter:description" content="数据库与对象存储各自负责什么 db的参数和函数我很好理解,默认传入遍历单元r的特定成员,如果需要关联用户就传入userID,一般都需要传入ctx来控制停止,但是minio的部分我完全不了解.我甚至连miniIO是什么角色我都不是很熟悉.\n"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://anarchycuriosity.github.io/moe/animation_da491b413f2fee6a.jpg' />
     <link rel="shortcut icon" href="/favicon.ico" />
@@ -250,7 +250,6 @@
     <li><a href="#feed-如何定位视频文件">Feed 如何定位视频文件</a></li>
     <li><a href="#预签名提供临时的url">预签名提供临时的URL</a></li>
     <li><a href="#minio-服务sdk-与业务代码">MinIO 服务、SDK 与业务代码</a></li>
-    <li><a href="#kitex-在调用链上的位置">Kitex 在调用链上的位置</a></li>
   </ol>
 </nav>
         </div>
@@ -280,7 +279,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/go-video-feed-minio-presigned-url/">Go 视频服务读码笔记：Feed、MinIO 与预签名 URL</a>
+            <a href="/p/go-video-feed-minio-presigned-url/">Feed 04｜MinIO 对象存储与预签名播放地址</a>
         </h2>
     
         
@@ -317,7 +316,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 3 分钟
+                    阅读时长: 2 分钟
                 </time>
             </div>
         
@@ -338,9 +337,9 @@
     
 </div>
 
-        <a class="article-image" href="/p/go-video-feed-minio-presigned-url/" aria-label="Go 视频服务读码笔记：Feed、MinIO 与预签名 URL">
+        <a class="article-image" href="/p/go-video-feed-minio-presigned-url/" aria-label="Feed 04｜MinIO 对象存储与预签名播放地址">
             
-                <img src="/moe/animation_da491b413f2fee6a.jpg" loading="lazy" alt="Featured image of post Go 视频服务读码笔记：Feed、MinIO 与预签名 URL" />
+                <img src="/moe/animation_da491b413f2fee6a.jpg" loading="lazy" alt="Featured image of post Feed 04｜MinIO 对象存储与预签名播放地址" />
             
         </a>
     
@@ -461,22 +460,6 @@
 <p><code>Feed</code>：只关心需要哪些文件的访问地址，不负责实现对象存储协议。</p>
 </li>
 </ul>
-<h2 id="kitex-在调用链上的位置">Kitex 在调用链上的位置
-</h2><p>注意，Kitex <strong>不负责所有网络通信</strong>：</p>
-<ul>
-<li>
-<p>手机 → API：Hertz 处理 HTTP。</p>
-</li>
-<li>
-<p>API → Video：Kitex 处理 RPC。</p>
-</li>
-<li>
-<p>Video → MySQL：数据库驱动处理。</p>
-</li>
-<li>
-<p>Video → MinIO：MinIO SDK 处理。</p>
-</li>
-</ul>
 
 </section>
 
@@ -485,15 +468,15 @@
     
     <section class="article-tags">
         
+            <a href="/tags/feed/">Feed</a>
+        
             <a href="/tags/go/">Go</a>
         
             <a href="/tags/minio/">MinIO</a>
         
             <a href="/tags/%E5%AF%B9%E8%B1%A1%E5%AD%98%E5%82%A8/">对象存储</a>
         
-            <a href="/tags/kitex/">Kitex</a>
-        
-            <a href="/tags/rpc/">RPC</a>
+            <a href="/tags/%E9%A2%84%E7%AD%BE%E5%90%8D-url/">预签名 URL</a>
         
     </section>
 
@@ -528,18 +511,56 @@
             
                 
 <article class="has-image">
-    <a href="/p/go-context-cancellation/">
+    <a href="/p/go-feed-query-card-assembly/">
         
         
             <div class="article-image">
                 
-                    <img src="/moe/animation_a6c393737b5185c5.jpg" loading="lazy" data-key="go-context-cancellation" data-hash="/moe/animation_a6c393737b5185c5.jpg"/>
+                    <img src="/moe/animation_a2336e6bf7ac2475.jpg" loading="lazy" data-key="go-feed-query-card-assembly" data-hash="/moe/animation_a2336e6bf7ac2475.jpg"/>
                 
             </div>
         
 
         <div class="article-details">
-            <h2 class="article-title">Go 请求取消笔记：从调用链理解 Context 和 Done</h2>
+            <h2 class="article-title">Feed 03｜从 SQL 视频查询到作者、关注和点赞</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/go-feed-kitex-rpc/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/moe/animation_9397ba4450852fc9.png" loading="lazy" data-key="go-feed-kitex-rpc" data-hash="/moe/animation_9397ba4450852fc9.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Feed 02｜Kitex 怎样把 Feed 调用送到 Video 服务</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/go-feed-http-entry/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/moe/animation_08def339607ce81a.jpg" loading="lazy" data-key="go-feed-http-entry" data-hash="/moe/animation_08def339607ce81a.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Feed 01｜HTTP 请求怎样进入 Hertz Handler</h2>
         </div>
     </a>
 </article>
@@ -552,7 +573,7 @@
         
             <div class="article-image">
                 
-                    <img src="/moe/animation_cd2759e6e0a316af.png" loading="lazy" data-key="go-cli-http-shared-storage" data-hash="/moe/animation_cd2759e6e0a316af.png"/>
+                    <img src="/moe/animation_368f31f803cb0396.jpg" loading="lazy" data-key="go-cli-http-shared-storage" data-hash="/moe/animation_368f31f803cb0396.jpg"/>
                 
             </div>
         
@@ -566,56 +587,18 @@
             
                 
 <article class="has-image">
-    <a href="/p/tiny-web-server-debug-trace/">
+    <a href="/p/go-context-cancellation/">
         
         
             <div class="article-image">
                 
-                    <img src="/moe/animation_155a548b61aa41e7.jpg" loading="lazy" data-key="tiny-web-server-debug-trace" data-hash="/moe/animation_155a548b61aa41e7.jpg"/>
+                    <img src="/moe/animation_a6c393737b5185c5.jpg" loading="lazy" data-key="go-context-cancellation" data-hash="/moe/animation_a6c393737b5185c5.jpg"/>
                 
             </div>
         
 
         <div class="article-details">
-            <h2 class="article-title">TinyWebServer 调试笔记：从 return 找到值得打日志的位置</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="has-image">
-    <a href="/p/http-parser-rebuild-notes/">
-        
-        
-            <div class="article-image">
-                
-                    <img src="/moe/animation_798f0e2012a2f534.jpg" loading="lazy" data-key="http-parser-rebuild-notes" data-hash="/moe/animation_798f0e2012a2f534.jpg"/>
-                
-            </div>
-        
-
-        <div class="article-details">
-            <h2 class="article-title">重建 HTTP 解析器：让输入决定下一步实现</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="has-image">
-    <a href="/p/linux-epoll-recv/">
-        
-        
-            <div class="article-image">
-                
-                    <img src="/moe/animation_2062f66eaa0df18b.jpg" loading="lazy" data-key="linux-epoll-recv" data-hash="/moe/animation_2062f66eaa0df18b.jpg"/>
-                
-            </div>
-        
-
-        <div class="article-details">
-            <h2 class="article-title">从网卡到用户缓冲区：epoll 和 recv 各做什么</h2>
+            <h2 class="article-title">Go 请求取消笔记：从调用链理解 Context 和 Done</h2>
         </div>
     </a>
 </article>

@@ -7,13 +7,129 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Curiosity Anarchy</copyright>
-        <lastBuildDate>Fri, 13 Nov 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/tags/http/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Wed, 18 Nov 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://anarchycuriosity.github.io/tags/http/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Feed 01｜HTTP 请求怎样进入 Hertz Handler</title>
+        <link>https://anarchycuriosity.github.io/p/go-feed-http-entry/</link>
+        <pubDate>Wed, 18 Nov 2026 00:00:00 +0800</pubDate>
+        
+        <guid>https://anarchycuriosity.github.io/p/go-feed-http-entry/</guid>
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_08def339607ce81a.jpg" alt="Featured image of post Feed 01｜HTTP 请求怎样进入 Hertz Handler" /&gt;&lt;h2 id=&#34;路由注册和实际调用&#34;&gt;路由注册和实际调用
+&lt;/h2&gt;&lt;p&gt;模型箭头：URL 被绑定到 Go 处理函数；注册发生于启动，实际调用发生于请求到来。下一站打开 handler 的完整 &lt;code&gt;Feed&lt;/code&gt;。&lt;/p&gt;
+&lt;h2 id=&#34;从查询参数到-requestcontext&#34;&gt;从查询参数到 RequestContext
+&lt;/h2&gt;&lt;p&gt;客户端请求：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;GET /douyin/feed?latest_time=1000&amp;amp;token=abc
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;Hertz 接收到 TCP 字节后，解析 HTTP 请求，识别请求方法、URL、查询参数等信息。&lt;/p&gt;
+&lt;p&gt;随后，它把当前 HTTP 请求的数据组织在 &lt;code&gt;RequestContext&lt;/code&gt; 中，交给 handler。&lt;/p&gt;
+&lt;p&gt;因此 handler 可以读取：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;latest_time&lt;/code&gt;：HTTP URL 中的查询参数；&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;token&lt;/code&gt;：HTTP URL 中的查询参数；&lt;/li&gt;
+&lt;li&gt;当前请求的其他 HTTP 信息。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;业务完成后，handler 还会通过同一个 &lt;code&gt;RequestContext&lt;/code&gt; 构造 JSON 响应。&lt;/p&gt;
+&lt;p&gt;所以它同时具有输入与输出职责：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;HTTP 请求字节
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;     │
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;     ▼
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;RequestContext
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;     │
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;     ├─ Request：HTTP 输入
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;     │
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;     ├─ Params / Keys / handlers：
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;     │   路由参数、临时数据、处理进度
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;     │
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;     └─ Response：HTTP 输出
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;请求对象的生命周期&#34;&gt;请求对象的生命周期
+&lt;/h2&gt;&lt;p&gt;&lt;code&gt;RequestContext&lt;/code&gt; 是 Hertz 管理的可复用对象。&lt;/p&gt;
+&lt;p&gt;不能理解成每次请求一定会在堆上创建一个全新对象，处理完成后立即销毁。&lt;/p&gt;
+&lt;p&gt;在 Hertz v0.5.2 的 HTTP/1 实现中，框架会从对象池取得它；同一 keep-alive 连接上的多个请求也可能先后使用同一个对象，并在请求之间重置状态。&lt;/p&gt;
+&lt;p&gt;因此：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;对象可以复用，但某一次请求的 HTTP 内容必须在下一次请求开始前得到正确重置。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;这也说明不应该把 &lt;code&gt;RequestContext&lt;/code&gt; 的指针随意保存起来，留给请求结束后才执行的异步逻辑使用。&lt;/p&gt;
+&lt;p&gt;因为它所指向的对象可能已经被重置或复用。&lt;/p&gt;
+&lt;h2 id=&#34;json-响应什么时候送达&#34;&gt;JSON 响应什么时候送达
+&lt;/h2&gt;&lt;p&gt;还有一个很容易被忽略的时间差。&lt;/p&gt;
+&lt;p&gt;服务端执行 JSON 处理时：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Go 值
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    ↓
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;JSON 编码
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    ↓
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;写入服务端 Response 的 Body
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;此时只是准备好了响应内容。&lt;/p&gt;
+&lt;p&gt;随后还需要通过网络通信将响应送达客户端。&lt;/p&gt;
+&lt;p&gt;因此：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;服务端准备好响应体
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    ≠
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;客户端已经收到响应
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;可以把它类比为：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;写好一封信
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    ≠
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;收件人已经收到信
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;这个边界很重要，因为源码中看到 &lt;code&gt;c.JSON(...)&lt;/code&gt;，不能仅凭这一行就认为客户端已经完成接收和解析。&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>Go 的 CLI 与 HTTP 共用 JSON 后，为什么还会读到旧数据？</title>
         <link>https://anarchycuriosity.github.io/p/go-cli-http-shared-storage/</link>
         <pubDate>Fri, 13 Nov 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/go-cli-http-shared-storage/</guid>
-        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_cd2759e6e0a316af.png" alt="Featured image of post Go 的 CLI 与 HTTP 共用 JSON 后，为什么还会读到旧数据？" /&gt;&lt;h2 id=&#34;两个入口如何连到同一份数据&#34;&gt;两个入口如何连到同一份数据
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_368f31f803cb0396.jpg" alt="Featured image of post Go 的 CLI 与 HTTP 共用 JSON 后，为什么还会读到旧数据？" /&gt;&lt;h2 id=&#34;两个入口如何连到同一份数据&#34;&gt;两个入口如何连到同一份数据
 &lt;/h2&gt;&lt;p&gt;两个可执行程序共同使用 &lt;code&gt;poker&lt;/code&gt; 包。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;

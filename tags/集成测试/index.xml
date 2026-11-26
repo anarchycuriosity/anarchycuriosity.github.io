@@ -13,7 +13,7 @@
         <pubDate>Fri, 13 Nov 2026 00:00:00 +0800</pubDate>
         
         <guid>https://anarchycuriosity.github.io/p/go-cli-http-shared-storage/</guid>
-        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_cd2759e6e0a316af.png" alt="Featured image of post Go 的 CLI 与 HTTP 共用 JSON 后，为什么还会读到旧数据？" /&gt;&lt;h2 id=&#34;两个入口如何连到同一份数据&#34;&gt;两个入口如何连到同一份数据
+        <description>&lt;img src="https://anarchycuriosity.github.io/moe/animation_368f31f803cb0396.jpg" alt="Featured image of post Go 的 CLI 与 HTTP 共用 JSON 后，为什么还会读到旧数据？" /&gt;&lt;h2 id=&#34;两个入口如何连到同一份数据&#34;&gt;两个入口如何连到同一份数据
 &lt;/h2&gt;&lt;p&gt;两个可执行程序共同使用 &lt;code&gt;poker&lt;/code&gt; 包。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
